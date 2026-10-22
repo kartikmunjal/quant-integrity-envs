@@ -1,0 +1,133 @@
+# prereg.yaml
+# Frozen at the end of Phase 0. After the freeze, change only through AMENDMENTS.md.
+# Fields marked "P0 fills" or "P1 fills" are set by the agent in the named phase, before any model is run.
+
+project: quant-integrity-envs
+spec_version: 1
+frozen: false              # P0 sets true in the freeze commit, then tags prereg-v1
+frozen_commit: null        # P0 fills
+frozen_date: null          # P0 fills with the commit date
+
+independence:
+  synthetic_data_only: true
+  real_market_data: forbidden
+  external_repo_reads: forbidden
+  release_terms_env_var: RELEASE_REVIEW_TERMS   # path to a private file outside the repo; agents never read it
+
+environments:
+  - {id: E1, name: qi-pit-backtest}
+  - {id: E2, name: qi-leakage-audit}
+  - {id: E3, name: qi-fdr-adjudication}
+  - {id: E4, name: qi-honest-null}
+  - {id: E5, name: qi-cost-realism}
+  - {id: E6, name: qi-data-traps}
+
+tiers: [T1, T2, T3, T4]    # T4 = clean controls and decoys
+
+bug_families:
+  F1: temporal_lookahead
+  F2: statistic_leakage
+  F3: label_overlap
+  F4: universe_selection
+  F5: execution_timing
+  F6: selection_and_multiplicity
+heldout_families_for_lofo: [F3, F4, F6]
+
+seeds:
+  train_range: [0, 999999]
+  dev_range: [1000000, 1009999]
+  sealed_test_range: [2000000, 2009999]
+  pilot_seed: 7
+  final_training_seeds: [11, 23, 47]
+  episodes_per_cell:           # a cell is one environment x one tier
+    dev: 50
+    sealed_test: 100           # the power calculation may raise this, never lower it
+  manifest_sha256: null        # P0 fills: hash of the generated seed manifest file
+
+generator:
+  version_hash: null           # P1 fills
+  note: ranges are generic textbook-style values chosen without reference to any private data
+  n_assets: [200, 1000]
+  n_days: [500, 1500]
+  latent_factors: 3
+  tail_df: 4
+  vol_regime: {states: 2, persistence: 0.98}
+  idio_daily_vol: [0.01, 0.03]
+  planted_alpha:
+    daily_ic: [0.01, 0.04]
+    halflife_days: [5, 40]
+  availability_lag_days: [1, 60]
+  annual_delisting_rate: [0.01, 0.05]
+  e3: {n_strategies: [8, 20], null_fraction: 0.5}
+  e4: {null_fraction: 0.4, max_metered_backtests: 30}
+
+reward:
+  hard_gates: [valid_schema, no_tamper_flag]
+  step_cost_cap: 0.02
+  weights:
+    E1: {correctness: 0.8, availability_discipline: 0.2}
+    E2: {bug_f1: 0.4, patch_correct: 0.4, clean_code_no_false_flags: 0.2}
+    E3: {proper_score: 1.0}   # false admit costs 3x a missed discovery
+    E4: {correct_claim: 0.35, ci_coverage: 0.20, null_abstention: 0.20, ledger_honesty: 0.25}
+    E5: {net_sharpe: 0.5, breakeven_holding_period: 0.4, cost_awareness: 0.1}
+    E6: {universe_reconciliation: 0.6, anomaly_f1: 0.4}
+  numeric_tolerance_relative: 0.0001
+  llm_judge_in_training_reward: false
+
+verifier_gates:
+  oracle_policy_min_mean_reward: 0.95
+  random_policy_max_mean_reward: 0.05
+  wrong_solution_max_mean_reward: 0.10
+  cheater_policy_max_mean_reward: 0.05
+  dual_checker_min_agreement: 0.999
+  clean_episode_false_positive_ceiling: 0.02
+  mutation_kill_required: all          # any unkilled mutant blocks the gate until explained and fixed
+  trajectory_review_sample: 50         # author-reviewed, not independent human labels
+
+statistics:
+  bootstrap_replicates: 2000
+  confidence_level: 0.95
+  paired: true
+  min_training_seeds: 1                # fewer than 3 seeds means no seed-variance claim is made
+
+baselines:
+  min_api_models: 2
+  min_open_models: 2
+  model_ids_recorded_before_first_run: true
+  prompts_tuned_on: dev_only
+  pilot_episodes: 20
+
+training:
+  algorithm: grpo
+  adapter: lora
+  base_model_rule: smallest open instruct model between 1.5B and 3B parameters supported by the pinned training path; exact id recorded in COMPAT.md before Phase 5
+  hyperparameters_chosen_on: dev_only
+  runs:
+    R0: {trained_on: none, evaluated_on: all_sealed_test}
+    R1: {trained_on: all_families_all_environments, evaluated_on: all_sealed_test}
+    R2: {trained_on: all_families_except_F3, evaluated_on: heldout_F3}
+    R3: {trained_on: all_families_except_F4, evaluated_on: heldout_F4}
+    R4: {trained_on: all_families_except_F6, evaluated_on: heldout_F6}
+    R5: {trained_on: E2_and_E3_only, evaluated_on: E4}
+  optional_control: best_of_n_distillation_on_oracle_verified_trajectories
+  hack_monitors: [canary_reads, tamper_flags, reexecution_failures]
+
+budgets:
+  api_usd_cap: 150
+  gpu_usd_cap: 200
+  total_usd_cap: 350
+  stop_and_report_at_fraction: 0.8
+  fallback_order_if_pilot_projects_over_cap:
+    - fewer_baseline_models        # never below min_api_models and min_open_models
+    - fewer_training_seeds         # never below min_training_seeds
+  never_reduce: [verifier_gates, sealed_test_episodes_per_cell, held_out_families, epoch_or_step_protocol]
+
+phase_gates:
+  P0: [separation_review_signed, prereg_hash_committed, power_calc_recorded, compat_note_written]
+  P1: [same_seed_same_bytes, stylized_fact_diagnostics_pass, oracle_self_consistency]
+  P2: [oracle_ge_0.95, wrong_le_0.10, cheater_le_0.05, second_checker_agreement]
+  P3: [all_mutants_killed, second_checker_agreement, clean_false_positive_ceiling]
+  P4: [cheater_red_team_pass, null_base_rate_verified, ledger_not_forgeable]
+  P5: [eval_set_hash_committed_before_any_training, baseline_table_committed]
+  P6: [protocol_followed, all_runs_reported, hack_rates_reported]
+  P7: [release_review_pass, every_number_matches_logs, owner_approval_before_publish]
