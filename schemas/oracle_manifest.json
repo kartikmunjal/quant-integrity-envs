@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quant-integrity-envs.local/schemas/oracle_manifest.json",
+  "title": "Quant Integrity Oracle Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "seed",
+    "partition",
+    "generator_version_hash",
+    "alpha",
+    "universe",
+    "corporate_actions",
+    "fundamentals",
+    "cost_model",
+    "bug_set",
+    "bug_locations",
+    "correct_answers"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "seed": {"type": "integer", "minimum": 0},
+    "partition": {"enum": ["train", "dev", "sealed_test"]},
+    "generator_version_hash": {"type": "string", "minLength": 1},
+    "alpha": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["present", "target_daily_ic", "realized_daily_ic", "halflife_days"],
+      "properties": {
+        "present": {"type": "boolean"},
+        "target_daily_ic": {"type": "number"},
+        "realized_daily_ic": {"type": "number"},
+        "halflife_days": {"type": "number", "minimum": 5, "maximum": 40}
+      }
+    },
+    "universe": {"type": "object"},
+    "corporate_actions": {"type": "object"},
+    "fundamentals": {"type": "object"},
+    "cost_model": {"type": "object"},
+    "bug_set": {"type": "array", "items": {"type": "string"}},
+    "bug_locations": {"type": "array"},
+    "correct_answers": {"type": "object"}
+  }
+}

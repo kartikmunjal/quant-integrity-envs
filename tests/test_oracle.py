@@ -30,6 +30,13 @@ def test_manifest_matches_planted_truth_and_schema() -> None:
     assert manifest["bug_set"] == []
 
 
+def test_manifest_schema_rejects_unknown_fields() -> None:
+    manifest = build_manifest(market())
+    manifest["unexpected"] = "not allowed"
+    with pytest.raises(ValueError, match="violates schema"):
+        validate_manifest(manifest)
+
+
 def test_sealed_manifest_write_is_deterministic_and_outside_mount(tmp_path: Path) -> None:
     generated = market()
     output = (tmp_path / "sealed").resolve()
