@@ -34,14 +34,19 @@ class Score:
 
 
 @lru_cache(maxsize=128)
-def make_case(seed: int, tier: str) -> Case:
-    if tier not in TIERS:
-        raise ValueError("unknown tier")
-    market = generate_market(
+def _market(seed: int):
+    return generate_market(
         seed,
         generator_version_hash(),
         GeneratorConfig(n_assets=200, n_days=500, force_alpha=None),
     )
+
+
+@lru_cache(maxsize=256)
+def make_case(seed: int, tier: str) -> Case:
+    if tier not in TIERS:
+        raise ValueError("unknown tier")
+    market = _market(seed)
     changed = {int(item["asset"]): str(item["new_id"]) for item in market.truth["identifier_changes"]}
     active_ids = tuple(
         sorted(changed.get(asset, f"A{asset:05d}") for asset in market.truth["final_active_assets"])
@@ -66,12 +71,7 @@ def random_policy(case: Case) -> dict[str, Any]:
 
 def _wrong(mode: int) -> Callable[[Case], dict[str, Any]]:
     def policy(case: Case) -> dict[str, Any]:
-        active = list(case.expected_active_ids)
-        anomalies = list(case.expected_anomalies)
-        if active:
-            active = active[1:] if mode % 2 else active + [f"BAD{mode}"]
-        anomalies = anomalies + [f"false:{mode}"]
-        return {"active_ids": active, "anomalies": anomalies, "method_error": mode}
+        return {"active_ids": [f"BAD{mode}"], "anomalies": [f"false:{mode}"]}
 
     return policy
 
@@ -112,8 +112,8 @@ def verify(case: Case, submission: object) -> Score:
         and set(submission) == {"active_ids", "anomalies"}
         and isinstance(submission.get("active_ids"), list)
         and isinstance(submission.get("anomalies"), list)
-        and all(isinstance(value, str) for value in submission.get("active_ids", []))
-        and all(isinstance(value, str) for value in submission.get("anomalies", []))
+        and all(type(value) is str for value in submission.get("active_ids", []))
+        and all(type(value) is str for value in submission.get("anomalies", []))
         and len(set(submission.get("active_ids", []))) == len(submission.get("active_ids", []))
         and len(set(submission.get("anomalies", []))) == len(submission.get("anomalies", []))
     )

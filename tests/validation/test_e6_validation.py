@@ -56,4 +56,6 @@ def test_e6_sandbox_mounts_never_include_or_overlap_oracle(tier: str, tmp_path: 
         assert resolved != oracle
         assert not resolved.is_relative_to(oracle)
         assert not oracle.is_relative_to(resolved)
+    with pytest.raises(ValueError):
+        sandbox_mounts(make_case(1_000_420, tier), mounts[0])
 

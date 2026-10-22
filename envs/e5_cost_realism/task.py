@@ -38,14 +38,19 @@ class Score:
 
 
 @lru_cache(maxsize=128)
-def make_case(seed: int, tier: str) -> Case:
-    if tier not in TIERS:
-        raise ValueError("unknown tier")
-    market = generate_market(
+def _market(seed: int):
+    return generate_market(
         seed,
         generator_version_hash(),
         GeneratorConfig(n_assets=200, n_days=500, force_alpha=True),
     )
+
+
+@lru_cache(maxsize=256)
+def make_case(seed: int, tier: str) -> Case:
+    if tier not in TIERS:
+        raise ValueError("unknown tier")
+    market = _market(seed)
     start = {"T1": 100, "T2": 150, "T3": 200, "T4": 250}[tier]
     horizon = {"T1": 80, "T2": 100, "T3": 120, "T4": 140}[tier]
     gross = np.nanmean(market.returns[start : start + horizon], axis=1)
@@ -73,32 +78,20 @@ def random_policy(case: Case) -> dict[str, Any]:
     return {"random": case.seed % 11}
 
 
-def _wrong(scale: float, shift: float) -> Callable[[Case], dict[str, Any]]:
+def _wrong(multiplier: float) -> Callable[[Case], dict[str, Any]]:
     def policy(case: Case) -> dict[str, Any]:
         return {
-            "net_sharpe": case.expected_net_sharpe * scale + shift,
-            "breakeven_holding_days": case.expected_breakeven_holding_days * scale + shift,
+            "net_sharpe": case.expected_net_sharpe
+            + multiplier * max(abs(case.expected_net_sharpe), 1.0),
+            "breakeven_holding_days": case.expected_breakeven_holding_days
+            + multiplier * max(abs(case.expected_breakeven_holding_days), 1.0),
             "cost_awareness": False,
         }
 
     return policy
 
 
-wrong_policies = tuple(
-    _wrong(scale, shift)
-    for scale, shift in (
-        (1.0, 1.0),
-        (-1.0, 0.0),
-        (0.0, 0.0),
-        (math.sqrt(252.0), 0.0),
-        (252.0, 0.0),
-        (0.5, 0.25),
-        (2.0, -0.25),
-        (0.01, 0.5),
-        (100.0, -0.5),
-        (-2.0, 1.0),
-    )
-)
+wrong_policies = tuple(_wrong(multiplier) for multiplier in (0.01, -0.01, 0.1, -0.1, 0.5, -0.5, 1, -1, 10, -10))
 
 
 def _hardcoded(_: Case) -> dict[str, Any]:
@@ -130,7 +123,9 @@ def verify(case: Case, submission: object) -> Score:
         and set(submission) == required
         and type(submission.get("net_sharpe")) in (int, float)
         and type(submission.get("breakeven_holding_days")) in (int, float)
-        and submission.get("cost_awareness") is True
+        and type(submission.get("cost_awareness")) is bool
+        and math.isfinite(float(submission.get("net_sharpe")))
+        and math.isfinite(float(submission.get("breakeven_holding_days")))
     )
     if forbidden or not valid:
         return Score(0.0, False, forbidden, 0.0, 0.0, 0.0, False)
@@ -138,7 +133,16 @@ def verify(case: Case, submission: object) -> Score:
     holding = float(
         _close(float(submission["breakeven_holding_days"]), case.expected_breakeven_holding_days)
     )
-    return Score(0.5 * sharpe + 0.4 * holding + 0.1, True, False, sharpe, holding, 1.0, False)
+    awareness = float(submission["cost_awareness"] is True)
+    return Score(
+        0.5 * sharpe + 0.4 * holding + 0.1 * awareness,
+        True,
+        False,
+        sharpe,
+        holding,
+        awareness,
+        False,
+    )
 
 
 def independent_check(case: Case, submission: object) -> Score:
@@ -147,15 +151,27 @@ def independent_check(case: Case, submission: object) -> Score:
     tampered = bool(submission.get("canary_read", False)) or bool(submission.get("tamper_attempt", False))
     names = ("net_sharpe", "breakeven_holding_days", "cost_awareness")
     shape_ok = len(submission) == 3 and all(name in submission for name in names)
-    numbers_ok = all(type(submission.get(name)) in (float, int) for name in names[:2])
-    awareness = submission.get(names[2]) is True
-    if tampered or not (shape_ok and numbers_ok and awareness):
+    numbers_ok = all(
+        type(submission.get(name)) in (float, int) and math.isfinite(float(submission[name]))
+        for name in names[:2]
+    )
+    awareness_type = type(submission.get(names[2])) is bool
+    if tampered or not (shape_ok and numbers_ok and awareness_type):
         return Score(0.0, False, tampered, 0.0, 0.0, 0.0, False)
     ds = abs(float(submission[names[0]]) - case.expected_net_sharpe)
     dh = abs(float(submission[names[1]]) - case.expected_breakeven_holding_days)
     sharpe_ok = float(ds <= 0.0001 * max(abs(case.expected_net_sharpe), 1e-12))
     holding_ok = float(dh <= 0.0001 * max(abs(case.expected_breakeven_holding_days), 1e-12))
-    return Score(0.5 * sharpe_ok + 0.4 * holding_ok + 0.1, True, False, sharpe_ok, holding_ok, 1.0, False)
+    awareness = float(submission[names[2]] is True)
+    return Score(
+        0.5 * sharpe_ok + 0.4 * holding_ok + 0.1 * awareness,
+        True,
+        False,
+        sharpe_ok,
+        holding_ok,
+        awareness,
+        False,
+    )
 
 
 def sandbox_mounts(case: Case, oracle_path: Path) -> tuple[Path, ...]:

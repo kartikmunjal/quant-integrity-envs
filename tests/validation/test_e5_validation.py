@@ -54,4 +54,14 @@ def test_e5_sandbox_mounts_never_include_or_overlap_oracle(tier: str, tmp_path: 
         assert resolved != oracle
         assert not resolved.is_relative_to(oracle)
         assert not oracle.is_relative_to(resolved)
+    with pytest.raises(ValueError):
+        sandbox_mounts(make_case(1_000_410, tier), mounts[0])
+
+
+def test_e5_rejects_nonfinite_numeric_values() -> None:
+    case = make_case(1_000_410, "T1")
+    bad = oracle_policy(case)
+    bad["net_sharpe"] = float("inf")
+    assert verify(case, bad).reward == 0.0
+    assert verify(case, bad) == independent_check(case, bad)
 
