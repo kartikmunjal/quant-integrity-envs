@@ -27,10 +27,10 @@ Owner review is required before the preregistration freeze. The coding agent mus
 
 ## Owner sign-off
 
-Owner name: ______________________________
+Owner name: ______________Kartik Munjal________________
 
-Signature: _________________________________
+Signature: _________________Kartik Munjal________________
 
-Date (YYYY-MM-DD): ________________________
+Date (YYYY-MM-DD): __________2026-10-21______________
 
-Decision: [ ] approved for preregistration freeze  [ ] changes required
+Decision: [ yes] approved for preregistration freeze  [ ] changes required

@@ -1,9 +1,9 @@
 # SPEC.md: Quant Research Integrity Environments (`quant-integrity-envs`)
 
-Status: pre-registration draft, spec_version 1. Frozen values live in `prereg.yaml`. Deviations go in `AMENDMENTS.md`.
+Status: pre-registration frozen, spec_version 1. Frozen values live in `prereg.yaml`. Deviations go in `AMENDMENTS.md`.
 
 ## 1. Purpose and thesis
-Build six verifiable-reward RL environments, on the verifiers library and Environments Hub stack, that test whether a language-model agent can do quantitative research honestly. All six share one synthetic-market generator, one bug-mutation engine and one metered ledger. Every episode has a ground-truth answer fixed by a sealed oracle manifest, so rewards are verifiable without a judge model.
+Build six verifiable-reward RL tasksets, on the verifiers library and Environments Hub stack, that test whether a language-model agent can do quantitative research honestly. Each taskset is paired with an environment control flow. All six share one synthetic-market generator, one bug-mutation engine and one metered ledger. Every episode has a ground-truth answer fixed by a sealed oracle manifest, so rewards are verifiable without a judge model.
 
 Claim under test: RL on ground-truth-verifiable integrity tasks improves detection of research errors and honest abstention. Whether the gain transfers to unseen error families is an open question, and either answer is a finding.
 
@@ -19,8 +19,8 @@ This repo is standalone and uses synthetic data only. See AGENTS.md sections 1, 
 - H1: Base models over-claim on null episodes. H2: R1 beats R0 on held-in cells. H3: LOFO gain is smaller than held-in gain. H4: R5 beats R0 on E4 null-abstention.
 - Acceptable outcomes, pre-registered: any of H1 to H4 failing is a reportable result. Primary result is the leave-one-family-out gain on F3, F4, F6 (R2, R3, R4 against R0). No outcome is a project failure.
 
-## 4. Environments
-Each episode exposes tools inside a sandbox. Tiers: T1 single obvious issue; T2 one subtle issue; T3 interacting issues plus distractors; T4 clean controls and decoys (code or results that look suspicious but are correct).
+## 4. Tasksets and environment control flow
+Each taskset supplies episodes through an environment control flow that exposes tools inside a sandbox. Tiers: T1 single obvious issue; T2 one subtle issue; T3 interacting issues plus distractors; T4 clean controls and decoys (code or results that look suspicious but are correct).
 
 - E1 qi-pit-backtest: build a point-in-time-correct signal and backtest from raw tables with report lags and restatements. Verified by exact numeric match to the oracle backtest, plus an availability-discipline check.
 - E2 qi-leakage-audit: given a research script, locate planted bugs, name the family, and submit a patch. Verified by bug-set F1, patch re-execution against the oracle, and a no-false-flag term on clean code.
@@ -52,7 +52,7 @@ Oracle policy mean reward at least 0.95. Random policy at most 0.05. Wrong-but-p
 ## 8. Phased plan (about 12 weeks)
 - P0 Freeze (week 1): repo, compatibility note, prereg freeze, power calculation, separation review.
 - P1 Generator (weeks 1 to 3): generator, oracle writer, determinism and stylized-fact diagnostics.
-- P2 Numeric environments E1, E5, E6 (weeks 3 to 5).
+- P2 Numeric tasksets E1, E5, E6 (weeks 3 to 5).
 - P3 Mutation engine, E2, E3 (weeks 5 to 7).
 - P4 E4 research loop (weeks 7 to 8).
 - P5 Baselines and evaluation freeze (weeks 8 to 9).

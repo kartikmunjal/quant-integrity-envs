@@ -4,9 +4,9 @@
 
 project: quant-integrity-envs
 spec_version: 1
-frozen: false              # P0 sets true in the freeze commit, then tags prereg-v1
-frozen_commit: null        # P0 fills
-frozen_date: null          # P0 fills with the commit date
+frozen: true
+frozen_commit: prereg-v1   # immutable tag resolving to this single self-referential freeze commit
+frozen_date: 2026-10-21
 
 independence:
   synthetic_data_only: true
@@ -41,8 +41,8 @@ seeds:
   final_training_seeds: [11, 23, 47]
   episodes_per_cell:           # a cell is one environment x one tier
     dev: 50
-    sealed_test: 100           # the power calculation may raise this, never lower it
-  manifest_sha256: null        # P0 fills: hash of the generated seed manifest file
+    sealed_test: 200           # raised by owner before freeze from the P0 power calculation
+  manifest_sha256: 91cf643ae13834602cbf5a15711c322d1d6c75a61f53aa51a4c9496c60e2d416
 
 generator:
   version_hash: null           # P1 fills

@@ -20,8 +20,8 @@ Reproduce with:
 python scripts/power_calculation.py --effect 0.10 --paired-sd 0.50 --power 0.80 --alpha 0.05
 ```
 
-## Freeze implication
+## Freeze decision
 
-The draft `prereg.yaml` specifies 100 sealed-test episodes per cell. Because 197 exceeds 100, P0 does not silently change the preregistration. The owner must decide before freeze whether to raise the value or explicitly accept lower conservative power. No sealed-test data or model result was used in this calculation.
+The draft `prereg.yaml` specified 100 sealed-test episodes per cell. Because 197 exceeds 100, the owner approved raising the frozen value to 200 on 2026-10-21. No sealed-test data or model result was used in this calculation or decision.
 
 The normal approximation is a planning calculation. Final inference remains the preregistered paired bootstrap with 2,000 replicates and 95% confidence intervals.
