@@ -1,1 +1,1 @@
-current_phase: P1
+current_phase: P1 complete, awaiting owner

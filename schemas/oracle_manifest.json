@@ -34,12 +34,83 @@
         "halflife_days": {"type": "number", "minimum": 5, "maximum": 40}
       }
     },
-    "universe": {"type": "object"},
-    "corporate_actions": {"type": "object"},
-    "fundamentals": {"type": "object"},
-    "cost_model": {"type": "object"},
+    "universe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["final_active_assets", "delisting_days"],
+      "properties": {
+        "final_active_assets": {"type": "array", "items": {"type": "integer", "minimum": 0}, "uniqueItems": true},
+        "delisting_days": {"type": "array", "items": {"type": "integer", "minimum": -1}}
+      }
+    },
+    "corporate_actions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identifier_changes", "splits"],
+      "properties": {
+        "identifier_changes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["asset", "day", "old_id", "new_id"],
+            "properties": {
+              "asset": {"type": "integer", "minimum": 0},
+              "day": {"type": "integer", "minimum": 1},
+              "old_id": {"type": "string"},
+              "new_id": {"type": "string"}
+            }
+          }
+        },
+        "splits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["asset", "day", "factor"],
+            "properties": {
+              "asset": {"type": "integer", "minimum": 0},
+              "day": {"type": "integer", "minimum": 1},
+              "factor": {"type": "number", "exclusiveMinimum": 0}
+            }
+          }
+        }
+      }
+    },
+    "fundamentals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["report_count", "availability_lag_min", "availability_lag_max", "restatement_count"],
+      "properties": {
+        "report_count": {"type": "integer", "minimum": 1},
+        "availability_lag_min": {"type": "integer", "minimum": 1},
+        "availability_lag_max": {"type": "integer", "maximum": 60},
+        "restatement_count": {"type": "integer", "minimum": 1}
+      }
+    },
+    "cost_model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["spread_bps", "adv_usd", "impact_coefficient", "capacity_usd"],
+      "properties": {
+        "spread_bps": {"type": "array", "items": {"type": "number", "minimum": 0}},
+        "adv_usd": {"type": "array", "items": {"type": "number", "exclusiveMinimum": 0}},
+        "impact_coefficient": {"type": "array", "items": {"type": "number", "minimum": 0}},
+        "capacity_usd": {"type": "array", "items": {"type": "number", "minimum": 0}}
+      }
+    },
     "bug_set": {"type": "array", "items": {"type": "string"}},
     "bug_locations": {"type": "array"},
-    "correct_answers": {"type": "object"}
+    "correct_answers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["realized_daily_ic", "gross_market_sharpe", "median_spread_bps", "total_final_active_assets"],
+      "properties": {
+        "realized_daily_ic": {"type": "number"},
+        "gross_market_sharpe": {"type": "number"},
+        "median_spread_bps": {"type": "number", "minimum": 0},
+        "total_final_active_assets": {"type": "integer", "minimum": 0}
+      }
+    }
   }
 }
