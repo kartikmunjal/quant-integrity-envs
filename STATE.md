@@ -1,1 +1,1 @@
-current_phase: P1 addendum failed, awaiting owner decision; P2 not started
+current_phase: P2 in progress after P1 follow-up passed
