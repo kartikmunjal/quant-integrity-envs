@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
+import yaml
 
-from qi.gen import GeneratorConfig, generate_market, seed_partition
+from qi.gen import GeneratorConfig, generate_market, generator_version_hash, seed_partition
 
 
 VERSION = "test-version"
@@ -60,3 +61,8 @@ def test_generated_truth_matches_arrays() -> None:
 def test_config_must_stay_inside_preregistered_ranges() -> None:
     with pytest.raises(ValueError, match="n_assets"):
         GeneratorConfig(n_assets=1, n_days=500).validate(enforce_preregistered_ranges=True)
+
+
+def test_source_hash_matches_preregistered_generator_version() -> None:
+    prereg = yaml.safe_load(open("prereg.yaml", encoding="utf-8"))
+    assert generator_version_hash() == prereg["generator"]["version_hash"]
