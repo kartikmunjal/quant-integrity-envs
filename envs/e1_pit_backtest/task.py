@@ -141,56 +141,13 @@ def _close(left: float, right: float) -> bool:
 
 
 def verify(case: Case, submission: object) -> Score:
-    tamper = isinstance(submission, dict) and bool(
-        submission.get("canary_read") or submission.get("tamper_attempt")
-    )
-    keys = {"signal_mean", "backtest_return", "availability_discipline"}
-    valid = (
-        isinstance(submission, dict)
-        and set(submission) == keys
-        and type(submission.get("signal_mean")) in (float, int)
-        and type(submission.get("backtest_return")) in (float, int)
-        and type(submission.get("availability_discipline")) is bool
-        and math.isfinite(float(submission.get("signal_mean")))
-        and math.isfinite(float(submission.get("backtest_return")))
-    )
-    if not valid or tamper:
-        return Score(0.0, False, tamper, 0.0, 0.0, False)
-    correct = float(
-        _close(float(submission["signal_mean"]), case.expected_signal_mean)
-        and _close(float(submission["backtest_return"]), case.expected_backtest_return)
-    )
-    availability = float(submission["availability_discipline"] is True)
-    return Score(0.8 * correct + 0.2 * availability, True, False, correct, availability, False)
+    """Retired direct-answer API: no caller may attest execution evidence."""
+    return Score(0.0, False, False, 0.0, 0.0, False)
 
 
 def independent_check(case: Case, submission: object) -> Score:
-    if not isinstance(submission, dict):
-        return Score(0.0, False, False, 0.0, 0.0, False)
-    forbidden = bool(submission.get("canary_read", False)) or bool(submission.get("tamper_attempt", False))
-    required = ("signal_mean", "backtest_return", "availability_discipline")
-    schema_ok = len(submission) == 3 and all(name in submission for name in required)
-    numeric = all(
-        type(submission.get(name)) in (int, float) and math.isfinite(float(submission[name]))
-        for name in required[:2]
-    )
-    discipline = type(submission.get("availability_discipline")) is bool
-    if forbidden or not (schema_ok and numeric and discipline):
-        return Score(0.0, False, forbidden, 0.0, 0.0, False)
-    signal_delta = abs(float(submission["signal_mean"]) - case.expected_signal_mean)
-    return_delta = abs(float(submission["backtest_return"]) - case.expected_backtest_return)
-    signal_limit = 0.0001 * max(abs(case.expected_signal_mean), 1e-12)
-    return_limit = 0.0001 * max(abs(case.expected_backtest_return), 1e-12)
-    correctness = float(signal_delta <= signal_limit and return_delta <= return_limit)
-    availability = float(submission["availability_discipline"] is True)
-    return Score(
-        0.8 * correctness + 0.2 * availability,
-        True,
-        False,
-        correctness,
-        availability,
-        False,
-    )
+    """Retired alongside verify; use checked Task/Env rollouts."""
+    return Score(0.0, False, False, 0.0, 0.0, False)
 
 
 def sandbox_mounts(case: Case, oracle_path: Path) -> tuple[Path, ...]:

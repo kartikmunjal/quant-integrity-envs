@@ -17,13 +17,13 @@ from envs.e1_pit_backtest import (
 )
 
 
-DEV_SEEDS = range(1_000_400, 1_000_410)
+DEV_SEEDS = range(1_001_000, 1_001_010)
 
 
 @pytest.mark.parametrize("tier", TIERS)
-def test_e1_oracle_random_wrong_and_cheater_policies(tier: str) -> None:
+def test_retired_e1_core_rejects_all_direct_policy_answers(tier: str) -> None:
     cases = [make_case(seed, tier) for seed in DEV_SEEDS]
-    assert sum(verify(case, oracle_policy(case)).reward for case in cases) / len(cases) >= 0.95
+    assert sum(verify(case, oracle_policy(case)).reward for case in cases) / len(cases) == 0.0
     assert sum(verify(case, random_policy(case)).reward for case in cases) / len(cases) <= 0.05
     assert len(wrong_policies) >= 10
     for policy in wrong_policies:
@@ -47,7 +47,7 @@ def test_e1_checker_agreement_and_clean_false_positive(tier: str) -> None:
 @pytest.mark.parametrize("tier", TIERS)
 def test_e1_sandbox_mounts_never_include_or_overlap_oracle(tier: str, tmp_path: Path) -> None:
     oracle = (tmp_path / "protected" / "oracle").resolve()
-    mounts = sandbox_mounts(make_case(1_000_400, tier), oracle)
+    mounts = sandbox_mounts(make_case(1_001_000, tier), oracle)
     assert mounts
     for mount in mounts:
         resolved = mount.resolve()
@@ -55,11 +55,11 @@ def test_e1_sandbox_mounts_never_include_or_overlap_oracle(tier: str, tmp_path: 
         assert not resolved.is_relative_to(oracle)
         assert not oracle.is_relative_to(resolved)
     with pytest.raises(ValueError):
-        sandbox_mounts(make_case(1_000_400, tier), mounts[0])
+        sandbox_mounts(make_case(1_001_000, tier), mounts[0])
 
 
 def test_e1_rejects_nonfinite_numeric_values() -> None:
-    case = make_case(1_000_400, "T1")
+    case = make_case(1_001_000, "T1")
     bad = oracle_policy(case)
     bad["signal_mean"] = float("nan")
     assert verify(case, bad).reward == 0.0
