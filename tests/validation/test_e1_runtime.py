@@ -34,3 +34,31 @@ def test_real_taskset_replay_and_partial_credit():
         assert constant['reward'] <= .05
         partial = asyncio.run(evaluate_program(task.data.seed, task.data.tier, reference_program('wrong_return')))
         assert 0 < partial['reward'] < exact['reward']
+
+
+def test_actual_v1_lifecycle_retains_solver_evidence():
+    import tempfile
+    from pathlib import Path
+    import verifiers.v1 as vf
+    from envs.e1_pit_backtest.runtime import E1Runtime, WORK, reference_program
+    from envs.e1_pit_backtest.v1_taskset import E1Taskset, E1Config
+
+    async def run():
+        task = next(iter(E1Taskset(E1Config(count=1))))
+        assert (await task.scripted(reference_program()))['reward'] == 1.
+        trace = vf.Trace(task=vf.TraceTask(type=type(task).__name__,data=task.data),agent=vf.AgentInfo(config=vf.AgentConfig()))
+        with tempfile.TemporaryDirectory(prefix='e1-',dir=WORK) as directory:
+            work=Path(directory); work.chmod(0o777)
+            runtime=E1Runtime(work)
+            try:
+                await runtime.start()
+                await task.setup(trace,runtime)
+                # The read occurs before clean source is submitted, exercising the original gap.
+                await runtime.run(['cat','/opt/qi/canary'],{})
+                await runtime.write('/work/program.py',reference_program().encode())
+                await task.finalize(trace,runtime)
+                await task.score(trace)
+                assert trace.rewards['integrity'].score == 0.
+            finally:
+                await runtime.stop()
+    asyncio.run(run())

@@ -68,3 +68,48 @@ Official references:
 3. **Sandbox sufficiency:** a plain subprocess runtime is not a sufficient isolation boundary for protected verifier artifacts. Decision: validation and release configurations require a container runtime; unit tests may use local pure functions only.
 4. **Training installation:** `prime-rl` expects a source workspace with pinned submodules and NVIDIA GPU(s), rather than installation as this package's Python dependency. Decision: record the source commit now and defer checkout/provider execution to P6 after owner approval.
 5. **Model wording:** the upstream 1.7B example calls `PrimeIntellect/Qwen3-1.7B` a chat-template-equipped clone rather than using an `-Instruct` suffix. It is treated as the smallest suitable instruction/chat model in the allowed size range; this naming nuance is disclosed rather than silently substituted.
+
+## P2b machine and runtime review (2026-10-25)
+
+Observed on this machine: Ubuntu 26.04.1 LTS in WSL2, Linux kernel
+`6.18.54.1-microsoft-standard-WSL2`, x86_64. Docker Engine client/server 29.9.2,
+API 1.56, linux/amd64; containerd 2.4.2 and runc 1.5.2. Docker reports 16 vCPUs,
+7,977,467,904 bytes RAM, cgroup v2. These are observed resources; Windows-side
+WSL configuration, swap allocation and VM configuration files were not inspected.
+The locked project installs on Python 3.14.4. The unchanged suite passed before
+implementation (see `results/p2b_gate.json`).
+
+The installed `verifiers==0.3.1` wheel supplies `verifiers.v1.Task`, `Taskset`,
+`Task.score`, decorators and `DockerRuntime`, but **does not supply the
+`IsolatedVerifierEnv` described above**. The earlier compatibility claim was
+incorrect for this installed artifact. P2b therefore implements an E1-specific
+`DockerRuntime` subclass, a concrete v1 Taskset, and host-side protected scoring
+with submitted source executed in disposable solver/replay containers. No
+untrusted code executes in the host verifier process. The local scripted adapter
+exercises setup, finalize, and the real `Task.score` reward hooks without a model.
+A generic `vf-eval` model harness/runtime loader integration is not certified.
+
+The only bind mount is a unique work directory under `/home/kartik/qi-sandbox`,
+mounted at `/work`. Dev oracle provenance is written under `/home/kartik/qi-private`,
+which is never mounted. Existing sealed seed manifests remain untouched. Both
+external directories were explicitly requested by the owner in the P2b prompt.
+Containers use network `none`, a read-only root filesystem, no privileged mode,
+no Docker socket, no host PID namespace, pids limit 32, 128 MiB memory and 1 CPU.
+Docker's implicit system mounts still exist; “one mount” means one declared
+Docker mount, not absence of `/proc` and other standard container system mounts.
+
+A root-owned strace process supervises commands as `nobody`; only its parent has
+SYS_PTRACE, SETUID and SETGID capabilities, needed for UID separation and tracing.
+All other capabilities are dropped, and no-new-privileges is enabled. Submitted
+code has no elevated UID. File syscall traces cross the Docker boundary; reads
+of the canary and access to protected harness/private paths cause a hard zero.
+Initial runtime commands also retain these flags through finalization. Live
+processes and background services are explicitly unsupported. The image base is
+pinned by digest and strace is pinned; runtime inspection records the actual image.
+
+Fresh dev replay seeds are derived deterministically from primary seed, tier and
+source hash. They are different from the primary seed, but predictable; they are
+not claimed to be a cryptographically sealed holdout. Batched gate execution
+shares public inputs among cases of the same tier/policy inside one primary box
+and a separate fresh replay box; protected answers stay on the host. This reduces
+startup cost and is explicitly weaker than provisioning one box per case.

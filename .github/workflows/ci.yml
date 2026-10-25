@@ -17,7 +17,14 @@ jobs:
           cache: pip
       - run: python -m pip install uv==0.13.4
       - run: uv sync --locked --group dev
+      - name: Prepare E1 real runtime
+        run: |
+          sudo mkdir -p /home/kartik
+          sudo install -d -m 0700 -o "$(id -u)" -g "$(id -g)" /home/kartik/qi-sandbox /home/kartik/qi-private
+          docker build -t qi-e1-p2b:local envs/e1_pit_backtest/container
       - run: uv run pytest
+        env:
+          QI_REAL_SANDBOX: "1"
       - name: Reject tracked files over 1 MiB
         run: |
           python - <<'PY'
