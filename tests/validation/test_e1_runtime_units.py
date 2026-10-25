@@ -14,13 +14,13 @@ def test_schema_and_audit():
 
 def test_evidence_and_partial_credit():
     truth = {'signal_mean':1.0, 'backtest_return':2.0}
-    good = {'answer':truth, 'flagged':False}
-    bad = {'answer':{'signal_mean':0.0,'backtest_return':0.0}, 'flagged':False}
+    good = {'answer':truth, 'flagged':False,'exit_code':0}
+    bad = {'answer':{'signal_mean':0.0,'backtest_return':0.0}, 'flagged':False,'exit_code':0}
     assert score_pair(good,good,truth,truth)==1
     assert score_pair(bad,bad,truth,truth)==0
-    assert score_pair({'answer':truth,'flagged':True},good,truth,truth)==0
-    near = {'answer':dict(truth,backtest_return=3.0),'flagged':False}
-    assert score_pair(near,near,truth,truth)==.4
+    assert score_pair({'answer':truth,'flagged':True,'exit_code':0},good,truth,truth)==0
+    near = {'answer':dict(truth,backtest_return=2.0101),'flagged':False,'exit_code':0}
+    assert score_pair(near,near,truth,truth)==pytest.approx(.225)
 
 
 def test_dev_only_and_taskset():
@@ -30,5 +30,5 @@ def test_dev_only_and_taskset():
     assert [t.data.tier for t in tasks]==['T1','T2','T3','T4']
     assert all(t.NEEDS_CONTAINER for t in tasks)
     assert all('expected' not in t.data.model_dump() for t in tasks)
-    a=public_input(1_000_400,'T1')
-    assert expected(a)==expected(public_input(1_000_400,'T1'))
+    a=public_input(1_001_000,'T1')
+    assert expected(a)==expected(public_input(1_001_000,'T1'))

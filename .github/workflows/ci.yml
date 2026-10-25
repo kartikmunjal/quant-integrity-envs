@@ -22,6 +22,7 @@ jobs:
           sudo mkdir -p /home/kartik
           sudo install -d -m 0700 -o "$(id -u)" -g "$(id -g)" /home/kartik/qi-sandbox /home/kartik/qi-private
           docker build -t qi-e1-p2b:local envs/e1_pit_backtest/container
+          echo "QI_E1_IMAGE_DIGEST=$(docker image inspect qi-e1-p2b:local --format '{{.Id}}')" >> "$GITHUB_ENV"
       - run: uv run pytest
         env:
           QI_REAL_SANDBOX: "1"

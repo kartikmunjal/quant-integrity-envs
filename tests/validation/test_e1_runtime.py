@@ -32,7 +32,7 @@ def test_real_taskset_replay_and_partial_credit():
         assert exact['reward'] >= .95
         constant = asyncio.run(evaluate_program(task.data.seed, task.data.tier, "print('{\"signal_mean\":0,\"backtest_return\":0}')"))
         assert constant['reward'] <= .05
-        partial = asyncio.run(evaluate_program(task.data.seed, task.data.tier, reference_program('wrong_return')))
+        partial = asyncio.run(evaluate_program(task.data.seed, task.data.tier, reference_program('near_miss')))
         assert 0 < partial['reward'] < exact['reward']
 
 
