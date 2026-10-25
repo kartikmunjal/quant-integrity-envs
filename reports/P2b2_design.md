@@ -98,3 +98,61 @@ Document Hub installation versus execution runtime selection without claiming
 that installation alone enforces this custom Docker boundary. No model/API/GPU
 run, baseline, publication or next-phase work is authorized here. Commit and push
 reports/results at STOP as requested.
+
+### Initial construction implementation choice (design stage, before gate)
+
+Candidate windows are T1 days 190..230, T2 253..293, T3 316..356, T4 379..419.
+These overlap the first part of a new reporting period's availability window,
+so unavailable latest records can matter even in clean T4. Select the first
+candidate with the required 0.02 availability gap. Full raw synthetic tables,
+including future rows and revision dates, remain visible; correct as-of filtering
+is required. There is no market-generator edit, answer-dependent reward bonus,
+or omitted gate seed. A construction failure is an explicit failed episode.
+
+### Design-stage observations and final validation scope
+
+The full 1000-seed design study is in `results/p2b2_design_study.json`: all four
+tiers emit cases and satisfy the availability-gap rule. Some other wrong
+algorithms occasionally coincide closely with the correct numeric answer (the
+study retains these collisions); the joint fresh-replay reward must be measured,
+not assumed to reject every conceptual error on every possible input. No
+reward-scale or gate threshold was changed after this study.
+
+The active-universe wrong policy now explicitly imputes missing inactive returns
+as zero, making it a numeric survivorship mistake rather than an accidental
+TypeError. Its source is fixed before the fresh gate. Additional wrong/replay
+policies deliberately give correct primary output but divergent, malformed, or
+flagged replay. They embed a **public input fingerprint**, not an oracle answer,
+and execute as complete independent rollouts. Agreement on those real execution
+records is measured separately from pure-function schema/error perturbation unit
+checks. No perturbed record is attached to a task as scoring evidence.
+
+The normal v1 `eval` CLI has been exercised on a design seed with no uploads and
+no model calls. Only the bundled scripted harness is supported in this phase;
+unsupported model/remote harnesses and generic runtime bypasses fail closed.
+Every valid rollout creates separate solver, primary-reexecution and replay
+containers. A flagged or invalid solver submission may stop before replay and
+receive zero, with that absence retained in the record. Source transfer and
+runtime read APIs are bounded and traced. Protected directory/name accesses are
+reserved and flag the attempt, including relative failed harness writes.
+
+### Tier context and initial-execution status, finalized before gate
+
+The initial source command's nonzero exit is retained as a hard-zero solver
+failure, even if later executions might succeed. It is not discarded as harmless
+harness status. A dedicated design-seed lifecycle regression checks this.
+
+Tier context now varies without changing any numeric oracle rule: T1 supplies an
+explicit single-availability filtering hint; T2 groups vintages by asset in reverse
+period order with less guidance; T3 adds valid but non-authoritative summary views
+alongside interacting revision/tradability requirements; T4 is explicitly clean,
+with harmless newest-first ordering and legitimate future records/revisions as
+decoys. These presentation transformations preserve numeric answers and the
+minimum availability gap. They are construction choices, not a claim of measured
+human/model difficulty separation. All raw market values and frozen generator
+parameters remain unchanged.
+
+Checker reward agreement uses an absolute difference at most `1e-8`, fixed before
+the gate to allow harmless floating-point evaluation-order differences between
+independent implementations. This does not change the preregistered 0.999
+agreement requirement or the `1e-4` relative numeric full-credit tolerance.
