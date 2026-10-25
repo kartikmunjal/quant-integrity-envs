@@ -1,1 +1,1 @@
-current_phase: P2b E1 incomplete; real-runtime wrong-policy gate failed, remaining integration blockers documented; awaiting owner; existing E5/E6 code untouched, their conversion and P3 not started
+current_phase: P2b round 2 E1; implementation/design frozen, fresh one-shot gate pending; E5/E6 and P3 not started in this round
