@@ -95,3 +95,86 @@ evaluation.
 Freeze and fresh-gate execution were pending at review time. Retain the
 prospective source/design/image freeze and one-shot marker, record all failed
 episodes, and do not change construction or reward after fresh outcomes.
+
+## Partial frozen-gate evidence inspection
+
+Subsequent read-only inspection occurred during the one-shot gate, after freeze
+commit `f7122ac90b5b705dc4c032fc7c406532e281c8e2`, implementation
+`f730de501ce11f221b716f31be3c46d64402626a`. Only already saved rollout shards,
+protocol source, freeze metadata and the existing CI evidence were inspected;
+no cases were generated or executed by this reviewer.
+
+At that inspection, `results/p2c_rollouts/T1-oracle-000.json` through
+`T1-oracle-009.json` contained the complete T1 oracle group: 500 unique
+policy/tier/seed records covering primary seeds 1005000..1005499, mean reward
+1.0, and no flagged records. All 1500 recorded solver/primary/replay container IDs
+were distinct. Every record had the expected lifecycle, matching source hashes
+across stages, and command trace hashes. Recorded replay seeds stayed inside the
+reserved replay partition. Recorded primary minimum relative cost gap was
+0.08400894155076896, terminal-close gap 0.020010125977462715, and capacity-binding
+gap 3.6206077638211234. These figures derive solely from those E5 shards and the
+freeze's generator version
+`eac6db9224a724d63a3e7c7df71e0af46e65d29bb66b7c6e0d18061d55313921`.
+
+This is partial evidence: it establishes neither remaining tiers/policies nor
+overall checker agreement or gate success. Compact weights are represented by
+hash and shape; this inspection checks accounting/provenance consistency, not
+an independent recalculation of absent full weight arrays.
+
+`logs/p2c_ci_owner.json` records a passing remote CI result for the freeze commit
+as **owner-reported**, with `independently_fetched: false` and an explicit fetch
+limitation. Reports must preserve that distinction and must not call this an
+independently verified CI pass. No further reporting discrepancy was identified
+in the available partial shards.
+
+## Final saved-evidence review
+
+After gate completion, this reviewer inspected only saved JSON/gzip artifacts
+and frozen-source bytes. No new cases, execution, evaluation, mutation or gate
+rerun occurred. The provenance is the same E5 implementation/freeze/generator
+identified above, with complete evidence in `results/p2c_gate.json`,
+`results/p2c_rollouts/` and `results/p2c_trajectory_sample.json.gz`.
+
+The 140 shards contain 7000 unique tier/policy/seed records in 104 policy-tier
+groups. Each tier has 500 oracle rollouts and 50 for each remaining policy.
+Recomputed first-policy-cell means, flag counts and complete reward
+distributions match the summary for every group. All 2000 oracle rewards equal
+1.0; random, every individual conceptual-wrong policy, and every cheater reward
+equal zero. Both near-miss policies receive partial credit throughout, within
+floating-point roundoff of 0.125 and 0.175 respectively. Thus the oracle
+criterion is satisfied using all oracle episodes, not merely the policy-cell
+subset. T4 false-positive rate is zero both in its first 50 oracle records and
+in its complete 500-record oracle group.
+
+All 19400 recorded instantiated container IDs are distinct. Every record has
+the expected lifecycle and matching source hashes across instantiated stages;
+all recorded container images match the freeze. Primary and recorded replay
+seeds remain in their prescribed partitions. Every frozen file hash still
+matches, and the result's embedded freeze equals the saved freeze. Missing
+primary/replay stages for flagged solver failures explain why container count
+is below three times rollout count; these are retained zero-reward episodes.
+Recorded case-separation minima reproduce from the shards and exceed the
+prospective requirements in every tier.
+
+The gate reports 7000 real checker comparisons and 2000 unit comparisons, both
+with agreement 1.0 and no execution failures. This reviewer verified summary
+and compact-record consistency, not a second execution or financial
+recalculation of every compact record. The 50 saved full sample records match
+their corresponding compact rewards, and full submitted weight arrays hash to
+the compact weight hashes. The primary author separately performs the required
+author-reviewed trajectory review; at this inspection the gzip label still
+said `author-reviewed sample pending`, so its completion should be documented
+in the author's review artifact.
+
+Per-tier composition is consistent: oracle episodes form 500/1750 of all
+rollouts and near misses 100/1750; in equal-sized policy-cell subsets the
+corresponding fractions are 1/26 and 2/26. Oracle rewards are entirely full
+credit, both near-miss policies entirely partial credit, and the remaining
+policies entirely zero credit. This describes the fixed scripted plan, not a
+model's accuracy. The recorded partial-error band remains 0.0099 relative error.
+
+The saved gate reports `passed: true`, elapsed time
+3614.802695737002 seconds, and API/GPU spend zero. Those values are gate-log
+evidence, not a separate resource measurement by this reviewer. No unresolved
+reporting or accounting discrepancy was found. Remote CI remains an
+owner-reported pass with the previously stated independent-fetch limitation.

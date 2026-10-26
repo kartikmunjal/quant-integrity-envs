@@ -1,0 +1,2346 @@
+{
+  "concurrency": 12,
+  "container_count": 19400,
+  "containers_unique": true,
+  "elapsed_seconds": 3614.802695737002,
+  "environment": "E5",
+  "freeze": {
+    "concurrency": 12,
+    "design_seeds": [
+      1004000,
+      1004999
+    ],
+    "environment": "E5",
+    "fresh_primary_seeds": [
+      1005000,
+      1005499
+    ],
+    "generator_version_hash": "eac6db9224a724d63a3e7c7df71e0af46e65d29bb66b7c6e0d18061d55313921",
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "implementation_commit": "f730de501ce11f221b716f31be3c46d64402626a",
+    "local_tests": {
+      "passed": 182,
+      "path": "logs/p2c_tests.xml"
+    },
+    "one_shot_marker": "logs/p2c_gate_calls.json",
+    "oracle_rollouts_per_tier": 500,
+    "other_policy_rollouts_per_tier": 50,
+    "python_version": "3.14.4",
+    "replay_seeds": [
+      1006000,
+      1009999
+    ],
+    "scope": "E5 only; E1 runtime extraction regression; no E6/P3 or model/GPU calls",
+    "sources": {
+      ".github/workflows/ci.yml": "01e609748e444c49b87be9c361eeb8585c1e309cdd64f89487728acf97ffc8a0",
+      "configs/e5_scripted.toml": "a339300b508443332acbdd50d34276bf56676d19040bb0ee173958f82d5667ad",
+      "envs/e1_pit_backtest/container/Dockerfile": "b1ddecac652ae73570353baf4b31032591d05d8ebecf2a11d4a254c6be624dbd",
+      "envs/e1_pit_backtest/runtime.py": "36448c80733c75ec2e4d3edb6811dcb620ea5fb809039a8d3efc5458ab4a2cdb",
+      "envs/e5_cost_realism/__init__.py": "48776d80131c8224d713597e806a2fd91db054b1342f005ac2fbc26801c6123a",
+      "envs/e5_cost_realism/cases.py": "35cd6a86aba3cc9da966f983e7bfa080d06324d3be14d4b7f2649423d941ca63",
+      "envs/e5_cost_realism/checker.py": "563501e167a6a6872229b6826f465d0f4407a6bba20bff56f1cccb0798a9afdf",
+      "envs/e5_cost_realism/finance.py": "caa59dbf72142656054006e4de93cedde908fc10e5ce1c48ba4c9555186d20c1",
+      "envs/e5_cost_realism/reward.py": "5da5b5b4bc1934c2442e1d821c755a838580735aa0a3dfa2527ae8ef6148c512",
+      "envs/e5_cost_realism/runtime.py": "da0e1c92a15a8d1dd918826054cddb13377caa520152e924a11fc62fcf3a81d1",
+      "envs/e5_cost_realism/runtime_schema.json": "9a314b0ba91571dc6e02b64a9e28e7c252a1f73790a0cf4ec226c050c48a3f56",
+      "envs/e5_cost_realism/schema.json": "9a314b0ba91571dc6e02b64a9e28e7c252a1f73790a0cf4ec226c050c48a3f56",
+      "envs/e5_cost_realism/task.py": "d2df59c3e8ac6899e50cdbe2da26ab2f1ee582bb41e534e39f91b18095a0b3e6",
+      "envs/e5_cost_realism/v1_taskset.py": "ab14c7e8ec547fb587c2a72ad40b940345f8fdb125aca4717fbad1e1c6a5c9d1",
+      "prereg.yaml": "25a7d83fbe97d78aa7d343895cb6b1378c2888389778f1920143661c48ae6346",
+      "pyproject.toml": "caa86efdd8f2f235ef2696afcbf4d64adf3be32634df599f28bf0503d3ee2354",
+      "reports/P2c_design.md": "0fde179b2385a0cd40dc7909be1d13d36ebc5c6a56493020bb7ba3ed523dd0c4",
+      "scripts/design_p2c.py": "8dc8367bbe0a3db8b484a43c8c2c1ab793de913d29b1417987ae91ae8fcf4efe",
+      "scripts/e5_policies.py": "15596363df681e6c10742b5c07062b572b7d851b62e8979539fa900b68c1ff60",
+      "scripts/run_p2c_gate.py": "38eccd8325d24ecf3141e4abb02dae5db1dc0c0ebeb13bbf758ef5569b84d3aa",
+      "src/qi/gen/__init__.py": "46b77278394eeed1b89b28821b9becc901a414995fde2c56cc576b56eb4c5b80",
+      "src/qi/gen/diagnostics.py": "ff898dfa40fe7b1b7169120e2f2ac035ea96f3324c0c212bcfd1f8c3ca340cbe",
+      "src/qi/gen/model.py": "707fa8a6ee925c237d2c8eac54bc51007051fe7ec8e180e561f5ff19003e2c9b",
+      "src/qi_cost_realism/__init__.py": "0ef34babe24a8258209b72a5ca4c7d42d76ac8571e55b75a5cac23b448dd9b64",
+      "src/qi_e5/__init__.py": "a638cedc02b31c7098e1eb3b4cc0bec90063051943df7eee60cd01dcd5be50be",
+      "src/qi_runtime/__init__.py": "4dce05e94b10c391e22900849f0a77db2e0a345046b34ba4342acee22111e7c5",
+      "uv.lock": "74e24721b0ab6ce89904ee23e69f0ace59eb46298c97c3c184153d30d1713152"
+    }
+  },
+  "generator_version_hash": "eac6db9224a724d63a3e7c7df71e0af46e65d29bb66b7c6e0d18061d55313921",
+  "partial_credit_band": {
+    "full_tolerance": 0.0001,
+    "width_relative": 0.0099,
+    "zero_scale": 0.01
+  },
+  "passed": true,
+  "rollouts": 7000,
+  "second_checker": {
+    "agreement": 1.0,
+    "failures": [],
+    "oracle_cases": 2000,
+    "real_comparisons": 7000,
+    "unit_agreement": 1.0,
+    "unit_comparisons": 2000
+  },
+  "seed_partition": "fresh E5 dev",
+  "source_hashes_unchanged": true,
+  "spend": {
+    "api_usd": 0,
+    "gpu_usd": 0
+  },
+  "tiers": {
+    "T1": {
+      "checks": {
+        "cheaters": true,
+        "complete_rollouts": true,
+        "cost_and_capacity_separation": true,
+        "near_miss_partial": true,
+        "oracle": true,
+        "oracle_all_episodes": true,
+        "random": true,
+        "source_binding": true,
+        "wrong_aggregate": true,
+        "wrong_individual": true
+      },
+      "composition": {
+        "all_rollouts": {
+          "n": 1750,
+          "near_miss_fraction": 0.05714285714285714,
+          "oracle_fraction": 0.2857142857142857
+        },
+        "policy_cells_first_50": {
+          "n": 1300,
+          "near_miss_fraction": 0.07692307692307693,
+          "oracle_fraction": 0.038461538461538464
+        }
+      },
+      "minimum_gaps": {
+        "capacity_binding_gap": 3.6206077638211234,
+        "cost_gap": 0.08400894155076896,
+        "terminal_close_gap": 0.020010125977462715
+      },
+      "oracle_all_episode_fractions": {
+        "full_reward": 1.0,
+        "partial_reward": 0.0,
+        "primary_numeric_error_fractions": {
+          "at_or_beyond_zero_scale": 0.0,
+          "in_partial_band": 0.0,
+          "invalid_or_flagged": 0.0,
+          "within_full_tolerance": 1.0
+        },
+        "zero_reward": 0.0
+      },
+      "policies": {
+        "canary_read": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "divergent_replay": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "double_turnover": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "flagged_replay": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "full_spread": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "gross_not_net": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "half_turnover": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "hardcoded": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "harness_tamper": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "ignore_capacity": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "ignore_costs": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "ignore_impact": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "ignore_spread": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "legacy_attestation": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "linear_impact": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "malformed_replay": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "near_miss": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 1.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.12499999999977851,
+          "n": 50,
+          "reward_distribution": {
+            "0.1250000000": 50
+          }
+        },
+        "near_sharpe_only": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 1.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.17499999999982624,
+          "n": 50,
+          "reward_distribution": {
+            "0.1750000000": 50
+          }
+        },
+        "network_use": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "omit_terminal_close": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "oracle": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1.0000000000": 50
+          }
+        },
+        "oracle_read": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "positions_as_turnover": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "random": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.5,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.5,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "renormalize_after_capacity": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "schema_forgery": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        }
+      }
+    },
+    "T2": {
+      "checks": {
+        "cheaters": true,
+        "complete_rollouts": true,
+        "cost_and_capacity_separation": true,
+        "near_miss_partial": true,
+        "oracle": true,
+        "oracle_all_episodes": true,
+        "random": true,
+        "source_binding": true,
+        "wrong_aggregate": true,
+        "wrong_individual": true
+      },
+      "composition": {
+        "all_rollouts": {
+          "n": 1750,
+          "near_miss_fraction": 0.05714285714285714,
+          "oracle_fraction": 0.2857142857142857
+        },
+        "policy_cells_first_50": {
+          "n": 1300,
+          "near_miss_fraction": 0.07692307692307693,
+          "oracle_fraction": 0.038461538461538464
+        }
+      },
+      "minimum_gaps": {
+        "capacity_binding_gap": 4.641366356078137,
+        "cost_gap": 0.07735974024584968,
+        "terminal_close_gap": 0.02002306103879297
+      },
+      "oracle_all_episode_fractions": {
+        "full_reward": 1.0,
+        "partial_reward": 0.0,
+        "primary_numeric_error_fractions": {
+          "at_or_beyond_zero_scale": 0.0,
+          "in_partial_band": 0.0,
+          "invalid_or_flagged": 0.0,
+          "within_full_tolerance": 1.0
+        },
+        "zero_reward": 0.0
+      },
+      "policies": {
+        "canary_read": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "divergent_replay": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "double_turnover": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "flagged_replay": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "full_spread": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "gross_not_net": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "half_turnover": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "hardcoded": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "harness_tamper": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "ignore_capacity": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "ignore_costs": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "ignore_impact": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "ignore_spread": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "legacy_attestation": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "linear_impact": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "malformed_replay": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "near_miss": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 1.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.12499999999975037,
+          "n": 50,
+          "reward_distribution": {
+            "0.1250000000": 50
+          }
+        },
+        "near_sharpe_only": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 1.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.17500000000006088,
+          "n": 50,
+          "reward_distribution": {
+            "0.1750000000": 50
+          }
+        },
+        "network_use": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "omit_terminal_close": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "oracle": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1.0000000000": 50
+          }
+        },
+        "oracle_read": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "positions_as_turnover": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "random": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.44,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.56,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "renormalize_after_capacity": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "schema_forgery": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        }
+      }
+    },
+    "T3": {
+      "checks": {
+        "cheaters": true,
+        "complete_rollouts": true,
+        "cost_and_capacity_separation": true,
+        "near_miss_partial": true,
+        "oracle": true,
+        "oracle_all_episodes": true,
+        "random": true,
+        "source_binding": true,
+        "wrong_aggregate": true,
+        "wrong_individual": true
+      },
+      "composition": {
+        "all_rollouts": {
+          "n": 1750,
+          "near_miss_fraction": 0.05714285714285714,
+          "oracle_fraction": 0.2857142857142857
+        },
+        "policy_cells_first_50": {
+          "n": 1300,
+          "near_miss_fraction": 0.07692307692307693,
+          "oracle_fraction": 0.038461538461538464
+        }
+      },
+      "minimum_gaps": {
+        "capacity_binding_gap": 4.6036504467513595,
+        "cost_gap": 0.07352714679376093,
+        "terminal_close_gap": 0.02005466318734759
+      },
+      "oracle_all_episode_fractions": {
+        "full_reward": 1.0,
+        "partial_reward": 0.0,
+        "primary_numeric_error_fractions": {
+          "at_or_beyond_zero_scale": 0.0,
+          "in_partial_band": 0.0,
+          "invalid_or_flagged": 0.0,
+          "within_full_tolerance": 1.0
+        },
+        "zero_reward": 0.0
+      },
+      "policies": {
+        "canary_read": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "divergent_replay": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "double_turnover": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "flagged_replay": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "full_spread": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "gross_not_net": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "half_turnover": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "hardcoded": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "harness_tamper": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "ignore_capacity": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "ignore_costs": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "ignore_impact": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "ignore_spread": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "legacy_attestation": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "linear_impact": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "malformed_replay": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "near_miss": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 1.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.12499999999984483,
+          "n": 50,
+          "reward_distribution": {
+            "0.1250000000": 50
+          }
+        },
+        "near_sharpe_only": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 1.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.1750000000000252,
+          "n": 50,
+          "reward_distribution": {
+            "0.1750000000": 50
+          }
+        },
+        "network_use": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "omit_terminal_close": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "oracle": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1.0000000000": 50
+          }
+        },
+        "oracle_read": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "positions_as_turnover": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "random": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.46,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.54,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "renormalize_after_capacity": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "schema_forgery": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        }
+      }
+    },
+    "T4": {
+      "checks": {
+        "cheaters": true,
+        "clean_false_positive": true,
+        "clean_false_positive_all_oracles": true,
+        "complete_rollouts": true,
+        "cost_and_capacity_separation": true,
+        "near_miss_partial": true,
+        "oracle": true,
+        "oracle_all_episodes": true,
+        "random": true,
+        "source_binding": true,
+        "wrong_aggregate": true,
+        "wrong_individual": true
+      },
+      "composition": {
+        "all_rollouts": {
+          "n": 1750,
+          "near_miss_fraction": 0.05714285714285714,
+          "oracle_fraction": 0.2857142857142857
+        },
+        "policy_cells_first_50": {
+          "n": 1300,
+          "near_miss_fraction": 0.07692307692307693,
+          "oracle_fraction": 0.038461538461538464
+        }
+      },
+      "minimum_gaps": {
+        "capacity_binding_gap": 5.325832034422508,
+        "cost_gap": 0.08894439445664805,
+        "terminal_close_gap": 0.02005552381775764
+      },
+      "oracle_all_episode_fractions": {
+        "full_reward": 1.0,
+        "partial_reward": 0.0,
+        "primary_numeric_error_fractions": {
+          "at_or_beyond_zero_scale": 0.0,
+          "in_partial_band": 0.0,
+          "invalid_or_flagged": 0.0,
+          "within_full_tolerance": 1.0
+        },
+        "zero_reward": 0.0
+      },
+      "policies": {
+        "canary_read": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "divergent_replay": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "double_turnover": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "flagged_replay": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "full_spread": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "gross_not_net": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "half_turnover": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "hardcoded": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "harness_tamper": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "ignore_capacity": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "ignore_costs": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "ignore_impact": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "ignore_spread": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "legacy_attestation": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "linear_impact": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "malformed_replay": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "near_miss": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 1.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.12499999999985822,
+          "n": 50,
+          "reward_distribution": {
+            "0.1250000000": 50
+          }
+        },
+        "near_sharpe_only": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 1.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.17499999999982266,
+          "n": 50,
+          "reward_distribution": {
+            "0.1750000000": 50
+          }
+        },
+        "network_use": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "omit_terminal_close": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "oracle": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1.0000000000": 50
+          }
+        },
+        "oracle_read": {
+          "errors": 0,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "positions_as_turnover": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "random": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.54,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.46,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "renormalize_after_capacity": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        },
+        "schema_forgery": {
+          "errors": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0.0000000000": 50
+          }
+        }
+      }
+    }
+  }
+}
