@@ -18,6 +18,7 @@ def case_diagnostics(data):
     truth=metrics(data,canonical_weights(data))
     return {'cost_gap':abs(truth['gross_sharpe']-truth['net_sharpe'])/max(abs(truth['net_sharpe']),1e-12),
         'capacity_binding_gap':float(np.max(np.abs(raw)/caps)-1),
+        'terminal_close_gap':abs(truth['unliquidated_sharpe']-truth['net_sharpe'])/max(abs(truth['net_sharpe']),1e-12),
         'oracle_gross_mean':truth['gross_mean']}
 
 
@@ -55,7 +56,7 @@ def _encoded(seed,tier):
                 weights=canonical_weights(data);truth=metrics(data,weights);diagnostic=case_diagnostics(data)
                 if (truth['gross_mean']>1e-7 and abs(truth['net_sharpe'])>1e-6
                     and math.isfinite(truth['breakeven_holding_days']) and truth['breakeven_holding_days']>0
-                    and diagnostic['cost_gap']>=.02 and diagnostic['capacity_binding_gap']>=.02):
+                    and diagnostic['cost_gap']>=.02 and diagnostic['capacity_binding_gap']>=.02 and diagnostic['terminal_close_gap']>=.02):
                     return json.dumps(data,sort_keys=True,separators=(',',':'),allow_nan=False)
     raise ValueError(f'no positive-edge cost/capacity-separated E5 candidate for {seed}/{tier}')
 

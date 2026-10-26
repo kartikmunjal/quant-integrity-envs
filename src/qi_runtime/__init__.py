@@ -156,6 +156,7 @@ async def execute_program(data,program,answer_parser,namespace='task'):
             code,out,err=await runtime.execute()
             return {'answer':answer_parser(out) if code==0 else None,'flagged':runtime.flagged,
                     'exit_code':code,'container_id':runtime.info.id,'image':runtime.snapshot['Image'],
+                    'source_sha256':hashlib.sha256(program.encode()).hexdigest(),
                     'input_sha256':hashlib.sha256(json.dumps(data,sort_keys=True).encode()).hexdigest(),
                     'commands':runtime.commands}
         finally: await runtime.stop()

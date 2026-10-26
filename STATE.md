@@ -1,1 +1,1 @@
-current_phase: P2b round 2 E1 complete, awaiting owner; E1 fresh gate passed; E5/E6 conversion and P3 not started in this round
+current_phase: P2c E5 in progress; design-only validation and shared-runtime extraction; E6/P3 not started

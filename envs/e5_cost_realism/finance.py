@@ -37,10 +37,14 @@ def metrics(data,weights):
         return np.sum(magnitude*(spread+impact*np.sqrt(magnitude*notional/adv)/100.),axis=-1)
     gross=np.sum(positions*returns,axis=1)
     net=gross-trade_cost(changes)
-    net[-1]-=float(trade_cost(positions[-1]))
+    terminal=float(trade_cost(positions[-1]))
+    unliquidated=net.copy()
+    net[-1]-=terminal
     edge=float(np.mean(gross))
     holding=float(np.mean(2*trade_cost(positions))/edge) if edge>0 else math.inf
     return {'net_sharpe':float(math.sqrt(252)*np.mean(net)/max(float(np.std(net)),1e-12)),
             'breakeven_holding_days':holding,'capacity_violation':violation,
             'gross_mean':edge,'gross_sharpe':float(math.sqrt(252)*edge/max(float(np.std(gross)),1e-12)),
-            'total_cost':float(np.sum(trade_cost(changes))+trade_cost(positions[-1]))}
+            'total_cost':float(np.sum(trade_cost(changes))+terminal),
+            'terminal_close_cost':terminal,
+            'unliquidated_sharpe':float(math.sqrt(252)*np.mean(unliquidated)/max(float(np.std(unliquidated)),1e-12))}

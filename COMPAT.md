@@ -156,3 +156,27 @@ read reject unsafe source transfers; the host checks the received length again.
 The gate uses a source/design/image freeze and a one-shot call marker. Numeric
 reward and task-case construction are versioned separately from the frozen P1
 generator. No frozen gate threshold, weight or tolerance changed.
+
+## P2c E5 and shared runtime extraction
+
+P2c moves the checked Docker implementation and bounded audited transfer/execution
+helpers into `src/qi_runtime/`. E1 retains a compatibility adapter and unchanged
+case/reward semantics; its prior frozen experiment remains identified by its
+historical commit rather than being silently relabelled after this extraction.
+E1 regression evidence for the extraction is in `logs/p2c_e1_regression.xml`.
+The shared image can be selected by `QI_RUNTIME_IMAGE_DIGEST`, with the old E1
+variable retained as a fallback; only immutable image IDs are accepted.
+
+E5's canonical plugin is `qi-cost-realism` (`qi_cost_realism` Python module), with
+`qi-e5` retained as an internal alias. Its checked Env uses the same runtime class
+as E1. Submitted source produces a gross weight path and claims; the host
+recomputes all costs, capacity enforcement, net Sharpe and holding days itself.
+No numeric-only or cost-awareness self-attestation can establish correctness.
+The scripted-only/remote-model limitations above remain. Detailed third-party
+execution, oracle placement and public-claim limits are in
+[reports/hub_architecture.md](reports/hub_architecture.md).
+
+The E5 local CLI validation config is `configs/e5_scripted.toml`, run with `eval`
+and uploads disabled. It uses design seeds only. Remote GitHub CI status must be
+read from actual Actions records and reported separately from local test success;
+missing API access is not reported as a pass.

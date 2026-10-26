@@ -46,18 +46,18 @@ def alternative(data,mode):
 def main(count,output):
     started=time.perf_counter();tiers={};agreements=0;comparisons=0
     for tier in ('T1','T2','T3','T4'):
-        bounds={mode:[] for mode in WRONG};failures=[];cost_gaps=[];cap_gaps=[]
+        bounds={mode:[] for mode in WRONG};failures=[];cost_gaps=[];cap_gaps=[];terminal_gaps=[]
         for seed in range(1004000,1004000+count):
             try:
                 data=public_input(seed,tier);weights=canonical_weights(data);truth=metrics(data,weights)
                 oracle={'answer':dict(weights=weights,net_sharpe=truth['net_sharpe'],breakeven_holding_days=truth['breakeven_holding_days']),'flagged':False,'exit_code':0}
-                d=case_diagnostics(data);cost_gaps.append(d['cost_gap']);cap_gaps.append(d['capacity_binding_gap'])
+                d=case_diagnostics(data);cost_gaps.append(d['cost_gap']);cap_gaps.append(d['capacity_binding_gap']);terminal_gaps.append(d['terminal_close_gap'])
                 for mode in WRONG:
                     record={'answer':alternative(data,mode),'flagged':False,'exit_code':0}
                     bound=score_pair(record,oracle,data,data);other=checker.score_pair(record,oracle,data,data)
                     bounds[mode].append(bound);agreements+=int(abs(bound-other)<=1e-8);comparisons+=1
             except ValueError as error:failures.append({'seed':seed,'error':str(error)})
-        tiers[tier]={'n':count,'construction_failures':failures,'min_cost_gap':min(cost_gaps,default=None),'min_capacity_binding_gap':min(cap_gaps,default=None),
+        tiers[tier]={'n':count,'construction_failures':failures,'min_cost_gap':min(cost_gaps,default=None),'min_capacity_binding_gap':min(cap_gaps,default=None),'min_terminal_close_gap':min(terminal_gaps,default=None),
             'wrong_primary_upper_bounds':{mode:{'mean':sum(values)/len(values) if values else None,'positive_fraction':sum(v>0 for v in values)/len(values) if values else None,'maximum':max(values,default=None)} for mode,values in bounds.items()}}
     result={'environment':'E5','generator_version_hash':generator_version_hash(),'seed_start':1004000,'count':count,'tiers':tiers,'independent_agreement':agreements/comparisons if comparisons else None,'comparisons':comparisons,'elapsed_seconds':time.perf_counter()-started,
         'scope':'Numerical design diagnostics only; upper bound pairs wrong primary with exact replay on same design input. No submitted source executes on host.'}

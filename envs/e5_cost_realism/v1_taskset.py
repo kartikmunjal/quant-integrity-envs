@@ -28,7 +28,8 @@ def annotate(record,data):
         return {key:value if type(value) is bool or math.isfinite(value) else None for key,value in values.items()}
     record['computed']=clean(metrics(data,answer['weights']))
     record['oracle']=clean(metrics(data,canonical_weights(data)))
-    record['errors']=error_terms(record,data)
+    errors=error_terms(record,data)
+    record['errors']=errors if errors is None or all(math.isfinite(value) for value in errors) else None
 
 
 class E5Data(vf.TaskData):
@@ -47,7 +48,7 @@ class E5Task(vf.Task[E5Data,vf.State]):
     async def setup(self,trace,runtime):
         if type(runtime) is not E5Runtime or runtime.snapshot is None:
             raise ValueError('E5 requires the inspected E5Runtime; generic runtimes are refused')
-        self._trace_id=trace.id;self._source=None;self._solver=runtime
+        self._trace_id=trace.id;self._source=None;self._source_hash=None;self._solver=runtime
         self._public=public_input(self.data.seed,self.data.tier)
         trace.info['e5_lifecycle']=['setup']
         await runtime.write('/work/input.json',json.dumps(self._public,sort_keys=True).encode())
@@ -59,11 +60,12 @@ class E5Task(vf.Task[E5Data,vf.State]):
         try:
             source=await runtime.read('/work/program.py',max_bytes=MAX_SOURCE)
             if len(source)>MAX_SOURCE: raise ValueError('source too large after transfer')
+            self._source_hash=hashlib.sha256(source).hexdigest()
             self._source=source.decode('utf-8')
         except (ValueError,UnicodeError):
             runtime.flagged=True
         self._solver_record={'container_id':runtime.info.id,'flagged':runtime.flagged,
-            'image':runtime.snapshot['Image'],'commands':list(runtime.commands)}
+            'image':runtime.snapshot['Image'],'commands':list(runtime.commands),'source_sha256':self._source_hash}
         await runtime.stop()
 
     @vf.reward
@@ -85,9 +87,10 @@ class E5Task(vf.Task[E5Data,vf.State]):
                     'primary':primary,'replay':replay,'replay_seed':fresh}
             token=hashlib.sha256(f'{self.data.seed}:{self.data.tier}:{self._source}'.encode()).hexdigest()
             PRIVATE.mkdir(mode=0o700,exist_ok=True)
-            path=PRIVATE/f'e5-round2-{token}.json'
+            path=PRIVATE/f'e5-p2c-{token}.json'
             path.write_text(json.dumps({'seed':self.data.seed,'tier':self.data.tier,'replay_seed':fresh,
                 'truth':truth,'replay_truth':fresh_truth},sort_keys=True));path.chmod(0o600)
+        result['source_sha256']=self._source_hash
         result['solver']=self._solver_record
         result['lifecycle']=list(trace.info['e5_lifecycle'])
         self.last_result=result
@@ -109,7 +112,7 @@ class E5Taskset(vf.Taskset[E5Task,E5Config]):
 
 
 class E5HarnessConfig(vf.HarnessConfig):
-    id:str='qi-e5'
+    id:str='qi-cost-realism'
     source:str=Field(default_factory=reference_program)
 
 
@@ -153,7 +156,7 @@ class E5Env(vf.Env[E5EnvConfig]):
 
 
 async def run_policy(seed,tier,source):
-    config=E5EnvConfig(taskset=E5Config(id='qi-e5',first_seed=seed,count=1),
+    config=E5EnvConfig(taskset=E5Config(id='qi-cost-realism',first_seed=seed,count=1),
         agent=vf.AgentConfig(harness=E5HarnessConfig(source=source),runtime=DockerConfig(image=IMAGE,workdir='/work',allow=[])))
     # Use the same public factory used by the CLI, not an alternate validation path.
     env=vf.load_environment(config)

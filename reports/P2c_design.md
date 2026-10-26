@@ -159,3 +159,33 @@ conditions. This is explicit conditional task construction for a finite-horizon
 accounting exercise, not a claim of unbiased strategy profitability. Only design
 data informed this revision; the frozen P1 generator and all gate thresholds are
 unchanged.
+
+### Terminal-liquidation separation revision, design data only
+
+Initial 30-seed diagnostics are committed with their generating implementation in
+b0f9994 and results/p2c_design_study_initial.json. Omitting terminal closing could
+look numerically near-correct: wrong-primary/exact-replay upper-bound means ranged
+from 0.1297385084360749 to 0.19177103213328034 across tiers. These are design
+upper bounds, not fresh gate results. The reward was not changed.
+
+Before freezing, additionally require at least **0.02 relative net-Sharpe gap**
+between the correct liquidated portfolio and the otherwise identical portfolio
+whose final close is omitted. This retains the same candidate ordering and all
+seed episodes, makes the conceptual turnover mistake materially distinguishable,
+and leaves the original cost-aware/zero-cost gap, full-credit tolerance and frozen
+gate thresholds unchanged. If no candidate meets all conditions, construction
+fails explicitly. This conditional exercise distribution must not be described
+as an unbiased estimate of strategy profitability or typical cost sensitivity.
+
+### Final prospective evidence plan
+
+The complete design study covers every permitted design seed in each tier;
+`results/p2c_design_study.json` retains its diagnostics and independent numerical
+comparisons. The fresh gate uses 500 oracle rollouts per tier and 50 for every
+other scripted policy. Both the complete oracle group and its first 50 policy-
+cell subset must meet the oracle criterion; T4 clean checks cover both groups.
+Every rollout retains command exit statuses, trace hashes and matching actual
+source hashes. Compact output shards contain at most 50 rollouts, with weight
+shape/hash replacing arrays; the deterministic 50-trajectory compressed sample
+retains full answers for author review. Missing diagnostics are reported as
+missing and fail separation rather than suppressing failed episodes.

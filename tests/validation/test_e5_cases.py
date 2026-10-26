@@ -17,6 +17,7 @@ def test_e5_case_determinism_cost_gap_and_capacity_binding():
             assert math.isfinite(result['breakeven_holding_days'])
             assert not result['capacity_violation']
             assert diagnostic['cost_gap']>=.02
+            assert diagnostic['terminal_close_gap']>=.02
             assert diagnostic['capacity_binding_gap']>=.02
             assert data['context']
 

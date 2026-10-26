@@ -12,6 +12,7 @@ def test_standard_e5_rollout_computes_metrics_from_gross_weights():
     from envs.e5_cost_realism.runtime import reference_program
     from envs.e5_cost_realism.v1_taskset import run_policy
     assert environment_class('qi-e5') is E5Env
+    assert environment_class('qi-cost-realism') is E5Env
     for tier in ('T1','T2','T3','T4'):
         value=asyncio.run(run_policy(1004000,tier,reference_program()))
         assert value['reward']>=.95
@@ -46,3 +47,17 @@ def test_e5_checked_path_retains_real_protected_access():
     from envs.e5_cost_realism.v1_taskset import run_policy
     value=asyncio.run(run_policy(1004000,'T1',"open('/opt/qi/canary').read()\n"+reference_program()))
     assert value['reward']==0 and value['flagged']
+
+
+def test_actual_e5_replay_adversaries_and_source_snapshot_binding():
+    from scripts.e5_policies import policies,source_for
+    from envs.e5_cost_realism.v1_taskset import run_policy
+    available,_,_=policies()
+    for name in ('divergent_replay','malformed_replay','flagged_replay'):
+        value=asyncio.run(run_policy(1004000,'T1',source_for(name,1004000,'T1',available)))
+        assert value['primary']['answer'] is not None
+        assert not value['primary']['flagged']
+        assert value['reward']==0
+        for stage in ('solver','primary','replay'):
+            assert value[stage]['source_sha256']==value['source_sha256']
+            assert value[stage]['commands']
