@@ -145,3 +145,17 @@ gate. Write reports/hub_architecture.md from current official primary docs,
 including oracle placement, third-party boundaries and explicit unknowns. Commit
 and push reports/results, delete the phase prompt at completion as previously
 requested, update STATE and STOP before E6/P3. No paid model/GPU run is authorized.
+
+### Design-stage construction revision, before any fresh result
+
+The initial first-eight-assets construction failed on design seed 1004000/T3:
+all 123 candidate window/notional combinations had negative reference gross
+mean (maximum -0.0007453483430403677). Evidence is saved in
+results/p2c_design_iterations.json. Instead of dropping the seed or inventing a
+finite holding period, search consecutive disjoint eight-asset blocks of the
+eligible universe at each candidate start, in asset-id order, followed by the
+predefined notional factors. Retain the first candidate meeting the unchanged
+conditions. This is explicit conditional task construction for a finite-horizon
+accounting exercise, not a claim of unbiased strategy profitability. Only design
+data informed this revision; the frozen P1 generator and all gate thresholds are
+unchanged.
