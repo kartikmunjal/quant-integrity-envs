@@ -139,3 +139,47 @@ def test_independent_hand_reconciliation():
         assert r['identifier'] == identifier
         assert r['active'] is active
         assert (r['price'], r['adjusted_price'], r['total_return']) == pytest.approx((price, adjusted, ret))
+
+
+@pytest.mark.parametrize('field,value', [
+    ('exit_code', False), ('exit_code', True), ('exit_code', 0.0),
+    ('exit_code', '0'), ('exit_code', None),
+    ('flagged', 0), ('flagged', 0.0), ('flagged', None), ('flagged', 'false'),
+])
+def test_runtime_evidence_requires_exact_types(verifier, field, value):
+    t = truth()
+    valid = record(t)
+    invalid = dict(valid, **{field: value})
+    assert verifier.error_terms(invalid, t) is None
+    assert verifier.score_pair(invalid, valid, t, t) == 0
+    assert verifier.score_pair(valid, invalid, t, t) == 0
+
+
+@pytest.mark.parametrize('field,value', [
+    ('price', 10 ** 1000), ('price', -10 ** 1000),
+    ('adjusted_price', float('-inf')), ('total_return', False),
+    ('identifier', None), ('ticker', 123), ('listing_id', []),
+    ('day', 5.0), ('active', 'true'),
+])
+def test_json_numeric_and_identity_adversaries(verifier, field, value):
+    t = truth()
+    a = deepcopy(t)
+    a['universe'][0][field] = value
+    assert verifier.check_answer(a, t) is None
+    assert verifier.score_pair(record(a), record(t), t, t) == 0
+
+
+@pytest.mark.parametrize('component', ['universe', 'anomalies'])
+def test_answer_collection_bounds(verifier, component):
+    """Bounded parsed artifacts are accepted at 2000 and rejected above it."""
+    a = truth(())
+    if component == 'universe':
+        a[component] = [dict(row(), listing_id='L' + str(i)) for i in range(2000)]
+    else:
+        a[component] = ['q' + str(i) for i in range(2000)]
+    assert verifier.check_answer(a, truth()) is not None
+    if component == 'universe':
+        a[component].append(dict(row(), listing_id='L2000'))
+    else:
+        a[component].append('q2000')
+    assert verifier.check_answer(a, truth()) is None

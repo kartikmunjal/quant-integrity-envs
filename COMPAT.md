@@ -180,3 +180,17 @@ The E5 local CLI validation config is `configs/e5_scripted.toml`, run with `eval
 and uploads disabled. It uses design seeds only. Remote GitHub CI status must be
 read from actual Actions records and reported separately from local test success;
 missing API access is not reported as a pass.
+
+
+## P2d E6 task-layer reconciliation
+
+E6 exports canonical `qi-data-traps` through `qi_data_traps`, using the same
+checked qi_runtime and immutable image as E1/E5. The generator source is frozen;
+E6 selects event windows from a 1000-asset, 500-session synthetic configuration
+inside its registered ranges. Only the quote feed is corrupted in the task
+layer; host oracle truth records original/altered records. Independent audited
+returns, registry and action notices make repairs identifiable. Clean corporate
+actions and large moves are decoys, not anomalies. The old direct active-ID
+set score is retired. The local scripted v1 path, predictable replay, trusted
+host oracle boundary and unsupported hosted/model harness caveats in
+reports/hub_architecture.md apply equally to E6. No Hub publication occurs.

@@ -104,51 +104,13 @@ def _f1(predicted: set[str], expected: set[str]) -> float:
 
 
 def verify(case: Case, submission: object) -> Score:
-    forbidden = isinstance(submission, dict) and bool(
-        submission.get("canary_read") or submission.get("tamper_attempt")
-    )
-    valid = (
-        isinstance(submission, dict)
-        and set(submission) == {"active_ids", "anomalies"}
-        and isinstance(submission.get("active_ids"), list)
-        and isinstance(submission.get("anomalies"), list)
-        and all(type(value) is str for value in submission.get("active_ids", []))
-        and all(type(value) is str for value in submission.get("anomalies", []))
-        and len(set(submission.get("active_ids", []))) == len(submission.get("active_ids", []))
-        and len(set(submission.get("anomalies", []))) == len(submission.get("anomalies", []))
-    )
-    if forbidden or not valid:
-        return Score(0.0, False, forbidden, 0.0, 0.0, False)
-    predicted_ids = set(submission["active_ids"])
-    predicted_anomalies = set(submission["anomalies"])
-    reconciliation = float(predicted_ids == set(case.expected_active_ids))
-    anomaly = _f1(predicted_anomalies, set(case.expected_anomalies))
-    false_positive = case.tier == "T4" and bool(predicted_anomalies)
-    return Score(0.6 * reconciliation + 0.4 * anomaly, True, False, reconciliation, anomaly, false_positive)
+    """Retired: final identifier sets cannot attest reconciled source execution."""
+    return Score(0.,False,False,0.,0.,False)
 
 
 def independent_check(case: Case, submission: object) -> Score:
-    if not isinstance(submission, dict):
-        return Score(0.0, False, False, 0.0, 0.0, False)
-    attacked = bool(submission.get("canary_read", False)) or bool(submission.get("tamper_attempt", False))
-    shape = len(submission) == 2 and "active_ids" in submission and "anomalies" in submission
-    lists = shape and type(submission["active_ids"]) is list and type(submission["anomalies"]) is list
-    strings = lists and all(type(item) is str for item in submission["active_ids"] + submission["anomalies"])
-    unique = strings and len(submission["active_ids"]) == len(set(submission["active_ids"])) and len(
-        submission["anomalies"]
-    ) == len(set(submission["anomalies"]))
-    if attacked or not unique:
-        return Score(0.0, False, attacked, 0.0, 0.0, False)
-    ids = set(submission["active_ids"])
-    flags = set(submission["anomalies"])
-    universe = float(ids == set(case.expected_active_ids))
-    truth = set(case.expected_anomalies)
-    if len(flags) + len(truth) == 0:
-        f_score = 1.0
-    else:
-        f_score = 2.0 * len(flags.intersection(truth)) / (len(flags) + len(truth))
-    fp = case.tier == "T4" and len(flags) > 0
-    return Score(0.6 * universe + 0.4 * f_score, True, False, universe, f_score, fp)
+    """Retired with direct verify; use independently checked real v1 rollouts."""
+    return Score(0.,False,False,0.,0.,False)
 
 
 def sandbox_mounts(case: Case, oracle_path: Path) -> tuple[Path, ...]:

@@ -94,3 +94,22 @@ The official Prime README uses some legacy CLI terminology while the pinned v1
 wheel has a different entry point; our commands are verified against the installed
 pin. Future upstream versions or hosted configurations require a new explicit
 compatibility review. Publication remains a later owner-approved phase.
+
+
+## E6 application of the same boundary (P2d)
+
+E6 uses the same local runtime/image and ordinary v1 lifecycle. Only the public
+quote feed, audited return observations, listing registry, anchors and action
+notices enter its disposable work mount. Planted corruption truth and expected
+reconciled tables are computed and retained on the trusted host. The bounded
+source is reexecuted on primary and fresh E6 dev inputs; it is never executed
+in the host verifier. Saved dev trajectory evidence may contain host truth for
+author review; those result files are not solver mounts or sealed manifests.
+
+This supports cross-source accounting tests with synthetic corruptions, not
+a claim to infer unknowable prices from a single damaged feed or detect every
+real-world anomaly. The deliberately event-rich selection, stable listing IDs,
+independent public audit observations and strict anomaly transform are material
+task assumptions. All earlier trusted-host, predictable-replay, unsupported
+model/remote evaluation and publication limits remain. This addition changes
+no upstream compatibility claim and relies on the official sources above.

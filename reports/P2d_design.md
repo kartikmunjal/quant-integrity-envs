@@ -15,7 +15,7 @@ preserve historical reports, generator, frozen weights and gate thresholds.
 
 ## Task and planted truth
 
-Public input contains a small quote panel derived from the frozen 200-asset,
+Public input contains a small quote panel derived from the frozen 1000-asset,
 500-session market, independent audited return records, opening price anchors,
 a listing registry, identifier-change and split records, and delisting notices.
 The stable listing key is authoritative; ticker strings need not be unique.
@@ -117,3 +117,52 @@ explicit owner-supplied status with provenance. Local Docker is required, no
 hosted/Hub/model certification; retain reports/hub_architecture.md caveats.
 No API/GPU spend, sealed evaluations or publication. Commit/push reports/results,
 delete phase prompt at completion, update STATE and STOP before P3.
+
+
+## Recorded design-stage construction revision
+
+The initial 200-asset study (results/p2d_design_study_initial.json) had no usable
+delisting event on design seeds 1007521, 1007561 and 1007962. No seed was dropped
+or replaced. Before any fresh E6 result, change the task's generator configuration
+to 1000 assets and 500 sessions, both inside the frozen ranges; generator source,
+version and distributions remain unchanged. Required events still fail explicitly
+if unavailable. Selecting event-rich windows is a disclosed task construction,
+not a population-frequency estimate. No task-layer corporate action is invented
+to conceal a missing generated event.
+
+Initial tests (logs/p2d_units_initial.xml) also caught that disjoint ticker
+windows could let a ticker-only grouping preserve rows. A sixth listing uses
+the split listing's same session window and shared ticker. They are distinct
+stable listings with a legitimate ticker collision. Two other selected listings
+use the largest legitimate moves on distinct assets: one is eligible for stale
+price corruption and one remains a clean large-move decoy. These choices are
+fixed before fresh results. The two runtime tests also caught a missing plugin
+export declaration before Docker evaluation; it was corrected before freeze.
+
+
+## Final prospective evidence plan
+
+There are 26 scripted policies: oracle, random, ten conceptual wrong policies,
+ten cheaters, two numeric near misses and two detection diagnostics. Gate plan:
+500 oracle and 50 of every other policy per tier, 7000 independent rollouts.
+Both all500 oracle episodes and the first50 policy-cell subset determine the
+oracle criterion; clean T4 false-positive checks include predicted false flags
+on either execution and runtime false rejections. Never-flag is intentionally
+correct on T4 and wrong on corrupted tiers. The false-flag diagnostic must
+receive strictly positive partial credit in each tier.
+
+Retain compact table hashes/row counts and complete flag IDs, numeric/anomaly
+error vectors, transferred source hashes, command statuses and audit hashes in
+shards of at most50 records. The deterministic50 full trajectory sample also
+retains host truth for author review, never inside a solver mount. Decimal
+distributions retain tiny positive anomaly rewards instead of rounding them
+into apparent hard zeros. Independent checker consumes parsed dictionaries;
+raw JSON and duplicate-key parsing remain the runtime parser's responsibility.
+The prefreeze independent review found and resolved the wrong design-file hash
+target and a checker status-type mismatch, with prospective adversarial tests.
+
+The ten wrong policies also include raw-price returns (confusing corporate
+action price changes with economic returns) and dropping post-change identifier
+history. This satisfies BRIEF.md's minimum ten plausible conceptual controls.
+The random control uses seeded, schema-valid random identity/status/numeric
+guesses and sampled quote flags, rather than an invalid or constant answer.

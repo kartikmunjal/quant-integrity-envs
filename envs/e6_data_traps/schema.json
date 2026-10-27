@@ -2,10 +2,62 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "additionalProperties": false,
-  "required": ["active_ids", "anomalies"],
+  "required": [
+    "universe",
+    "anomalies"
+  ],
   "properties": {
-    "active_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
-    "anomalies": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+    "universe": {
+      "type": "array",
+      "maxItems": 2000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "listing_id",
+          "identifier",
+          "ticker",
+          "day",
+          "active",
+          "price",
+          "adjusted_price",
+          "total_return"
+        ],
+        "properties": {
+          "listing_id": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          },
+          "ticker": {
+            "type": "string"
+          },
+          "day": {
+            "type": "integer"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "price": {
+            "type": "number"
+          },
+          "adjusted_price": {
+            "type": "number"
+          },
+          "total_return": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "anomalies": {
+      "type": "array",
+      "maxItems": 2000,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    }
   }
 }
-

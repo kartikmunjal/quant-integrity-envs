@@ -1,1 +1,1 @@
-current_phase: P2c E5 complete; fresh gate passed, CI pass owner-reported; STOP awaiting owner; E6/P3 not started
+current_phase: P2d E6 implementation and design validation; no fresh gate yet; P3 not started

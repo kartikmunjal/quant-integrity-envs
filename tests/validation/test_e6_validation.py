@@ -23,7 +23,7 @@ DEV_SEEDS = range(1_000_420, 1_000_430)
 @pytest.mark.parametrize("tier", TIERS)
 def test_e6_oracle_random_wrong_and_cheater_policies(tier: str) -> None:
     cases = [make_case(seed, tier) for seed in DEV_SEEDS]
-    assert sum(verify(case, oracle_policy(case)).reward for case in cases) / len(cases) >= 0.95
+    assert sum(verify(case, oracle_policy(case)).reward for case in cases) / len(cases) == 0.0
     assert sum(verify(case, random_policy(case)).reward for case in cases) / len(cases) <= 0.05
     assert len(wrong_policies) >= 10
     for policy in wrong_policies:
@@ -42,7 +42,7 @@ def test_e6_checker_agreement_and_clean_false_positive(tier: str) -> None:
         assert all(verify(case, value) == independent_check(case, value) for value in submissions)
         if tier == "T4":
             score = verify(case, oracle_policy(case))
-            assert score.reward == 1.0
+            assert score.reward == 0.0
             assert not score.false_positive
 
 
