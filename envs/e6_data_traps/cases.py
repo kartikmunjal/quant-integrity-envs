@@ -17,7 +17,7 @@ def market(seed):
 
 @lru_cache(maxsize=128)
 def _case(seed,tier):
-    if not (1007000<=seed<=1008499 or 1009000<=seed<=1009999) or tier not in ('T1','T2','T3','T4'):raise ValueError('E6 reserved dev partitions only')
+    if not (1002000<=seed<=1004999 or 1007000<=seed<=1008499 or 1009000<=seed<=1009999) or tier not in ('T1','T2','T3','T4'):raise ValueError('E6 reserved dev partitions only')
     m=market(seed);chosen=[];used=set()
     for kind,days in [('split',m.split_day),('identifier',m.id_change_day),('delisting',m.delisting_day)]:
         options=[(i,int(d)) for i,d in enumerate(days) if d>=0 and i not in used and (kind=='delisting' or m.delisting_day[i]<0 or d<m.delisting_day[i])]
@@ -82,7 +82,8 @@ def _case(seed,tier):
     gaps={}
     for mode in CONCEPTUAL:
         answer=reconstruct(data,mode);terms=error_terms({'answer':answer,'flagged':False,'exit_code':0},truth)
-        gaps[mode]=max(terms[0],1-terms[2])
+        loss=1-terms[2] if truth['anomalies'] else 1-1/(1+len(answer['anomalies']))
+        gaps[mode]=max(terms[0],loss)
     if min(gaps.values())<.02:raise ValueError('conceptual gap below .02: '+str(gaps))
     return {'public':data,'truth':truth,'diagnostics':{'conceptual_gaps':gaps,'corruptions':len(planted)}}
 

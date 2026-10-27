@@ -5,6 +5,7 @@ import numpy as np
 
 FIELDS={'listing_id','day','identifier','ticker','active','price','adjusted_price','total_return'}
 NUMERIC=('price','adjusted_price','total_return')
+ANOMALY_EXPONENT=3
 
 def _unique(pairs):
     out={}
@@ -38,7 +39,7 @@ def quality(error):
     u=(error-.0001)/.0099
     return (1-u)**2*(1+2*u)
 
-def error_terms(record,truth):
+def error_terms(record,truth,exponent=ANOMALY_EXPONENT):
     if not isinstance(record,dict) or record.get('flagged') is not False or type(record.get('exit_code')) is not int or record['exit_code']!=0:return None
     answer=check_answer(record.get('answer'))
     if answer is None:return None
@@ -52,11 +53,13 @@ def error_terms(record,truth):
             error=max(error,float(np.max(np.abs(av-bv)/np.maximum(np.abs(bv),1e-12))))
     flags=set(answer['anomalies']);correct=set(truth['anomalies']);tp=len(flags&correct)
     f1=2*tp/(len(flags)+len(correct)) if flags or correct else 1.
-    anomaly=f1**32 if correct else (1+len(flags))**-4
+    anomaly=f1**exponent if correct else (1+len(flags))**(-exponent)
     return [error,anomaly,f1]
 
-def score_pair(primary,replay,truth,replay_truth):
-    p=error_terms(primary,truth);r=error_terms(replay,replay_truth)
+def score_pair(primary,replay,truth,replay_truth,exponent=ANOMALY_EXPONENT):
+    p=error_terms(primary,truth,exponent);r=error_terms(replay,replay_truth,exponent)
     if p is None or r is None:return 0.
-    u=quality(p[0]);fresh=quality(r[0]);coupled=u*p[1]*fresh*r[1]
-    return coupled*(.6*u+.4*p[1])
+    def stage(terms):
+        u=quality(terms[0]);a=terms[1]
+        return min(u,a)*(.6*u+.4)
+    return min(stage(p),stage(r))

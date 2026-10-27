@@ -29,7 +29,7 @@ print(json.dumps({'universe':rows,'anomalies':flags}))
 """
     return {'oracle':exact,'random':random,**wrong,**attacks,
         'near_miss':reference_program('near_miss'),'near_small':reference_program('near_small'),
-        'near_false_flag':reference_program('near_false_flag'),'never_flag':reference_program('never_flag')},set(wrong),set(attacks)
+        'near_false_flag':reference_program('near_false_flag'),'never_flag':reference_program('never_flag'),**{f'find_{k}':reference_program(f'find_{k}') for k in range(7)}},set(wrong),set(attacks)
 
 def source_for(name,seed,tier,available):
     source=available[name]

@@ -66,7 +66,7 @@ def test_unknown_flags_not_silently_discarded(verifier):
     a = deepcopy(t)
     a['anomalies'].append('unknown')
     terms = verifier.error_terms(record(a), t)
-    assert terms == pytest.approx([0.0, (2 / 3) ** 32, 2 / 3])
+    assert terms == pytest.approx([0.0, (2 / 3) ** verifier.ANOMALY_EXPONENT, 2 / 3])
 
 
 def test_clean_abstention_and_false_flags(verifier):
@@ -76,7 +76,7 @@ def test_clean_abstention_and_false_flags(verifier):
         a['anomalies'] = ['false' + str(i) for i in range(n)]
         terms = verifier.error_terms(record(a), t)
         assert terms[0] == 0
-        assert terms[1] == pytest.approx((1+n) ** -4)
+        assert terms[1] == pytest.approx((1+n) ** (-verifier.ANOMALY_EXPONENT))
         if n == 0:
             assert verifier.score_pair(record(a), record(a), t, t) == 1
 
@@ -108,13 +108,13 @@ def test_membership_and_identity_are_scored_errors(verifier, mutation):
     assert verifier.score_pair(record(a), record(t), t, t) == 0
 
 
-def test_anomaly_weight_and_pair_product(verifier):
+def test_anomaly_enters_once_and_pair_uses_minimum(verifier):
     t = truth(['q1', 'q2'])
     a = deepcopy(t)
     a['anomalies'] = ['q1']
-    aq = (2 / 3) ** 32
-    assert verifier.score_pair(record(a), record(t), t, t) == pytest.approx(aq * (0.6 + 0.4 * aq))
-    assert verifier.score_pair(record(a), record(a), t, t) == pytest.approx(aq * aq * (0.6 + 0.4 * aq))
+    aq = (2 / 3) ** verifier.ANOMALY_EXPONENT
+    assert verifier.score_pair(record(a), record(t), t, t) == pytest.approx(aq)
+    assert verifier.score_pair(record(a), record(a), t, t) == pytest.approx(aq)
 
 
 def test_independent_hand_reconciliation():

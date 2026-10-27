@@ -8,6 +8,7 @@ validates the resulting structure, bounded collections, and accounting values.
 import math
 
 _FIELDS = {'listing_id', 'day', 'identifier', 'ticker', 'active', 'price', 'adjusted_price', 'total_return'}
+ANOMALY_EXPONENT = 3
 
 
 def check_answer(value, data=None):
@@ -43,7 +44,7 @@ def check_answer(value, data=None):
     return value
 
 
-def error_terms(record, truth):
+def error_terms(record, truth, exponent=ANOMALY_EXPONENT):
     if (not isinstance(record, dict) or record.get('flagged') is not False
             or type(record.get('exit_code')) is not int or record['exit_code'] != 0):
         return None
@@ -66,10 +67,10 @@ def error_terms(record, truth):
     proposed, planted = set(answer['anomalies']), set(truth['anomalies'])
     if planted:
         f1 = 2 * len(proposed & planted) / (len(proposed) + len(planted))
-        quality = f1 ** 32
+        quality = f1 ** exponent
     else:
         f1 = 1.0 if not proposed else 0.0
-        quality = 1 / (1 + len(proposed)) ** 4
+        quality = 1 / (1 + len(proposed)) ** exponent
     return [error, quality, f1]
 
 
@@ -82,12 +83,15 @@ def _numeric_quality(error):
     return (1 - x) ** 2 * (1 + 2 * x)
 
 
-def score_pair(primary, replay, truth, replay_truth):
-    p, r = error_terms(primary, truth), error_terms(replay, replay_truth)
+def score_pair(primary, replay, truth, replay_truth, exponent=ANOMALY_EXPONENT):
+    p = error_terms(primary, truth, exponent=exponent)
+    r = error_terms(replay, replay_truth, exponent=exponent)
     if p is None or r is None:
         return 0.0
     u, v = _numeric_quality(p[0]), _numeric_quality(r[0])
-    return u * p[1] * v * r[1] * (0.6 * u + 0.4 * p[1])
+    primary_stage = min(u, p[1]) * (0.6 * u + 0.4)
+    replay_stage = min(v, r[1]) * (0.6 * v + 0.4)
+    return min(primary_stage, replay_stage)
 
 
 def reconstruct(data):

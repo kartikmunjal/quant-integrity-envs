@@ -92,3 +92,11 @@ def test_default_exponent_three(verifier):
     t = truth()
     a = record(t, 3)
     assert verifier.score_pair(a, a, t, t) == pytest.approx((2/3)**3)
+
+
+def test_actual_clean_large_move_gap_is_false_flag_loss():
+    from envs.e6_data_traps.cases import make_case
+    from envs.e6_data_traps.repair import reconstruct
+    case=make_case(1002000,'T4');answer=reconstruct(case['public'],'flag_large_moves')
+    assert case['truth']['anomalies']==[]
+    assert case['diagnostics']['conceptual_gaps']['flag_large_moves']==pytest.approx(1-1/(1+len(answer['anomalies'])))

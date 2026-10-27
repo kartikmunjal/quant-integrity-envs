@@ -31,7 +31,7 @@ class E6Data(vf.TaskData):
 
 
 class E6Config(vf.TasksetConfig):
-    first_seed:int=1_007_000
+    first_seed:int=1_002_000
     count:int=Field(default=50,ge=1,le=500)
 
 
@@ -46,7 +46,7 @@ class E6Task(vf.Task[E6Data,vf.State]):
         oracle=json.dumps({'environment':'E6','generator_version_hash':generator_version_hash(),'seed':self.data.seed,'tier':self.data.tier,'truth':self._truth},sort_keys=True).encode()
         self._oracle_sha=hashlib.sha256(oracle).hexdigest()
         PRIVATE.mkdir(mode=0o700,exist_ok=True)
-        path=PRIVATE/f'e6-p2d-case-{self._oracle_sha}.json';path.write_bytes(oracle);path.chmod(0o600)
+        path=PRIVATE/f'e6-p2d2-case-{self._oracle_sha}.json';path.write_bytes(oracle);path.chmod(0o600)
         trace.info['e6_lifecycle']=['setup']
         await runtime.write('/work/input.json',json.dumps(self._public,sort_keys=True).encode())
 
@@ -84,7 +84,7 @@ class E6Task(vf.Task[E6Data,vf.State]):
                     'primary':primary,'replay':replay,'replay_seed':fresh}
             token=hashlib.sha256(f'{self.data.seed}:{self.data.tier}:{self._source}'.encode()).hexdigest()
             PRIVATE.mkdir(mode=0o700,exist_ok=True)
-            path=PRIVATE/f'e6-p2d-{token}.json'
+            path=PRIVATE/f'e6-p2d2-{token}.json'
             path.write_text(json.dumps({'seed':self.data.seed,'tier':self.data.tier,'replay_seed':fresh,
                 'truth':truth,'replay_truth':fresh_truth},sort_keys=True));path.chmod(0o600)
         result['oracle_sha256']=self._oracle_sha
@@ -101,7 +101,7 @@ class E6Task(vf.Task[E6Data,vf.State]):
 
 class E6Taskset(vf.Taskset[E6Task,E6Config]):
     def load(self):
-        if not (1007000<=self.config.first_seed and self.config.first_seed+self.config.count<=1010000):
+        if not (1002000<=self.config.first_seed and self.config.first_seed+self.config.count<=1010000):
             raise ValueError('design/fresh gate dev seeds only')
         for tier in TIERS:
             for seed in range(self.config.first_seed,self.config.first_seed+self.config.count):

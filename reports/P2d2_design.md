@@ -113,3 +113,21 @@ gate variants; record50full trajectories for author review. Freeze source,
 design,image and candidate study before fresh results, then run once with no
 post-result tuning or episode dropping. Check implementation CI if accessible,
 otherwise give its exact commit hash to the owner. STOP before P3.
+
+
+### Selected design and eligibility confirmation
+
+The full4000-case design study saved in results/p2d2_design_study.json compares
+all ten wrong policies for each p,120000 independent scoring comparisons with
+agreement1.0 and no construction failures. Only p=3 meets all per-tier wrong
+means and sensitivity floors, so the selected exponent is3. Runtime cheaters
+are checked separately on design seed1002000 in all four tiers, with hard
+schema/status/replay/numeric rejection independent of positive exponent. Their
+complete evidence is results/p2d2_design_cheaters.json; eligibility requires
+that check to pass before the freeze. This is not a fresh gate.
+
+The final gate has33policies and8400rollouts:500oracle/tier and50of each other
+policy/tier. Saved find_k tables explicitly state requested k, actual n and
+retained counts, not merely policy labels. Unit and runtime evidence check the
+new minimum rule and partial floors. Existing E1/E5 sensitivity tables remain
+unchanged documentation. The original E6 gate/results/call/freeze are preserved.
