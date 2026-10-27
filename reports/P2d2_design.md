@@ -66,3 +66,50 @@ The requested amendment following the first E6 gate, prospective tests,
 independent validator/reviewer, freeze, one-shot gate and 50 author-reviewed
 trajectories are deliberately not begun. No P3, model, sealed evaluation, API
 or GPU work occurs.
+
+## Owner-authorized continuation from P2B_PROMPT1.md
+
+The owner explicitly resolves the step-2 stop: keep E1/E5 code, reward, gates
+and freezes unchanged; their sensitivity tables remain documentation only.
+Proceed with E6 from step3. The earlier audit/stop record above is historical.
+
+Before tuning, fix this per-execution structure. U is the existing numeric
+quality; A=F1^p for corrupt cases, A=(1+false_flags)^(-p) for clean cases.
+Use a single shared conformance cap B=min(U,A), then
+
+    S = B*(0.6*U+0.4); R=min(S_primary,S_replay).
+
+A enters once, through B: no execution-product and no extra anomaly multiplier
+in the weighted sum. The0.6 contribution measures reconciliation quality under
+that cap; the0.4 contribution measures conformance itself. Exact reconciliation
+gives S=A; numeric-only errors give S=0.6*U^2+0.4*U. This remaining numeric shape
+is explicit, and is not claimed to be linear. Pure additive0.6*U+0.4*A would
+retain0.6 for exact tables with entirely wrong flags, violating the unchanged
+conceptual-error ceiling; the common cap prevents that.
+
+Choose p only from the prospective modest grid1,2,3. Select the smallest p that
+meets every per-tier individual/aggregate wrong-policy ceiling on the entire
+design partition, all cheater checks and every previously stated sensitivity
+desideratum. Do not change construction/corruption data to make rewards pass.
+If no candidate qualifies, report failure and stop rather than extend the grid.
+Monotonicity follows because min(U,A) is monotone in A, with nonnegative weighted
+factor; test boundary and counterexample fixtures independently.
+
+Keep schema, corruption construction and physical runtime unchanged except seed
+routing for this round and fixing the T4 diagnostic to the written clean gap
+max(numeric_error,1-1/(1+false_flags)). Preserve first-gate artifacts byte-for-byte.
+New paths use p2d2 names. Commit design/tests before primary changes; dated
+amendment attests the first E6 result was seen but no baseline/sealed/model
+result exists. Design1002000..1002999, primary1003000..1003499 and replay
+1004000..1004999 only. The original E6 design/gate ranges remain historical.
+
+Prospective gate:500oracle/tier;50per other control/tier. Add find_k policies
+for every k=0..6, retaining the first min(k,n) actual repaired flags; report n
+and k separately, including T4 n=0 (all such exact clean controls valid).
+The numeric near controls and one-false-flag diagnostic remain. All gate cases
+are independent normal v1 rollouts; both all500 and first50 oracle groups count.
+Independent checker agreement includes actual parsed answers and separate hard-
+gate variants; record50full trajectories for author review. Freeze source,
+design,image and candidate study before fresh results, then run once with no
+post-result tuning or episode dropping. Check implementation CI if accessible,
+otherwise give its exact commit hash to the owner. STOP before P3.
