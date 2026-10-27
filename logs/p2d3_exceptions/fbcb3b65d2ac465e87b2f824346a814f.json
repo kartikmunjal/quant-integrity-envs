@@ -1,0 +1,19 @@
+{
+  "full_traceback_parts": [
+    "/home/kartik/qi/Quant-fin-agent/logs/p2d3_exceptions/fbcb3b65d2ac465e87b2f824346a814f-000.txt"
+  ],
+  "id": "fbcb3b65d2ac465e87b2f824346a814f",
+  "kind": "policy",
+  "message_previews": [
+    "execve(\"/usr/bin/timeout\", [\"timeout\", \"--signal=TERM\", \"--kill-after=1\", \"20s\", \"python\", \"-I\", \"-B\", \"-c\", \"import os,sys,stat,base64\\nfd=os.open(sys.argv[1],os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK)\\ns=os.fstat(fd); limit=int(sys.argv[2])\\nif not stat.S_ISREG(s.st_mode) or s.st_size>limit: sys.exit(3)\\nwith os.fdopen(fd,'rb') as stream: data=stream.read(limit+1)\\nif len(data)>limit: sys.exit(4)\\nprint(base64.b64encode(data).decode())\\n\", \"/work/program.py\", \"1\"], 0x7ffcce0243b0 /* 5 vars */) = 0\naccess(\"/etc/ld.so.preload\", R_OK)      = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/etc/ld.so.cache\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/lib/x86_64-linux-gnu/libc.so.6\", O_RDONLY|O_CLOEXEC) = 3\nstrace: Process 48 attached\n[pid    48] execve(\"/usr/local/bin/python\", [\"python\", \"-I\", \"-B\", \"-c\", \"import os,sys,stat,base64\\nfd=os.open(sys.argv[1],os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK)\\ns=os.fstat(fd); limit=int(sys.argv[2])\\nif not stat.S_ISREG(s.st_mode) or s.st_size>limit: sys.exit(3)\\nwith os.fdopen(fd,'rb') as stream: data=stream.read(limit+1)\\nif len(data)>limit: sys.exit(4)\\nprint(base64.b64encode(data).decode())\\n\", \"/work/program.py\", \"1\"], 0x7ffeae0a4c98 /* 5 vars */) = 0\n[pid    48] readlinkat(AT_FDCWD</work>, \"/proc/self/exe\", \"/usr/local/bin/python3.14\", 4096) = 25\n[pid    48] access(\"/etc/ld.so.preload\", R_OK) = -1 ENOENT (No such file or directory)\n[pid    48] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v3/libpython3.14.so.1.0\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\n[pid    48] newfstatat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v3/\", 0x7ffc60b4e790, 0) = -1 ENOENT (No such file or directory)\n[pid    48] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v2/libpython3.14.so.1.0\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\n[pid    48] newfstatat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v2/\", 0x7ffc60b4e790, 0) "
+  ],
+  "metadata": {
+    "exit_code": 3,
+    "origin": "solver_command",
+    "runtime": "vf-d5cab5f120c1"
+  },
+  "traceback_sha256": "b6f1081b55693be922c5aad4b0ddaa37aeb27d4b01c3ced9714dfce288f50703",
+  "types": [
+    "PolicyFailure"
+  ]
+}

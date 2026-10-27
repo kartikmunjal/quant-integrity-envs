@@ -158,3 +158,177 @@ def test_failed_cleanup_preserves_extant_state(monkeypatch):
     with pytest.raises(DockerFailure):
         asyncio.run(runtime.stop())
     assert runtime._stopped is False
+
+
+def test_policy_and_infrastructure_collision_is_zero_without_faked_completion(tmp_path):
+    from qi_runtime.infrastructure import note_policy
+    calls=[]
+    async def rollout():
+        calls.append(1);note_policy();raise DockerFailure('cleanup failure after solver failure')
+    result=asyncio.run(run_with_retry(rollout,ledger=RetryBudget(5000),journal_root=tmp_path))
+    assert len(calls)==1 and result['value']['reward']==0
+    assert result['complete'] is False and result['terminal_kind']=='policy'
+
+
+def test_real_framework_guard_preserves_scoring_cause_but_rejects_live_shutdown(monkeypatch,tmp_path):
+    from types import SimpleNamespace as NS
+    from verifiers.v1.rollout import Rollout
+    import qi_runtime.infrastructure as infra
+    monkeypatch.setattr(infra,'ROOT',tmp_path)
+    runtime=qi_runtime.CheckedRuntime(qi_runtime.WORK/'synthetic-guard')
+    runtime.stopped=True;runtime._stopped=True
+    saved=[]
+    trace=NS(id='test-guard',timing=NS(finalize=NS(end=1.),scoring=NS(start=1.)),record_error=saved.append)
+    actor=NS(runtime=runtime,_owns_runtime=False,_closed=True,trace=trace)
+    original=HostTimeout('initiating host deadline')
+    with pytest.raises(ValueError):Rollout.fail._qi_original(actor,original)
+    Rollout.fail(actor,original)
+    assert actor._failure is original and saved==[original] and not actor._owns_runtime
+    actor._closed=False
+    with pytest.raises(ValueError):Rollout.fail(actor,original)
+
+
+def test_malformed_trusted_docker_json_is_not_a_policy_zero(monkeypatch):
+    async def fake_cli(*args,**kwargs):
+        if args[0]=='inspect':return 0,'not JSON',''
+        return 1,'','solver failed'
+    monkeypatch.setattr(qi_runtime,'cli',fake_cli)
+    runtime=qi_runtime.CheckedRuntime(qi_runtime.WORK/'synthetic-json')
+    runtime._harness_hash='known'
+    with pytest.raises(json.JSONDecodeError):asyncio.run(runtime.run(['python','x'],{}))
+
+
+def test_startup_exception_is_recorded_before_framework_summary(monkeypatch,tmp_path):
+    import qi_runtime.infrastructure as infra
+    monkeypatch.setattr(infra,'ROOT',tmp_path)
+    async def fake_cli(*args,**kwargs):return 1,'','provisioning synthetic daemon error'
+    monkeypatch.setattr(qi_runtime,'cli',fake_cli)
+    runtime=qi_runtime.CheckedRuntime(qi_runtime.WORK/'synthetic-startup')
+    with pytest.raises(DockerFailure):asyncio.run(runtime.start())
+    assert 'provisioning synthetic daemon error' in '\n'.join(p.read_text() for p in tmp_path.rglob('*.txt'))
+
+
+def test_trusted_write_uses_bounded_local_transport(monkeypatch):
+    seen=[]
+    async def fake_cli(*args,**kwargs):seen.append((args,kwargs));return 0,'',''
+    monkeypatch.setattr(qi_runtime,'cli',fake_cli)
+    runtime=qi_runtime.CheckedRuntime(qi_runtime.WORK/'synthetic-write')
+    runtime._container='fake'
+    asyncio.run(runtime.write('/work/program.py',b'print(1)'))
+    assert len(seen)==1 and seen[0][1]['input_data']==b'print(1)'
+
+
+@pytest.mark.parametrize('exit_code', [125, 126, 127])
+@pytest.mark.parametrize('solver_completed', [False, True])
+def test_transport_status_is_distinct_from_identical_solver_exit(monkeypatch, tmp_path, exit_code, solver_completed):
+    """Only a root-owned durable status authenticates a solver exit code."""
+    import qi_runtime.infrastructure as infra
+    monkeypatch.setattr(infra, 'ROOT', tmp_path)
+    async def fake_cli(*args, **kwargs):
+        if args[0] == 'inspect':
+            return 0, json.dumps([{'State': {'Running': True, 'OOMKilled': False}}]), ''
+        if 'sha256sum' in args:
+            return 0, 'known', ''
+        if kwargs.get('policy_output'):
+            return (0 if solver_completed else exit_code), '', 'synthetic failure'
+        # The protected status retrieval is distinct from solver output.
+        if solver_completed:
+            return 0, json.dumps({'exit_code': exit_code}), ''
+        return 1, '', 'no durable solver status'
+    monkeypatch.setattr(qi_runtime, 'cli', fake_cli)
+    runtime = qi_runtime.CheckedRuntime(qi_runtime.WORK / 'synthetic-transport')
+    runtime._harness_hash = 'known'
+    if solver_completed:
+        result = asyncio.run(runtime.run(['python', 'x'], {}))
+        assert result.exit_code == exit_code
+        assert runtime.commands[-1]['policy_outcome'] == 'solver_crash'
+    else:
+        with pytest.raises(DockerFailure):
+            asyncio.run(runtime.run(['python', 'x'], {}))
+        assert runtime.flagged is False
+
+
+def test_transport_failure_gets_retry_without_policy_evidence(monkeypatch, tmp_path):
+    async def fake_cli(*args, **kwargs):
+        if args[0] == 'inspect':
+            return 0, json.dumps([{'State': {'Running': True, 'OOMKilled': False}}]), ''
+        return 125, '', 'docker exec transport failed'
+    monkeypatch.setattr(qi_runtime, 'cli', fake_cli)
+    async def rollout():
+        runtime = qi_runtime.CheckedRuntime(qi_runtime.WORK / 'synthetic-transport-retry')
+        return await runtime.run(['python', 'x'], {})
+    result = asyncio.run(run_with_retry(rollout, ledger=RetryBudget(5000), journal_root=tmp_path))
+    assert result['retried'] is True
+    assert result['terminal_kind'] == 'infrastructure'
+    assert all(not attempt['policy_evidence'] for attempt in result['attempts'])
+
+
+@pytest.mark.skipif(__import__('os').environ.get('QI_REAL_SANDBOX') != '1', reason='requires approved Docker access')
+def test_real_protected_status_preserves_solver_exits_and_transport_failure(monkeypatch):
+    import tempfile
+    from pathlib import Path
+    original_cli = qi_runtime.cli
+    async def run():
+        with tempfile.TemporaryDirectory(prefix='p2d3-status-', dir=qi_runtime.WORK) as directory:
+            work = Path(directory)
+            work.chmod(0o777)
+            runtime = qi_runtime.CheckedRuntime(work)
+            try:
+                await runtime.start()
+                for expected in (0, 1, 125, 126, 127):
+                    result = await runtime.run(['python', '-I', '-c', f'raise SystemExit({expected})'], {})
+                    assert result.exit_code == expected
+                async def transport_failure(*args, **kwargs):
+                    if kwargs.get('policy_output'):
+                        return 125, '', 'synthetic transport failure with healthy real container'
+                    return await original_cli(*args, **kwargs)
+                monkeypatch.setattr(qi_runtime, 'cli', transport_failure)
+                with pytest.raises(DockerFailure):
+                    await runtime.run(['python', '-I', '-c', 'print(1)'], {})
+            finally:
+                monkeypatch.setattr(qi_runtime, 'cli', original_cli)
+                await runtime.stop()
+    asyncio.run(run())
+
+
+def test_trusted_harness_probe_transport_error_is_infrastructure(monkeypatch, tmp_path):
+    import qi_runtime.infrastructure as infra
+    monkeypatch.setattr(infra, 'ROOT', tmp_path)
+    async def fake_cli(*args, **kwargs):
+        if kwargs.get('policy_output'):
+            return 0, 'answer', ''
+        if 'sha256sum' in args:
+            return 125, '', 'transport failed'
+        if args[0] == 'inspect':
+            return 0, json.dumps([{'State': {'Running': True, 'OOMKilled': False}}]), ''
+        return 0, json.dumps({'exit_code': 0}), ''
+    monkeypatch.setattr(qi_runtime, 'cli', fake_cli)
+    runtime = qi_runtime.CheckedRuntime(qi_runtime.WORK / 'synthetic-harness-probe')
+    runtime._harness_hash = 'known'
+    with pytest.raises(DockerFailure):
+        asyncio.run(runtime.run(['python', 'x'], {}))
+    assert runtime.flagged is False
+
+
+@pytest.mark.parametrize('trace', ['openat(3, "/opt/qi/canary", O_RDONLY)',
+                                   'socket(AF_INET, SOCK_STREAM, 0)'])
+def test_audit_evidence_dominates_failed_completion_marker(monkeypatch, tmp_path, trace):
+    """Confirmed policy traces must survive an independent status-read failure."""
+    calls = []
+    async def fake_cli(*args, **kwargs):
+        if kwargs.get('policy_output'):
+            return 0, '', trace
+        if args[0] == 'inspect':
+            return 0, json.dumps([{'State': {'Running': True, 'OOMKilled': False}}]), ''
+        return 125, '', 'protected marker transport failed'
+    monkeypatch.setattr(qi_runtime, 'cli', fake_cli)
+    async def rollout():
+        calls.append(1)
+        runtime = qi_runtime.CheckedRuntime(qi_runtime.WORK / 'synthetic-audit-status-collision')
+        return await runtime.run(['python', 'x'], {})
+    result = asyncio.run(run_with_retry(rollout, ledger=RetryBudget(5000), journal_root=tmp_path))
+    assert calls == [1]
+    assert result['retried'] is False
+    assert result['terminal_kind'] == 'policy'
+    assert result['value']['reward'] == 0
+    assert result['attempts'][0]['policy_evidence'] is True
