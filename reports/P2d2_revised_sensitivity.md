@@ -18,7 +18,7 @@ The prior E1/E5 sensitivity tables remain unchanged documentation. This table co
 Exact reconciliation, no false flags:
 
 | Actual corruptions n | Found k | F1 | Reward |
-|---:|---:|---:|---:|---:|
+|---:|---:|---:|---:|
 | 0 | 0 | 1 | 1 |
 | 1 | 0 | 0 | 0 |
 | 1 | 1 | 1 | 1 |
