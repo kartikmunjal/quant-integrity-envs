@@ -122,3 +122,70 @@ adds no mount or agent-visible oracle data and changes no reward calculation.
 No blocker was found in this addition. Private files remain host-side provenance;
 public reproducibility still relies on committed source, generator identity and
 seed evidence. The reviewer used source inspection only for this follow-up.
+
+## Saved one-shot evidence audit
+
+Reviewed saved E6 evidence only after gate completion. Recomputed counts,
+per-policy first-50 distributions/means, sample table hashes, source binding and
+frozen-file hashes without generating or reexecuting any episode. Audit output
+is `results/p2d_review_audit.json`, identified by E6 and the frozen generator hash
+above. All 140 shards contain 7,000 distinct case keys: 2,000 oracle rollouts
+and 200 per other policy. Their 19,400 recorded container IDs are all unique;
+all present container image IDs match the freeze. No frozen-file mismatch,
+source-binding failure, missing primary oracle hash, distribution mismatch or
+sample-table hash mismatch was found. All 50 full samples match their compact
+primary/replay table hashes and anomaly lists where answers exist.
+
+`results/p2d_gate.json` records oracle mean 1.0 for every tier, including all
+500 oracle cases per tier, exceeding the 0.95 floor. All 500 T4 oracle cases
+have zero runtime/false-positive flags (rate 0, ceiling 0.02). Random and every
+cheater have mean zero (ceiling 0.05). Each of ten wrong-policy means is below
+0.10; the largest is T4 flag-large-moves at 0.0000037652931404, so the aggregate
+also passes. Numeric near-miss means are approximately 0.175 and 0.6451721191
+in every tier; their partial reward is real but intentionally compressed by
+the paired product. The relative numeric partial-band width remains 0.0099.
+Clean never-flag achieves 1.0, while corrupted never-flag achieves zero.
+
+Saved gate evidence reports 7,000 parsed-answer score comparisons and 2,000
+adversarial unit comparisons, both with agreement 1.0 against the independent
+checker (required 0.999). This establishes fresh scoring agreement against
+protected truth, not independently rerun public reconstruction on fresh inputs.
+Independent reconstruction parity is established by the design study, whose
+final ten-control evidence records 40,000 comparisons across 4,000 design cases.
+The primary author separately performs the required author-reviewed trajectory
+review; this hash audit supplies no independent human labels.
+
+Remote CI for `1e40d5812d75a6dd4da20f1c814ad98cade19ece` is owner-reported
+passing in `logs/p2d_ci_owner.json`. `logs/p2d_ci.json` records independent access
+unavailable with HTTP 404, not an independently verified pass. No new blocker
+was identified in the saved evidence. All earlier task and hosting limitations
+remain. This audit used no Docker, network, fresh generation or paid execution.
+
+## Post-gate conceptual diagnostic discrepancy
+
+The author identified a genuine mismatch: the written clean-case gap uses
+`max(e, 1-1/(1+false_flags))`, whereas frozen case diagnostics use
+`max(e, 1-F1)` in every tier. For clean cases, any false flag makes that saved
+F1 zero, so saved gaps can overstate the written anomaly loss. This is a
+diagnostic-definition error, not a change to numeric reward or scoring agreement.
+The raw gate's conceptual-gap values must retain this qualification; they are
+not literal measurements of the written clean metric.
+
+Source inspection supports the author's lower-bound argument without new
+generation. The required identifier-change window and overlapping shared-ticker
+listings force identity/membership errors of one for the corresponding controls.
+The split window contains a generated factor from {0.5, 2, 3}, making ignored-split
+relative price error at least 0.5. The separate legitimate-large-move decoy
+forces at least one false flag for the large-move control, whose written clean
+loss is therefore at least 0.5. These structural bounds exceed the required
+0.02, conditional on successful frozen case construction, and are not a fresh
+independent reconstruction measurement across all oracle cases.
+
+Inspection of the saved T4 first-50 wrong-policy primary records confirms the
+same conclusion: identifier/ticker errors have minima one, split error has
+minimum 0.5, and the large-move policy has at least three false flags per record.
+The author's separate saved-record audit should report the written values and
+its sampled scope. Preserve frozen source and original diagnostics; no gate
+rerun or retrospective relabelling is justified. The discrepancy limits the
+literal diagnostic claim but does not provide evidence that the separation
+threshold failed. This follow-up inspected source and saved records only.
