@@ -73,3 +73,42 @@ label. Sample truth-construction errors preserve the sample with null truth
 and an error instead of aborting report generation. Both previously raised
 items are resolved; no additional pre-freeze blocker was found. This follow-up
 used artifact/source inspection only and did not generate or execute cases.
+
+## Final saved-evidence review: gate failed
+
+Audited all 168 saved rollout shards, containing 8400 retained rows, against
+`results/p2d2_gate.json`. Machine-readable findings are in
+`results/p2d2_review_audit.json`. No fresh evaluation, Docker execution, source
+change or case generation was performed. The gate's failed verdict is correct.
+
+One T4 random rollout, seed 1003044, contains the recorded error that borrowed
+runtime `vf-b49fe5670086` was torn down by its owner mid-run. Its retained
+placeholder has zero reward and missing stage provenance. Consequently T4
+completeness, conceptual-separation coverage, oracle-hash coverage and source
+binding fail. The missing diagnostic is not evidence that the numeric
+conceptual gap itself failed. The exception text establishes what the runtime
+reported, but does not prove the underlying teardown race or its cause. The E6
+source stops its solver during finalization and again in the Env's cleanup;
+those sites alone do not establish why this particular failure occurred.
+
+Checker agreement is 8399/8400 = 0.9998809523809524, with the failed row retained
+in its denominator; separate perturbed checks agree on 2000/2000. Every tier's
+full 500-oracle group and first-50 group has mean reward 1, zero flagged rows,
+and complete lifecycle records. All 28 find_k groups have 50 rows with actual
+corruption count n equal to 1, 2, 6 and 0 for T1..T4, respectively; retained
+flags equal min(k,n), and every saved reward matches the exponent-3 formula.
+All reward/floor checks reported by the gate pass. These findings do not
+override the failed infrastructure/provenance criteria.
+
+The audit counted 23597 retained container IDs, all unique. This is not the
+number of all containers actually created: the failed placeholder loses its
+three stage IDs. Every frozen source hash still matches; the original E6 gate
+hash matches the round-two freeze. E1/E5 implementation paths and their checked
+gate/freeze artifacts, plus the original E6 gate/freeze/call marker, have no
+diff from historical commit `c2910b5` in the inspected paths.
+
+CI for freeze commit `2777f1013d08f8b006cfcccbcda411c294801cba` is recorded as
+owner-reported pass in `logs/p2d2_revision_ci_owner.json`, explicitly not an
+independently fetched CI result. This reviewer does not provide the separate
+50-trajectory author review. No fix or rerun is endorsed by this audit; the
+one-shot failed result remains the finding. Reviewer API/GPU spend remains $0.

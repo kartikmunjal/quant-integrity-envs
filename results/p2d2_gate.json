@@ -1,0 +1,3588 @@
+{
+  "concurrency": 12,
+  "container_count": 23597,
+  "containers_unique": true,
+  "elapsed_seconds": 4589.334071049991,
+  "environment": "E6",
+  "freeze": {
+    "concurrency": 12,
+    "design_seeds": [
+      1002000,
+      1002999
+    ],
+    "environment": "E6",
+    "fresh_primary_seeds": [
+      1003000,
+      1003499
+    ],
+    "generator_version_hash": "eac6db9224a724d63a3e7c7df71e0af46e65d29bb66b7c6e0d18061d55313921",
+    "historical_gate_sha256": "0fce57dedde518e6fc66e657fb800884253b222f8cf7a305974e8773d368ddb7",
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "implementation_commit": "09214c7b446efbfe5c00fec4b6cce41ca31c8a98",
+    "local_tests": {
+      "additional_protocol": 2,
+      "full": 325,
+      "xml": "logs/p2d2_tests.xml"
+    },
+    "one_shot_marker": "logs/p2d2_gate_calls.json",
+    "oracle_rollouts_per_tier": 500,
+    "other_policy_rollouts_per_tier": 50,
+    "planned_rollouts": 8400,
+    "python_version": "3.14.4",
+    "replay_seeds": [
+      1004000,
+      1004999
+    ],
+    "scope": "E6 reward revision only; E1/E5/generator/historical E6 artifacts unchanged; no P3/model/GPU/sealed eval",
+    "selected_exponent": 3,
+    "sources": {
+      ".github/workflows/ci.yml": "01e609748e444c49b87be9c361eeb8585c1e309cdd64f89487728acf97ffc8a0",
+      "AMENDMENTS.md": "71d9a522b9aa906aeb31048f591b2520cefa07e5a8abd43187b06cd294f3b999",
+      "configs/e6_scripted.toml": "e74db48dcd6a7aa0a52abe51cf100efce6c4d866a71db9a61e588d387f6f8175",
+      "envs/e1_pit_backtest/container/Dockerfile": "b1ddecac652ae73570353baf4b31032591d05d8ebecf2a11d4a254c6be624dbd",
+      "envs/e1_pit_backtest/runtime.py": "36448c80733c75ec2e4d3edb6811dcb620ea5fb809039a8d3efc5458ab4a2cdb",
+      "envs/e6_data_traps/__init__.py": "855c4c85c4ea31722752ba70c822336dca99d220eb8b25e26ccb8223749a3c5d",
+      "envs/e6_data_traps/cases.py": "8ac2e83f775dbd9f75f818aef8614a2e966d013af0229d330d7547c9bdf153d6",
+      "envs/e6_data_traps/checker.py": "c04b4c6e007196638b0c38eb4bbf1abaaf3430b5c6aa6ca0b4beebace21b77c9",
+      "envs/e6_data_traps/repair.py": "a6a25e8b0680e816fea385d74ce60679de6a6836ab29297d7bcdc055bd70b3b0",
+      "envs/e6_data_traps/reward.py": "cd3a900879f06680f04be001e4027ed91dba1bf7b1edeea2f6a7ad947e8c4c1e",
+      "envs/e6_data_traps/runtime.py": "d96eee64def6a6443631330895d38f79acf0df5171d7cea9087ddd4cab5325b7",
+      "envs/e6_data_traps/schema.json": "3fe12c906d960c7d5147c6a13c19493615fe777095d7410594a01a2e9ee2ceed",
+      "envs/e6_data_traps/task.py": "6fb849444d8fe6cf426758d3ee3ccdedddb4069f2ae343a128cabd66fd5e609e",
+      "envs/e6_data_traps/v1_taskset.py": "5854f7bd1c1e49d9a5540c739bb74a5109aae714bb92e8ffe7e5e8c8dc3aac04",
+      "prereg.yaml": "25a7d83fbe97d78aa7d343895cb6b1378c2888389778f1920143661c48ae6346",
+      "pyproject.toml": "86d21cb5c8bbdee77ddf12cb1bfd938dc933cbc1dadb1d018c8664995f1ea83b",
+      "reports/P2d2_design.md": "d269b441cd24add7e15534fd82e836d8931949afec6482e13988b9ae1e398c71",
+      "results/p2d2_design_cheaters.json": "2778af0ded9168515334ce78f740c651ca0cd52565436b9a64350a2ebac330c4",
+      "results/p2d2_design_study.json": "5a729d4f8eb5bc5ee277b3b8070f601ecea1c0917c92d3e2a50e3c5e8378616b",
+      "scripts/design_p2d2.py": "425e2ee1c2466c07e9cd8bd97e21f746bfa30c6a19377471c86421b5c0823e5c",
+      "scripts/e6_policies.py": "93c3a3a66e3b6ba9409e5a8eeca2cf53ff67b0adc473f9ab0cac7b7420580304",
+      "scripts/run_p2d2_gate.py": "28ddcfe100c838874c7d99cfd6dbf42034c22c6a46d43148598eab19e07f2ec3",
+      "src/qi/gen/__init__.py": "46b77278394eeed1b89b28821b9becc901a414995fde2c56cc576b56eb4c5b80",
+      "src/qi/gen/diagnostics.py": "ff898dfa40fe7b1b7169120e2f2ac035ea96f3324c0c212bcfd1f8c3ca340cbe",
+      "src/qi/gen/model.py": "707fa8a6ee925c237d2c8eac54bc51007051fe7ec8e180e561f5ff19003e2c9b",
+      "src/qi_data_traps/__init__.py": "67eaeb083de36eb20ba4cb8b8367dc24ed61e0a5275bcfdf62257e9ecc747512",
+      "src/qi_runtime/__init__.py": "4dce05e94b10c391e22900849f0a77db2e0a345046b34ba4342acee22111e7c5",
+      "uv.lock": "74e24721b0ab6ce89904ee23e69f0ace59eb46298c97c3c184153d30d1713152"
+    }
+  },
+  "generator_version_hash": "eac6db9224a724d63a3e7c7df71e0af46e65d29bb66b7c6e0d18061d55313921",
+  "partial_credit_band": {
+    "full_tolerance": 0.0001,
+    "width_relative": 0.0099,
+    "zero_scale": 0.01
+  },
+  "passed": false,
+  "rollouts": 8400,
+  "second_checker": {
+    "agreement": 0.9998809523809524,
+    "failures": [
+      {
+        "error": "checked E6 rollout failed: E6Env.run(): ValueError: borrowed runtime 'vf-b49fe5670086' was torn down by its owner mid-run; keep the provisioning context open until every run placed into the box has completed",
+        "policy": "random",
+        "seed": 1003044,
+        "tier": "T4"
+      }
+    ],
+    "oracle_cases": 2000,
+    "real_comparisons": 8400,
+    "unit_agreement": 1.0,
+    "unit_comparisons": 2000
+  },
+  "seed_partition": "fresh E6 dev",
+  "source_hashes_unchanged": true,
+  "spend": {
+    "api_usd": 0,
+    "gpu_usd": 0
+  },
+  "tiers": {
+    "T1": {
+      "checks": {
+        "cheaters": true,
+        "complete_rollouts": true,
+        "conceptual_separation": true,
+        "false_flag_partial": true,
+        "find_k_expected": true,
+        "five_of_six_floor": true,
+        "near_miss_partial": true,
+        "never_flag_clean_semantics": true,
+        "one_false_flag_floor": true,
+        "oracle": true,
+        "oracle_all_episodes": true,
+        "oracle_truth_recorded": true,
+        "random": true,
+        "source_binding": true,
+        "wrong_aggregate": true,
+        "wrong_individual": true
+      },
+      "composition": {
+        "all_rollouts": {
+          "n": 2100,
+          "near_miss_fraction": 0.047619047619047616,
+          "oracle_fraction": 0.23809523809523808
+        },
+        "policy_cells_first_50": {
+          "n": 1650,
+          "near_miss_fraction": 0.06060606060606061,
+          "oracle_fraction": 0.030303030303030304
+        }
+      },
+      "find_k_counts": {
+        "0": {
+          "expected_retained": 0,
+          "n_corruptions": {
+            "1": 50
+          },
+          "requested_k": 0,
+          "retained_flags": {
+            "0": 50
+          }
+        },
+        "1": {
+          "expected_retained": 1,
+          "n_corruptions": {
+            "1": 50
+          },
+          "requested_k": 1,
+          "retained_flags": {
+            "1": 50
+          }
+        },
+        "2": {
+          "expected_retained": 1,
+          "n_corruptions": {
+            "1": 50
+          },
+          "requested_k": 2,
+          "retained_flags": {
+            "1": 50
+          }
+        },
+        "3": {
+          "expected_retained": 1,
+          "n_corruptions": {
+            "1": 50
+          },
+          "requested_k": 3,
+          "retained_flags": {
+            "1": 50
+          }
+        },
+        "4": {
+          "expected_retained": 1,
+          "n_corruptions": {
+            "1": 50
+          },
+          "requested_k": 4,
+          "retained_flags": {
+            "1": 50
+          }
+        },
+        "5": {
+          "expected_retained": 1,
+          "n_corruptions": {
+            "1": 50
+          },
+          "requested_k": 5,
+          "retained_flags": {
+            "1": 50
+          }
+        },
+        "6": {
+          "expected_retained": 1,
+          "n_corruptions": {
+            "1": 50
+          },
+          "requested_k": 6,
+          "retained_flags": {
+            "1": 50
+          }
+        }
+      },
+      "minimum_gaps": {
+        "flag_large_moves": 0.5,
+        "ignore_identifiers": 1.0,
+        "ignore_splits": 0.5,
+        "ticker_only": 1.0
+      },
+      "oracle_all_episode_fractions": {
+        "full_reward": 1.0,
+        "partial_reward": 0.0,
+        "primary_numeric_error_fractions": {
+          "at_or_beyond_zero_scale": 0.0,
+          "in_partial_band": 0.0,
+          "invalid_or_flagged": 0.0,
+          "within_full_tolerance": 1.0
+        },
+        "zero_reward": 0.0
+      },
+      "policies": {
+        "canary_read": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "divergent_replay": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "drop_identifier_history": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "drop_inactive": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "find_0": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "find_1": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "find_2": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "find_3": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "find_4": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "find_5": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "find_6": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "flag_all": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.0002612184219332181,
+          "n": 50,
+          "reward_distribution": {
+            "0.000244140625": 15,
+            "0.0002685374777617401": 35
+          }
+        },
+        "flag_large_moves": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.04,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.96
+          },
+          "mean_reward": 0.0012072130439477375,
+          "n": 50,
+          "reward_distribution": {
+            "0": 48,
+            "0.02332361516034985": 1,
+            "0.03703703703703703": 1
+          }
+        },
+        "flagged_replay": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "hardcoded": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "harness_tamper": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "ignore_delistings": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "ignore_identifiers": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "ignore_splits": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "legacy_schema": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "malformed_replay": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "near_false_flag": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.2962962962962962,
+          "n": 50,
+          "reward_distribution": {
+            "0.2962962962962962": 50
+          }
+        },
+        "near_miss": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 1.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.34999999999998693,
+          "n": 50,
+          "reward_distribution": {
+            "0.3499999999999836": 1,
+            "0.3499999999999838": 2,
+            "0.349999999999984": 1,
+            "0.3499999999999844": 4,
+            "0.3499999999999847": 4,
+            "0.3499999999999849": 1,
+            "0.349999999999985": 2,
+            "0.3499999999999851": 1,
+            "0.3499999999999854": 2,
+            "0.3499999999999855": 2,
+            "0.3499999999999858": 2,
+            "0.349999999999986": 1,
+            "0.3499999999999863": 3,
+            "0.3499999999999867": 1,
+            "0.3499999999999869": 1,
+            "0.3499999999999872": 2,
+            "0.3499999999999878": 2,
+            "0.349999999999988": 2,
+            "0.3499999999999883": 1,
+            "0.3499999999999884": 2,
+            "0.349999999999989": 1,
+            "0.3499999999999892": 2,
+            "0.3499999999999895": 1,
+            "0.3499999999999897": 2,
+            "0.34999999999999": 1,
+            "0.3499999999999903": 3,
+            "0.349999999999991": 2,
+            "0.3499999999999916": 1
+          }
+        },
+        "near_small": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 1.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.7646484374999872,
+          "n": 50,
+          "reward_distribution": {
+            "0.7646484374999833": 2,
+            "0.7646484374999837": 2,
+            "0.7646484374999841": 1,
+            "0.7646484374999846": 1,
+            "0.7646484374999848": 1,
+            "0.7646484374999851": 2,
+            "0.7646484374999853": 1,
+            "0.7646484374999856": 3,
+            "0.7646484374999859": 6,
+            "0.7646484374999862": 4,
+            "0.7646484374999865": 3,
+            "0.7646484374999872": 1,
+            "0.7646484374999877": 4,
+            "0.7646484374999879": 2,
+            "0.7646484374999882": 3,
+            "0.764648437499989": 3,
+            "0.7646484374999892": 1,
+            "0.7646484374999896": 2,
+            "0.7646484374999898": 2,
+            "0.7646484374999901": 1,
+            "0.7646484374999905": 1,
+            "0.7646484374999908": 2,
+            "0.7646484374999912": 2
+          }
+        },
+        "network_use": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "never_flag": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "oracle": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "oracle_read": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "random": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "raw_price_returns": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "reverse_split_adjustment": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "schema_forgery": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "ticker_only": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        }
+      }
+    },
+    "T2": {
+      "checks": {
+        "cheaters": true,
+        "complete_rollouts": true,
+        "conceptual_separation": true,
+        "false_flag_partial": true,
+        "find_k_expected": true,
+        "five_of_six_floor": true,
+        "near_miss_partial": true,
+        "never_flag_clean_semantics": true,
+        "one_false_flag_floor": true,
+        "oracle": true,
+        "oracle_all_episodes": true,
+        "oracle_truth_recorded": true,
+        "random": true,
+        "source_binding": true,
+        "wrong_aggregate": true,
+        "wrong_individual": true
+      },
+      "composition": {
+        "all_rollouts": {
+          "n": 2100,
+          "near_miss_fraction": 0.047619047619047616,
+          "oracle_fraction": 0.23809523809523808
+        },
+        "policy_cells_first_50": {
+          "n": 1650,
+          "near_miss_fraction": 0.06060606060606061,
+          "oracle_fraction": 0.030303030303030304
+        }
+      },
+      "find_k_counts": {
+        "0": {
+          "expected_retained": 0,
+          "n_corruptions": {
+            "2": 50
+          },
+          "requested_k": 0,
+          "retained_flags": {
+            "0": 50
+          }
+        },
+        "1": {
+          "expected_retained": 1,
+          "n_corruptions": {
+            "2": 50
+          },
+          "requested_k": 1,
+          "retained_flags": {
+            "1": 50
+          }
+        },
+        "2": {
+          "expected_retained": 2,
+          "n_corruptions": {
+            "2": 50
+          },
+          "requested_k": 2,
+          "retained_flags": {
+            "2": 50
+          }
+        },
+        "3": {
+          "expected_retained": 2,
+          "n_corruptions": {
+            "2": 50
+          },
+          "requested_k": 3,
+          "retained_flags": {
+            "2": 50
+          }
+        },
+        "4": {
+          "expected_retained": 2,
+          "n_corruptions": {
+            "2": 50
+          },
+          "requested_k": 4,
+          "retained_flags": {
+            "2": 50
+          }
+        },
+        "5": {
+          "expected_retained": 2,
+          "n_corruptions": {
+            "2": 50
+          },
+          "requested_k": 5,
+          "retained_flags": {
+            "2": 50
+          }
+        },
+        "6": {
+          "expected_retained": 2,
+          "n_corruptions": {
+            "2": 50
+          },
+          "requested_k": 6,
+          "retained_flags": {
+            "2": 50
+          }
+        }
+      },
+      "minimum_gaps": {
+        "flag_large_moves": 0.5,
+        "ignore_identifiers": 1.0,
+        "ignore_splits": 0.5,
+        "ticker_only": 1.0
+      },
+      "oracle_all_episode_fractions": {
+        "full_reward": 1.0,
+        "partial_reward": 0.0,
+        "primary_numeric_error_fractions": {
+          "at_or_beyond_zero_scale": 0.0,
+          "in_partial_band": 0.0,
+          "invalid_or_flagged": 0.0,
+          "within_full_tolerance": 1.0
+        },
+        "zero_reward": 0.0
+      },
+      "policies": {
+        "canary_read": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "divergent_replay": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "drop_identifier_history": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "drop_inactive": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "find_0": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "find_1": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.2962962962962962,
+          "n": 50,
+          "reward_distribution": {
+            "0.2962962962962962": 50
+          }
+        },
+        "find_2": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "find_3": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "find_4": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "find_5": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "find_6": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "flag_all": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.0018704542845813508,
+          "n": 50,
+          "reward_distribution": {
+            "0.001780894342877814": 24,
+            "0.001953125": 26
+          }
+        },
+        "flag_large_moves": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.08,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.92
+          },
+          "mean_reward": 0.001893164085151991,
+          "n": 50,
+          "reward_distribution": {
+            "0": 46,
+            "0.01097393689986282": 1,
+            "0.02332361516034985": 2,
+            "0.03703703703703703": 1
+          }
+        },
+        "flagged_replay": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "hardcoded": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "harness_tamper": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "ignore_delistings": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "ignore_identifiers": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "ignore_splits": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "legacy_schema": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "malformed_replay": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "near_false_flag": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.5120000000000001,
+          "n": 50,
+          "reward_distribution": {
+            "0.5120000000000001": 50
+          }
+        },
+        "near_miss": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 1.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.34999999999998677,
+          "n": 50,
+          "reward_distribution": {
+            "0.3499999999999838": 1,
+            "0.349999999999984": 1,
+            "0.3499999999999844": 4,
+            "0.3499999999999847": 3,
+            "0.3499999999999849": 1,
+            "0.349999999999985": 1,
+            "0.3499999999999851": 2,
+            "0.3499999999999854": 1,
+            "0.3499999999999855": 4,
+            "0.3499999999999858": 4,
+            "0.349999999999986": 4,
+            "0.3499999999999867": 1,
+            "0.3499999999999869": 1,
+            "0.349999999999987": 1,
+            "0.3499999999999872": 1,
+            "0.3499999999999873": 2,
+            "0.3499999999999876": 1,
+            "0.3499999999999877": 2,
+            "0.3499999999999878": 3,
+            "0.349999999999988": 1,
+            "0.3499999999999884": 1,
+            "0.3499999999999892": 1,
+            "0.3499999999999895": 1,
+            "0.3499999999999897": 4,
+            "0.3499999999999903": 3,
+            "0.349999999999991": 1
+          }
+        },
+        "near_small": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 1.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.7646484374999871,
+          "n": 50,
+          "reward_distribution": {
+            "0.7646484374999837": 2,
+            "0.7646484374999841": 2,
+            "0.7646484374999846": 2,
+            "0.7646484374999848": 5,
+            "0.7646484374999851": 2,
+            "0.7646484374999853": 1,
+            "0.7646484374999856": 3,
+            "0.7646484374999859": 4,
+            "0.7646484374999862": 4,
+            "0.7646484374999865": 4,
+            "0.764648437499987": 1,
+            "0.7646484374999877": 1,
+            "0.7646484374999879": 2,
+            "0.7646484374999882": 1,
+            "0.7646484374999885": 1,
+            "0.7646484374999887": 1,
+            "0.764648437499989": 2,
+            "0.7646484374999892": 1,
+            "0.7646484374999893": 1,
+            "0.7646484374999896": 2,
+            "0.7646484374999901": 3,
+            "0.7646484374999905": 1,
+            "0.7646484374999911": 1,
+            "0.7646484374999912": 2,
+            "0.7646484374999916": 1
+          }
+        },
+        "network_use": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "never_flag": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "oracle": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "oracle_read": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "random": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "raw_price_returns": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "reverse_split_adjustment": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "schema_forgery": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "ticker_only": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        }
+      }
+    },
+    "T3": {
+      "checks": {
+        "cheaters": true,
+        "complete_rollouts": true,
+        "conceptual_separation": true,
+        "false_flag_partial": true,
+        "find_k_expected": true,
+        "five_of_six_floor": true,
+        "near_miss_partial": true,
+        "never_flag_clean_semantics": true,
+        "one_false_flag_floor": true,
+        "oracle": true,
+        "oracle_all_episodes": true,
+        "oracle_truth_recorded": true,
+        "random": true,
+        "source_binding": true,
+        "wrong_aggregate": true,
+        "wrong_individual": true
+      },
+      "composition": {
+        "all_rollouts": {
+          "n": 2100,
+          "near_miss_fraction": 0.047619047619047616,
+          "oracle_fraction": 0.23809523809523808
+        },
+        "policy_cells_first_50": {
+          "n": 1650,
+          "near_miss_fraction": 0.06060606060606061,
+          "oracle_fraction": 0.030303030303030304
+        }
+      },
+      "find_k_counts": {
+        "0": {
+          "expected_retained": 0,
+          "n_corruptions": {
+            "6": 50
+          },
+          "requested_k": 0,
+          "retained_flags": {
+            "0": 50
+          }
+        },
+        "1": {
+          "expected_retained": 1,
+          "n_corruptions": {
+            "6": 50
+          },
+          "requested_k": 1,
+          "retained_flags": {
+            "1": 50
+          }
+        },
+        "2": {
+          "expected_retained": 2,
+          "n_corruptions": {
+            "6": 50
+          },
+          "requested_k": 2,
+          "retained_flags": {
+            "2": 50
+          }
+        },
+        "3": {
+          "expected_retained": 3,
+          "n_corruptions": {
+            "6": 50
+          },
+          "requested_k": 3,
+          "retained_flags": {
+            "3": 50
+          }
+        },
+        "4": {
+          "expected_retained": 4,
+          "n_corruptions": {
+            "6": 50
+          },
+          "requested_k": 4,
+          "retained_flags": {
+            "4": 50
+          }
+        },
+        "5": {
+          "expected_retained": 5,
+          "n_corruptions": {
+            "6": 50
+          },
+          "requested_k": 5,
+          "retained_flags": {
+            "5": 50
+          }
+        },
+        "6": {
+          "expected_retained": 6,
+          "n_corruptions": {
+            "6": 50
+          },
+          "requested_k": 6,
+          "retained_flags": {
+            "6": 50
+          }
+        }
+      },
+      "minimum_gaps": {
+        "flag_large_moves": 0.4545454545454546,
+        "ignore_identifiers": 1.0,
+        "ignore_splits": 0.5,
+        "ticker_only": 1.0
+      },
+      "oracle_all_episode_fractions": {
+        "full_reward": 1.0,
+        "partial_reward": 0.0,
+        "primary_numeric_error_fractions": {
+          "at_or_beyond_zero_scale": 0.0,
+          "in_partial_band": 0.0,
+          "invalid_or_flagged": 0.0,
+          "within_full_tolerance": 1.0
+        },
+        "zero_reward": 0.0
+      },
+      "policies": {
+        "canary_read": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "divergent_replay": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "drop_identifier_history": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "drop_inactive": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "find_0": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "find_1": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.02332361516034985,
+          "n": 50,
+          "reward_distribution": {
+            "0.02332361516034985": 50
+          }
+        },
+        "find_2": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.125,
+          "n": 50,
+          "reward_distribution": {
+            "0.125": 50
+          }
+        },
+        "find_3": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.2962962962962962,
+          "n": 50,
+          "reward_distribution": {
+            "0.2962962962962962": 50
+          }
+        },
+        "find_4": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.5120000000000001,
+          "n": 50,
+          "reward_distribution": {
+            "0.5120000000000001": 50
+          }
+        },
+        "find_5": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.7513148009015777,
+          "n": 50,
+          "reward_distribution": {
+            "0.7513148009015777": 50
+          }
+        },
+        "find_6": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "flag_all": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.034114465085977146,
+          "n": 50,
+          "reward_distribution": {
+            "0.03411446508597715": 50
+          }
+        },
+        "flag_large_moves": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.008955556400136353,
+          "n": 50,
+          "reward_distribution": {
+            "0.003641329085116068": 5,
+            "0.004629629629629629": 4,
+            "0.006010518407212622": 9,
+            "0.008000000000000002": 9,
+            "0.01097393689986282": 16,
+            "0.015625": 7
+          }
+        },
+        "flagged_replay": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "hardcoded": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "harness_tamper": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "ignore_delistings": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "ignore_identifiers": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "ignore_splits": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "legacy_schema": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "malformed_replay": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "near_false_flag": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.7865270823850706,
+          "n": 50,
+          "reward_distribution": {
+            "0.7865270823850706": 50
+          }
+        },
+        "near_miss": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 1.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.34999999999998704,
+          "n": 50,
+          "reward_distribution": {
+            "0.3499999999999838": 1,
+            "0.349999999999984": 1,
+            "0.3499999999999844": 3,
+            "0.3499999999999847": 3,
+            "0.3499999999999849": 1,
+            "0.349999999999985": 1,
+            "0.3499999999999851": 1,
+            "0.3499999999999854": 2,
+            "0.3499999999999855": 3,
+            "0.3499999999999858": 3,
+            "0.349999999999986": 1,
+            "0.3499999999999863": 2,
+            "0.3499999999999867": 2,
+            "0.3499999999999869": 1,
+            "0.349999999999987": 1,
+            "0.3499999999999872": 2,
+            "0.3499999999999873": 1,
+            "0.3499999999999876": 2,
+            "0.3499999999999878": 1,
+            "0.349999999999988": 2,
+            "0.3499999999999883": 1,
+            "0.3499999999999884": 2,
+            "0.3499999999999892": 1,
+            "0.3499999999999894": 2,
+            "0.3499999999999895": 2,
+            "0.3499999999999897": 2,
+            "0.3499999999999898": 1,
+            "0.34999999999999": 2,
+            "0.3499999999999903": 2,
+            "0.3499999999999907": 1
+          }
+        },
+        "near_small": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 1.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.7646484374999871,
+          "n": 50,
+          "reward_distribution": {
+            "0.7646484374999833": 2,
+            "0.7646484374999837": 4,
+            "0.7646484374999841": 1,
+            "0.7646484374999846": 2,
+            "0.7646484374999848": 2,
+            "0.7646484374999851": 2,
+            "0.7646484374999853": 1,
+            "0.7646484374999856": 2,
+            "0.7646484374999859": 3,
+            "0.7646484374999862": 5,
+            "0.7646484374999865": 2,
+            "0.764648437499987": 1,
+            "0.7646484374999872": 1,
+            "0.7646484374999877": 1,
+            "0.7646484374999879": 3,
+            "0.7646484374999885": 2,
+            "0.7646484374999887": 1,
+            "0.764648437499989": 3,
+            "0.7646484374999892": 1,
+            "0.7646484374999893": 1,
+            "0.7646484374999898": 2,
+            "0.7646484374999901": 3,
+            "0.7646484374999908": 2,
+            "0.7646484374999912": 3
+          }
+        },
+        "network_use": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "never_flag": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "oracle": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "oracle_read": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "random": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "raw_price_returns": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "reverse_split_adjustment": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "schema_forgery": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "ticker_only": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        }
+      }
+    },
+    "T4": {
+      "checks": {
+        "cheaters": true,
+        "clean_false_positive": true,
+        "clean_false_positive_all_oracles": true,
+        "complete_rollouts": false,
+        "conceptual_separation": false,
+        "false_flag_partial": true,
+        "find_k_expected": true,
+        "five_of_six_floor": true,
+        "near_miss_partial": true,
+        "never_flag_clean_semantics": true,
+        "one_false_flag_floor": true,
+        "oracle": true,
+        "oracle_all_episodes": true,
+        "oracle_truth_recorded": false,
+        "random": true,
+        "source_binding": false,
+        "wrong_aggregate": true,
+        "wrong_individual": true
+      },
+      "composition": {
+        "all_rollouts": {
+          "n": 2100,
+          "near_miss_fraction": 0.047619047619047616,
+          "oracle_fraction": 0.23809523809523808
+        },
+        "policy_cells_first_50": {
+          "n": 1650,
+          "near_miss_fraction": 0.06060606060606061,
+          "oracle_fraction": 0.030303030303030304
+        }
+      },
+      "find_k_counts": {
+        "0": {
+          "expected_retained": 0,
+          "n_corruptions": {
+            "0": 50
+          },
+          "requested_k": 0,
+          "retained_flags": {
+            "0": 50
+          }
+        },
+        "1": {
+          "expected_retained": 0,
+          "n_corruptions": {
+            "0": 50
+          },
+          "requested_k": 1,
+          "retained_flags": {
+            "0": 50
+          }
+        },
+        "2": {
+          "expected_retained": 0,
+          "n_corruptions": {
+            "0": 50
+          },
+          "requested_k": 2,
+          "retained_flags": {
+            "0": 50
+          }
+        },
+        "3": {
+          "expected_retained": 0,
+          "n_corruptions": {
+            "0": 50
+          },
+          "requested_k": 3,
+          "retained_flags": {
+            "0": 50
+          }
+        },
+        "4": {
+          "expected_retained": 0,
+          "n_corruptions": {
+            "0": 50
+          },
+          "requested_k": 4,
+          "retained_flags": {
+            "0": 50
+          }
+        },
+        "5": {
+          "expected_retained": 0,
+          "n_corruptions": {
+            "0": 50
+          },
+          "requested_k": 5,
+          "retained_flags": {
+            "0": 50
+          }
+        },
+        "6": {
+          "expected_retained": 0,
+          "n_corruptions": {
+            "0": 50
+          },
+          "requested_k": 6,
+          "retained_flags": {
+            "0": 50
+          }
+        }
+      },
+      "minimum_gaps": {
+        "flag_large_moves": 0.75,
+        "ignore_identifiers": 1.0,
+        "ignore_splits": 0.5,
+        "ticker_only": 1.0
+      },
+      "oracle_all_episode_fractions": {
+        "full_reward": 1.0,
+        "partial_reward": 0.0,
+        "primary_numeric_error_fractions": {
+          "at_or_beyond_zero_scale": 0.0,
+          "in_partial_band": 0.0,
+          "invalid_or_flagged": 0.0,
+          "within_full_tolerance": 1.0
+        },
+        "zero_reward": 0.0
+      },
+      "policies": {
+        "canary_read": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "divergent_replay": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "drop_identifier_history": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "drop_inactive": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "find_0": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "find_1": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "find_2": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "find_3": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "find_4": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "find_5": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "find_6": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "flag_all": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 3.3567184720217515e-05,
+          "n": 50,
+          "reward_distribution": {
+            "3.356718472021751e-05": 50
+          }
+        },
+        "flag_large_moves": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.006017018734901205,
+          "n": 50,
+          "reward_distribution": {
+            "0.0007513148009015778": 2,
+            "0.001": 2,
+            "0.001371742112482853": 1,
+            "0.001953125": 6,
+            "0.002915451895043732": 5,
+            "0.004629629629629629": 12,
+            "0.008": 17,
+            "0.015625": 5
+          }
+        },
+        "flagged_replay": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "hardcoded": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "harness_tamper": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "ignore_delistings": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "ignore_identifiers": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "ignore_splits": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "legacy_schema": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "malformed_replay": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "near_false_flag": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.125,
+          "n": 50,
+          "reward_distribution": {
+            "0.125": 50
+          }
+        },
+        "near_miss": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 1.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.34999999999998715,
+          "n": 50,
+          "reward_distribution": {
+            "0.3499999999999838": 2,
+            "0.349999999999984": 1,
+            "0.3499999999999844": 3,
+            "0.3499999999999847": 2,
+            "0.3499999999999849": 1,
+            "0.349999999999985": 2,
+            "0.3499999999999851": 2,
+            "0.3499999999999854": 2,
+            "0.3499999999999855": 2,
+            "0.3499999999999858": 1,
+            "0.349999999999986": 2,
+            "0.3499999999999863": 2,
+            "0.3499999999999867": 2,
+            "0.3499999999999869": 2,
+            "0.3499999999999872": 1,
+            "0.3499999999999873": 1,
+            "0.3499999999999876": 1,
+            "0.3499999999999877": 2,
+            "0.349999999999988": 1,
+            "0.3499999999999884": 3,
+            "0.3499999999999887": 1,
+            "0.3499999999999889": 2,
+            "0.349999999999989": 1,
+            "0.3499999999999892": 2,
+            "0.3499999999999895": 1,
+            "0.3499999999999898": 1,
+            "0.3499999999999903": 2,
+            "0.3499999999999907": 2,
+            "0.349999999999991": 2,
+            "0.3499999999999914": 1
+          }
+        },
+        "near_small": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 1.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 1.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 0.7646484374999873,
+          "n": 50,
+          "reward_distribution": {
+            "0.7646484374999833": 1,
+            "0.7646484374999837": 2,
+            "0.7646484374999841": 2,
+            "0.7646484374999846": 1,
+            "0.7646484374999848": 3,
+            "0.7646484374999853": 1,
+            "0.7646484374999856": 3,
+            "0.7646484374999859": 5,
+            "0.7646484374999862": 6,
+            "0.7646484374999865": 1,
+            "0.7646484374999872": 1,
+            "0.7646484374999877": 2,
+            "0.7646484374999879": 3,
+            "0.7646484374999882": 1,
+            "0.7646484374999885": 1,
+            "0.7646484374999887": 2,
+            "0.764648437499989": 2,
+            "0.7646484374999893": 1,
+            "0.7646484374999896": 1,
+            "0.7646484374999898": 1,
+            "0.7646484374999901": 4,
+            "0.7646484374999905": 1,
+            "0.7646484374999908": 1,
+            "0.7646484374999912": 3,
+            "0.7646484374999916": 1
+          }
+        },
+        "network_use": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "never_flag": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "oracle": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 1.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 1.0
+            },
+            "zero_reward": 0.0
+          },
+          "mean_reward": 1.0,
+          "n": 50,
+          "reward_distribution": {
+            "1": 50
+          }
+        },
+        "oracle_read": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 50,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "random": {
+          "errors": 1,
+          "false_positives": 50,
+          "flagged": 1,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.98,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.02,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "raw_price_returns": {
+          "errors": 0,
+          "false_positives": 50,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "reverse_split_adjustment": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "schema_forgery": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 0.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 1.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        },
+        "ticker_only": {
+          "errors": 0,
+          "false_positives": 0,
+          "flagged": 0,
+          "fractions": {
+            "full_reward": 0.0,
+            "partial_reward": 0.0,
+            "primary_numeric_error_fractions": {
+              "at_or_beyond_zero_scale": 1.0,
+              "in_partial_band": 0.0,
+              "invalid_or_flagged": 0.0,
+              "within_full_tolerance": 0.0
+            },
+            "zero_reward": 1.0
+          },
+          "mean_reward": 0.0,
+          "n": 50,
+          "reward_distribution": {
+            "0": 50
+          }
+        }
+      }
+    }
+  }
+}
