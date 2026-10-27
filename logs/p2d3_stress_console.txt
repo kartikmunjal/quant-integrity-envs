@@ -1,0 +1,77 @@
+stress-E1-c12: completed 50/5000, retries 0
+stress-E1-c12: completed 100/5000, retries 0
+stress-E1-c12: completed 150/5000, retries 0
+stress-E1-c12: completed 200/5000, retries 0
+stress-E1-c12: completed 250/5000, retries 0
+stress-E1-c12: completed 300/5000, retries 0
+stress-E1-c12: completed 350/5000, retries 0
+stress-E1-c12: completed 400/5000, retries 0
+stress-E1-c12: completed 450/5000, retries 0
+stress-E1-c12: completed 500/5000, retries 0
+stress-E1-c12: completed 550/5000, retries 0
+stress-E1-c12: completed 600/5000, retries 0
+stress-E1-c12: completed 650/5000, retries 0
+stress-E1-c12: completed 700/5000, retries 0
+stress-E1-c12: completed 750/5000, retries 0
+stress-E1-c12: completed 800/5000, retries 0
+stress-E1-c12: completed 850/5000, retries 0
+stress-E1-c12: completed 900/5000, retries 0
+stress-E1-c12: completed 950/5000, retries 0
+stress-E1-c12: completed 1000/5000, retries 0
+stress-E1-c12: completed 1050/5000, retries 0
+stress-E1-c12: completed 1100/5000, retries 0
+stress-E1-c12: completed 1150/5000, retries 0
+stress-E1-c12: completed 1200/5000, retries 0
+stress-E1-c12: completed 1250/5000, retries 0
+stress-E1-c12: completed 1300/5000, retries 0
+stress-E1-c12: completed 1350/5000, retries 0
+stress-E1-c12: completed 1400/5000, retries 0
+stress-E1-c12: completed 1450/5000, retries 0
+stress-E1-c12: completed 1500/5000, retries 0
+stress-E1-c12: completed 1550/5000, retries 0
+stress-E1-c12: completed 1600/5000, retries 0
+stress-E1-c12: completed 1650/5000, retries 0
+stress-E1-c12: completed 1700/5000, retries 0
+stress-E1-c12: completed 1750/5000, retries 0
+stress-E1-c12: completed 1800/5000, retries 0
+stress-E1-c12: completed 1850/5000, retries 0
+stress-E1-c12: completed 1900/5000, retries 0
+stress-E1-c12: completed 1950/5000, retries 0
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/home/kartik/qi/Quant-fin-agent/src/qi_runtime/experiments.py", line 168, in main
+    result=await run_batch(mode,env,concurrency)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartik/qi/Quant-fin-agent/src/qi_runtime/experiments.py", line 125, in run_batch
+    await asyncio.gather(*(one(i,plan[i]) for i in range(offset,min(planned,offset+200))))
+  File "/home/kartik/qi/Quant-fin-agent/src/qi_runtime/experiments.py", line 115, in one
+    try:row=await execute_one(index,meta)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartik/qi/Quant-fin-agent/src/qi_runtime/experiments.py", line 77, in execute_one
+    async with sem:
+               ^^^
+  File "/usr/lib/python3.14/asyncio/locks.py", line 14, in __aenter__
+    await self.acquire()
+  File "/usr/lib/python3.14/asyncio/locks.py", line 407, in acquire
+    await fut
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/kartik/qi/Quant-fin-agent/src/qi_runtime/experiments.py", line 175, in <module>
+    if __name__=='__main__':asyncio.run(main())
+                            ~~~~~~~~~~~^^^^^^^^
+  File "/usr/lib/python3.14/asyncio/runners.py", line 204, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/asyncio/runners.py", line 132, in run
+    raise KeyboardInterrupt()
+KeyboardInterrupt

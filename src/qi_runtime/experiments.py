@@ -120,15 +120,24 @@ async def run_batch(mode,env,concurrency,count=5000,tag=None):
             row.update(complete=False,terminal_kind='orchestrator',orchestration_exception=exception)
         rows.append(row);shards.append(row)
         return row
+    interrupted=False
     try:
         for offset in range(0,planned,200):
             await asyncio.gather(*(one(i,plan[i]) for i in range(offset,min(planned,offset+200))))
+    except asyncio.CancelledError as error:
+        interrupted=True;stop.set()
+        record_exception(error,root=journal,metadata={'environment':env,'experiment':tag,'origin':'batch interruption'})
+        retained={row['index'] for row in rows}
+        for index,meta in enumerate(plan):
+            if index not in retained:
+                row=dict(index=index,**meta,started=False,complete=False,terminal_kind='not_started_interrupted',value=None,attempts=[])
+                rows.append(row);shards.append(row)
     finally:shards.flush()
     rows.sort(key=lambda row:row['index'])
     complete=sum(v['complete'] for v in rows);retry_count=sum(len(v['attempts'])==2 for v in rows)
     exception_attempts=sum(bool(a['exceptions']) for v in rows for a in v['attempts'])
-    result={'environment':env,'mode':mode,'tag':tag,'generator_version_hash':'eac6db9224a724d63a3e7c7df71e0af46e65d29bb66b7c6e0d18061d55313921','runtime_version_hash':runtime_version_hash(),'orchestrator_sha256':sha(__file__),'concurrency':concurrency,'planned':planned,'started':sum(v['started'] for v in rows),'complete':complete,'terminal_failures':planned-complete,'retry_count':retry_count,'retry_rate':retry_count/planned,'exception_attempts':exception_attempts,'policy_execution_failures':sum(any(a['policy_evidence'] for a in v['attempts']) for v in rows),'zero_reward_rows':sum(v['complete'] and v['value']['reward']==0 for v in rows),'elapsed_seconds':time.perf_counter()-started,'shards':shards.parts,'api_usd':0,'gpu_usd':0}
-    result['passed']=complete==planned and retry_count/planned<=.005
+    result={'environment':env,'mode':mode,'tag':tag,'interrupted':interrupted,'generator_version_hash':'eac6db9224a724d63a3e7c7df71e0af46e65d29bb66b7c6e0d18061d55313921','runtime_version_hash':runtime_version_hash(),'orchestrator_sha256':sha(__file__),'concurrency':concurrency,'planned':planned,'started':sum(v['started'] for v in rows),'complete':complete,'terminal_failures':planned-complete,'retry_count':retry_count,'retry_rate':retry_count/planned,'exception_attempts':exception_attempts,'policy_execution_failures':sum(any(a['policy_evidence'] for a in v['attempts']) for v in rows),'zero_reward_rows':sum(v['complete'] and v['value']['reward']==0 for v in rows),'elapsed_seconds':time.perf_counter()-started,'shards':shards.parts,'api_usd':0,'gpu_usd':0}
+    result['passed']=not interrupted and complete==planned and retry_count/planned<=.005
     if mode=='determinism':
         result['reward_differences']=[{k:v.get(k) for k in ('index','seed','tier','policy','historical_reward','value','terminal_kind')} for v in rows if not v.get('reward_identical',False)]
         result['replay_differences']=sum(not v.get('replay_identical',False) for v in rows)
@@ -165,7 +174,7 @@ async def main():
         for concurrency in ((12,24) if mode=='stress' else (24,)):
             for env in ('E1','E5','E6'):
                 with historical_e6_context() if mode=='determinism' and env=='E6' else contextlib.nullcontext():
-                    result=await run_batch(mode,env,concurrency)
+                    result=await run_batch(mode,env,concurrency,tag=f'{args.tag}-{mode}-{env}-c{concurrency}' if args.tag else None)
                 if not result['passed']:raise SystemExit(1)
         return
     context=e6_fresh_context() if args.mode=='gate' else historical_e6_context() if args.mode=='determinism' and args.env=='E6' else contextlib.nullcontext()

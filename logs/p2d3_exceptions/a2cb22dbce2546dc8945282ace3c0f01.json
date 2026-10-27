@@ -1,0 +1,19 @@
+{
+  "full_traceback_parts": [
+    "/home/kartik/qi/Quant-fin-agent/logs/p2d3_exceptions/a2cb22dbce2546dc8945282ace3c0f01-000.txt"
+  ],
+  "id": "a2cb22dbce2546dc8945282ace3c0f01",
+  "kind": "policy",
+  "message_previews": [
+    "execve(\"/usr/bin/timeout\", [\"timeout\", \"--signal=TERM\", \"--kill-after=1\", \"20s\", \"python\", \"-I\", \"-B\", \"-c\", \"import os,sys,stat,base64\\nfd=os.open(sys.argv[1],os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK)\\ns=os.fstat(fd); limit=int(sys.argv[2])\\nif not stat.S_ISREG(s.st_mode) or s.st_size>limit: sys.exit(3)\\nwith os.fdopen(fd,'rb') as stream: data=stream.read(limit+1)\\nif len(data)>limit: sys.exit(4)\\nprint(base64.b64encode(data).decode())\\n\", \"/work/link\", \"100000\"], 0x7ffd7bb44760 /* 6 vars */) = 0\naccess(\"/etc/ld.so.preload\", R_OK)      = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/etc/ld.so.cache\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/lib/x86_64-linux-gnu/libc.so.6\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/locale-archive\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/share/locale/locale.alias\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/C.UTF-8/LC_CTYPE\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/C.utf8/LC_CTYPE\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache\", O_RDONLY|O_CLOEXEC) = 3\nstrace: Process 118 attached\n[pid   118] execve(\"/usr/local/bin/python\", [\"python\", \"-I\", \"-B\", \"-c\", \"import os,sys,stat,base64\\nfd=os.open(sys.argv[1],os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK)\\ns=os.fstat(fd); limit=int(sys.argv[2])\\nif not stat.S_ISREG(s.st_mode) or s.st_size>limit: sys.exit(3)\\nwith os.fdopen(fd,'rb') as stream: data=stream.read(limit+1)\\nif len(data)>limit: sys.exit(4)\\nprint(base64.b64encode(data).decode())\\n\", \"/work/link\", \"100000\"], 0x7fff9ead9748 /* 6 vars */) = 0\n[pid   118] readlinkat(AT_FDCWD</work>, \"/proc/self/exe\", \"/usr/local/bin/python3.14\", 4096) = 25\n[pid   118] access(\"/etc/ld.so.preload\", R_OK) = -1 ENOENT (No such file or directory)\n[pid   118] openat(AT_FDCWD</work>, \"/usr/loc"
+  ],
+  "metadata": {
+    "exit_code": 1,
+    "origin": "solver_command",
+    "runtime": "vf-b65fd431de21"
+  },
+  "traceback_sha256": "c808feead0f09f76d9318da4bdbf92dc9a5e382a511c2478177603d5484cab44",
+  "types": [
+    "PolicyFailure"
+  ]
+}

@@ -332,3 +332,94 @@ def test_audit_evidence_dominates_failed_completion_marker(monkeypatch, tmp_path
     assert result['terminal_kind'] == 'policy'
     assert result['value']['reward'] == 0
     assert result['attempts'][0]['policy_evidence'] is True
+
+
+@pytest.mark.parametrize('boundary', ['open', 'fail'])
+def test_genuine_borrowed_lifetime_guard_has_typed_retry_evidence(tmp_path, boundary):
+    from types import SimpleNamespace as NS
+    from verifiers.v1.rollout import Rollout
+    seen = []
+    async def rollout():
+        runtime = qi_runtime.CheckedRuntime(qi_runtime.WORK / 'synthetic-lifetime')
+        runtime.stopped = True
+        runtime._stopped = True
+        actor = NS(runtime=runtime, _owns_runtime=False, _closed=False,
+                   trace=NS(id='lifetime-test', timing=NS(boot=NS(start=None),
+                            finalize=NS(end=None), scoring=NS(start=None))))
+        try:
+            if boundary == 'open':
+                await Rollout.open(actor)
+            else:
+                Rollout.fail(actor, ValueError('unknown initiating failure'))
+        except ValueError as error:
+            seen.append(error)
+            raise
+    result = asyncio.run(run_with_retry(rollout, ledger=RetryBudget(5000), journal_root=tmp_path))
+    assert len(seen) == 2 and all(type(error) is ValueError for error in seen)
+    assert result['retried'] is True
+    assert result['terminal_kind'] == 'infrastructure'
+    assert all(any('InfrastructureError' in item['types'] for item in attempt['exceptions'])
+               for attempt in result['attempts'])
+    if boundary == 'fail':
+        assert all(type(error.__cause__) is ValueError for error in seen)
+        evidence = '\n'.join(path.read_text() for path in tmp_path.rglob('*.txt'))
+        assert 'unknown initiating failure' in evidence
+
+
+def test_closed_scoring_unknown_failure_keeps_unknown_classification(tmp_path):
+    from types import SimpleNamespace as NS
+    from verifiers.v1.rollout import Rollout
+    async def rollout():
+        runtime = qi_runtime.CheckedRuntime(qi_runtime.WORK / 'synthetic-scoring-unknown')
+        runtime.stopped = True
+        runtime._stopped = True
+        actor = NS(runtime=runtime, _owns_runtime=False, _closed=True,
+                   trace=NS(id='scoring-test', timing=NS(finalize=NS(end=1.), scoring=NS(start=1.)),
+                            record_error=lambda error: None))
+        error = ValueError('unknown scorer bug')
+        Rollout.fail(actor, error)
+        assert actor._failure is error
+        raise error
+    result = asyncio.run(run_with_retry(rollout, ledger=RetryBudget(5000), journal_root=tmp_path))
+    assert result['retried'] is False
+    assert result['terminal_kind'] == 'unknown'
+
+
+def test_cancelled_attempt_is_journaled_and_terminal_without_retry(tmp_path):
+    calls = []
+    async def rollout():
+        calls.append(1)
+        note_resource('cancelled-container', container_id='cancelled-id')
+        raise asyncio.CancelledError('synthetic cancellation')
+    result = asyncio.run(run_with_retry(rollout, ledger=RetryBudget(5000), journal_root=tmp_path))
+    assert calls == [1]
+    assert result['complete'] is False and result['retried'] is False
+    assert result['terminal_kind'] == 'unknown'
+    assert result['attempts'][0]['resources'][0]['container_id'] == 'cancelled-id'
+    assert 'CancelledError' in result['attempts'][0]['exceptions'][0]['types']
+
+
+def test_cancellation_overrides_prior_infrastructure_journal(tmp_path):
+    calls = []
+    async def rollout():
+        calls.append(1)
+        record_exception(DockerFailure('earlier diagnostic symptom'))
+        raise asyncio.CancelledError('stop now')
+    result = asyncio.run(run_with_retry(rollout, ledger=RetryBudget(5000), journal_root=tmp_path))
+    assert calls == [1]
+    assert result['terminal_kind'] == 'unknown' and result['retried'] is False
+
+
+def test_cancelled_cleanup_is_recorded_and_attempt_context_restored(tmp_path):
+    from types import SimpleNamespace as NS
+    import qi_runtime.infrastructure as infra
+    async def cleanup():
+        raise asyncio.CancelledError('cleanup interrupted')
+    async def rollout():
+        infra.track_runtime(NS(_container='fake', _stopped=False, stop=cleanup))
+        return {'reward': 1.0}
+    result = asyncio.run(run_with_retry(rollout, ledger=RetryBudget(5000), journal_root=tmp_path))
+    assert result['complete'] is False and result['retried'] is False
+    assert result['terminal_kind'] == 'unknown'
+    assert any('CancelledError' in item['types'] for item in result['attempts'][0]['exceptions'])
+    assert infra._CURRENT.get() is None

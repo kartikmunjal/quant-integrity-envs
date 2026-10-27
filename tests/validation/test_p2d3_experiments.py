@@ -94,3 +94,25 @@ def test_end_of_gate_source_check_retains_rows_and_blocks_mutation(tmp_path, mon
     assert result['passed'] is (not mutate)
     rows=[row for p in result['shards'] for row in json.loads((tmp_path/p).read_text())]
     assert len(rows)==50 and all(row['complete'] and len(row['attempts'])==1 for row in rows)
+
+def test_interruption_retains_inflight_attempt_and_marks_unstarted(tmp_path,monkeypatch):
+    from qi_runtime.infrastructure import note_resource
+    monkeypatch.chdir(tmp_path);(tmp_path/'logs').mkdir();(tmp_path/'results').mkdir()
+    started=asyncio.Event()
+    class Policies:
+        def source_for(self,*args):return 'pass'
+    class Task:
+        async def run_policy(self,*args):
+            note_resource('active','active-id');started.set();await asyncio.sleep(100)
+    monkeypatch.setattr(e,'binding',lambda env:(Task(),Policies(),{'random':None},[],[]))
+    monkeypatch.setattr(e,'plan_for',lambda *args:[dict(seed=1001000+i,tier='T1',policy='random') for i in range(3)])
+    async def run():
+        batch=asyncio.create_task(e.run_batch('stress','E1',1,tag='test-interrupt'))
+        await started.wait();batch.cancel();return await batch
+    result=asyncio.run(run())
+    rows=[row for p in result['shards'] for row in json.loads((tmp_path/p).read_text())]
+    assert result['interrupted'] and not result['passed'] and len(rows)==3
+    active=next(r for r in rows if r['index']==0)
+    assert active['attempts'][0]['resources'][0]['container_id']=='active-id'
+    assert active['attempts'][0]['exceptions'][0]['types']==['CancelledError']
+    assert all(not r['started'] for r in rows if r['index']!=0)

@@ -110,3 +110,22 @@ distributions and50 author-reviewed full trajectories. No gate tuning or partial
 replacement. Report CI for the implementation commit if accessible, otherwise
 provide its hash to the owner. No model/API/GPU/sealed/training/publication/P3.
 Commit/push reports/results, delete P2B_PROMPT2.md and STOP with file names.
+
+## Pre-gate implementation review extension
+
+Before any fresh gate, independent review found an uncovered genuine framework
+lifetime-guard origin. Preserve the interrupted first stress development run
+(1969 saved complete rows, no retries) and its full console chain; it is not a
+completed5000-row stress result. Use a separately named r2 stress suite for the
+corrected runtime, never overwrite/relabel the predecessor. Trusted installed
+Rollout.open/fail guard origins receive typed infrastructure evidence, while the
+public lifetime guard still raises and unknown post-finalize scorer errors remain
+unknown. No untrusted error-message matching classifies failures.
+
+Cancellation is terminal and never permits a financial retry, even after prior
+infrastructure evidence. Persist the interrupted attempt and cleanup chain,
+restore attempt context, flush retained rows and mark unstarted planned rows.
+The older interrupted development runner lacked in-flight cancellation capture;
+its report explicitly states that limitation rather than inventing evidence.
+These additions change infrastructure coverage/evidence only; every financial
+rule and the fixed retry threshold remain unchanged.

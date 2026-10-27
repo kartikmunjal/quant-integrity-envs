@@ -225,3 +225,51 @@ review because this session authored it. Historical initiating root cause
 remains unestablished, and there is no production stress evidence at this
 recheck. No production experiment, Docker command or financial-source edit was
 performed by this reviewer.
+
+## Trusted lifetime-guard taxonomy correction
+
+After an incremental stress evidence review, a taxonomy coverage gap was
+identified: genuine upstream borrowed-runtime guards without a typed underlying
+infrastructure cause were classified unknown, contrary to the prospective
+design. This reviewer reported it; the parent interrupted the running batch and
+preserved its evidence before revising code. That interrupted batch must remain
+distinct from any later runtime-version batch.
+
+The independent tests agent added prospective regressions and a narrow
+`infrastructure.py` hook for both upstream `Rollout.open` and `Rollout.fail`.
+It verifies stopped borrowed-runtime preconditions and the actual final
+traceback frame's identity against the installed upstream method's code object.
+The genuine guard remains a raised ValueError; typed infrastructure evidence
+chains that unchanged exception. Unknown scorer errors at the legitimate
+closed/finalized scoring boundary remain unknown and terminal. No error-message
+matching is used. Reviewer approves this correction's trusted-origin scope.
+Independent unit rerun: 37 passed, one Docker test skipped, persisted in
+`logs/p2d3_review_lifetime_units.xml`.
+
+An ancillary cancellation durability concern was sent to the parent and tests
+agent: cancellation after earlier infrastructure evidence could inherit its
+retry classification, and a cancellation during cleanup could bypass the
+ordinary Exception handler/context reset. Those cases require explicit handling
+if cancellation is promised to remain terminal with retained attempt evidence.
+This note does not approve unreviewed subsequent cancellation changes.
+
+## Cancellation correction and revised pre-stress approval
+
+Independently reviewed the final guard/cancellation correction. Cancellation
+explicitly overrides earlier infrastructure journal classifications and cannot
+trigger a retry. Policy evidence remains retained as policy. Cancellation during
+cleanup is journaled and terminal, and a nested `finally` restores the attempt
+context. The runner's cancellation path waits for gather cancellation handling,
+retains already-appended in-flight attempt outcomes, fills absent planned rows
+as unstarted/interrupted, flushes shards, and writes a failed interrupted batch
+summary with its original fixed denominator. The synthetic interruption test
+checks the retained active attempt and unstarted rows.
+
+Reviewer independently ran infrastructure and experiment unit suites: 44 passed,
+one Docker test skipped, persisted in
+`logs/p2d3_review_cancellation_units.xml`. All blockers identified in this review
+are resolved for the current runtime/runner working tree. It is suitable for a
+new explicitly versioned stress batch, preserving the interrupted predecessor.
+No production experiment or Docker command was run by this reviewer. Fresh-gate
+approval remains conditional on the declared stress/determinism results,
+separate independent gate-summary review, and the prospective freeze.

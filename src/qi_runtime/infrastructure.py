@@ -1,6 +1,7 @@
 """Attempt-local infrastructure evidence and a bounded whole-rollout retry."""
 from __future__ import annotations
 import contextvars
+import asyncio
 import dataclasses
 import hashlib
 import functools
@@ -91,17 +92,21 @@ async def run_with_retry(call,metadata=None,ledger=None,journal_root=None):
     for number in (0,1):
         state=Attempt(dict(metadata or {},attempt=number),Path(journal_root or ROOT));token=_CURRENT.set(state);started=time.perf_counter();value=None;error=None
         try:value=await call()
-        except Exception as e:
+        except (Exception,asyncio.CancelledError) as e:
             error=e;record_exception(e)
         finally:
-            cleanup_errors=[]
-            for runtime in state.runtimes:
-                if runtime._container and not runtime._stopped:
-                    try:await runtime.stop()
-                    except Exception as cleanup:
-                        cleanup_errors.append(cleanup);record_exception(cleanup)
-            if cleanup_errors and error is None:error=cleanup_errors[0]
-            _CURRENT.reset(token)
+            try:
+                cleanup_errors=[]
+                for runtime in state.runtimes:
+                    if runtime._container and not runtime._stopped:
+                        try:await runtime.stop()
+                        except (Exception,asyncio.CancelledError) as cleanup:
+                            cleanup_errors.append(cleanup);record_exception(cleanup)
+                cancelled_cleanup=next((e for e in cleanup_errors if isinstance(e,asyncio.CancelledError)),None)
+                if cancelled_cleanup is not None:error=cancelled_cleanup
+                elif cleanup_errors and error is None:error=cleanup_errors[0]
+            finally:
+                _CURRENT.reset(token)
         keys=_resource_keys(state.resources);overlap=bool(keys&prior);prior|=keys
         kind='complete'
         if error:
@@ -111,6 +116,8 @@ async def run_with_retry(call,metadata=None,ledger=None,journal_root=None):
         if not cleanup_complete:
             kind='policy' if state.policy_evidence else 'infrastructure'
             error=error or DockerFailure('attempt cleanup incomplete')
+        if isinstance(error,asyncio.CancelledError):
+            kind='policy' if state.policy_evidence else 'unknown'
         if overlap:
             kind='unknown';error=RuntimeError('retry reused a runtime name or container ID')
             state.exceptions.append(record_exception(error,root=state.root,metadata=state.metadata))
@@ -129,6 +136,25 @@ def install_rollout_diagnostics():
     from verifiers.v1.rollout import Rollout
     if getattr(Rollout.fail,'_qi_diagnostics',False):return
     original=Rollout.fail
+    original_open=Rollout.open
+    def guard_origin(error,method):
+        # The final traceback frame must be the installed framework method,
+        # never a solver/scorer exception with coincidentally similar wording.
+        tail=error.__traceback__
+        while tail is not None and tail.tb_next is not None:tail=tail.tb_next
+        return type(error) is ValueError and tail is not None and tail.tb_frame.f_code is method.__code__
+    def record_lifetime(error,origin):
+        typed=InfrastructureError('trusted framework borrowed-runtime lifetime guard')
+        typed.__cause__=error
+        record_exception(typed,metadata={'origin':origin,**(_CURRENT.get().metadata if _CURRENT.get() else {})})
+    @functools.wraps(original_open)
+    async def open(self):
+        borrowed_stopped=not self._owns_runtime and self.runtime is not None and self.runtime.stopped
+        try:return await original_open(self)
+        except (Exception,asyncio.CancelledError) as error:
+            if borrowed_stopped and guard_origin(error,original_open):record_lifetime(error,'Rollout.open.lifetime_guard')
+            else:record_exception(error,metadata={'origin':'Rollout.open',**(_CURRENT.get().metadata if _CURRENT.get() else {})})
+            raise
     def fail(self,error):
         from qi_runtime import CheckedRuntime
         record_exception(error,metadata={'origin':'Rollout.fail',**(_CURRENT.get().metadata if _CURRENT.get() else {})})
@@ -140,14 +166,17 @@ def install_rollout_diagnostics():
         closed_scoring=(type(runtime) is CheckedRuntime and runtime._stopped and self._closed
                         and bool(timing.finalize.end) and bool(timing.scoring.start))
         owned=self._owns_runtime
+        borrowed_stopped=not owned and runtime is not None and runtime.stopped and not closed_scoring
         try:
             if closed_scoring:self._owns_runtime=True
             return original(self,error)
         except Exception as secondary:
-            record_exception(secondary)
+            if borrowed_stopped and guard_origin(secondary,original):record_lifetime(secondary,'Rollout.fail.lifetime_guard')
+            else:record_exception(secondary)
             raise
         finally:self._owns_runtime=owned
     fail._qi_diagnostics=True;fail._qi_original=original;Rollout.fail=fail
+    open._qi_diagnostics=True;open._qi_original=original_open;Rollout.open=open
 
 
 def journal_boundary(fn):
