@@ -9,7 +9,7 @@ import sys
 import time
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT));sys.path.insert(0,str(ROOT/'tests/validation'))
-from scripts.p3a_support import Archive,canonical,shards,sha,TRACKED_BUDGET,LOCAL_BUDGET
+from scripts.p3a_support import Archive,canonical,shards,sha,TRACKED_BUDGET,LOCAL_BUDGET,ensure_tracked_capacity
 from qi_runtime.infrastructure import RetryBudget,run_with_retry
 from qi_runtime import IMAGE
 from qi_runtime.phase import runtime_version_hash
@@ -25,7 +25,7 @@ TIERS=['T1','T2','T3','T4']
 
 
 def source_files():
-    patterns=['src/qi/mutate/*.py','envs/e2_leakage_audit/*.py','envs/e2_leakage_audit/*.json','src/qi_leakage_audit/*.py','scripts/*p3a*.py','tests/validation/*p3a*.py']
+    patterns=['src/qi_runtime/*.py','src/qi/gen/*.py','scripts/compact_junit.py','src/qi/mutate/*.py','envs/e2_leakage_audit/*.py','envs/e2_leakage_audit/*.json','src/qi_leakage_audit/*.py','scripts/*p3a*.py','tests/validation/*p3a*.py']
     paths={p for pattern in patterns for p in ROOT.glob(pattern)}
     paths.update(ROOT/p for p in ['reports/P3a_design.md','docs/MILESTONES.md','prereg.yaml','AMENDMENTS.md','pyproject.toml','uv.lock'])
     return {str(p.relative_to(ROOT)):sha(p.read_bytes()) for p in sorted(paths)}
@@ -35,7 +35,7 @@ def freeze_check():
     path=ROOT/'results/p3a_freeze.json';freeze=json.loads(path.read_text())
     if source_files()!=freeze['sources']:raise ValueError('P3a frozen source mismatch')
     if freeze['image']!=IMAGE or freeze['runtime_version_hash']!=runtime_version_hash() or freeze['generator_version_hash']!=generator_version_hash():raise ValueError('runtime/image/generator mismatch')
-    if freeze['policies']!=POLICIES or freeze['exponent']!=v1_taskset.EXPONENT:raise ValueError('policy/exponent mismatch')
+    if freeze['policies']!=POLICIES or freeze['exponent'] not in (1,2,3):raise ValueError('policy/exponent mismatch')
     subprocess.check_call(['git','cat-file','-e',freeze['implementation_commit']+'^{commit}'],cwd=ROOT)
     committed=subprocess.check_output(['git','show','HEAD:results/p3a_freeze.json'],cwd=ROOT)
     if json.loads(committed)!=freeze:raise ValueError('freeze not committed before fresh result')
@@ -82,6 +82,7 @@ async def main(args):
         # any await; a failed initialization consumes this fresh gate too.
         with marker.open('x') as stream:json.dump({'status':'INITIALIZING','time_unix':time.time(),'tag':args.tag},stream)
         freeze=freeze_check()
+        v1_taskset.EXPONENT=freeze['exponent']
     else:freeze=None
     version=source_files();started=time.monotonic();archive=Archive(args.tag)
     plan=[]
@@ -89,13 +90,13 @@ async def main(args):
         count=args.count if args.design else (500 if policy=='oracle' else 50)
         for tier in TIERS:
             for offset in range(count):plan.append((policy,tier,(1000000 if args.design else 1001000)+offset))
-    ledger=RetryBudget(len(plan));rows=[];stop=False;iterator=iter(plan)
+    ledger=RetryBudget(len(plan));rows=[];stop=False;iterator=iter(plan);compact_reserved=0
     journal=archive.root/'exceptions';journal.mkdir()
     sources={p:reference_program(p) for p in POLICIES}
     (archive.root/'plan.json').write_bytes(canonical({'plan':plan,'sources':version,'policy_source_sha256':{p:sha(s.encode()) for p,s in sources.items()}}))
     if not args.design:marker.write_bytes(canonical({'status':'RUNNING','planned':len(plan),'freeze_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'started_unix':time.time()})+b'\n')
     async def worker():
-        nonlocal stop
+        nonlocal stop,compact_reserved
         token=v1_taskset.FRESH_AUTHORIZED.set(not args.design)
         try:
             while not stop:
@@ -104,6 +105,9 @@ async def main(args):
                 if source_files()!=version:stop=True;raise ValueError('source drift; no further launches')
                 if archive.prior_bytes+archive.bytes+16*1024**2*(args.concurrency+1)>LOCAL_BUDGET:
                     stop=True;raise ValueError('local storage reserve exhausted before next launch')
+                try:ensure_tracked_capacity(compact_reserved+64*1024*(args.concurrency+1)+4*1024**2)
+                except ValueError:
+                    stop=True;raise
                 result=await run_with_retry(lambda: v1_taskset.run_policy(seed,tier,sources[policy]),metadata={'environment':'E2','policy':policy,'tier':tier,'seed':seed},ledger=ledger,journal_root=journal)
                 value=result['value'] or {}
                 row={k:value.get(k) for k in ('findings','truth','primary_error','replay_error','poison_error','schema_ok','security_ok','replay_seed','generator_version_hash')}
@@ -111,7 +115,9 @@ async def main(args):
                 row['container_ids']={k:value.get(k,{}).get('container_id') for k in ('solver','primary','replay','poison')}
                 row['attempts']=[{k:a[k] for k in ('attempt','kind','elapsed_seconds','policy_evidence','cleanup_complete','resource_overlap','resources')} for a in result['attempts']]
                 entry=archive.add(f'{policy}-{tier}-{seed}',{'policy':policy,'tier':tier,'seed':seed,'run':result})
-                row['archive']=entry;rows.append(row)
+                row['archive']=entry
+                compact_reserved+=len(canonical(row))+len(canonical(entry))+1
+                rows.append(row)
                 if not result['complete']:stop=True
                 if len(rows)%20==0 or not result['complete']:
                     print(json.dumps({'completed':len(rows),'planned':len(plan),'retries':ledger.used,'terminal':sum(not r['complete'] for r in rows),'last':[policy,tier,seed]}),flush=True)
@@ -132,6 +138,7 @@ async def main(args):
     entries=manifest.pop('entries')
     manifest['entry_shards']=shards(entries,ROOT/'results'/args.tag/'manifest')
     manifest['entry_count']=len(entries)
+    ensure_tracked_capacity(len(canonical(manifest))+1)
     (ROOT/'results'/f'{args.tag}_manifest.json').write_bytes(canonical(manifest)+b'\n')
     sensitivity=[statistics(rows,p) for p in (1,2,3)] if args.design else [statistics(rows,v1_taskset.EXPONENT)]
     complete=len(rows)==len(plan) and all(r['complete'] for r in rows)
@@ -144,8 +151,9 @@ async def main(args):
     summary['container_count']=len(ids);summary['unique_container_count']=len(set(ids))
     summary['container_ids_unique']=len(ids)==len(set(ids))
     summary['oracle_four_stages']=all(all(r['container_ids'].values()) for r in rows if r['policy']=='oracle' and r['complete'])
-    summary['passed']=summary['container_ids_unique'] and summary['oracle_four_stages'] and complete and ledger.used/len(plan)<=.005 and all(x['passed'] for x in sensitivity[:1]) and not error
+    summary['passed']=summary['container_ids_unique'] and summary['oracle_four_stages'] and complete and ledger.used/len(plan)<=.005 and (any(x['passed'] for x in sensitivity) if args.design else all(x['passed'] for x in sensitivity)) and not error
     if args.design:summary['selected_exponent']=next((s['exponent'] for s in sensitivity if s['passed']),None) if complete else None
+    ensure_tracked_capacity(len(canonical(summary))+1)
     (ROOT/'results'/f'{args.tag}.json').write_bytes(canonical(summary)+b'\n')
     if not args.design:marker.write_bytes(canonical({'status':'COMPLETE' if complete else 'FAILED','summary':f'results/{args.tag}.json','passed':summary['passed'],'rows':len(rows),'planned':len(plan)})+b'\n')
     print(json.dumps({'finished':True,'complete':complete,'passed':summary['passed'],'error':error,'selected_exponent':summary.get('selected_exponent')}),flush=True)

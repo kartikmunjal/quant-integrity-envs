@@ -6,6 +6,7 @@ import json
 import os
 import subprocess
 import time
+from functools import lru_cache
 
 ROOT=Path(__file__).resolve().parents[1]
 TRACKED_BUDGET=32*1024**2
@@ -26,6 +27,7 @@ def shards(rows,prefix):
             mid=len(batch)//2;flush(batch[:mid]);flush(batch[mid:]);return
         path=prefix.parent/(prefix.name+f'-{len(result):04d}.jsonl.gz')
         if path.exists():raise FileExistsError(path)
+        ensure_tracked_capacity(len(payload))
         path.write_bytes(payload)
         result.append({'path':str(path.relative_to(ROOT)),'bytes':len(payload),'sha256':sha(payload),'rows':len(batch)})
     for row in rows:
@@ -71,3 +73,31 @@ def verify_entries(entries):
         if not p.resolve().is_relative_to(ROOT):raise ValueError('manifest escape')
         raw=p.read_bytes()
         if len(raw)!=e['bytes'] or sha(raw)!=e['sha256']:raise ValueError('manifest mismatch '+e['path'])
+
+
+@lru_cache(maxsize=2)
+def _legacy_phase_evidence(root):
+    root=Path(root)
+    if not (root/'.git').exists():return ()
+    return tuple(subprocess.check_output(['git','diff','--name-only','2c54171c7c9f2d97bb990c36d9bf68513a1a8e72','HEAD'],cwd=root,text=True).splitlines())
+
+
+def phase_evidence_bytes():
+    """Count eligible P3a tracked evidence, including new untracked phase paths."""
+    paths=set()
+    for folder in ('logs','results','reports'):
+        directory=ROOT/folder
+        if directory.exists():
+            for top in directory.iterdir():
+                if not top.name.lower().startswith('p3a'):continue
+                if top.is_file():paths.add(top)
+                elif top.is_dir():paths.update(p for p in top.rglob('*') if p.is_file())
+    paths.update(ROOT/name for name in _legacy_phase_evidence(str(ROOT)) if name.startswith(('logs/','results/','reports/')) and (ROOT/name).is_file())
+    return sum(p.stat().st_size for p in paths)
+
+
+def ensure_tracked_capacity(additional=0):
+    if type(additional) is not int or additional<0:raise ValueError('nonnegative evidence reservation')
+    used=phase_evidence_bytes()
+    if used+additional>TRACKED_BUDGET:raise ValueError(f'P3a tracked evidence budget exceeded: {used}+{additional}>{TRACKED_BUDGET}')
+    return used

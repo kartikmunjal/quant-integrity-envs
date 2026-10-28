@@ -25,3 +25,20 @@ artifacts remain untouched. These additions were stated in the committed design
 before mutation effects or reward measurements. No sealed-test result, model
 baseline result, model training result or paid API/GPU result has been seen.
 Only synthetic dev-seed scripted validation is authorized in this phase.
+
+## 2026-10-28 — P3a development admission/control correction, before freeze
+
+Evidence: implementation `1ed18e553f45d818d4ac5bbbd41234ce2ff9c6c0`, failed
+policy iteration `results/p3a-policy-design-v1.json`, full rejected-candidate
+record `results/p3a_design_admission_failure_1000776.json`. A clean replay was
+unnecessarily required to support all twelve effective mutations simultaneously.
+The dated design revision retains the same seed and32 candidates, prefers the
+all-effective candidate, otherwise ranks by eligible-family/operator coverage,
+and plants only individually/conditionally effective mutations at unchanged0.05
+floors. Inactive operators remain rejected and are never counted as killed.
+Also replace the falsely named fixed-invalid `random` control with the declared
+uniform4096-subset public-grammar random policy before its first measurement.
+Keep all earlier evidence, rerun affected studies under new source hashes, and
+bind freeze prerequisites to actual semantic sources and manifests. No frozen
+threshold, weight, generator code/config, tier or held-out family changes. No
+sealed-test/model-baseline/training or paid API/GPU result has been seen.

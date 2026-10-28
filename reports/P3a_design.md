@@ -310,3 +310,56 @@ success does not measure a general-purpose audit model. Design mutation bundles
 run each script in its own Python subprocess, sharing a fresh checked container
 within each seed. The fresh gate uses complete independent v1 rollouts with
 fresh solver, primary, replay and poison containers and the shared retry policy.
+
+### Random-control correction before any valid-random measurements
+
+Independent clean review found the first development `random` solver was a
+fixed invalid-output control, not a genuine random research proposal. Retain its
+partial development run and label that limitation. Before measuring its
+replacement, fix this restricted public-grammar distribution: each of the twelve
+semantic faults is independently included with probability 1/2 (uniform over
+all 4096 subsets, including clean with probability 1/4096); choose realization
+uniformly from 0,1,2. Choose finding count uniformly from 0..8 inclusive; each
+finding independently chooses one of six families and a source line uniformly
+from all supplied script lines, with replacement. Seed the RNG from SHA256 of
+canonical public input only. All patch proposals are executable research scripts;
+this is not random invalid JSON and not a claim about random unrestricted Python.
+The distribution, ten design primaries per policy/tier, grid and thresholds
+remain fixed after its first execution. The corrected development iteration is
+`p3a-policy-design-v2`; freeze must require its passing complete results. No
+fresh gate or model baseline has run.
+
+### 2026-10-28 — Retain seeds when some unplanted operators are inactive
+
+Development v1 stopped on design replay seed1000776: none of32 candidate windows
+made all twelve unrelated operators simultaneously effective. Its complete
+candidate diagnostics are retained. Requiring all twelve on a clean replay was
+an implementation constraint stronger than the owner's admitted-mutant rule.
+Before rerunning affected studies, revise this case admission policy explicitly:
+keep the requested seed, generator/config,96-session window and32-candidate cap;
+prefer the first candidate where all twelve meet the same0.05 required-witness
+floors. If none does, choose among those same32 candidates by maximum number of
+eligible families, then eligible operators, then earliest candidate index. Mark
+the selected candidate and retain every rejected operator/effect/reason. Only
+operators meeting every required0.05 witness floor may be planted; T3 still
+requires three distinct eligible families and every conditional effect>=0.05.
+A nondegenerate clean case/replay needs no planted mutation. Never replace the
+requested seed or call an inactive operator killed. Twelve wrong policies remain
+unchanged; if an unplanted fault is inactive and outputs correct, the verifier
+must credit those outputs and the wrong-policy aggregate may fail honestly.
+If no valid T3 combination exists, retain all attempted combinations and fail.
+
+This changes admission of research cases, not the frozen market generator,
+seed partitions, thresholds, reward weights, exponent grid, financial semantics
+or candidate cap. No fresh result has been seen. Both mutation and interaction
+studies are repeated as v2 with distinct filenames; earlier source-bound v1
+studies and the interrupted policy run remain available. The final policy study
+is v2 and the frozen implementation must bind its exact semantic sources.
+
+The selected exponent is recorded in the immutable committed freeze JSON. Design
+rollout evidence stores scalar inputs, and all three grid candidates are checked
+independently on those same records. The fresh gate loads the selected frozen
+exponent into the trusted Task scorer before its first rollout; it is never set
+from solver input. Selecting p=2/3 does not require rewriting source after the
+source-bound design study. Any grid candidate may establish a passing design;
+the smallest passing candidate is frozen.

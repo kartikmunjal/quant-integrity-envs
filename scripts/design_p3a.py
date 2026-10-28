@@ -15,7 +15,8 @@ from qi.mutate.catalogue import CATALOGUE,witness_groups
 from qi.mutate.cases import make_case,AdmissionFailure
 from qi.mutate.reference import evaluate,relative_error
 from qi.mutate.render import render_source
-from qi_runtime import execute_program
+from qi_runtime import execute_program,IMAGE
+from qi_runtime.phase import runtime_version_hash
 
 BUNDLE='''import base64,gzip,json,subprocess,sys
 x=json.load(open(sys.argv[1]))
@@ -30,12 +31,12 @@ print(base64.b64encode(gzip.compress(json.dumps(rows).encode(),mtime=0)).decode(
 
 
 def sources():
-    paths=list((ROOT/'src/qi/mutate').glob('*.py'))+list((ROOT/'envs/e2_leakage_audit').glob('*.py'))+[Path(__file__)]
-    return {str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(paths)}
+    from scripts.run_p3a_gate import source_files
+    return source_files()
 
 
-async def main():
-    started=time.monotonic();version=sources();archive=Archive('mutation-design-v1')
+async def main(tag, result_name):
+    started=time.monotonic();version=sources();archive=Archive(tag)
     rows=[];failures=[]
     semaphore=asyncio.Semaphore(8)
     def parse(out):return json.loads(gzip.decompress(base64.b64decode(out)))
@@ -77,15 +78,15 @@ async def main():
             print(json.dumps({'seed':seed,'executions':len(metrics),'failures':sum(not r['passed'] for r in metrics)}),flush=True)
     await asyncio.gather(*(one(s) for s in range(1000000,1000050)))
     if sources()!=version:raise ValueError('source drift at design completion')
-    compact=shards(sorted(rows,key=lambda r:(r['seed'],str(r.get('operator')),r.get('realization',-1))),ROOT/'results/p3a_mutation_design/rows')
+    compact=shards(sorted(rows,key=lambda r:(r['seed'],str(r.get('operator')),r.get('realization',-1))),ROOT/'results'/result_name/'rows')
     manifest=archive.manifest()
-    Path('results/p3a_mutation_design_manifest.json').write_bytes(canonical(manifest)+b'\n')
-    summary={'environment':'E2','sources':version,'generator_version_hash':case_hash(),'executions':len(rows),
+    (Path('results')/(result_name+'_manifest.json')).write_bytes(canonical(manifest)+b'\n')
+    summary={'runtime_version_hash':runtime_version_hash(),'image':IMAGE,'host_python':sys.version,'environment':'E2','sources':version,'generator_version_hash':case_hash(),'executions':len(rows),
              'mutant_executions':sum(r.get('operator') is not None for r in rows),'failures':failures,
-             'passed':not failures,'compact_shards':compact,'local_manifest':'results/p3a_mutation_design_manifest.json',
+             'passed':not failures,'compact_shards':compact,'local_manifest':'results/'+result_name+'_manifest.json',
              'wall_seconds':time.monotonic()-started,'model_api_spend_usd':0,'gpu_spend_usd':0,
              'execution_note':'Each generated script executes as a separate Python subprocess in a checked design-validation bundle. Each seed has a fresh container; this is not the fresh v1 gate.'}
-    Path('results/p3a_mutation_design.json').write_bytes(canonical(summary)+b'\n')
+    (Path('results')/(result_name+'.json')).write_bytes(canonical(summary)+b'\n')
     print(json.dumps({'complete':True,'executions':len(rows),'failures':len(failures)}),flush=True)
     if failures:raise SystemExit(1)
 
@@ -94,4 +95,7 @@ def case_hash():
     from qi.gen import generator_version_hash
     return generator_version_hash()
 
-if __name__=='__main__':asyncio.run(main())
+if __name__=='__main__':
+    import argparse
+    parser=argparse.ArgumentParser();parser.add_argument('--tag',default='mutation-design-v2');parser.add_argument('--result-name',default='p3a_mutation_design_v2')
+    args=parser.parse_args();asyncio.run(main(args.tag,args.result_name))

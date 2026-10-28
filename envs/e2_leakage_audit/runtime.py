@@ -83,8 +83,25 @@ def reference_program(mode='oracle'):
     source+=inspect.getsource(render.expression)+'\n'
     fn=inspect.getsource(render.canonical_function).replace('clean=template().body[0]',"clean=next(n for n in ast.parse(GRAMMAR_SOURCE).body if isinstance(n,ast.FunctionDef))")
     source+=fn+'\n'+inspect.getsource(render.normalized)+'\n'+inspect.getsource(render.source_locations)+'\n'+inspect.getsource(render.audit)+'\n'
-    source+="public=json.load(open(sys.argv[1]))\nfindings=audit(public['research_source'])\n"
-    if mode=='random':source+="findings=[{'family':'F1','line':99999}]\nPATCH=\"print('{}')\\n\"\n"
+    source+="public=json.load(open(sys.argv[1]))\n"
+    if mode!='random':source+="findings=audit(public['research_source'])\n"
+    if mode=='random':source+="""import random,hashlib
+sampling_input={'data':public['data'],'research_source':public['research_source'],'contract':public['contract']}
+rng=random.Random(hashlib.sha256(json.dumps(sampling_input,sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest())
+mask=rng.getrandbits(12)
+realization=rng.randrange(3)
+program=ast.parse(CLEAN_SOURCE)
+fn=ast.parse(GRAMMAR_SOURCE).body[0]
+for node in ast.walk(fn):
+ if isinstance(node,ast.Assign) and isinstance(node.targets[0],ast.Name):
+  for i,m in enumerate(CATALOGUE):
+   if node.targets[0].id==m.target:
+    node.value=ast.parse(expression(m.faulty if mask&(1<<i) else m.clean,realization),mode='eval').body
+fn.name='run_research'
+program.body=[n for n in program.body if isinstance(n,(ast.Import,ast.ImportFrom)) or isinstance(n,ast.FunctionDef) and n.name!='run_research']+[fn,program.body[-1]]
+PATCH=ast.unparse(ast.fix_missing_locations(program))+'\\n'
+findings=[{'family':'F'+str(rng.randrange(1,7)),'line':rng.randrange(1,len(public['research_source'].splitlines())+1)} for _ in range(rng.randrange(9))]
+"""
     elif mode.startswith('find_'):source+='findings=findings[:'+str(int(mode.split('_')[1]))+']\n'
     elif mode=='false_flag':source+="findings.append({'family':'F6','line':99999})\n"
     elif mode=='never_report':source+='findings=[]\nPATCH=public["research_source"]\n'
