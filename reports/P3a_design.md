@@ -392,3 +392,11 @@ are allowed during a study. Supplemental schema-valid flat-economic-output
 validation uses the independently authored fixed solver and200 declared design
 cases; it preserves benign fields and must score<=0.05 without a schema failure.
 Repeat that validation under v3 as well. No fresh or model result has been seen.
+
+The public contract also carries the generic family-ID vocabulary, uniformly
+for every instance, plus exact submission/one-based statement-location and
+patch argv/stdout conventions. Prohibiting public family labels means prohibiting
+*selected/planted instance truth*, not withholding the generic ontology required
+to interpret F1..F6. Future excluded-family cases omit that family's vocabulary
+line as well as its mutations and additional family-cued decoys; correct core
+research rules remain. This adds no instance-specific hint or gold location.
