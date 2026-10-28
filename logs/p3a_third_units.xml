@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="47" time="5.298" timestamp="2026-10-28T14:11:50.506311-06:00" hostname="siennaspc"><testcase classname="tests.validation.test_p3a_mutation" name="test_twelve_operators_two_per_family_and_prospective_effect_floor" time="0.000" /><testcase classname="tests.validation.test_p3a_mutation" name="test_operator_has_three_actual_ast_realizations_and_no_labels[future_feature]" time="0.074" /><testcase classname="tests.validation.test_p3a_mutation" name="test_operator_has_three_actual_ast_realizations_and_no_labels[availability_bypass]" time="0.065" /><testcase classname="tests.validation.test_p3a_mutation" name="test_operator_has_three_actual_ast_realizations_and_no_labels[global_center]" time="0.069" /><testcase classname="tests.validation.test_p3a_mutation" name="test_operator_has_three_actual_ast_realizations_and_no_labels[global_scale]" time="0.066" /><testcase classname="tests.validation.test_p3a_mutation" name="test_operator_has_three_actual_ast_realizations_and_no_labels[unpurged_labels]" time="0.064" /><testcase classname="tests.validation.test_p3a_mutation" name="test_operator_has_three_actual_ast_realizations_and_no_labels[selection_overlap]" time="0.064" /><testcase classname="tests.validation.test_p3a_mutation" name="test_operator_has_three_actual_ast_realizations_and_no_labels[survivor_filter]" time="0.064" /><testcase classname="tests.validation.test_p3a_mutation" name="test_operator_has_three_actual_ast_realizations_and_no_labels[ticker_merge]" time="0.067" /><testcase classname="tests.validation.test_p3a_mutation" name="test_operator_has_three_actual_ast_realizations_and_no_labels[same_bar]" time="0.064" /><testcase classname="tests.validation.test_p3a_mutation" name="test_operator_has_three_actual_ast_realizations_and_no_labels[submission_fill]" time="0.064" /><testcase classname="tests.validation.test_p3a_mutation" name="test_operator_has_three_actual_ast_realizations_and_no_labels[test_selection]" time="0.064" /><testcase classname="tests.validation.test_p3a_mutation" name="test_operator_has_three_actual_ast_realizations_and_no_labels[uncorrected_trials]" time="0.064" /><testcase classname="tests.validation.test_p3a_mutation" name="test_tier_contract_determinism_and_nonconstant_reference[T1-1]" time="0.465" /><testcase classname="tests.validation.test_p3a_mutation" name="test_tier_contract_determinism_and_nonconstant_reference[T2-1]" time="0.075" /><testcase classname="tests.validation.test_p3a_mutation" name="test_tier_contract_determinism_and_nonconstant_reference[T3-3]" time="0.105" /><testcase classname="tests.validation.test_p3a_mutation" name="test_tier_contract_determinism_and_nonconstant_reference[T4-0]" time="0.064" /><testcase classname="tests.validation.test_p3a_mutation" name="test_lofo_excludes_mutations_and_family_cued_decoys[F3]" time="0.249" /><testcase classname="tests.validation.test_p3a_mutation" name="test_lofo_excludes_mutations_and_family_cued_decoys[F4]" time="0.261" /><testcase classname="tests.validation.test_p3a_mutation" name="test_lofo_excludes_mutations_and_family_cued_decoys[F6]" time="0.151" /><testcase classname="tests.validation.test_p3a_mutation" name="test_presentations_are_semantic_not_public_truth" time="0.021" /><testcase classname="tests.validation.test_p3a_mutation" name="test_mutant_economic_kill_and_gold_restore_trusted_path" time="0.265" /><testcase classname="tests.validation.test_p3a_mutation" name="test_f5_scheduler_moves_preformed_signals_and_keeps_fill_prices" time="0.038" /><testcase classname="tests.validation.test_p3a_mutation" name="test_clean_selection_does_not_see_evaluation_or_unrealized_boundary_returns" time="0.040" /><testcase classname="tests.validation.test_p3a_mutation" name="test_economic_witnesses_contain_only_evaluation_sessions" time="0.039" /><testcase classname="tests.validation.test_p3a_mutation" name="test_decoy_exclusion_changes_actual_source_assignments" time="0.046"><failure message="AssertionError: assert not True&#10; +  where True = isinstance(Constant(value=0.0, kind=None), &lt;class 'ast.Constant'&gt;)&#10; +    where &lt;class 'ast.Constant'&gt; = ast.Constant">def test_decoy_exclusion_changes_actual_source_assignments():
+        from qi.mutate.render import canonical_function
+        def assigned(source,name):
+            fn=canonical_function(source)
+            return next(n.value for n in ast.walk(fn) if isinstance(n,ast.Assign)
+                        and isinstance(n.targets[0],ast.Name) and n.targets[0].id==name)
+        clean=render_source(decoys=True)
+        no_labels=render_source(decoys=('F2',))
+        no_moments=render_source(decoys=('F1',))
+        # Removed decoys must use alternate live computations, never constants.
+        original_labels=assigned(clean,'labels')
+        alternative_labels=assigned(no_labels,'labels')
+        original_moment=assigned(clean,'descriptive')
+        alternative_moment=assigned(no_moments,'descriptive')
+        assert ast.dump(original_labels,include_attributes=False) != ast.dump(alternative_labels,include_attributes=False)
+        assert ast.dump(original_moment,include_attributes=False) != ast.dump(alternative_moment,include_attributes=False)
+        assert not isinstance(alternative_labels,ast.Constant)
+&gt;       assert not isinstance(alternative_moment,ast.Constant)
+E       AssertionError: assert not True
+E        +  where True = isinstance(Constant(value=0.0, kind=None), &lt;class 'ast.Constant'&gt;)
+E        +    where &lt;class 'ast.Constant'&gt; = ast.Constant
+
+tests/validation/test_p3a_mutation.py:153: AssertionError</failure></testcase><testcase classname="tests.validation.test_p3a_mutation" name="test_normalization_locations_exact_for_all_mutant_and_clean_forms[0]" time="0.685" /><testcase classname="tests.validation.test_p3a_mutation" name="test_normalization_locations_exact_for_all_mutant_and_clean_forms[1]" time="0.716" /><testcase classname="tests.validation.test_p3a_mutation" name="test_normalization_locations_exact_for_all_mutant_and_clean_forms[2]" time="0.870" /><testcase classname="tests.validation.test_p3a_mutation" name="test_decoy_report_variants_preserve_every_clean_and_mutant_output[1000000]" time="0.037"><failure message="AssertionError: (1000000, (), False, True)&#10;assert {'adjusted_p'...], ...]], ...} == {'adjusted_p'...], ...]], ...}&#10;  &#10;  Omitting 11 identical items, use -vv to show&#10;  Differing items:&#10;  {'training_label_mean': 0.0} != {'training_label_mean': -0.030255012167832013}&#10;  Use -v to get more diff">seed = 1000000
+
+    @pytest.mark.parametrize('seed',[1000000,1000001,1000002])
+    def test_decoy_report_variants_preserve_every_clean_and_mutant_output(seed):
+        # All fields count, including legitimate diagnostic reports. Changing the
+        # answer contract is not an admissible way to remove a suspicious surface.
+        data=make_case(seed,'T4')['data']
+        for mutations in [()]+[(m.id,) for m in CATALOGUE]:
+            original=evaluate(dict(data,label_report=True,moment_report=True),mutations)
+            for labels,moments in ((False,True),(True,False),(False,False)):
+                alternate=evaluate(dict(data,label_report=labels,moment_report=moments),mutations)
+&gt;               assert alternate==original, (seed,mutations,labels,moments)
+E               AssertionError: (1000000, (), False, True)
+E               assert {'adjusted_p'...], ...]], ...} == {'adjusted_p'...], ...]], ...}
+E                 
+E                 Omitting 11 identical items, use -vv to show
+E                 Differing items:
+E                 {'training_label_mean': 0.0} != {'training_label_mean': -0.030255012167832013}
+E                 Use -v to get more diff
+
+tests/validation/test_p3a_mutation.py:180: AssertionError</failure></testcase><testcase classname="tests.validation.test_p3a_mutation" name="test_decoy_report_variants_preserve_every_clean_and_mutant_output[1000001]" time="0.040"><failure message="AssertionError: (1000001, (), True, False)&#10;assert {'adjusted_p'...], ...]], ...} == {'adjusted_p'...], ...]], ...}&#10;  &#10;  Omitting 11 identical items, use -vv to show&#10;  Differing items:&#10;  {'descriptive_mean': 0.0} != {'descriptive_mean': 0.0002894931466098343}&#10;  Use -v to get more diff">seed = 1000001
+
+    @pytest.mark.parametrize('seed',[1000000,1000001,1000002])
+    def test_decoy_report_variants_preserve_every_clean_and_mutant_output(seed):
+        # All fields count, including legitimate diagnostic reports. Changing the
+        # answer contract is not an admissible way to remove a suspicious surface.
+        data=make_case(seed,'T4')['data']
+        for mutations in [()]+[(m.id,) for m in CATALOGUE]:
+            original=evaluate(dict(data,label_report=True,moment_report=True),mutations)
+            for labels,moments in ((False,True),(True,False),(False,False)):
+                alternate=evaluate(dict(data,label_report=labels,moment_report=moments),mutations)
+&gt;               assert alternate==original, (seed,mutations,labels,moments)
+E               AssertionError: (1000001, (), True, False)
+E               assert {'adjusted_p'...], ...]], ...} == {'adjusted_p'...], ...]], ...}
+E                 
+E                 Omitting 11 identical items, use -vv to show
+E                 Differing items:
+E                 {'descriptive_mean': 0.0} != {'descriptive_mean': 0.0002894931466098343}
+E                 Use -v to get more diff
+
+tests/validation/test_p3a_mutation.py:180: AssertionError</failure></testcase><testcase classname="tests.validation.test_p3a_mutation" name="test_decoy_report_variants_preserve_every_clean_and_mutant_output[1000002]" time="0.042"><failure message="AssertionError: (1000002, (), False, True)&#10;assert {'adjusted_p'...], ...]], ...} == {'adjusted_p'...], ...]], ...}&#10;  &#10;  Omitting 11 identical items, use -vv to show&#10;  Differing items:&#10;  {'training_label_mean': 0.0} != {'training_label_mean': -0.03223026980883529}&#10;  Use -v to get more diff">seed = 1000002
+
+    @pytest.mark.parametrize('seed',[1000000,1000001,1000002])
+    def test_decoy_report_variants_preserve_every_clean_and_mutant_output(seed):
+        # All fields count, including legitimate diagnostic reports. Changing the
+        # answer contract is not an admissible way to remove a suspicious surface.
+        data=make_case(seed,'T4')['data']
+        for mutations in [()]+[(m.id,) for m in CATALOGUE]:
+            original=evaluate(dict(data,label_report=True,moment_report=True),mutations)
+            for labels,moments in ((False,True),(True,False),(False,False)):
+                alternate=evaluate(dict(data,label_report=labels,moment_report=moments),mutations)
+&gt;               assert alternate==original, (seed,mutations,labels,moments)
+E               AssertionError: (1000002, (), False, True)
+E               assert {'adjusted_p'...], ...]], ...} == {'adjusted_p'...], ...]], ...}
+E                 
+E                 Omitting 11 identical items, use -vv to show
+E                 Differing items:
+E                 {'training_label_mean': 0.0} != {'training_label_mean': -0.03223026980883529}
+E                 Use -v to get more diff
+
+tests/validation/test_p3a_mutation.py:180: AssertionError</failure></testcase><testcase classname="tests.validation.test_p3a_mutation" name="test_no_decoy_source_has_no_original_explicit_decoy_subtrees" time="0.107" /><testcase classname="tests.validation.test_p3a_reward" name="test_partial_detection_and_false_flag_are_graded[1]" time="0.001" /><testcase classname="tests.validation.test_p3a_reward" name="test_partial_detection_and_false_flag_are_graded[2]" time="0.000" /><testcase classname="tests.validation.test_p3a_reward" name="test_partial_detection_and_false_flag_are_graded[3]" time="0.000" /><testcase classname="tests.validation.test_p3a_reward" name="test_harmonic_weights_enter_once" time="0.000" /><testcase classname="tests.validation.test_p3a_reward" name="test_numeric_quality_continuous_monotone_and_bounded" time="0.001" /><testcase classname="tests.validation.test_p3a_reward" name="test_matching_is_one_to_one_not_family_presence_or_greedy" time="0.000" /><testcase classname="tests.validation.test_p3a_reward" name="test_disabled_constant_incomplete_or_primary_only_patch_is_zero[primary_error]" time="0.000" /><testcase classname="tests.validation.test_p3a_reward" name="test_disabled_constant_incomplete_or_primary_only_patch_is_zero[replay_error]" time="0.000" /><testcase classname="tests.validation.test_p3a_reward" name="test_disabled_constant_incomplete_or_primary_only_patch_is_zero[poison_error]" time="0.000" /><testcase classname="tests.validation.test_p3a_reward" name="test_hard_gates[schema_ok]" time="0.000" /><testcase classname="tests.validation.test_p3a_reward" name="test_hard_gates[security_ok]" time="0.000" /><testcase classname="tests.validation.test_p3a_reward" name="test_2000_independent_adversarial_scalar_records" time="0.035" /><testcase classname="tests.validation.test_p3a_storage" name="test_shards_roundtrip_bounded_and_no_overwrite" time="0.005" /><testcase classname="tests.validation.test_p3a_storage" name="test_archive_budget_never_erases_existing_evidence" time="0.001" /></testsuite></testsuites>

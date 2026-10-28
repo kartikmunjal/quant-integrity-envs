@@ -1,0 +1,41 @@
+Traceback (most recent call last):
+  File "/home/kartik/qi/Quant-fin-agent/.venv/lib/python3.14/site-packages/verifiers/v1/rollout.py", line 486, in close
+    await asyncio.wait_for(
+    ...<5 lines>...
+    )
+  File "/usr/lib/python3.14/asyncio/tasks.py", line 488, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/kartik/qi/Quant-fin-agent/.venv/lib/python3.14/site-packages/verifiers/v1/task.py", line 194, in score
+    async with boundary(TaskError, f"task {type(self).__name__} scoring"):
+               ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/contextlib.py", line 235, in __aexit__
+    await self.gen.athrow(value)
+  File "/home/kartik/qi/Quant-fin-agent/.venv/lib/python3.14/site-packages/verifiers/v1/errors.py", line 99, in boundary
+    raise error_cls(f"{what}: {type(e).__name__}: {e}") from e
+verifiers.v1.errors.TaskError: task E2Task scoring: IndentationError: unexpected indent (<unknown>, line 1)
+
+
+Traceback (most recent call last):
+  File "/home/kartik/qi/Quant-fin-agent/.venv/lib/python3.14/site-packages/verifiers/v1/errors.py", line 93, in boundary
+    yield
+  File "/home/kartik/qi/Quant-fin-agent/.venv/lib/python3.14/site-packages/verifiers/v1/task.py", line 227, in score
+    reward_results = await invoke_all(rewards, available)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartik/qi/Quant-fin-agent/.venv/lib/python3.14/site-packages/verifiers/v1/utils/decorators.py", line 45, in invoke_all
+    return await asyncio.gather(*(invoke(fn, available) for fn in fns))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartik/qi/Quant-fin-agent/envs/e2_leakage_audit/v1_taskset.py", line 82, in integrity
+    replay_case=make_case(fresh,'T4')
+  File "/home/kartik/qi/Quant-fin-agent/src/qi/mutate/cases.py", line 108, in make_case
+    source=render_source(selected,realization,seed,decoys=decoy_families)
+  File "/home/kartik/qi/Quant-fin-agent/src/qi/mutate/render.py", line 78, in render_source
+    tree=template(mutations,realization,decoys)
+  File "/home/kartik/qi/Quant-fin-agent/src/qi/mutate/render.py", line 56, in template
+    tree=ast.parse(inspect.getsource(research))
+  File "/usr/lib/python3.14/ast.py", line 46, in parse
+    return compile(source, filename, mode, flags,
+                   _feature_version=feature_version, optimize=optimize)
+  File "<unknown>", line 1
+    active = data['active']
+IndentationError: unexpected indent

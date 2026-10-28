@@ -271,3 +271,42 @@ project spend and local compute. A clean-context review and 50 author-reviewed
 trajectories remain distinct from human labels. Commit/push reports and compact
 results/manifests, delete P2B_PROMPT3.md at the end, update STATE and STOP. The
 owner then chooses M1 packaging or E3; neither begins automatically.
+
+## Implementation clarifications before freeze
+
+The final prospective policy catalogue contains 32 controls: oracle, random,
+twelve wrong policies, eight cheaters, shallow, find_0..3, near_1/near_2,
+false_flag, never_report and report_only. The fresh population is therefore
+8200 full v1 rollouts (2000 oracle plus 31*200 others). Design policy selection
+uses ten primary design seeds per policy/tier, 1280 rollouts; sensitivity to
+p=1,2,3 regrades the same immutable executions rather than repeating them.
+
+Every family has correct intrinsic pipeline contexts. The additional removable
+surface decoys are specifically the F1 purged training-label report and F2
+full-history descriptive report; removing them uses equivalent live report
+implementations, not zeros or dead statements. F3/F4/F5/F6 correct-context
+surfaces occur in the necessary purge/identity/scheduling/selection stages,
+which remain part of the clean research contract. Excluded folds remove the
+held-out mutations and additional family-cued decoys, not the basic correct
+research functionality. This is a synthetic-template separation, not a claim
+that family concepts are statistically independent.
+
+Signal formation and order scheduling are separate stages. A clean timestamped
+signal is filled at the declared next close; the F5 same-bar scheduler wrongly
+uses the next timestamp's already formed signal at that timestamp's close.
+F1 instead changes information inside signal formation. Selection purges the
+two-session fill/realization horizon. Evaluation witnesses exclude selection
+observations. Admission requires the 0.05 floor for every required witness group,
+not merely a change in an unused quantity. Future poisoning covers prices,
+returns and fundamentals unavailable by the cutoff; listing/identifier fields
+are retained. Real T3 joint and leave-one-out executions supplement the 1800
+single-mutant executions before freeze.
+
+Realization forms are direct expressions, operator-specific helper/control
+expressions and comprehension/dataflow expressions. Presentation also refactors
+zero-vector construction and square-root calculation independently of faults.
+The public scripted auditor recognizes this restricted template grammar; its
+success does not measure a general-purpose audit model. Design mutation bundles
+run each script in its own Python subprocess, sharing a fresh checked container
+within each seed. The fresh gate uses complete independent v1 rollouts with
+fresh solver, primary, replay and poison containers and the shared retry policy.
