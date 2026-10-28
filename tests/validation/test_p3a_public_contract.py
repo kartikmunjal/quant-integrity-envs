@@ -82,3 +82,43 @@ def test_public_contract_is_uniform_and_contains_no_instance_truth():
         public=make_case(seed,tier)['public']
         assert public['contract']==PUBLIC_RESEARCH_CONTRACT
         assert not ({'seed','truth','mutations','effects','gold_patch'} & public.keys())
+
+
+def test_public_contract_explains_all_six_generic_family_ids():
+    from qi.mutate.contract import public_contract
+    contract=public_contract()
+    assert contract==PUBLIC_RESEARCH_CONTRACT
+    expected={'F1':'temporal lookahead','F2':'statistic leakage','F3':'label overlap',
+              'F4':'universe selection','F5':'execution timing','F6':'selection/multiplicity'}
+    for family,meaning in expected.items():
+        line=next((line for line in contract.splitlines() if line.startswith(family+':')),None)
+        assert line is not None
+        assert meaning in line.lower()
+    # The legend describes categories, never which category is planted here.
+    assert 'planted family:' not in contract.lower()
+
+
+@pytest.mark.parametrize('excluded',['F3','F4','F6'])
+def test_lofo_generic_ontology_omits_only_excluded_label(excluded):
+    from qi.mutate.contract import public_contract
+    complete=public_contract()
+    filtered=public_contract(excluded_families=(excluded,))
+    lines=filtered.splitlines()
+    assert not any(line.startswith(excluded+':') for line in lines)
+    for family in ('F1','F2','F3','F4','F5','F6'):
+        if family!=excluded:
+            assert next(line for line in complete.splitlines() if line.startswith(family+':')) in lines
+    # Removing a category's label is not permission to remove the normative
+    # correct-research rule. Only the one ontology line may differ.
+    assert filtered=='\n'.join(line for line in complete.split('\n') if not line.startswith(excluded+':'))
+    case=make_case(1000000,'T4',excluded_families=(excluded,))
+    assert case['public']['contract']==filtered
+
+
+def test_multiple_ontology_exclusions_are_order_independent():
+    from qi.mutate.contract import public_contract
+    first=public_contract(excluded_families=('F3','F6'))
+    assert first==public_contract(excluded_families=('F6','F3'))
+    assert 'F3:' not in first and 'F6:' not in first
+    assert 't+horizon < train_end' in first or 't+horizon<train_end' in first
+    assert 'Bonferroni' in first
