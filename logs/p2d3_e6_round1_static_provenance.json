@@ -1,0 +1,70 @@
+{
+  "checks": {
+    "case_construction_ast_identical_excluding_admission_and_diagnostics": true,
+    "freeze_commit_expected": true,
+    "generator_sources_identical": true,
+    "repair_source_identical": true,
+    "schema_identical": true
+  },
+  "environment": "E6",
+  "files": {
+    "envs/e6_data_traps/cases.py": {
+      "current_sha256": "8ac2e83f775dbd9f75f818aef8614a2e966d013af0229d330d7547c9bdf153d6",
+      "historical_matches_freeze": true,
+      "historical_sha256": "a26cb3d9531550761f03fe82e0c1c34f732a18ba6067fc97818ec7c2c550f68b",
+      "unchanged": false
+    },
+    "envs/e6_data_traps/repair.py": {
+      "current_sha256": "a6a25e8b0680e816fea385d74ce60679de6a6836ab29297d7bcdc055bd70b3b0",
+      "historical_matches_freeze": true,
+      "historical_sha256": "a6a25e8b0680e816fea385d74ce60679de6a6836ab29297d7bcdc055bd70b3b0",
+      "unchanged": true
+    },
+    "envs/e6_data_traps/reward.py": {
+      "current_sha256": "cd3a900879f06680f04be001e4027ed91dba1bf7b1edeea2f6a7ad947e8c4c1e",
+      "historical_matches_freeze": true,
+      "historical_sha256": "9425db09add28758665931609542db556956b8385c263d0a2149051eeb42f169",
+      "unchanged": false
+    },
+    "envs/e6_data_traps/runtime.py": {
+      "current_sha256": "d96eee64def6a6443631330895d38f79acf0df5171d7cea9087ddd4cab5325b7",
+      "historical_matches_freeze": true,
+      "historical_sha256": "77915047d383f9f9f10dbb8fa7934d0b649e9ddb2cafa5e01dc4155553b373ef",
+      "unchanged": false
+    },
+    "envs/e6_data_traps/schema.json": {
+      "current_sha256": "3fe12c906d960c7d5147c6a13c19493615fe777095d7410594a01a2e9ee2ceed",
+      "historical_matches_freeze": true,
+      "historical_sha256": "3fe12c906d960c7d5147c6a13c19493615fe777095d7410594a01a2e9ee2ceed",
+      "unchanged": true
+    },
+    "envs/e6_data_traps/v1_taskset.py": {
+      "current_sha256": "5854f7bd1c1e49d9a5540c739bb74a5109aae714bb92e8ffe7e5e8c8dc3aac04",
+      "historical_matches_freeze": true,
+      "historical_sha256": "e833ae8dd7a57dd7b013291b1f91a0819eb0d9dffac97de10c9e5048945b8dbf",
+      "unchanged": false
+    },
+    "scripts/e6_policies.py": {
+      "current_sha256": "93c3a3a66e3b6ba9409e5a8eeca2cf53ff67b0adc473f9ab0cac7b7420580304",
+      "historical_matches_freeze": true,
+      "historical_sha256": "7c6fccc1dd91536a6a1ebacdd1d63b9bf0d9549ff3418ce951716af3a14a9d69",
+      "unchanged": false
+    }
+  },
+  "findings": [
+    "Historical primaries1008000..1008499 and replay1009000..1009999 remain admitted. Only _case admission widening and post-construction diagnostic loss calculation changed; public/truth construction AST is identical.",
+    "For every historical seed>=1005000, current replay start expression reduces exactly to original (1007000 if seed<1008000 else1009000); hash input, modulo and self-seed avoidance statements unchanged. Thus round1 primary routing still selects1009000..1009999 with original source bytes.",
+    "Existing reference_program modes build identical source strings: new selected=mode unless mode starts find_; original round1 policies have no find_ modes. Added find_k controls are not historical rows.",
+    "Current diagnostic error_terms changes only anomaly score element1; diagnostics use numeric element0 and F1 element2, whose expressions are unchanged. Clean diagnostic loss changed intentionally, after public/truth construction, with no mutation of those objects.",
+    "v1_taskset changes only default/admission and protected host provenance filenames; explicit seed execution and replay calls unchanged.",
+    "historical_e6_context hash-verifies archived reward source at this commit and replaces host task score_pair/error_terms temporarily. Current cases.error_terms remains current, but only diagnostic-used elements0/2 matter; archived host scoring remains separate."
+  ],
+  "generator_version_hash": "eac6db9224a724d63a3e7c7df71e0af46e65d29bb66b7c6e0d18061d55313921",
+  "historical_implementation_commit": "7fb9c525ac0291736096083c5cd14aed95670178",
+  "limitations": [
+    "Static equivalence establishes construction/routing provenance; exact saved per-row rewards/source bytes/replay seeds still require the planned historical determinism run.",
+    "Old clean diagnostic implementation could reject cases; historical saved admitted rows are the comparator, and current revised diagnostics must still pass to complete a rerun."
+  ],
+  "passed": true,
+  "scope": "Static source provenance only; no case generation, tests, Docker, source edits or reward computations."
+}

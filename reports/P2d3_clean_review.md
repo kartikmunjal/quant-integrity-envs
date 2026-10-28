@@ -126,3 +126,44 @@ prerequisites before the first fresh gate. Existing artifacts must remain intact
 This review incurred no API/GPU spend or rollout compute. Completed stress
 summary durations are recorded in their respective results; no inference about
 uncompleted batch cost or CI success is made here.
+
+## Final pre-freeze readiness review (2026-10-28 UTC)
+
+Reviewed the completed `results/p2d3_stress_summary.json` and
+`results/p2d3_determinism_summary.json`, their six stress and three historical
+all-row audit verdicts, the archived E6 provenance note, the final full-suite
+XML, and the new dated amendment. Independently checked every referenced batch
+summary and audit file against its SHA256 recorded in the two summaries: no
+mismatch. These are file/evidence checks; no tests or Docker were run here.
+
+All required pre-gate experiments now pass: 30000/30000 stress and 20400/20400
+historical rollouts complete, zero retries, zero terminal failures, and zero
+exact historical reward or replay differences. The historical counts are E1
+6400, E5 7000 and E6 7000. All nine all-row audits report no issues; the E1
+missing historical source-hash limitation remains as stated above. The archived
+E6 reward is hash-checked at `7fb9c525ac0291736096083c5cd14aed95670178`, SHA256
+`9425db09add28758665931609542db556956b8385c263d0a2149051eeb42f169`.
+
+The corrected orchestration is now committed as
+`4a381f28d00632acea36703121351326586b1cb9`. Its source SHA256 is
+`8878394fa53ea3a94e62833f35c53c8d248f606b3c3a16c69f828556edb79d32`, matching
+the historical regression summaries. Stress used the prior orchestrator SHA256
+recorded in its summaries; the subsequent change was the reviewed gate-only
+reservation correction. Core runtime hash remains
+`5ac8cf100aabc4d4b47f38fe8ecc4a34fe4db1c77f6042d719c165489769781a` throughout.
+`logs/p2d3_gate_control_tests.xml` records 388 tests, zero failures/errors/skips.
+No uncommitted runtime, environment or prereg source diff was present in this
+check. The 2026-10-28 UTC amendment identifies both implementation commits,
+unchanged financial rules, the failed round-two infrastructure episode, unknown
+old initiating cause, and absence of baseline/sealed/model/fresh-gate results.
+
+Verdict: ready to create and commit the prospective freeze for the first fresh
+E6 gate. No unresolved source blocker remains from this review. This is not
+approval of an uncreated freeze or of gate outcomes: verify that the actual
+freeze binds these exact sources/design/image, this review and all nine required
+prerequisite batches before running it. At this snapshot the freeze and fixed
+global gate reservation do not exist, and the fresh 8400-row gate and 50
+author-reviewed trajectories are still pending. This review itself does not
+satisfy the author trajectory review requirement. Preserve this pre-freeze file
+once its hash is pinned; write the later post-gate assessment separately to
+`reports/P2d3_gate_review.md`.
