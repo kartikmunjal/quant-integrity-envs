@@ -1,0 +1,6012 @@
+[
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 3.0305048520094715,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-c58a820b4eaa"
+     },
+     {
+      "container_id": "0d226c54087854a9d7454a3a27fcee2f5292dc2db210c775c55f4858aebad5d8",
+      "event": "created",
+      "name": "vf-c58a820b4eaa"
+     },
+     {
+      "container_id": "0d226c54087854a9d7454a3a27fcee2f5292dc2db210c775c55f4858aebad5d8",
+      "event": "removed",
+      "name": "vf-c58a820b4eaa"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2409,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T1",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "41c33018e5a2d6e5c815c8d5d398febb35459d3ebd7163ff8f7032eccab70157"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "0eba22387f6bde00ffe6fac5dc56013d0f1bd68334b477a0da4577a93d5e2234"
+     }
+    ],
+    "container_id": "0d226c54087854a9d7454a3a27fcee2f5292dc2db210c775c55f4858aebad5d8",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 3.0991087690053973,
+    "exceptions": [
+     {
+      "full_traceback_parts": [
+       "logs/p2d3-r2-stress-E1-c12_exceptions/f90ed8a60f2e4bdeb10777aaa18337b7-000.txt"
+      ],
+      "id": "f90ed8a60f2e4bdeb10777aaa18337b7",
+      "kind": "policy",
+      "message_previews": [
+       "execve(\"/usr/bin/timeout\", [\"timeout\", \"--signal=TERM\", \"--kill-after=1\", \"20s\", \"python\", \"-I\", \"-B\", \"/work/program.py\", \"/work/input.json\"], 0x7fffab3f4520 /* 6 vars */) = 0\naccess(\"/etc/ld.so.preload\", R_OK)      = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/etc/ld.so.cache\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/lib/x86_64-linux-gnu/libc.so.6\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/locale-archive\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/share/locale/locale.alias\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/C.UTF-8/LC_CTYPE\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/C.utf8/LC_CTYPE\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache\", O_RDONLY|O_CLOEXEC) = 3\nstrace: Process 39 attached\n[pid    39] execve(\"/usr/local/bin/python\", [\"python\", \"-I\", \"-B\", \"/work/program.py\", \"/work/input.json\"], 0x7ffc93801318 /* 6 vars */) = 0\n[pid    39] readlinkat(AT_FDCWD</work>, \"/proc/self/exe\", \"/usr/local/bin/python3.14\", 4096) = 25\n[pid    39] access(\"/etc/ld.so.preload\", R_OK) = -1 ENOENT (No such file or directory)\n[pid    39] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v3/libpython3.14.so.1.0\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\n[pid    39] newfstatat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v3/\", 0x7fff9d09fe60, 0) = -1 ENOENT (No such file or directory)\n[pid    39] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v2/libpython3.14.so.1.0\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\n[pid    39] newfstatat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v2/\", 0x7fff9d09fe60, 0) = -1 ENOENT (No such file or directory)\n[pid    39] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/libpython3."
+      ],
+      "metadata": {
+       "exit_code": 1,
+       "origin": "solver_command",
+       "runtime": "vf-7791e56d0e09"
+      },
+      "traceback_sha256": "c71cf4a3b55abec6bd619196392dc43170b7e152ad7dc034c83f371e569bb2b3",
+      "types": [
+       "PolicyFailure"
+      ]
+     }
+    ],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-7791e56d0e09"
+     },
+     {
+      "container_id": "69698b7da03ca2686ec9bb9f1a1e917ebb8ed8ceb96d2ad164d471e07c32e75e",
+      "event": "created",
+      "name": "vf-7791e56d0e09"
+     },
+     {
+      "container_id": "69698b7da03ca2686ec9bb9f1a1e917ebb8ed8ceb96d2ad164d471e07c32e75e",
+      "event": "removed",
+      "name": "vf-7791e56d0e09"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2408,
+  "policy": "oracle_read",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T1",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 1,
+      "policy_outcome": "solver_crash",
+      "trace_sha256": "9a48e6755e9d0a5a9a6666e31613b501cf40febc6568afe56ce2fb6eab4916b0"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "3d052830929839f7d4ba5390945ade0cf662175c6385ff35758fdcf1de795781"
+     }
+    ],
+    "container_id": "69698b7da03ca2686ec9bb9f1a1e917ebb8ed8ceb96d2ad164d471e07c32e75e",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 3.259913107001921,
+    "exceptions": [
+     {
+      "full_traceback_parts": [
+       "logs/p2d3-r2-stress-E1-c12_exceptions/7b308aceb7424b1cb497675b3abccbb1-000.txt"
+      ],
+      "id": "7b308aceb7424b1cb497675b3abccbb1",
+      "kind": "policy",
+      "message_previews": [
+       "execve(\"/usr/bin/timeout\", [\"timeout\", \"--signal=TERM\", \"--kill-after=1\", \"20s\", \"python\", \"-I\", \"-B\", \"/work/program.py\", \"/work/input.json\"], 0x7fff241e9c60 /* 6 vars */) = 0\naccess(\"/etc/ld.so.preload\", R_OK)      = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/etc/ld.so.cache\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/lib/x86_64-linux-gnu/libc.so.6\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/locale-archive\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/share/locale/locale.alias\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/C.UTF-8/LC_CTYPE\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/C.utf8/LC_CTYPE\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache\", O_RDONLY|O_CLOEXEC) = 3\nstrace: Process 37 attached\n[pid    37] execve(\"/usr/local/bin/python\", [\"python\", \"-I\", \"-B\", \"/work/program.py\", \"/work/input.json\"], 0x7fffbef49078 /* 6 vars */) = 0\n[pid    37] readlinkat(AT_FDCWD</work>, \"/proc/self/exe\", \"/usr/local/bin/python3.14\", 4096) = 25\n[pid    37] access(\"/etc/ld.so.preload\", R_OK) = -1 ENOENT (No such file or directory)\n[pid    37] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v3/libpython3.14.so.1.0\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\n[pid    37] newfstatat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v3/\", 0x7ffda27d1290, 0) = -1 ENOENT (No such file or directory)\n[pid    37] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v2/libpython3.14.so.1.0\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\n[pid    37] newfstatat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v2/\", 0x7ffda27d1290, 0) = -1 ENOENT (No such file or directory)\n[pid    37] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/libpython3."
+      ],
+      "metadata": {
+       "exit_code": 1,
+       "origin": "solver_command",
+       "runtime": "vf-51b39fa4ffce"
+      },
+      "traceback_sha256": "992db48abfc9d327e117d7b7c063ae93388f9a35687f9a54e394b1d7c441418e",
+      "types": [
+       "PolicyFailure"
+      ]
+     }
+    ],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-51b39fa4ffce"
+     },
+     {
+      "container_id": "b9630c5ecfd1bd35417f8bf4e8600cf89850f7ce0ab8bc90f99c918956f79eb4",
+      "event": "created",
+      "name": "vf-51b39fa4ffce"
+     },
+     {
+      "container_id": "b9630c5ecfd1bd35417f8bf4e8600cf89850f7ce0ab8bc90f99c918956f79eb4",
+      "event": "removed",
+      "name": "vf-51b39fa4ffce"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2410,
+  "policy": "harness_tamper",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T1",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 1,
+      "policy_outcome": "solver_crash",
+      "trace_sha256": "6af7d4e3db2e8a9bfed9226b5952251e3a5f2bb9fbc2484e0d3f7377b715c363"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "b695823d27b77f2db74cc86a2bdd31a7fb2efb508f632de00e54a38f752785cf"
+     }
+    ],
+    "container_id": "b9630c5ecfd1bd35417f8bf4e8600cf89850f7ce0ab8bc90f99c918956f79eb4",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 3.3964199059992097,
+    "exceptions": [
+     {
+      "full_traceback_parts": [
+       "logs/p2d3-r2-stress-E1-c12_exceptions/dabb78b5102a4d139bfb99b81375976b-000.txt"
+      ],
+      "id": "dabb78b5102a4d139bfb99b81375976b",
+      "kind": "policy",
+      "message_previews": [
+       "execve(\"/usr/bin/timeout\", [\"timeout\", \"--signal=TERM\", \"--kill-after=1\", \"20s\", \"python\", \"-I\", \"-B\", \"/work/program.py\", \"/work/input.json\"], 0x7ffd12b3b7a0 /* 6 vars */) = 0\naccess(\"/etc/ld.so.preload\", R_OK)      = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/etc/ld.so.cache\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/lib/x86_64-linux-gnu/libc.so.6\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/locale-archive\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/share/locale/locale.alias\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/C.UTF-8/LC_CTYPE\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/C.utf8/LC_CTYPE\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache\", O_RDONLY|O_CLOEXEC) = 3\nstrace: Process 38 attached\n[pid    38] execve(\"/usr/local/bin/python\", [\"python\", \"-I\", \"-B\", \"/work/program.py\", \"/work/input.json\"], 0x7ffcc81250d8 /* 6 vars */) = 0\n[pid    38] readlinkat(AT_FDCWD</work>, \"/proc/self/exe\", \"/usr/local/bin/python3.14\", 4096) = 25\n[pid    38] access(\"/etc/ld.so.preload\", R_OK) = -1 ENOENT (No such file or directory)\n[pid    38] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v3/libpython3.14.so.1.0\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\n[pid    38] newfstatat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v3/\", 0x7ffdb0d2ec20, 0) = -1 ENOENT (No such file or directory)\n[pid    38] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v2/libpython3.14.so.1.0\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\n[pid    38] newfstatat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v2/\", 0x7ffdb0d2ec20, 0) = -1 ENOENT (No such file or directory)\n[pid    38] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/libpython3."
+      ],
+      "metadata": {
+       "exit_code": 1,
+       "origin": "solver_command",
+       "runtime": "vf-f21ec9755b2d"
+      },
+      "traceback_sha256": "aea390de400761069b5bdc5c774042aaa8d4c0a2d47a77e8410ed566236e0831",
+      "types": [
+       "PolicyFailure"
+      ]
+     }
+    ],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-f21ec9755b2d"
+     },
+     {
+      "container_id": "e313e3dd9787e94dfb4c0b385511a68b19c25bbe27496974b04cc2a97f05ee20",
+      "event": "created",
+      "name": "vf-f21ec9755b2d"
+     },
+     {
+      "container_id": "e313e3dd9787e94dfb4c0b385511a68b19c25bbe27496974b04cc2a97f05ee20",
+      "event": "removed",
+      "name": "vf-f21ec9755b2d"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2411,
+  "policy": "network_use",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T1",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 1,
+      "policy_outcome": "solver_crash",
+      "trace_sha256": "0e6b2ace631073e37e4f3848f73c162d514b6aa69bdc11e4a35995c044129864"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "60b5b23bb91e2b12fe428d36ca1ef73b8c558c6af445dfd48e1771ed7b8b8179"
+     }
+    ],
+    "container_id": "e313e3dd9787e94dfb4c0b385511a68b19c25bbe27496974b04cc2a97f05ee20",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.175651411991566,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-3b0753b03de2"
+     },
+     {
+      "container_id": "a99412052c3ce28c09911d37a863edb7632b4c14191340cad58bd1d10781fb98",
+      "event": "created",
+      "name": "vf-3b0753b03de2"
+     },
+     {
+      "container_id": "a99412052c3ce28c09911d37a863edb7632b4c14191340cad58bd1d10781fb98",
+      "event": "removed",
+      "name": "vf-3b0753b03de2"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-e77364fccf4e"
+     },
+     {
+      "container_id": "2b203479e27b09265d31d64257f0280d7446574970efb0e266ef7503f2eddecc",
+      "event": "created",
+      "name": "vf-e77364fccf4e"
+     },
+     {
+      "container_id": "2b203479e27b09265d31d64257f0280d7446574970efb0e266ef7503f2eddecc",
+      "event": "removed",
+      "name": "vf-e77364fccf4e"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-0125864fabe1"
+     },
+     {
+      "container_id": "b330ff236566e2cc0d4a022b905b8637d318425a2d417676c4785a5fde5f600a",
+      "event": "created",
+      "name": "vf-0125864fabe1"
+     },
+     {
+      "container_id": "b330ff236566e2cc0d4a022b905b8637d318425a2d417676c4785a5fde5f600a",
+      "event": "removed",
+      "name": "vf-0125864fabe1"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2407,
+  "policy": "legacy_attestation",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T1",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "85ad729a9909dc03abb76bff7214eced884eb63e9751077c232268fbf3531dfa"
+     }
+    ],
+    "container_id": "2b203479e27b09265d31d64257f0280d7446574970efb0e266ef7503f2eddecc",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "52c8f979ebbeab1a240ef68c5052bd3b2fc7a00a64b792b0656fddb4e3c97d4b",
+    "source_sha256": "368d41048fc33c474ea3c0fb6e6e88ffa31757db07324bf35a31c279dca05756"
+   },
+   "replay": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "44c10c9080c79ca298c2f8d62ee962b9066bd67a1779e618993db4ac86460aef"
+     }
+    ],
+    "container_id": "b330ff236566e2cc0d4a022b905b8637d318425a2d417676c4785a5fde5f600a",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "a391362ac92f6c8aae330a09cf6ffb3972375402973fb5a7bfa371d3a1615d33",
+    "source_sha256": "368d41048fc33c474ea3c0fb6e6e88ffa31757db07324bf35a31c279dca05756"
+   },
+   "replay_seed": 1001509,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "379366542dae009ff2f6d2446774e05b6552bf5b6fe80bad0df9794ca8a9956a"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "57dd7932dcd52e649aa1432a24d943d9f5de1248b3e92cd13987269d2e1e1bbd"
+     }
+    ],
+    "container_id": "a99412052c3ce28c09911d37a863edb7632b4c14191340cad58bd1d10781fb98",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.55456882098224,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-b3c7629365da"
+     },
+     {
+      "container_id": "35ae1fac9a5d70af14184421b85ef280c4e7705d800b4bfd5585495ad1c60a23",
+      "event": "created",
+      "name": "vf-b3c7629365da"
+     },
+     {
+      "container_id": "35ae1fac9a5d70af14184421b85ef280c4e7705d800b4bfd5585495ad1c60a23",
+      "event": "removed",
+      "name": "vf-b3c7629365da"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-8845a19f9650"
+     },
+     {
+      "container_id": "3be6c9b2dc5c400134d8bb6865e4d37e07b8b71b4d74f724aa5512851a9aeb46",
+      "event": "created",
+      "name": "vf-8845a19f9650"
+     },
+     {
+      "container_id": "3be6c9b2dc5c400134d8bb6865e4d37e07b8b71b4d74f724aa5512851a9aeb46",
+      "event": "removed",
+      "name": "vf-8845a19f9650"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-48bb152f2fe6"
+     },
+     {
+      "container_id": "64250839ed9b30c1fc1085b9f4d1e16a3f603851fdc781987f53ce3d513427c9",
+      "event": "created",
+      "name": "vf-48bb152f2fe6"
+     },
+     {
+      "container_id": "64250839ed9b30c1fc1085b9f4d1e16a3f603851fdc781987f53ce3d513427c9",
+      "event": "removed",
+      "name": "vf-48bb152f2fe6"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2406,
+  "policy": "hardcoded",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T1",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "37c93e5bf105bbd812f2f52948bea6d338120e64b9f33ef1f8f5f7402a49fe65",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "b627b23fd64a3bd890c79316ef133c89f78750cca0fae230799238032a17fc68"
+     }
+    ],
+    "container_id": "3be6c9b2dc5c400134d8bb6865e4d37e07b8b71b4d74f724aa5512851a9aeb46",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "52c8f979ebbeab1a240ef68c5052bd3b2fc7a00a64b792b0656fddb4e3c97d4b",
+    "source_sha256": "ffe8352df3c97d2218da21831620cb7c076671b7534c6961bd159f996959af9a"
+   },
+   "replay": {
+    "answer_sha256": "37c93e5bf105bbd812f2f52948bea6d338120e64b9f33ef1f8f5f7402a49fe65",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "19949e471d50b4db37c4c5282201df5eeeae19851dbc9415771ef029fd3d5a68"
+     }
+    ],
+    "container_id": "64250839ed9b30c1fc1085b9f4d1e16a3f603851fdc781987f53ce3d513427c9",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "df4c1b10ea992945c7f7873bfacf6cd126b83efd02fc14aa1da85357413c169d",
+    "source_sha256": "ffe8352df3c97d2218da21831620cb7c076671b7534c6961bd159f996959af9a"
+   },
+   "replay_seed": 1001313,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "7503982f00c96f3a7a7030648813231a19c1f81461b29ab04e2086370debaabc"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "10555ec56a9843578e983c5c23d7cd95533c5ce17fda1144fcaca4c9ef2e9ddc"
+     }
+    ],
+    "container_id": "35ae1fac9a5d70af14184421b85ef280c4e7705d800b4bfd5585495ad1c60a23",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.7622441290004645,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-8efe272dd333"
+     },
+     {
+      "container_id": "a43c304e97535ad5c5f8492cdbfed1223c2774150010a044b13e5e84d2762720",
+      "event": "created",
+      "name": "vf-8efe272dd333"
+     },
+     {
+      "container_id": "a43c304e97535ad5c5f8492cdbfed1223c2774150010a044b13e5e84d2762720",
+      "event": "removed",
+      "name": "vf-8efe272dd333"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-4564ed36ec65"
+     },
+     {
+      "container_id": "22731b95870ac02edd9a42b33dab1137eb9779466fbd86a0c26daefc3fa6d0e3",
+      "event": "created",
+      "name": "vf-4564ed36ec65"
+     },
+     {
+      "container_id": "22731b95870ac02edd9a42b33dab1137eb9779466fbd86a0c26daefc3fa6d0e3",
+      "event": "removed",
+      "name": "vf-4564ed36ec65"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-8c1f5409115a"
+     },
+     {
+      "container_id": "9daefdf2c6b9c7cb21fb7cc07a0366ce896eba63e0de52a3cbfacd42d8d01f4a",
+      "event": "created",
+      "name": "vf-8c1f5409115a"
+     },
+     {
+      "container_id": "9daefdf2c6b9c7cb21fb7cc07a0366ce896eba63e0de52a3cbfacd42d8d01f4a",
+      "event": "removed",
+      "name": "vf-8c1f5409115a"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2400,
+  "policy": "ignore_active_universe",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T1",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "7f406eae796d162e41ac7ed054cb0c49747271915f4fd73b569cd848aa5fe90c",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "380f1b04c16e80f46b1644f09005173d4cc5e81af932e20f7f48ea3a72b07f62"
+     }
+    ],
+    "container_id": "22731b95870ac02edd9a42b33dab1137eb9779466fbd86a0c26daefc3fa6d0e3",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "52c8f979ebbeab1a240ef68c5052bd3b2fc7a00a64b792b0656fddb4e3c97d4b",
+    "source_sha256": "9c6b760477f3f245c1326656a724295f4659f8b72d305e26b5b8dfda6864525b"
+   },
+   "replay": {
+    "answer_sha256": "558c2c3e4924b66a1dc3aa475927e6263b4709a16586a44d481e111c9a5b2dff",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "392b0e54f13857569d55f909886960e941526277d3a0bc3568823a933b00afec"
+     }
+    ],
+    "container_id": "9daefdf2c6b9c7cb21fb7cc07a0366ce896eba63e0de52a3cbfacd42d8d01f4a",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "a3d6f57bbb1539390b890a210845a38a22265f39404610769c685540dcfef1ae",
+    "source_sha256": "9c6b760477f3f245c1326656a724295f4659f8b72d305e26b5b8dfda6864525b"
+   },
+   "replay_seed": 1001540,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "4caeb0d00786df151c2db658e3b42a51b62a1261cf72c9e83b327dd6c2086206"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "30a96f793ac64f9bea14fd8c8658169314565af14db231071a8a8e2d73b4e1eb"
+     }
+    ],
+    "container_id": "a43c304e97535ad5c5f8492cdbfed1223c2774150010a044b13e5e84d2762720",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.8125422690063715,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-10a698308b67"
+     },
+     {
+      "container_id": "a27e0387b965d21a03ba99343faaa666da8547f0d28d25bc1284e49a0db93ff0",
+      "event": "created",
+      "name": "vf-10a698308b67"
+     },
+     {
+      "container_id": "a27e0387b965d21a03ba99343faaa666da8547f0d28d25bc1284e49a0db93ff0",
+      "event": "removed",
+      "name": "vf-10a698308b67"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-efc023a51a11"
+     },
+     {
+      "container_id": "4bc1c1fce581bfeaa70e6d8e414757c0b2933ae0ee47a215c47903706f415fd2",
+      "event": "created",
+      "name": "vf-efc023a51a11"
+     },
+     {
+      "container_id": "4bc1c1fce581bfeaa70e6d8e414757c0b2933ae0ee47a215c47903706f415fd2",
+      "event": "removed",
+      "name": "vf-efc023a51a11"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-4777ab47a8f9"
+     },
+     {
+      "container_id": "75c101dda7bb6d2803787ada049a0b0ae063e79b1baf93b213614d66d2c3e9f8",
+      "event": "created",
+      "name": "vf-4777ab47a8f9"
+     },
+     {
+      "container_id": "75c101dda7bb6d2803787ada049a0b0ae063e79b1baf93b213614d66d2c3e9f8",
+      "event": "removed",
+      "name": "vf-4777ab47a8f9"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2402,
+  "policy": "long_only",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T1",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "f7becaee8344e71f61514e709cfb40eadccdf4b6848c6489d1ff37f173ef9359",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "aa1431ea89344b52d9c3b1d513098c1229ca20875842079b5fcb249dc3116a92"
+     }
+    ],
+    "container_id": "4bc1c1fce581bfeaa70e6d8e414757c0b2933ae0ee47a215c47903706f415fd2",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "52c8f979ebbeab1a240ef68c5052bd3b2fc7a00a64b792b0656fddb4e3c97d4b",
+    "source_sha256": "87e38cee3a34c9d466f47dd3fd1ad28bbefa3ade75e99d0da78afb9feabd01d7"
+   },
+   "replay": {
+    "answer_sha256": "9b2c31d02ebaf3dbf1fc206ee82f369cff369485d8d2f54fd05da0adf305dd1f",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "9ff81298e08dbefd4f62104ea6da685935db0ba112bff26dccb1d53158c8e767"
+     }
+    ],
+    "container_id": "75c101dda7bb6d2803787ada049a0b0ae063e79b1baf93b213614d66d2c3e9f8",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "da7ccbb55d8a2d3f050698036ec7a9d5cbe4fd039eed6652a60529f22c18b638",
+    "source_sha256": "87e38cee3a34c9d466f47dd3fd1ad28bbefa3ade75e99d0da78afb9feabd01d7"
+   },
+   "replay_seed": 1001358,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "1eb6b4aa63fbc158e89d77a0c04149de748ae1c490d5b8a5dc8419636913c8a6"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "905ac7fc300c2167435d37124e32dd05fd342f1638174d82c9efe92849de78ae"
+     }
+    ],
+    "container_id": "a27e0387b965d21a03ba99343faaa666da8547f0d28d25bc1284e49a0db93ff0",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 7.068482817005133,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-bce8b127d741"
+     },
+     {
+      "container_id": "fb314a5678e388836493679fe0f418fb0fff4f2d4f6c829d0e0bdd9eaef5ab13",
+      "event": "created",
+      "name": "vf-bce8b127d741"
+     },
+     {
+      "container_id": "fb314a5678e388836493679fe0f418fb0fff4f2d4f6c829d0e0bdd9eaef5ab13",
+      "event": "removed",
+      "name": "vf-bce8b127d741"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-1a1f4005a88e"
+     },
+     {
+      "container_id": "ac2204c393e2bb5c729e804961c70c14470a5569b345203b7554fa9df4ba9790",
+      "event": "created",
+      "name": "vf-1a1f4005a88e"
+     },
+     {
+      "container_id": "ac2204c393e2bb5c729e804961c70c14470a5569b345203b7554fa9df4ba9790",
+      "event": "removed",
+      "name": "vf-1a1f4005a88e"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-6a51eff84612"
+     },
+     {
+      "container_id": "6a22b36cffd58017b9f32fba7283108ebea4a7def91ec48d8057d40b49eb9df3",
+      "event": "created",
+      "name": "vf-6a51eff84612"
+     },
+     {
+      "container_id": "6a22b36cffd58017b9f32fba7283108ebea4a7def91ec48d8057d40b49eb9df3",
+      "event": "removed",
+      "name": "vf-6a51eff84612"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2401,
+  "policy": "equal_weights",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T1",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "b99c757a0aa145196e56d6f9e3ae6fde2b9f05d2e3d8b6fdd82080aa95c55e2a",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "9ccebb3140b74056731947fe4c6bd1be242d4ea223c4ec1084a28acd6ab4fb94"
+     }
+    ],
+    "container_id": "ac2204c393e2bb5c729e804961c70c14470a5569b345203b7554fa9df4ba9790",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "52c8f979ebbeab1a240ef68c5052bd3b2fc7a00a64b792b0656fddb4e3c97d4b",
+    "source_sha256": "926f6f34e320c5263c70fa08deca6b7f4a21584df06df3812c6713975797eab1"
+   },
+   "replay": {
+    "answer_sha256": "5bb3631f2670b8a85fee8183a9c645bad109c8d87466a20558b1c69b77926163",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "ec82b4da82c499dd9e9c57159d8b0d8859ab57e8ca99f0cec43afd0a25c7ed8d"
+     }
+    ],
+    "container_id": "6a22b36cffd58017b9f32fba7283108ebea4a7def91ec48d8057d40b49eb9df3",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "f808ffba1e495b3e9d4b46544da51e51f76d94683a8b63fc87eb0dd7b3803594",
+    "source_sha256": "926f6f34e320c5263c70fa08deca6b7f4a21584df06df3812c6713975797eab1"
+   },
+   "replay_seed": 1001001,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "ab41bd3c363b20c8f06367e2b60f557bf1dac23aaaaebb22c4abd0728f44b42d"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "0d010a8d745eb1a287d583bf81ef3e789f61228cd869ce88aec2024ddb947c45"
+     }
+    ],
+    "container_id": "fb314a5678e388836493679fe0f418fb0fff4f2d4f6c829d0e0bdd9eaef5ab13",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 7.192265864985529,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-8aeece5668c9"
+     },
+     {
+      "container_id": "6c89681c21cee2f324fb81fa83eb5b3d61a7bea6f1258dfdf0019731815ca342",
+      "event": "created",
+      "name": "vf-8aeece5668c9"
+     },
+     {
+      "container_id": "6c89681c21cee2f324fb81fa83eb5b3d61a7bea6f1258dfdf0019731815ca342",
+      "event": "removed",
+      "name": "vf-8aeece5668c9"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-c38b5d514c1d"
+     },
+     {
+      "container_id": "836fff329596d74e48c5b3ec1b69eeeef3bf6a864b99f23150b45a356d7149fb",
+      "event": "created",
+      "name": "vf-c38b5d514c1d"
+     },
+     {
+      "container_id": "836fff329596d74e48c5b3ec1b69eeeef3bf6a864b99f23150b45a356d7149fb",
+      "event": "removed",
+      "name": "vf-c38b5d514c1d"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-5b7d35860718"
+     },
+     {
+      "container_id": "70a9fd6b9d2fa45df826ae8b24047d8f7b69d0e3fe4b6f32368c56a0b6c0f7ac",
+      "event": "created",
+      "name": "vf-5b7d35860718"
+     },
+     {
+      "container_id": "70a9fd6b9d2fa45df826ae8b24047d8f7b69d0e3fe4b6f32368c56a0b6c0f7ac",
+      "event": "removed",
+      "name": "vf-5b7d35860718"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2403,
+  "policy": "percentage_units",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T1",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "0861601d2c2ff6ac9e573a9ed8771e33aabcba80c260a15ed5372678e993b65a",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "5c346b91b7c6930a03ce40b8fdb38bd16f31d0d1d7eafbf3a893ff0e6bae6289"
+     }
+    ],
+    "container_id": "836fff329596d74e48c5b3ec1b69eeeef3bf6a864b99f23150b45a356d7149fb",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "52c8f979ebbeab1a240ef68c5052bd3b2fc7a00a64b792b0656fddb4e3c97d4b",
+    "source_sha256": "eec5d56a876d9ea4a39010e6152e4c39b85bbe458555c37ebd7f725292bf1eb1"
+   },
+   "replay": {
+    "answer_sha256": "c32331bbf75098f67eff349875926163a3b165589bb79c2a520c8d045a31ec94",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "2f070f13431361768d7335d44d03cfe5274d9ccba7c13e955fbd6ea43317b1f2"
+     }
+    ],
+    "container_id": "70a9fd6b9d2fa45df826ae8b24047d8f7b69d0e3fe4b6f32368c56a0b6c0f7ac",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "55a7e83fd246ed29d88cb5303cf3b080c5cbb27ccd631eda24c1b17a1cc6d4d4",
+    "source_sha256": "eec5d56a876d9ea4a39010e6152e4c39b85bbe458555c37ebd7f725292bf1eb1"
+   },
+   "replay_seed": 1001701,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "bd7dd09b1f184eea97adc413ab0a4c7c8f4a919c39c5fc5b2160d384f8cbaac6"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "2dc9db61a779f40b304c143a549ed189493c85621f1d5602eea66eac21551588"
+     }
+    ],
+    "container_id": "6c89681c21cee2f324fb81fa83eb5b3d61a7bea6f1258dfdf0019731815ca342",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 7.280873763986165,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-438ff621d1a6"
+     },
+     {
+      "container_id": "def93d857d79080963a28270d0335a0daa55d76a3145f7ef67a8494ff8357fc9",
+      "event": "created",
+      "name": "vf-438ff621d1a6"
+     },
+     {
+      "container_id": "def93d857d79080963a28270d0335a0daa55d76a3145f7ef67a8494ff8357fc9",
+      "event": "removed",
+      "name": "vf-438ff621d1a6"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-c937c2b7f3dc"
+     },
+     {
+      "container_id": "2e85607ef8f32b664f9091dc56c6ad968b7c68f543c07075b9fea75cf1bd2365",
+      "event": "created",
+      "name": "vf-c937c2b7f3dc"
+     },
+     {
+      "container_id": "2e85607ef8f32b664f9091dc56c6ad968b7c68f543c07075b9fea75cf1bd2365",
+      "event": "removed",
+      "name": "vf-c937c2b7f3dc"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-83a67794a1e3"
+     },
+     {
+      "container_id": "aea4b265fc6b3d625a872192d6bbf929ee34dc13951a17cd5f6f57c2c973b477",
+      "event": "created",
+      "name": "vf-83a67794a1e3"
+     },
+     {
+      "container_id": "aea4b265fc6b3d625a872192d6bbf929ee34dc13951a17cd5f6f57c2c973b477",
+      "event": "removed",
+      "name": "vf-83a67794a1e3"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2404,
+  "policy": "annualize_daily_return",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T1",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "0517b46582c0e5684866de04039e08e2cab6dc1087bae72666141b2cc0a0fea2",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "e79279675285d57d888c7e326e6694cdcaf75b6c35aa6b76acd53475c3776d31"
+     }
+    ],
+    "container_id": "2e85607ef8f32b664f9091dc56c6ad968b7c68f543c07075b9fea75cf1bd2365",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "52c8f979ebbeab1a240ef68c5052bd3b2fc7a00a64b792b0656fddb4e3c97d4b",
+    "source_sha256": "f23463c377b05de322a95647b4a19ff1a36379f481c1d49a250739637a97aea5"
+   },
+   "replay": {
+    "answer_sha256": "1843e73948a3891833166af3d0473c600923e5048741ee638ddfed9f1550d27b",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "95a56f274ba45b3319347246e454710caac28747072cafb987b7b8ff94c74363"
+     }
+    ],
+    "container_id": "aea4b265fc6b3d625a872192d6bbf929ee34dc13951a17cd5f6f57c2c973b477",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "8ec6b10a8a0c51a1ac58028691ea8a12d1c3e48fb4b5aad1f4a5a5ba13748df5",
+    "source_sha256": "f23463c377b05de322a95647b4a19ff1a36379f481c1d49a250739637a97aea5"
+   },
+   "replay_seed": 1001077,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "43ab1206224346028035a9d0c3c96785301b259848d5607ba449271c92c3827f"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "01a617172905ba77a8f530967b0b470d51960465281dd5a4124b8e50a197a16f"
+     }
+    ],
+    "container_id": "def93d857d79080963a28270d0335a0daa55d76a3145f7ef67a8494ff8357fc9",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 7.302317860012408,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-bc6aa07dfe0b"
+     },
+     {
+      "container_id": "1b732eed3fe53b9d08a3a2cc53deb43166e56dbaa2a68590711e1d44efd19f76",
+      "event": "created",
+      "name": "vf-bc6aa07dfe0b"
+     },
+     {
+      "container_id": "1b732eed3fe53b9d08a3a2cc53deb43166e56dbaa2a68590711e1d44efd19f76",
+      "event": "removed",
+      "name": "vf-bc6aa07dfe0b"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-6d28e0c2079c"
+     },
+     {
+      "container_id": "ea75a956fd1ae4b4cb3d8ea2d770a7e9347bd5be44493b029a6eed93de51d0c4",
+      "event": "created",
+      "name": "vf-6d28e0c2079c"
+     },
+     {
+      "container_id": "ea75a956fd1ae4b4cb3d8ea2d770a7e9347bd5be44493b029a6eed93de51d0c4",
+      "event": "removed",
+      "name": "vf-6d28e0c2079c"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-68766e05aeca"
+     },
+     {
+      "container_id": "b987ad87cb47fc16bc672dfc1e5983923eb57fe35e8a2d7320a1d52053975099",
+      "event": "created",
+      "name": "vf-68766e05aeca"
+     },
+     {
+      "container_id": "b987ad87cb47fc16bc672dfc1e5983923eb57fe35e8a2d7320a1d52053975099",
+      "event": "removed",
+      "name": "vf-68766e05aeca"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2405,
+  "policy": "reverse_positions",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T1",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "c34af48dc3e2d509632a7efb718aca70aa4ce00b96bf35d4dc71213f4ce15dc0",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "73ac743f2f86f4f4d45847d2abcd5fd638d141adeeff120e0bda8d321d7cfca9"
+     }
+    ],
+    "container_id": "ea75a956fd1ae4b4cb3d8ea2d770a7e9347bd5be44493b029a6eed93de51d0c4",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "52c8f979ebbeab1a240ef68c5052bd3b2fc7a00a64b792b0656fddb4e3c97d4b",
+    "source_sha256": "6fbce04ade2c727feb5a2131970b1862de8047eed6707da01d4b9d1bd5d981ae"
+   },
+   "replay": {
+    "answer_sha256": "42865db9f896f149ab931d788451b36a748200a37e26d73d6c6b78d9986f8d18",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "04dfe88818ee238db6a38aa27216cfae820c1337a5a9c5cc50961804fcc43624"
+     }
+    ],
+    "container_id": "b987ad87cb47fc16bc672dfc1e5983923eb57fe35e8a2d7320a1d52053975099",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "edbdc27ca48bb1027fc8d2f193bbcc3219eabdcbfeed4bfb95262555da09781a",
+    "source_sha256": "6fbce04ade2c727feb5a2131970b1862de8047eed6707da01d4b9d1bd5d981ae"
+   },
+   "replay_seed": 1001163,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "8d29357cd82c0fb9d97a4e729a888b9b5c901fd5b38a68cf5de8e94db1d00f85"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "535f32ca0d046fbbcaa8dcf790eaa0f58879192abf48d2d51de32ff83cfc281c"
+     }
+    ],
+    "container_id": "1b732eed3fe53b9d08a3a2cc53deb43166e56dbaa2a68590711e1d44efd19f76",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.297561163984938,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-0b952ae901de"
+     },
+     {
+      "container_id": "e84a7d88b96a51e97094bd73cb7a6482fa302dff47c15b9db0332ac581dcb5e9",
+      "event": "created",
+      "name": "vf-0b952ae901de"
+     },
+     {
+      "container_id": "e84a7d88b96a51e97094bd73cb7a6482fa302dff47c15b9db0332ac581dcb5e9",
+      "event": "removed",
+      "name": "vf-0b952ae901de"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-e0fc5c1ea327"
+     },
+     {
+      "container_id": "de60d2171f37ba6aa815829c768ee5a454b48b8a856b13eee912fbd34a14309e",
+      "event": "created",
+      "name": "vf-e0fc5c1ea327"
+     },
+     {
+      "container_id": "de60d2171f37ba6aa815829c768ee5a454b48b8a856b13eee912fbd34a14309e",
+      "event": "removed",
+      "name": "vf-e0fc5c1ea327"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-794cb797b1d5"
+     },
+     {
+      "container_id": "7f15f98437b671f65f6b4a4fbb8b0dae3c6eaf7cd93c466c665ef990c64eb058",
+      "event": "created",
+      "name": "vf-794cb797b1d5"
+     },
+     {
+      "container_id": "7f15f98437b671f65f6b4a4fbb8b0dae3c6eaf7cd93c466c665ef990c64eb058",
+      "event": "removed",
+      "name": "vf-794cb797b1d5"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2412,
+  "policy": "schema_forgery",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T1",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "6c00e35753e80563d38d5138931d92f7a6e15fc0a7a24a7d7ad9223d7221c96d"
+     }
+    ],
+    "container_id": "de60d2171f37ba6aa815829c768ee5a454b48b8a856b13eee912fbd34a14309e",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "52c8f979ebbeab1a240ef68c5052bd3b2fc7a00a64b792b0656fddb4e3c97d4b",
+    "source_sha256": "33b59a367e157bace735e57198ed3ac33e3b49341becb4242af9ca885450cfa4"
+   },
+   "replay": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "0e74d681730ffd689d8651414910a9e1bc044ea7aba4862b9c294c0230a49699"
+     }
+    ],
+    "container_id": "7f15f98437b671f65f6b4a4fbb8b0dae3c6eaf7cd93c466c665ef990c64eb058",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "83a6ab5bf293c92c29e5a849c3f12f5d791fb06989fb93d4391c3e5980d6a28d",
+    "source_sha256": "33b59a367e157bace735e57198ed3ac33e3b49341becb4242af9ca885450cfa4"
+   },
+   "replay_seed": 1001474,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "0bb4338b644f9a76b26b8bdea5099955816a7b4f555eff2df7a94970e3beaaeb"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "0b625ebe578416cecae5d1eedd3051f0748861373b790269d4d22e267b2c34b0"
+     }
+    ],
+    "container_id": "e84a7d88b96a51e97094bd73cb7a6482fa302dff47c15b9db0332ac581dcb5e9",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.7147158670122735,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-1ecb4832844b"
+     },
+     {
+      "container_id": "8b3abd2756e07240bb7fc4020302de6354064285521b936f03d251d3c4f2e527",
+      "event": "created",
+      "name": "vf-1ecb4832844b"
+     },
+     {
+      "container_id": "8b3abd2756e07240bb7fc4020302de6354064285521b936f03d251d3c4f2e527",
+      "event": "removed",
+      "name": "vf-1ecb4832844b"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-9207c0713c80"
+     },
+     {
+      "container_id": "b0307457fe542101be2574bf0eb7c3ab191d334af4abbcb62323a3780376d3ab",
+      "event": "created",
+      "name": "vf-9207c0713c80"
+     },
+     {
+      "container_id": "b0307457fe542101be2574bf0eb7c3ab191d334af4abbcb62323a3780376d3ab",
+      "event": "removed",
+      "name": "vf-9207c0713c80"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-3a72cd1bdeff"
+     },
+     {
+      "container_id": "a8e1830f3736ab689e758e68cf8b11062bb15d91fe452d5372e5754b2daef9af",
+      "event": "created",
+      "name": "vf-3a72cd1bdeff"
+     },
+     {
+      "container_id": "a8e1830f3736ab689e758e68cf8b11062bb15d91fe452d5372e5754b2daef9af",
+      "event": "removed",
+      "name": "vf-3a72cd1bdeff"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2413,
+  "policy": "divergent_replay",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T1",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "79a5f95bcf5394e896bb650cd29be4c90f0ea91822e16455bb736f1afef2027a",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "b90324d6a55a2ead49ce088ba083001b7914d479e9f81ef361dedc250da03513"
+     }
+    ],
+    "container_id": "b0307457fe542101be2574bf0eb7c3ab191d334af4abbcb62323a3780376d3ab",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "52c8f979ebbeab1a240ef68c5052bd3b2fc7a00a64b792b0656fddb4e3c97d4b",
+    "source_sha256": "f119778c9496ceed174019d467dd6c68686a7078e5b2aa3fe075b854e7a4166d"
+   },
+   "replay": {
+    "answer_sha256": "7522229a650732d9696960bb380454652647be0c3bbe58096d499d8b22a71b1b",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "3a71283117957454c7d48705dabd5976a312faec60a84ee8dfd6c78347613822"
+     }
+    ],
+    "container_id": "a8e1830f3736ab689e758e68cf8b11062bb15d91fe452d5372e5754b2daef9af",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "72862a95ea4b494d83c45f6554c9e01cac0c7bbded7dc5f411b3dfa71f4fb98c",
+    "source_sha256": "f119778c9496ceed174019d467dd6c68686a7078e5b2aa3fe075b854e7a4166d"
+   },
+   "replay_seed": 1001657,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "6fb3af068e8aa36121e5eefd975d07b32cda2fe4ead469d73c6ffe6e8e99b533"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "f70e54222371c783a2c4489f69c90c84dcb20e285dfd69911cd26c74f2f63d2e"
+     }
+    ],
+    "container_id": "8b3abd2756e07240bb7fc4020302de6354064285521b936f03d251d3c4f2e527",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.709379646985326,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-50a7b365212e"
+     },
+     {
+      "container_id": "0ff024cd6bc8a1b6450196cebc5ca18155c3fa06d752554f80608a3ce07a10f9",
+      "event": "created",
+      "name": "vf-50a7b365212e"
+     },
+     {
+      "container_id": "0ff024cd6bc8a1b6450196cebc5ca18155c3fa06d752554f80608a3ce07a10f9",
+      "event": "removed",
+      "name": "vf-50a7b365212e"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-18e408eb54a9"
+     },
+     {
+      "container_id": "b010734b04354d98afe342a99c4e3c32903a4239825f1d2a8ed70fc4490b7f10",
+      "event": "created",
+      "name": "vf-18e408eb54a9"
+     },
+     {
+      "container_id": "b010734b04354d98afe342a99c4e3c32903a4239825f1d2a8ed70fc4490b7f10",
+      "event": "removed",
+      "name": "vf-18e408eb54a9"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-bbc1e2ebc680"
+     },
+     {
+      "container_id": "06e3d9f9ff8b71406c831f6449a5676388aafa2ee578597d980498ab5c93e2aa",
+      "event": "created",
+      "name": "vf-bbc1e2ebc680"
+     },
+     {
+      "container_id": "06e3d9f9ff8b71406c831f6449a5676388aafa2ee578597d980498ab5c93e2aa",
+      "event": "removed",
+      "name": "vf-bbc1e2ebc680"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2415,
+  "policy": "flagged_replay",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T1",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "79a5f95bcf5394e896bb650cd29be4c90f0ea91822e16455bb736f1afef2027a",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "a9cdde25702b626f8e49e3582479dad874f6f01012c1f54a5c8d07393dfe3d78"
+     }
+    ],
+    "container_id": "b010734b04354d98afe342a99c4e3c32903a4239825f1d2a8ed70fc4490b7f10",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "52c8f979ebbeab1a240ef68c5052bd3b2fc7a00a64b792b0656fddb4e3c97d4b",
+    "source_sha256": "4c2ca569c964d32ce23425f9fd7fd762f6d1fca5fe90b5abe039e040e75026f6"
+   },
+   "replay": {
+    "answer_sha256": "569a0c848829eb2d2b046f0ddee9d41a4bd426afa8ee70d0ae846b51efa7caff",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "eea2135735e83b1d70004504ec8022b3d044a215378bee52c6318c5d07a7f7c2"
+     }
+    ],
+    "container_id": "06e3d9f9ff8b71406c831f6449a5676388aafa2ee578597d980498ab5c93e2aa",
+    "exit_code": 0,
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "8c7b4adc8d8473d9dbfe0340fdea179a71e2f19c43c307f27f84c4f7952fc665",
+    "source_sha256": "4c2ca569c964d32ce23425f9fd7fd762f6d1fca5fe90b5abe039e040e75026f6"
+   },
+   "replay_seed": 1001240,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "3014a1af5013d1e50ecad483736b96b5ce862d0b17e4097244cba12e475b72fd"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "ebc222eb371540608cda50f897e2942d6883371bb42cdd3238f9444e4fd31f63"
+     }
+    ],
+    "container_id": "0ff024cd6bc8a1b6450196cebc5ca18155c3fa06d752554f80608a3ce07a10f9",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.874064615985844,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-79696c2b30ed"
+     },
+     {
+      "container_id": "f9b5e7f24c9f9eef50df954178756e0bb33a169552053241a9c11129823c5ac9",
+      "event": "created",
+      "name": "vf-79696c2b30ed"
+     },
+     {
+      "container_id": "f9b5e7f24c9f9eef50df954178756e0bb33a169552053241a9c11129823c5ac9",
+      "event": "removed",
+      "name": "vf-79696c2b30ed"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-0339126e9144"
+     },
+     {
+      "container_id": "5ae240462e87415beb49abb40927cd1c5471c098ac6f7dab030488d26aa89e2e",
+      "event": "created",
+      "name": "vf-0339126e9144"
+     },
+     {
+      "container_id": "5ae240462e87415beb49abb40927cd1c5471c098ac6f7dab030488d26aa89e2e",
+      "event": "removed",
+      "name": "vf-0339126e9144"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-d8edbd872b66"
+     },
+     {
+      "container_id": "3f568112741658183131158465f5e785a9b3db781b15feaa62c6f2233caf7477",
+      "event": "created",
+      "name": "vf-d8edbd872b66"
+     },
+     {
+      "container_id": "3f568112741658183131158465f5e785a9b3db781b15feaa62c6f2233caf7477",
+      "event": "removed",
+      "name": "vf-d8edbd872b66"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2414,
+  "policy": "malformed_replay",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T1",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "79a5f95bcf5394e896bb650cd29be4c90f0ea91822e16455bb736f1afef2027a",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "ecf6c54364249aa2fdda3be8fb11692b184f0974928ec149e45b9744db2cb8bc"
+     }
+    ],
+    "container_id": "5ae240462e87415beb49abb40927cd1c5471c098ac6f7dab030488d26aa89e2e",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "52c8f979ebbeab1a240ef68c5052bd3b2fc7a00a64b792b0656fddb4e3c97d4b",
+    "source_sha256": "89183178f56655c20fb12389b10e89b6dfa99969f04f52a59376bdb18b03b981"
+   },
+   "replay": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "90de6084ee2a9dac8c21f5836050ca69b39e35950dc2b57233ae51ed3e4f573f"
+     }
+    ],
+    "container_id": "3f568112741658183131158465f5e785a9b3db781b15feaa62c6f2233caf7477",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "0ec57a5612b74ec95382393e166bdb7a3d7fd0b1378b4a7339cc2d919814176e",
+    "source_sha256": "89183178f56655c20fb12389b10e89b6dfa99969f04f52a59376bdb18b03b981"
+   },
+   "replay_seed": 1001874,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "22feba424906a89417fac722b281179c3dc33d70ee857bb3e04fb9352c96760e"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "35831605776e295e8149acb856f598d3fc7e4a3e52ba098013aefb6ea370f6d2"
+     }
+    ],
+    "container_id": "f9b5e7f24c9f9eef50df954178756e0bb33a169552053241a9c11129823c5ac9",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.416964664997067,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-4aea6266abe7"
+     },
+     {
+      "container_id": "6ece4fd0ee1551f8535409bf19d7515a89037453c411e35be56b85d197815cdf",
+      "event": "created",
+      "name": "vf-4aea6266abe7"
+     },
+     {
+      "container_id": "6ece4fd0ee1551f8535409bf19d7515a89037453c411e35be56b85d197815cdf",
+      "event": "removed",
+      "name": "vf-4aea6266abe7"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-5cc6bc00ca10"
+     },
+     {
+      "container_id": "52ac88921034d0c1e27b330a119d1fdad179131128f90849fec7928a87717368",
+      "event": "created",
+      "name": "vf-5cc6bc00ca10"
+     },
+     {
+      "container_id": "52ac88921034d0c1e27b330a119d1fdad179131128f90849fec7928a87717368",
+      "event": "removed",
+      "name": "vf-5cc6bc00ca10"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-84a46880085a"
+     },
+     {
+      "container_id": "a22e57897c3551b8101fcc9ce312d530787eee176e06e4d36611911515b20f82",
+      "event": "created",
+      "name": "vf-84a46880085a"
+     },
+     {
+      "container_id": "a22e57897c3551b8101fcc9ce312d530787eee176e06e4d36611911515b20f82",
+      "event": "removed",
+      "name": "vf-84a46880085a"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2416,
+  "policy": "near_miss",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T1",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "1dac1eee380763eb0e798dfb5278e0dd22a02d9395db59b90b8cde99d05233f3",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "cd32e073ba33d2b5d3ccaf102c336677c91e636c72f431da936c6342bf945195"
+     }
+    ],
+    "container_id": "52ac88921034d0c1e27b330a119d1fdad179131128f90849fec7928a87717368",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "52c8f979ebbeab1a240ef68c5052bd3b2fc7a00a64b792b0656fddb4e3c97d4b",
+    "source_sha256": "ff42eb8d6c4dbab78abdce5f7c7d922ccd2bad365583efc426d2782a02c1012a"
+   },
+   "replay": {
+    "answer_sha256": "63d8b7c00fe532ebf511c8856ce10fbf561af32d406c1c1ed4c9bc15ce993b41",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "2f459cd05b171a832cb5d384b432faecc5caec0d618f0a57d47e20b2d5b83e58"
+     }
+    ],
+    "container_id": "a22e57897c3551b8101fcc9ce312d530787eee176e06e4d36611911515b20f82",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "0896cc0ef035a65dd1857bb31a9c139b4626b714986f67959e5445a9eadd453a",
+    "source_sha256": "ff42eb8d6c4dbab78abdce5f7c7d922ccd2bad365583efc426d2782a02c1012a"
+   },
+   "replay_seed": 1001857,
+   "reward": 0.22499999999996784,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "3d7f17fb6c141bc9d6dfe3ec310984edfc96c1fb556e491d65f51a4e3c27d88b"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "74cb14a3d98f4798e8989adb3937e357629bcc3fe8b6952da0bf2f3dee3e257f"
+     }
+    ],
+    "container_id": "6ece4fd0ee1551f8535409bf19d7515a89037453c411e35be56b85d197815cdf",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.437838209007168,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-7eac623b15ea"
+     },
+     {
+      "container_id": "3df552808c03948ce901d28536e10693ee6c0bda0fba1c21fde679f8cded2c6d",
+      "event": "created",
+      "name": "vf-7eac623b15ea"
+     },
+     {
+      "container_id": "3df552808c03948ce901d28536e10693ee6c0bda0fba1c21fde679f8cded2c6d",
+      "event": "removed",
+      "name": "vf-7eac623b15ea"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-31407f4a1450"
+     },
+     {
+      "container_id": "d596d7508bd43f7f4683e6ac46676d62f741de8c34924063876b71acafa4da69",
+      "event": "created",
+      "name": "vf-31407f4a1450"
+     },
+     {
+      "container_id": "d596d7508bd43f7f4683e6ac46676d62f741de8c34924063876b71acafa4da69",
+      "event": "removed",
+      "name": "vf-31407f4a1450"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-1982311c2e04"
+     },
+     {
+      "container_id": "62204afbbf4ba5c5f35020d6b2d6f838bd2e67ee97a4d0dd1097bc1b57f19673",
+      "event": "created",
+      "name": "vf-1982311c2e04"
+     },
+     {
+      "container_id": "62204afbbf4ba5c5f35020d6b2d6f838bd2e67ee97a4d0dd1097bc1b57f19673",
+      "event": "removed",
+      "name": "vf-1982311c2e04"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2417,
+  "policy": "oracle",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "5a4df48c126a843c51bfbefdce69ccff6b36cf51620af0d9c8b3189cfd78e23a",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "24c783ae56a3ca18d15571604ab9c20a947d3f876a52a6278cec5c8d5364308c"
+     }
+    ],
+    "container_id": "d596d7508bd43f7f4683e6ac46676d62f741de8c34924063876b71acafa4da69",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c04558fab7df1ca0f359310c84fd8c161b2297e69cc58df53ba10ac27b5fcd54",
+    "source_sha256": "0443d4e657400ef7a7fb3f71950ecf53116240963a5efe181327d8f303257173"
+   },
+   "replay": {
+    "answer_sha256": "6805c5b76a6924a302533f3a758484006c54ba32f1dcc839965560b813794433",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "3a004e2d550ad354f50abfdf107d1299ca9884df2b9a792b90b138a1a65dbc80"
+     }
+    ],
+    "container_id": "62204afbbf4ba5c5f35020d6b2d6f838bd2e67ee97a4d0dd1097bc1b57f19673",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "bad7ba60144232e844d3e70bf2cefba98b8bde8478f09d957e5ae81294f7d0d1",
+    "source_sha256": "0443d4e657400ef7a7fb3f71950ecf53116240963a5efe181327d8f303257173"
+   },
+   "replay_seed": 1001113,
+   "reward": 1.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "7ee44b3a883a2ec4364248d063639a90a36432ec45213361aacb9019a5cf0247"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "3074a7ac01587c967106553d1edf2c0b51278c4924b781c1a07ffc83f1e59f89"
+     }
+    ],
+    "container_id": "3df552808c03948ce901d28536e10693ee6c0bda0fba1c21fde679f8cded2c6d",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.548796319984831,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-60713c253289"
+     },
+     {
+      "container_id": "f875390400268f8a36e70f87b584dd60912f838f9cc4fd4057e47939606eca36",
+      "event": "created",
+      "name": "vf-60713c253289"
+     },
+     {
+      "container_id": "f875390400268f8a36e70f87b584dd60912f838f9cc4fd4057e47939606eca36",
+      "event": "removed",
+      "name": "vf-60713c253289"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-8e1cc568caa7"
+     },
+     {
+      "container_id": "79044d20655d35c4c0016dbada57f6addb6de07e1f9f481fbaf97a2145c351f9",
+      "event": "created",
+      "name": "vf-8e1cc568caa7"
+     },
+     {
+      "container_id": "79044d20655d35c4c0016dbada57f6addb6de07e1f9f481fbaf97a2145c351f9",
+      "event": "removed",
+      "name": "vf-8e1cc568caa7"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-48325803a693"
+     },
+     {
+      "container_id": "897d393353f2a17b970b6c39ff197ee582b959758131fdce95fd3fc4c0fcd20f",
+      "event": "created",
+      "name": "vf-48325803a693"
+     },
+     {
+      "container_id": "897d393353f2a17b970b6c39ff197ee582b959758131fdce95fd3fc4c0fcd20f",
+      "event": "removed",
+      "name": "vf-48325803a693"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2418,
+  "policy": "random",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "63ca52e6db51590384f8fa65f0afdb1c056df4abe5c71bbb2418dc3c04400c2f",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "09bf00aa079dd1992c5dbc81db9348fefec221dedb599cc0bc441a813c30e24a"
+     }
+    ],
+    "container_id": "79044d20655d35c4c0016dbada57f6addb6de07e1f9f481fbaf97a2145c351f9",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c04558fab7df1ca0f359310c84fd8c161b2297e69cc58df53ba10ac27b5fcd54",
+    "source_sha256": "cb4d82a837785821df6e5ee23d8410f078676e3f6fab931bb3ae7a3c174b2bb8"
+   },
+   "replay": {
+    "answer_sha256": "63ca52e6db51590384f8fa65f0afdb1c056df4abe5c71bbb2418dc3c04400c2f",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "c116a72da099ffc7159d128205ae897f60d15d5e6eb9d276961aa0ab422537fd"
+     }
+    ],
+    "container_id": "897d393353f2a17b970b6c39ff197ee582b959758131fdce95fd3fc4c0fcd20f",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "2eaa03fd5d08d2e4ce12b32ee59c0d414179e6880fd4479ae5b662a31f23a4f2",
+    "source_sha256": "cb4d82a837785821df6e5ee23d8410f078676e3f6fab931bb3ae7a3c174b2bb8"
+   },
+   "replay_seed": 1001681,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "36697ed1abdf2e2b6a9c97e6d633c8dd8073f84789d5e7829fde5395fb7cc2ee"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "551035cc9e985721927231d11130820bcd96e2ec667afd9bf8cd4c263e7ba2e2"
+     }
+    ],
+    "container_id": "f875390400268f8a36e70f87b584dd60912f838f9cc4fd4057e47939606eca36",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.519058493024204,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-79d91984a1f9"
+     },
+     {
+      "container_id": "62894c09107a5ef27fc75fde284f6736adee0c81acdb5a4a85c3193ae1d3b6e7",
+      "event": "created",
+      "name": "vf-79d91984a1f9"
+     },
+     {
+      "container_id": "62894c09107a5ef27fc75fde284f6736adee0c81acdb5a4a85c3193ae1d3b6e7",
+      "event": "removed",
+      "name": "vf-79d91984a1f9"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-d983b785f2da"
+     },
+     {
+      "container_id": "b74f1401ebd7ab2b5f5f86c90f287e61571f64cee62b592bacd0ae4b6441859b",
+      "event": "created",
+      "name": "vf-d983b785f2da"
+     },
+     {
+      "container_id": "b74f1401ebd7ab2b5f5f86c90f287e61571f64cee62b592bacd0ae4b6441859b",
+      "event": "removed",
+      "name": "vf-d983b785f2da"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-deb9a5b99154"
+     },
+     {
+      "container_id": "80dad55964de93f1f23bf8a3fdb1e35fdafd5e8d3d3bc1c66a468cf9d49101e8",
+      "event": "created",
+      "name": "vf-deb9a5b99154"
+     },
+     {
+      "container_id": "80dad55964de93f1f23bf8a3fdb1e35fdafd5e8d3d3bc1c66a468cf9d49101e8",
+      "event": "removed",
+      "name": "vf-deb9a5b99154"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2419,
+  "policy": "ignore_availability",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "e55fd6269e3de4c8edaad30fab0ccb67ee4d608f5b2f2e3eeba709a51f437d48",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "dbd54235573ef6ef8ed6ee92a60301bce1e2f3c56435051a9c11c111093fab4a"
+     }
+    ],
+    "container_id": "b74f1401ebd7ab2b5f5f86c90f287e61571f64cee62b592bacd0ae4b6441859b",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c04558fab7df1ca0f359310c84fd8c161b2297e69cc58df53ba10ac27b5fcd54",
+    "source_sha256": "fb104df3714796f2a6624cc99de4def49fc342cc343c2bdec1452eba30657a40"
+   },
+   "replay": {
+    "answer_sha256": "c1f7e890dec75d87dcdff3221df5068e9fd552a9d49995f24cd28a8c61a247e0",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "e6e0baa4100d93948ca32bc12245c192852f5380561f36e75ddfdb84e4574b1e"
+     }
+    ],
+    "container_id": "80dad55964de93f1f23bf8a3fdb1e35fdafd5e8d3d3bc1c66a468cf9d49101e8",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "eac7454378f4ba57e44855c7fe2546de7f5ed6a4b6087816924ce3cc02fdd193",
+    "source_sha256": "fb104df3714796f2a6624cc99de4def49fc342cc343c2bdec1452eba30657a40"
+   },
+   "replay_seed": 1001279,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "3c2cc5556ac05980f9d36021ead18941cb8ae98b858f52dfca81a1ae4be38ee6"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "8def59050e5cc8c3e8e106fabbbae2df6ff0a86d7a09ba92620cba5246217a77"
+     }
+    ],
+    "container_id": "62894c09107a5ef27fc75fde284f6736adee0c81acdb5a4a85c3193ae1d3b6e7",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.531772980990354,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-9d339f36b6a3"
+     },
+     {
+      "container_id": "2f65121912dd7bfb52435bffbe940a44b235769ea1ec520fb12c90e3297cf3dd",
+      "event": "created",
+      "name": "vf-9d339f36b6a3"
+     },
+     {
+      "container_id": "2f65121912dd7bfb52435bffbe940a44b235769ea1ec520fb12c90e3297cf3dd",
+      "event": "removed",
+      "name": "vf-9d339f36b6a3"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-6a57309c81be"
+     },
+     {
+      "container_id": "f433c6fe96a642c69d10163074b43ef3dfcb311cefbafabc508d927817939dcd",
+      "event": "created",
+      "name": "vf-6a57309c81be"
+     },
+     {
+      "container_id": "f433c6fe96a642c69d10163074b43ef3dfcb311cefbafabc508d927817939dcd",
+      "event": "removed",
+      "name": "vf-6a57309c81be"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-207b7930aeba"
+     },
+     {
+      "container_id": "a30b283ff7e3be2aa48593f4143683275b6f0b6f1be1508c40e2cc1b6e60685b",
+      "event": "created",
+      "name": "vf-207b7930aeba"
+     },
+     {
+      "container_id": "a30b283ff7e3be2aa48593f4143683275b6f0b6f1be1508c40e2cc1b6e60685b",
+      "event": "removed",
+      "name": "vf-207b7930aeba"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2421,
+  "policy": "ignore_restatements",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "b564b77c8fa963a943667832445a8f3f955743236eea035b8eb803acb1dc60cc",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "0e7185eefccdb8d16d341af07c5dee0516df9168b56008771dee0a3bf46d010a"
+     }
+    ],
+    "container_id": "f433c6fe96a642c69d10163074b43ef3dfcb311cefbafabc508d927817939dcd",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c04558fab7df1ca0f359310c84fd8c161b2297e69cc58df53ba10ac27b5fcd54",
+    "source_sha256": "a3705800aaa85ff8bd4aff8281b123f3b4178745a1b0f694f375b1243e94cb10"
+   },
+   "replay": {
+    "answer_sha256": "0a6057959b1c525c3650f19b788142221faff77538261b6c497bdb8f95435bab",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "00d51af8cfe883995f092b2b8be00a712e7b59ffcba9178ec6253f7ea4f63473"
+     }
+    ],
+    "container_id": "a30b283ff7e3be2aa48593f4143683275b6f0b6f1be1508c40e2cc1b6e60685b",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "6e1dd5233525d42774c25c1e3ada1bb0b3aa81876efaebb0a32a50fa744c3763",
+    "source_sha256": "a3705800aaa85ff8bd4aff8281b123f3b4178745a1b0f694f375b1243e94cb10"
+   },
+   "replay_seed": 1001998,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "0b70bd01f5543de853db02d62ea347035dac0cb84abb6ca29603277b236cb93a"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "59001c4bfe3972d333cad0f6b793f1737050b57f50b3844f37bfbf62277f284a"
+     }
+    ],
+    "container_id": "2f65121912dd7bfb52435bffbe940a44b235769ea1ec520fb12c90e3297cf3dd",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.780359659984242,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-fa54896f0d31"
+     },
+     {
+      "container_id": "d59a9dbe1e679d2f27908093816e88579e4bfd7ec21a5b2c767429b5511bca22",
+      "event": "created",
+      "name": "vf-fa54896f0d31"
+     },
+     {
+      "container_id": "d59a9dbe1e679d2f27908093816e88579e4bfd7ec21a5b2c767429b5511bca22",
+      "event": "removed",
+      "name": "vf-fa54896f0d31"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-f7dd4f1e7e6b"
+     },
+     {
+      "container_id": "9b1aa9440615b3fb5409fdf423d26df5509ab8189994f6966089b5b10ebc3e04",
+      "event": "created",
+      "name": "vf-f7dd4f1e7e6b"
+     },
+     {
+      "container_id": "9b1aa9440615b3fb5409fdf423d26df5509ab8189994f6966089b5b10ebc3e04",
+      "event": "removed",
+      "name": "vf-f7dd4f1e7e6b"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-e52d2900cd61"
+     },
+     {
+      "container_id": "c963eed1079d35cdc80d6510390c74f2f4b78674d7fa7dec1312ebbb0fffd566",
+      "event": "created",
+      "name": "vf-e52d2900cd61"
+     },
+     {
+      "container_id": "c963eed1079d35cdc80d6510390c74f2f4b78674d7fa7dec1312ebbb0fffd566",
+      "event": "removed",
+      "name": "vf-e52d2900cd61"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2420,
+  "policy": "ignore_period_cutoff",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "13c40aa3459a4c56a13a11c0865d45dd721a63cde2e10b9463c8bbe1eac4aa8f",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "bcd4b46797dd361bc5f68eeffaef2fa2fbe6115ece74daa1424542b5b4414ce5"
+     }
+    ],
+    "container_id": "9b1aa9440615b3fb5409fdf423d26df5509ab8189994f6966089b5b10ebc3e04",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c04558fab7df1ca0f359310c84fd8c161b2297e69cc58df53ba10ac27b5fcd54",
+    "source_sha256": "fba7a126216c9c95ca6dffa288a31c4530effac9b294e91dae3911f1d1571632"
+   },
+   "replay": {
+    "answer_sha256": "719d9ae1fb958d3fec58f4577db56e88e71f5706d984c60b0859393d08d237fc",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "26d10e82a258de4199b878f3c5742af9954ff31d9dfe4dbd0e10d09fd0456709"
+     }
+    ],
+    "container_id": "c963eed1079d35cdc80d6510390c74f2f4b78674d7fa7dec1312ebbb0fffd566",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "daa76cd9e3ad189e9ea9397448f5ad5fa60b02dfca832eec23842a8a6a1705e9",
+    "source_sha256": "fba7a126216c9c95ca6dffa288a31c4530effac9b294e91dae3911f1d1571632"
+   },
+   "replay_seed": 1001768,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "3344964a2f0a17a0744a350696f0b4a11fbb32e2cd260e30332e8b754e8c02b1"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "32537f6c994a0a275185c3a76c63bc64717dfc7d7cb3cf935dee9777b7d4cb01"
+     }
+    ],
+    "container_id": "d59a9dbe1e679d2f27908093816e88579e4bfd7ec21a5b2c767429b5511bca22",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.602666199993109,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-b0d6c5790633"
+     },
+     {
+      "container_id": "d303214e35564e92bf4f1923d9f2384254ffb0befe519559d64b5615e355862e",
+      "event": "created",
+      "name": "vf-b0d6c5790633"
+     },
+     {
+      "container_id": "d303214e35564e92bf4f1923d9f2384254ffb0befe519559d64b5615e355862e",
+      "event": "removed",
+      "name": "vf-b0d6c5790633"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-e134e731cce5"
+     },
+     {
+      "container_id": "4001cd1cd02baed5a2f41cc9855fbc5a0c5f80eb4d8c9741936fa8f9edd70cdc",
+      "event": "created",
+      "name": "vf-e134e731cce5"
+     },
+     {
+      "container_id": "4001cd1cd02baed5a2f41cc9855fbc5a0c5f80eb4d8c9741936fa8f9edd70cdc",
+      "event": "removed",
+      "name": "vf-e134e731cce5"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-da34c63e4370"
+     },
+     {
+      "container_id": "fd0921ef1c1a2d3824479473376bec28be035db36531ddb15f03b2776d67d818",
+      "event": "created",
+      "name": "vf-da34c63e4370"
+     },
+     {
+      "container_id": "fd0921ef1c1a2d3824479473376bec28be035db36531ddb15f03b2776d67d818",
+      "event": "removed",
+      "name": "vf-da34c63e4370"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2422,
+  "policy": "use_all_restatements",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "17edcc1ad7c4b54c30ffe71e3f3e53bb9e251ab91ae7fa18e69537ce245b7550",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "29a96bd7a1f89522d375b4ed21bf4bb74ca39ba3f187ebc206d243d0c6e6606c"
+     }
+    ],
+    "container_id": "4001cd1cd02baed5a2f41cc9855fbc5a0c5f80eb4d8c9741936fa8f9edd70cdc",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c04558fab7df1ca0f359310c84fd8c161b2297e69cc58df53ba10ac27b5fcd54",
+    "source_sha256": "881000e387dcfd9ef61dbab8f7b0b53508ee592fd61dd01e512cc95c122f776d"
+   },
+   "replay": {
+    "answer_sha256": "bcb80805fe29f333dbabe893e190f210acc9c32009c1e974d852d8aa111b8a3b",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "d19fd4bd2518f92530b3a2176382816af723ec7289b4854663d2665edbfd8580"
+     }
+    ],
+    "container_id": "fd0921ef1c1a2d3824479473376bec28be035db36531ddb15f03b2776d67d818",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "9cf6d3ea32a5bb933c8118b88fa983663c8aaa454a2c669ba483098396d7fe6b",
+    "source_sha256": "881000e387dcfd9ef61dbab8f7b0b53508ee592fd61dd01e512cc95c122f776d"
+   },
+   "replay_seed": 1001047,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "34809b1ef14d643a017a0d500c2f77d811c5dcf175264d724cebabb5abb1eb63"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "32227e9f6c3df439f5d7c33fb8ee0bc0fd77b0c5f08ffe815c5e88038a79b880"
+     }
+    ],
+    "container_id": "d303214e35564e92bf4f1923d9f2384254ffb0befe519559d64b5615e355862e",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.617506921000313,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-42afbb050b08"
+     },
+     {
+      "container_id": "25ac389fe366bce89820c328b13fcc22666fac4ed168b065f5bf4b52b5dec4f8",
+      "event": "created",
+      "name": "vf-42afbb050b08"
+     },
+     {
+      "container_id": "25ac389fe366bce89820c328b13fcc22666fac4ed168b065f5bf4b52b5dec4f8",
+      "event": "removed",
+      "name": "vf-42afbb050b08"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-374517d4af68"
+     },
+     {
+      "container_id": "ef008a1d05e73704bda10ee65f3f48f448c638d36fefabde8fa295ddcdfb4583",
+      "event": "created",
+      "name": "vf-374517d4af68"
+     },
+     {
+      "container_id": "ef008a1d05e73704bda10ee65f3f48f448c638d36fefabde8fa295ddcdfb4583",
+      "event": "removed",
+      "name": "vf-374517d4af68"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-4d24bfa49fe2"
+     },
+     {
+      "container_id": "652ccba05fe5f884f9cfcf588cc75240f618eae06c1ad873baccccd5d0ca821d",
+      "event": "created",
+      "name": "vf-4d24bfa49fe2"
+     },
+     {
+      "container_id": "652ccba05fe5f884f9cfcf588cc75240f618eae06c1ad873baccccd5d0ca821d",
+      "event": "removed",
+      "name": "vf-4d24bfa49fe2"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2423,
+  "policy": "ignore_active_universe",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "59930c09527d74e0693c187fbeeb62259a59c0a0af3b298455e270c323c7954b",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "3023ced5556ee0993cafd3c025ddc6e0098943e90dbda2d161bcfdaa825f40ca"
+     }
+    ],
+    "container_id": "ef008a1d05e73704bda10ee65f3f48f448c638d36fefabde8fa295ddcdfb4583",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c04558fab7df1ca0f359310c84fd8c161b2297e69cc58df53ba10ac27b5fcd54",
+    "source_sha256": "9c6b760477f3f245c1326656a724295f4659f8b72d305e26b5b8dfda6864525b"
+   },
+   "replay": {
+    "answer_sha256": "ebf2a49c6fba945556ff365255ea52b0bd210fdad87da2414e261a884af35041",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "648bd10a119a263ffc034b02e0baa5da698468d129c1b22b9bf8d53d7a0a7610"
+     }
+    ],
+    "container_id": "652ccba05fe5f884f9cfcf588cc75240f618eae06c1ad873baccccd5d0ca821d",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "b4ff1d37c0f2703f9c95790fd9da72985fdd0318c8400150d02c61f305ba73ed",
+    "source_sha256": "9c6b760477f3f245c1326656a724295f4659f8b72d305e26b5b8dfda6864525b"
+   },
+   "replay_seed": 1001712,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "51e2c1bae3d9877f42e3293c7b000e03947ab4b0b1b4da281714b617e64505a8"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "1057c54704c91c2614f78a919aff783714a0917e41bcebf947ba6fa8f75d8ca7"
+     }
+    ],
+    "container_id": "25ac389fe366bce89820c328b13fcc22666fac4ed168b065f5bf4b52b5dec4f8",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.485151036991738,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-5e98cfca91b2"
+     },
+     {
+      "container_id": "0d9e4cae7264b7931f3e07301e8b74e4d0581f18187f5257dc4372b000a7352c",
+      "event": "created",
+      "name": "vf-5e98cfca91b2"
+     },
+     {
+      "container_id": "0d9e4cae7264b7931f3e07301e8b74e4d0581f18187f5257dc4372b000a7352c",
+      "event": "removed",
+      "name": "vf-5e98cfca91b2"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-21919bc2105c"
+     },
+     {
+      "container_id": "10ce261ef377bc2a3c462ae73836143cbcc1c04ab96c7cc8756b5760160e014e",
+      "event": "created",
+      "name": "vf-21919bc2105c"
+     },
+     {
+      "container_id": "10ce261ef377bc2a3c462ae73836143cbcc1c04ab96c7cc8756b5760160e014e",
+      "event": "removed",
+      "name": "vf-21919bc2105c"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-862f2b142719"
+     },
+     {
+      "container_id": "c25eabe4b63f305e8e570cf833b56977ee62ca8bb96d2512bf8b82a78ee9c080",
+      "event": "created",
+      "name": "vf-862f2b142719"
+     },
+     {
+      "container_id": "c25eabe4b63f305e8e570cf833b56977ee62ca8bb96d2512bf8b82a78ee9c080",
+      "event": "removed",
+      "name": "vf-862f2b142719"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2424,
+  "policy": "equal_weights",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "90f2bdd78809101fe9ca64d924c675dd7564cdb0fc743525518fccd3de6f31cd",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "b7179114fd28ff80a648e74c813053f1501fea95fb5f5248e6fdc449d5b48a27"
+     }
+    ],
+    "container_id": "10ce261ef377bc2a3c462ae73836143cbcc1c04ab96c7cc8756b5760160e014e",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c04558fab7df1ca0f359310c84fd8c161b2297e69cc58df53ba10ac27b5fcd54",
+    "source_sha256": "926f6f34e320c5263c70fa08deca6b7f4a21584df06df3812c6713975797eab1"
+   },
+   "replay": {
+    "answer_sha256": "ce20f9ca4350d1e60f804f796d162b5500450b0d0c596b0bcf638d1108fa9ee7",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "0ec64957e6b27b33a8441062934e99f042b5ed4c418113cda8dfcc0ebef0fa2b"
+     }
+    ],
+    "container_id": "c25eabe4b63f305e8e570cf833b56977ee62ca8bb96d2512bf8b82a78ee9c080",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "d530cc8e7a5fed999bf9d53112ed1f253ef94077faca9b04fe7cea49544b85db",
+    "source_sha256": "926f6f34e320c5263c70fa08deca6b7f4a21584df06df3812c6713975797eab1"
+   },
+   "replay_seed": 1001232,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "3fe3f5867cbd32122db95d97aa8d1d15466de98b951915e9cdf69b534bb9985c"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "1a9a0f00bd8d2387d429973d3eab3558188c966867a05fd1856c6b707fa128a8"
+     }
+    ],
+    "container_id": "0d9e4cae7264b7931f3e07301e8b74e4d0581f18187f5257dc4372b000a7352c",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.8471777600061614,
+    "exceptions": [
+     {
+      "full_traceback_parts": [
+       "logs/p2d3-r2-stress-E1-c12_exceptions/3956044edd76466b88dadf85c3960a3b-000.txt"
+      ],
+      "id": "3956044edd76466b88dadf85c3960a3b",
+      "kind": "policy",
+      "message_previews": [
+       "execve(\"/usr/bin/timeout\", [\"timeout\", \"--signal=TERM\", \"--kill-after=1\", \"20s\", \"python\", \"-I\", \"-B\", \"/work/program.py\", \"/work/input.json\"], 0x7ffd36304a50 /* 6 vars */) = 0\naccess(\"/etc/ld.so.preload\", R_OK)      = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/etc/ld.so.cache\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/lib/x86_64-linux-gnu/libc.so.6\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/locale-archive\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/share/locale/locale.alias\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/C.UTF-8/LC_CTYPE\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/C.utf8/LC_CTYPE\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache\", O_RDONLY|O_CLOEXEC) = 3\nstrace: Process 39 attached\n[pid    39] execve(\"/usr/local/bin/python\", [\"python\", \"-I\", \"-B\", \"/work/program.py\", \"/work/input.json\"], 0x7fff269e3de8 /* 6 vars */) = 0\n[pid    39] readlinkat(AT_FDCWD</work>, \"/proc/self/exe\", \"/usr/local/bin/python3.14\", 4096) = 25\n[pid    39] access(\"/etc/ld.so.preload\", R_OK) = -1 ENOENT (No such file or directory)\n[pid    39] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v3/libpython3.14.so.1.0\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\n[pid    39] newfstatat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v3/\", 0x7fffb2d9a6c0, 0) = -1 ENOENT (No such file or directory)\n[pid    39] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v2/libpython3.14.so.1.0\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\n[pid    39] newfstatat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v2/\", 0x7fffb2d9a6c0, 0) = -1 ENOENT (No such file or directory)\n[pid    39] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/libpython3."
+      ],
+      "metadata": {
+       "exit_code": 1,
+       "origin": "solver_command",
+       "runtime": "vf-7c6d64f77a2e"
+      },
+      "traceback_sha256": "0ad680cc82e89dac89cc9e78aac1a2f61ce061b26eb057edf6d0ca957421307a",
+      "types": [
+       "PolicyFailure"
+      ]
+     }
+    ],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-7c6d64f77a2e"
+     },
+     {
+      "container_id": "1906e6a4e69f0e2b527ac5438dce1861c89c351316c1e2a92255db344a1fbe31",
+      "event": "created",
+      "name": "vf-7c6d64f77a2e"
+     },
+     {
+      "container_id": "1906e6a4e69f0e2b527ac5438dce1861c89c351316c1e2a92255db344a1fbe31",
+      "event": "removed",
+      "name": "vf-7c6d64f77a2e"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2431,
+  "policy": "oracle_read",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 1,
+      "policy_outcome": "solver_crash",
+      "trace_sha256": "6308baeb17f8a4352794e838c248014489b57acedd80c9a3a82d6d66a01c5e50"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "4b3d9e506e99fabfe718d8ed007bd294900fc257b2bb6f0d4f8f55e6e279a501"
+     }
+    ],
+    "container_id": "1906e6a4e69f0e2b527ac5438dce1861c89c351316c1e2a92255db344a1fbe31",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.622138359991368,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-80c3be21c235"
+     },
+     {
+      "container_id": "3d5b41dd79bbc9123afa908c6af7619b7bbca852e45baaffc5829bbcac258cfc",
+      "event": "created",
+      "name": "vf-80c3be21c235"
+     },
+     {
+      "container_id": "3d5b41dd79bbc9123afa908c6af7619b7bbca852e45baaffc5829bbcac258cfc",
+      "event": "removed",
+      "name": "vf-80c3be21c235"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2432,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "533a33f371bc8076e659687ee8b64c74ebe791b1d51928c5561b59d53dd5e33a"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "f85891e364ea0e7d5815284cb127eebf44c98f93a9c57219f15f7ca608622f95"
+     }
+    ],
+    "container_id": "3d5b41dd79bbc9123afa908c6af7619b7bbca852e45baaffc5829bbcac258cfc",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.610701232013525,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-83dfe5b52ec1"
+     },
+     {
+      "container_id": "578ba064266ffb219ad4d224c69d98eb29fc78a5cd2279b5d3b4bc491e298098",
+      "event": "created",
+      "name": "vf-83dfe5b52ec1"
+     },
+     {
+      "container_id": "578ba064266ffb219ad4d224c69d98eb29fc78a5cd2279b5d3b4bc491e298098",
+      "event": "removed",
+      "name": "vf-83dfe5b52ec1"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-1c50549371a7"
+     },
+     {
+      "container_id": "f3377e5f06eb635d0ce11ed8619a6003dae220e0fae8bbd2ceb7693985da5e4e",
+      "event": "created",
+      "name": "vf-1c50549371a7"
+     },
+     {
+      "container_id": "f3377e5f06eb635d0ce11ed8619a6003dae220e0fae8bbd2ceb7693985da5e4e",
+      "event": "removed",
+      "name": "vf-1c50549371a7"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-2c0591bc3d26"
+     },
+     {
+      "container_id": "49cd73a8c23679eb6e6d407958ab4fca9ba4793050795df3296434dc23e6371e",
+      "event": "created",
+      "name": "vf-2c0591bc3d26"
+     },
+     {
+      "container_id": "49cd73a8c23679eb6e6d407958ab4fca9ba4793050795df3296434dc23e6371e",
+      "event": "removed",
+      "name": "vf-2c0591bc3d26"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2425,
+  "policy": "long_only",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "70287d2a36695d0ef252f4fa14c6e6ff9c26231fcebdc11b41ac89cc9a5d8634",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "1940f87e91d4ee64ba26ba9fd7c01815587886758d1eb26323211ce5357f8d94"
+     }
+    ],
+    "container_id": "f3377e5f06eb635d0ce11ed8619a6003dae220e0fae8bbd2ceb7693985da5e4e",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c04558fab7df1ca0f359310c84fd8c161b2297e69cc58df53ba10ac27b5fcd54",
+    "source_sha256": "87e38cee3a34c9d466f47dd3fd1ad28bbefa3ade75e99d0da78afb9feabd01d7"
+   },
+   "replay": {
+    "answer_sha256": "7a4b9d9d8723ed8c9e14ff9ea457d7151ed4e22b07db724c2535075d5d0703ff",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "a7eeb66c80283a14aba5916b9786f9ad87650dc0d210d6c2f2503be0dd955592"
+     }
+    ],
+    "container_id": "49cd73a8c23679eb6e6d407958ab4fca9ba4793050795df3296434dc23e6371e",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "30c95d02f8b067698add2c74ff0847161b555aceeef7a84f23b24045378f48a2",
+    "source_sha256": "87e38cee3a34c9d466f47dd3fd1ad28bbefa3ade75e99d0da78afb9feabd01d7"
+   },
+   "replay_seed": 1001958,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "0c5cd252a35720f919ba9ded076ed6ff388913412d070f592c61ac516b13675d"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "ca2afe48e58a03bae482eefc4ffa9b591027f3246fd3b9444621949314e2866d"
+     }
+    ],
+    "container_id": "578ba064266ffb219ad4d224c69d98eb29fc78a5cd2279b5d3b4bc491e298098",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.379402691003634,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-d35832a924ae"
+     },
+     {
+      "container_id": "9b363f4b706964b49a2cb5f69b02419da2de077d1c1515e6ce0223294312e99e",
+      "event": "created",
+      "name": "vf-d35832a924ae"
+     },
+     {
+      "container_id": "9b363f4b706964b49a2cb5f69b02419da2de077d1c1515e6ce0223294312e99e",
+      "event": "removed",
+      "name": "vf-d35832a924ae"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-fe915a6fabcc"
+     },
+     {
+      "container_id": "664ef6edfc217e9b7b8391531267c400a25ae37c321cad6df57a7c0be130401d",
+      "event": "created",
+      "name": "vf-fe915a6fabcc"
+     },
+     {
+      "container_id": "664ef6edfc217e9b7b8391531267c400a25ae37c321cad6df57a7c0be130401d",
+      "event": "removed",
+      "name": "vf-fe915a6fabcc"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-1af6f59fd791"
+     },
+     {
+      "container_id": "abf7cc1fdc28713b03c9e164b314b8eb26097ebccc77c00097878689e6e22fc4",
+      "event": "created",
+      "name": "vf-1af6f59fd791"
+     },
+     {
+      "container_id": "abf7cc1fdc28713b03c9e164b314b8eb26097ebccc77c00097878689e6e22fc4",
+      "event": "removed",
+      "name": "vf-1af6f59fd791"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2427,
+  "policy": "annualize_daily_return",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "3b4872ed139ed5275726f7894a3c30e7a5b14f55e714d7eeb8ee9e4b0be17691",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "9046d98b71fd774e1ff7db483d4b299c6535d4b19ca63b8fb1d4067de15b47cd"
+     }
+    ],
+    "container_id": "664ef6edfc217e9b7b8391531267c400a25ae37c321cad6df57a7c0be130401d",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c04558fab7df1ca0f359310c84fd8c161b2297e69cc58df53ba10ac27b5fcd54",
+    "source_sha256": "f23463c377b05de322a95647b4a19ff1a36379f481c1d49a250739637a97aea5"
+   },
+   "replay": {
+    "answer_sha256": "0e68534ccd5f2912f6e129141ef98f0ebc3c95db4ec71ea563f7f4b1ca65ee32",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "0d0f68495c849bbb029bbcabfc5aacc985f51c5abb548cc0e593e081e6b5b14a"
+     }
+    ],
+    "container_id": "abf7cc1fdc28713b03c9e164b314b8eb26097ebccc77c00097878689e6e22fc4",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "d468661ac7fc79fd0ea5ed61caa32e4f31b939dee21367c0e6219a7d24158cd9",
+    "source_sha256": "f23463c377b05de322a95647b4a19ff1a36379f481c1d49a250739637a97aea5"
+   },
+   "replay_seed": 1001682,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "1dc9cb2359083db866c5be7d8fd8ac97f2a260240e9c0546cee94387323fcf24"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "9b503cb094dec41f51fba0f28700e688c0d8cd3dbb153dfbd7db42555d27c411"
+     }
+    ],
+    "container_id": "9b363f4b706964b49a2cb5f69b02419da2de077d1c1515e6ce0223294312e99e",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.9510708349989727,
+    "exceptions": [
+     {
+      "full_traceback_parts": [
+       "logs/p2d3-r2-stress-E1-c12_exceptions/8417e48b590c4faca445012f4530967e-000.txt"
+      ],
+      "id": "8417e48b590c4faca445012f4530967e",
+      "kind": "policy",
+      "message_previews": [
+       "execve(\"/usr/bin/timeout\", [\"timeout\", \"--signal=TERM\", \"--kill-after=1\", \"20s\", \"python\", \"-I\", \"-B\", \"/work/program.py\", \"/work/input.json\"], 0x7ffe3b08d6b0 /* 6 vars */) = 0\naccess(\"/etc/ld.so.preload\", R_OK)      = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/etc/ld.so.cache\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/lib/x86_64-linux-gnu/libc.so.6\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/locale-archive\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/share/locale/locale.alias\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/C.UTF-8/LC_CTYPE\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/C.utf8/LC_CTYPE\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache\", O_RDONLY|O_CLOEXEC) = 3\nstrace: Process 39 attached\n[pid    39] execve(\"/usr/local/bin/python\", [\"python\", \"-I\", \"-B\", \"/work/program.py\", \"/work/input.json\"], 0x7ffdca208388 /* 6 vars */) = 0\n[pid    39] readlinkat(AT_FDCWD</work>, \"/proc/self/exe\", \"/usr/local/bin/python3.14\", 4096) = 25\n[pid    39] access(\"/etc/ld.so.preload\", R_OK) = -1 ENOENT (No such file or directory)\n[pid    39] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v3/libpython3.14.so.1.0\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\n[pid    39] newfstatat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v3/\", 0x7fff2df68e20, 0) = -1 ENOENT (No such file or directory)\n[pid    39] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v2/libpython3.14.so.1.0\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\n[pid    39] newfstatat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v2/\", 0x7fff2df68e20, 0) = -1 ENOENT (No such file or directory)\n[pid    39] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/libpython3."
+      ],
+      "metadata": {
+       "exit_code": 1,
+       "origin": "solver_command",
+       "runtime": "vf-0f7662b841df"
+      },
+      "traceback_sha256": "77eb7c85b8edd9da2846e4681647f6638e72cac7cf42ae1435e33f37659b04ec",
+      "types": [
+       "PolicyFailure"
+      ]
+     }
+    ],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-0f7662b841df"
+     },
+     {
+      "container_id": "c3259bcecdd7b9b62ec610e0a8953ef7163f866ce365ef4afaf866d94018e79f",
+      "event": "created",
+      "name": "vf-0f7662b841df"
+     },
+     {
+      "container_id": "c3259bcecdd7b9b62ec610e0a8953ef7163f866ce365ef4afaf866d94018e79f",
+      "event": "removed",
+      "name": "vf-0f7662b841df"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2433,
+  "policy": "harness_tamper",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 1,
+      "policy_outcome": "solver_crash",
+      "trace_sha256": "ba0e127abf1395fb9d486757ae56409ff30f318205f1fe1c84d755cac690e296"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "25152da02d51752b3992a95c9500e5797c5f78928c968f6f9919c33ce12d6c5a"
+     }
+    ],
+    "container_id": "c3259bcecdd7b9b62ec610e0a8953ef7163f866ce365ef4afaf866d94018e79f",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.697492508013966,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-c7693cdeed9b"
+     },
+     {
+      "container_id": "c5f6139b29f0e5ec9534dba559a7f7cea51ca1c00d573520dbd47cd381a91be7",
+      "event": "created",
+      "name": "vf-c7693cdeed9b"
+     },
+     {
+      "container_id": "c5f6139b29f0e5ec9534dba559a7f7cea51ca1c00d573520dbd47cd381a91be7",
+      "event": "removed",
+      "name": "vf-c7693cdeed9b"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-c635eb60f283"
+     },
+     {
+      "container_id": "ce50e55a5cf8b9f7b97a78543677ec5f3f3d45193a4aa8cd3a543ed7cc4fb811",
+      "event": "created",
+      "name": "vf-c635eb60f283"
+     },
+     {
+      "container_id": "ce50e55a5cf8b9f7b97a78543677ec5f3f3d45193a4aa8cd3a543ed7cc4fb811",
+      "event": "removed",
+      "name": "vf-c635eb60f283"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-1efe4bc85082"
+     },
+     {
+      "container_id": "678e08cb6fd62e9b357d28c2e60c665719c85c7da069c5ce205f3b71df431bcb",
+      "event": "created",
+      "name": "vf-1efe4bc85082"
+     },
+     {
+      "container_id": "678e08cb6fd62e9b357d28c2e60c665719c85c7da069c5ce205f3b71df431bcb",
+      "event": "removed",
+      "name": "vf-1efe4bc85082"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2426,
+  "policy": "percentage_units",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "01038c8b06508117429071b7b7c18f14f46035644daf2ee6f2a01500df09984d",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "04887ccf43fb511162ee86beec4ccb095e6b8830a3b429c6487a715b03e3b6ec"
+     }
+    ],
+    "container_id": "ce50e55a5cf8b9f7b97a78543677ec5f3f3d45193a4aa8cd3a543ed7cc4fb811",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c04558fab7df1ca0f359310c84fd8c161b2297e69cc58df53ba10ac27b5fcd54",
+    "source_sha256": "eec5d56a876d9ea4a39010e6152e4c39b85bbe458555c37ebd7f725292bf1eb1"
+   },
+   "replay": {
+    "answer_sha256": "317128cd993f6b77135d7783725b0fff9e92a2ecb864a5dbac0f7b42ff3d3920",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "e88b4558c5b408f43052718e38b67b488e8b980a78108b51663b60bfadaa671e"
+     }
+    ],
+    "container_id": "678e08cb6fd62e9b357d28c2e60c665719c85c7da069c5ce205f3b71df431bcb",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "841adc16b7c7a45c150d71c8006117508fcd4eaefc915586b4a4d75490ba1dea",
+    "source_sha256": "eec5d56a876d9ea4a39010e6152e4c39b85bbe458555c37ebd7f725292bf1eb1"
+   },
+   "replay_seed": 1001448,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "fa30f2919599590825c35a7e30a87cccdd9ef4b047c6eee466c50be7fd2107da"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "1c47594534a797383a187747a7cfa607068febeb7e203120f2d26c7327605fbe"
+     }
+    ],
+    "container_id": "c5f6139b29f0e5ec9534dba559a7f7cea51ca1c00d573520dbd47cd381a91be7",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.9655055970069952,
+    "exceptions": [
+     {
+      "full_traceback_parts": [
+       "logs/p2d3-r2-stress-E1-c12_exceptions/2b241373ea854e9dba7e056d0aee2f00-000.txt"
+      ],
+      "id": "2b241373ea854e9dba7e056d0aee2f00",
+      "kind": "policy",
+      "message_previews": [
+       "execve(\"/usr/bin/timeout\", [\"timeout\", \"--signal=TERM\", \"--kill-after=1\", \"20s\", \"python\", \"-I\", \"-B\", \"/work/program.py\", \"/work/input.json\"], 0x7ffe965a93d0 /* 6 vars */) = 0\naccess(\"/etc/ld.so.preload\", R_OK)      = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/etc/ld.so.cache\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/lib/x86_64-linux-gnu/libc.so.6\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/locale-archive\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/share/locale/locale.alias\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/C.UTF-8/LC_CTYPE\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/C.utf8/LC_CTYPE\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache\", O_RDONLY|O_CLOEXEC) = 3\nstrace: Process 39 attached\n[pid    39] execve(\"/usr/local/bin/python\", [\"python\", \"-I\", \"-B\", \"/work/program.py\", \"/work/input.json\"], 0x7ffc3d9ec498 /* 6 vars */) = 0\n[pid    39] readlinkat(AT_FDCWD</work>, \"/proc/self/exe\", \"/usr/local/bin/python3.14\", 4096) = 25\n[pid    39] access(\"/etc/ld.so.preload\", R_OK) = -1 ENOENT (No such file or directory)\n[pid    39] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v3/libpython3.14.so.1.0\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\n[pid    39] newfstatat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v3/\", 0x7ffec17b4380, 0) = -1 ENOENT (No such file or directory)\n[pid    39] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v2/libpython3.14.so.1.0\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\n[pid    39] newfstatat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v2/\", 0x7ffec17b4380, 0) = -1 ENOENT (No such file or directory)\n[pid    39] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/libpython3."
+      ],
+      "metadata": {
+       "exit_code": 1,
+       "origin": "solver_command",
+       "runtime": "vf-1b0ca9c05cb5"
+      },
+      "traceback_sha256": "572e3c53b35b5b4f21697c9d396b8601671bced87f8a179ae049ec35be50fab5",
+      "types": [
+       "PolicyFailure"
+      ]
+     }
+    ],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-1b0ca9c05cb5"
+     },
+     {
+      "container_id": "c05847172416f9f763f38d6b5d4dd71d1747f888960c19e607e8386c2ee8a91e",
+      "event": "created",
+      "name": "vf-1b0ca9c05cb5"
+     },
+     {
+      "container_id": "c05847172416f9f763f38d6b5d4dd71d1747f888960c19e607e8386c2ee8a91e",
+      "event": "removed",
+      "name": "vf-1b0ca9c05cb5"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2434,
+  "policy": "network_use",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 1,
+      "policy_outcome": "solver_crash",
+      "trace_sha256": "eaaf32e880320f31190dcb074040d22182cd7b6b29b0e55cb3b7bf424b9bb742"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "f073aea88d5654689f5818e3aaba06c59492f04b06f85bff2235e282c2a7793c"
+     }
+    ],
+    "container_id": "c05847172416f9f763f38d6b5d4dd71d1747f888960c19e607e8386c2ee8a91e",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 5.912385359988548,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-b5c943bcc7d3"
+     },
+     {
+      "container_id": "7705d12d6e424918d292a3359d994caad44c4e1f04f578f5f8667e0bccfe0e41",
+      "event": "created",
+      "name": "vf-b5c943bcc7d3"
+     },
+     {
+      "container_id": "7705d12d6e424918d292a3359d994caad44c4e1f04f578f5f8667e0bccfe0e41",
+      "event": "removed",
+      "name": "vf-b5c943bcc7d3"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-32d210d40c9e"
+     },
+     {
+      "container_id": "06e21b194506235e013edc4e132701c8019bab904c065e367f87c497e25c027b",
+      "event": "created",
+      "name": "vf-32d210d40c9e"
+     },
+     {
+      "container_id": "06e21b194506235e013edc4e132701c8019bab904c065e367f87c497e25c027b",
+      "event": "removed",
+      "name": "vf-32d210d40c9e"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-c72b8f836ae0"
+     },
+     {
+      "container_id": "2f09722117e7928d6e292d216bc94a0d8d1ae835db0f37978182324f53842e5f",
+      "event": "created",
+      "name": "vf-c72b8f836ae0"
+     },
+     {
+      "container_id": "2f09722117e7928d6e292d216bc94a0d8d1ae835db0f37978182324f53842e5f",
+      "event": "removed",
+      "name": "vf-c72b8f836ae0"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2429,
+  "policy": "hardcoded",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "37c93e5bf105bbd812f2f52948bea6d338120e64b9f33ef1f8f5f7402a49fe65",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "80a531837ba2b3d53307924c77aad308cc918a63761816b0ccdad7c37221e08b"
+     }
+    ],
+    "container_id": "06e21b194506235e013edc4e132701c8019bab904c065e367f87c497e25c027b",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c04558fab7df1ca0f359310c84fd8c161b2297e69cc58df53ba10ac27b5fcd54",
+    "source_sha256": "ffe8352df3c97d2218da21831620cb7c076671b7534c6961bd159f996959af9a"
+   },
+   "replay": {
+    "answer_sha256": "37c93e5bf105bbd812f2f52948bea6d338120e64b9f33ef1f8f5f7402a49fe65",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "d90e2671e48593c0261708964861eda5a29c54b6a432e9a07750c480f2231c8c"
+     }
+    ],
+    "container_id": "2f09722117e7928d6e292d216bc94a0d8d1ae835db0f37978182324f53842e5f",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "82ee2a69436b921f41ba193e78b7e22e4acc9ad3c8f6c8f006762d2da8831aa1",
+    "source_sha256": "ffe8352df3c97d2218da21831620cb7c076671b7534c6961bd159f996959af9a"
+   },
+   "replay_seed": 1001220,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "55e69fcf9e56b78125ccffe040d9fdf62849fefbac557f581a9ce6d3412cca7d"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "651bf159e90be843070b8e77ee2ac90567d4a13160c03f436676b79ecd77d7c9"
+     }
+    ],
+    "container_id": "7705d12d6e424918d292a3359d994caad44c4e1f04f578f5f8667e0bccfe0e41",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.508033268008148,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-59be89584c4f"
+     },
+     {
+      "container_id": "1b90aeb07092e418e5e3fa7627bc9139222f189c046520d6bcbcb58b06b2f8e1",
+      "event": "created",
+      "name": "vf-59be89584c4f"
+     },
+     {
+      "container_id": "1b90aeb07092e418e5e3fa7627bc9139222f189c046520d6bcbcb58b06b2f8e1",
+      "event": "removed",
+      "name": "vf-59be89584c4f"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-85035362d999"
+     },
+     {
+      "container_id": "2813796c905f9ea360240fd10d7c432d74e7e8748f4e73cb6adef54f0049a10a",
+      "event": "created",
+      "name": "vf-85035362d999"
+     },
+     {
+      "container_id": "2813796c905f9ea360240fd10d7c432d74e7e8748f4e73cb6adef54f0049a10a",
+      "event": "removed",
+      "name": "vf-85035362d999"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-49cb5e7f96bc"
+     },
+     {
+      "container_id": "f268cfbf0cbfd339221b1330db31ff5d6b13be9e2546a0fefebaf78be333c4be",
+      "event": "created",
+      "name": "vf-49cb5e7f96bc"
+     },
+     {
+      "container_id": "f268cfbf0cbfd339221b1330db31ff5d6b13be9e2546a0fefebaf78be333c4be",
+      "event": "removed",
+      "name": "vf-49cb5e7f96bc"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2428,
+  "policy": "reverse_positions",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "aa66a23a4cc26f65e8ab7af113750ea27a76e55f3ce8d18ae3d7664ce88b4430",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "70237ff52c138ac49e20928c262251e00e8465b00d304a9b1ec6123ef7bf79e8"
+     }
+    ],
+    "container_id": "2813796c905f9ea360240fd10d7c432d74e7e8748f4e73cb6adef54f0049a10a",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c04558fab7df1ca0f359310c84fd8c161b2297e69cc58df53ba10ac27b5fcd54",
+    "source_sha256": "6fbce04ade2c727feb5a2131970b1862de8047eed6707da01d4b9d1bd5d981ae"
+   },
+   "replay": {
+    "answer_sha256": "93a496e24081f472d01fa54af32e0ed65b7a3c3c6dd2792da93775e05b6da22e",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "a0684a3f79fdaa098d998238db0ce5cab0a1abc73365af687edec0ce0a719755"
+     }
+    ],
+    "container_id": "f268cfbf0cbfd339221b1330db31ff5d6b13be9e2546a0fefebaf78be333c4be",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "253c3f4adaf30e6c1fb3c10decb90e6c436188825e6ab10bbd9cd1ca241302c3",
+    "source_sha256": "6fbce04ade2c727feb5a2131970b1862de8047eed6707da01d4b9d1bd5d981ae"
+   },
+   "replay_seed": 1001853,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "64c5f01763e1842fe13f476704dd52ba419dac3147d93714df01224d39da1b7c"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "2d5aa9827e86d26e4e9b103017d2f63eb729b44c6816fe7f9d650af4424a3af4"
+     }
+    ],
+    "container_id": "1b90aeb07092e418e5e3fa7627bc9139222f189c046520d6bcbcb58b06b2f8e1",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 5.966606436006259,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-a51da0cc619c"
+     },
+     {
+      "container_id": "766b7c3f49b28d756da795f0981739be7b17bd909a8590f392faf47d34818252",
+      "event": "created",
+      "name": "vf-a51da0cc619c"
+     },
+     {
+      "container_id": "766b7c3f49b28d756da795f0981739be7b17bd909a8590f392faf47d34818252",
+      "event": "removed",
+      "name": "vf-a51da0cc619c"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-5a984a13399f"
+     },
+     {
+      "container_id": "c2c1cfee98e9afa21abb47010c529045aba4fe3d774f368d6724ee88e1f0fe81",
+      "event": "created",
+      "name": "vf-5a984a13399f"
+     },
+     {
+      "container_id": "c2c1cfee98e9afa21abb47010c529045aba4fe3d774f368d6724ee88e1f0fe81",
+      "event": "removed",
+      "name": "vf-5a984a13399f"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-503c8df30b73"
+     },
+     {
+      "container_id": "c97e68abe74cb51fe76f21f6fc732b9b6211896b0b3f25bb334c1b9832324862",
+      "event": "created",
+      "name": "vf-503c8df30b73"
+     },
+     {
+      "container_id": "c97e68abe74cb51fe76f21f6fc732b9b6211896b0b3f25bb334c1b9832324862",
+      "event": "removed",
+      "name": "vf-503c8df30b73"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2430,
+  "policy": "legacy_attestation",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "ba48b384ec29e25102159d10e47f7d17cfa37c85253c5b04694da57fa7c3882a"
+     }
+    ],
+    "container_id": "c2c1cfee98e9afa21abb47010c529045aba4fe3d774f368d6724ee88e1f0fe81",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c04558fab7df1ca0f359310c84fd8c161b2297e69cc58df53ba10ac27b5fcd54",
+    "source_sha256": "368d41048fc33c474ea3c0fb6e6e88ffa31757db07324bf35a31c279dca05756"
+   },
+   "replay": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "ffbb40962bcab81b257508ee2c8835f3606008dc7ee6ddfe73cffa45b5ac6086"
+     }
+    ],
+    "container_id": "c97e68abe74cb51fe76f21f6fc732b9b6211896b0b3f25bb334c1b9832324862",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "ab10210f5dcecbf1a86ca9114ae8687064e5d33ba5f5db0cfbdcbc6de2c39050",
+    "source_sha256": "368d41048fc33c474ea3c0fb6e6e88ffa31757db07324bf35a31c279dca05756"
+   },
+   "replay_seed": 1001050,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "cc105728576cf421ffc1b979f9de582ecbabc9cc5001bd44eb2472802d5ef383"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "ff5edd1b023c4aab5acd2c52a85166343780d86914a247ba6a07e7db953eaf17"
+     }
+    ],
+    "container_id": "766b7c3f49b28d756da795f0981739be7b17bd909a8590f392faf47d34818252",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 5.958085255988408,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-9df62c825e49"
+     },
+     {
+      "container_id": "db2809bbe78948ed95610b54a07bf2e2c18d8f6b92b8427c5261089f51044a70",
+      "event": "created",
+      "name": "vf-9df62c825e49"
+     },
+     {
+      "container_id": "db2809bbe78948ed95610b54a07bf2e2c18d8f6b92b8427c5261089f51044a70",
+      "event": "removed",
+      "name": "vf-9df62c825e49"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-ccafa360a71b"
+     },
+     {
+      "container_id": "043b12f5b1c57f98241ae6989e58f7249d850c7a0a2b64539fe53b324e34f936",
+      "event": "created",
+      "name": "vf-ccafa360a71b"
+     },
+     {
+      "container_id": "043b12f5b1c57f98241ae6989e58f7249d850c7a0a2b64539fe53b324e34f936",
+      "event": "removed",
+      "name": "vf-ccafa360a71b"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-9bce1126e0be"
+     },
+     {
+      "container_id": "57cf2c487572b9b13248be26d9bcb6c138645f6c5158d3c82da49228e3eb89fe",
+      "event": "created",
+      "name": "vf-9bce1126e0be"
+     },
+     {
+      "container_id": "57cf2c487572b9b13248be26d9bcb6c138645f6c5158d3c82da49228e3eb89fe",
+      "event": "removed",
+      "name": "vf-9bce1126e0be"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2435,
+  "policy": "schema_forgery",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "f9710348a90c0ebaccb57d8f768ada58e7d0b2dea738df83a1b83135e9fbb976"
+     }
+    ],
+    "container_id": "043b12f5b1c57f98241ae6989e58f7249d850c7a0a2b64539fe53b324e34f936",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c04558fab7df1ca0f359310c84fd8c161b2297e69cc58df53ba10ac27b5fcd54",
+    "source_sha256": "33b59a367e157bace735e57198ed3ac33e3b49341becb4242af9ca885450cfa4"
+   },
+   "replay": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "4c211ea39c46edce185010d3cb32bd82bb4cf264599420121015d5eb65747f11"
+     }
+    ],
+    "container_id": "57cf2c487572b9b13248be26d9bcb6c138645f6c5158d3c82da49228e3eb89fe",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "530412714793595fae97ad5e6beced409e1099d9afda452718177b661a6a76dd",
+    "source_sha256": "33b59a367e157bace735e57198ed3ac33e3b49341becb4242af9ca885450cfa4"
+   },
+   "replay_seed": 1001512,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "3485423b6d2d860bc541cf51bae71992929b49c4156c436b24279194bb27ac98"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "8141d697196772bd36f6a7debddfdd643d27df92b9883fad842b7f99cb17192c"
+     }
+    ],
+    "container_id": "db2809bbe78948ed95610b54a07bf2e2c18d8f6b92b8427c5261089f51044a70",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.314041114994325,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-6525498e3193"
+     },
+     {
+      "container_id": "dd8468d953926e8154f70c7b4cf333cecdb1d1b817247db8b749be9c36f07193",
+      "event": "created",
+      "name": "vf-6525498e3193"
+     },
+     {
+      "container_id": "dd8468d953926e8154f70c7b4cf333cecdb1d1b817247db8b749be9c36f07193",
+      "event": "removed",
+      "name": "vf-6525498e3193"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-add6b9440a64"
+     },
+     {
+      "container_id": "929b8e59b1a8d269192293d6b44ae1fbd8ea9680009daffdd8a67698fa979c79",
+      "event": "created",
+      "name": "vf-add6b9440a64"
+     },
+     {
+      "container_id": "929b8e59b1a8d269192293d6b44ae1fbd8ea9680009daffdd8a67698fa979c79",
+      "event": "removed",
+      "name": "vf-add6b9440a64"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-f5ae1cb1f1ad"
+     },
+     {
+      "container_id": "3e11afe09e2e234aa9376e9897d14fa651b2179b7642fb673d86e6db4751320d",
+      "event": "created",
+      "name": "vf-f5ae1cb1f1ad"
+     },
+     {
+      "container_id": "3e11afe09e2e234aa9376e9897d14fa651b2179b7642fb673d86e6db4751320d",
+      "event": "removed",
+      "name": "vf-f5ae1cb1f1ad"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2436,
+  "policy": "divergent_replay",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "5a4df48c126a843c51bfbefdce69ccff6b36cf51620af0d9c8b3189cfd78e23a",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "90ab3700d5c641ee1a2b895c7e54241e488d44c9138b2d309b87220a18c6f127"
+     }
+    ],
+    "container_id": "929b8e59b1a8d269192293d6b44ae1fbd8ea9680009daffdd8a67698fa979c79",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c04558fab7df1ca0f359310c84fd8c161b2297e69cc58df53ba10ac27b5fcd54",
+    "source_sha256": "c664eacaf658c0d5c472a3941ed7365a192e577e9cb627386b2551111034afdb"
+   },
+   "replay": {
+    "answer_sha256": "056ec22324bcbbbd171b67856d7080862551cde5909480e83c9dd961bcf93e41",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "8a278e0171c262d1c1289c6655c0e6c4e6ad15cfcce89c86cba74143ae621ad1"
+     }
+    ],
+    "container_id": "3e11afe09e2e234aa9376e9897d14fa651b2179b7642fb673d86e6db4751320d",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "07220424cfbc473665bf958c6a74c3626a011a83318b63130d0c758123a44871",
+    "source_sha256": "c664eacaf658c0d5c472a3941ed7365a192e577e9cb627386b2551111034afdb"
+   },
+   "replay_seed": 1001086,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "5585c30faea4377e7e77d695f890b5948e7c6a26c3f1e0f96c8129a38d43300d"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "cba4d34215c3d16456edebe74ccc3d6db040738749dca256328d4a72e5ebe4b5"
+     }
+    ],
+    "container_id": "dd8468d953926e8154f70c7b4cf333cecdb1d1b817247db8b749be9c36f07193",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.581376675982028,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-b3479d9e0516"
+     },
+     {
+      "container_id": "c28af67d5edff6f75647fa09e22582cdf47b948ab137b628f8bfc9cc0112cb54",
+      "event": "created",
+      "name": "vf-b3479d9e0516"
+     },
+     {
+      "container_id": "c28af67d5edff6f75647fa09e22582cdf47b948ab137b628f8bfc9cc0112cb54",
+      "event": "removed",
+      "name": "vf-b3479d9e0516"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-d32ef3c9160b"
+     },
+     {
+      "container_id": "02509ddef15afafd2646c28723a4437a7b0720c0d9cdf5032a1b3613f5f072bb",
+      "event": "created",
+      "name": "vf-d32ef3c9160b"
+     },
+     {
+      "container_id": "02509ddef15afafd2646c28723a4437a7b0720c0d9cdf5032a1b3613f5f072bb",
+      "event": "removed",
+      "name": "vf-d32ef3c9160b"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-38e3d878792e"
+     },
+     {
+      "container_id": "d32e513b34c92b149fa2fcf88d7738b6c090b7155aa07686c88e81b78b9b5f92",
+      "event": "created",
+      "name": "vf-38e3d878792e"
+     },
+     {
+      "container_id": "d32e513b34c92b149fa2fcf88d7738b6c090b7155aa07686c88e81b78b9b5f92",
+      "event": "removed",
+      "name": "vf-38e3d878792e"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2437,
+  "policy": "malformed_replay",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "5a4df48c126a843c51bfbefdce69ccff6b36cf51620af0d9c8b3189cfd78e23a",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "b3aedd2f9fb6b214213e83663fa59374cd09d5e40a69aa67b36aa5c48106503a"
+     }
+    ],
+    "container_id": "02509ddef15afafd2646c28723a4437a7b0720c0d9cdf5032a1b3613f5f072bb",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c04558fab7df1ca0f359310c84fd8c161b2297e69cc58df53ba10ac27b5fcd54",
+    "source_sha256": "4b43c553b547e0e8f9cf38637fe97d49408b2508c79585f286a830df7cf59dd4"
+   },
+   "replay": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "c0eea306346b8172d350d11209db5af60679271f2d1f0f0fc5ec01ade7bb932e"
+     }
+    ],
+    "container_id": "d32e513b34c92b149fa2fcf88d7738b6c090b7155aa07686c88e81b78b9b5f92",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c1613d37963192e7c06086f61adb1c8bce71a2d0db2cd45d8cccdd73b3e0de54",
+    "source_sha256": "4b43c553b547e0e8f9cf38637fe97d49408b2508c79585f286a830df7cf59dd4"
+   },
+   "replay_seed": 1001251,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "a81cee31326438a82aa79a497f91fbf3f34c5d88acd7fd63b90787a66c8268b7"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "85e7ef9cba168e2b0e8e0f8a2c6e321f02aa21d4f53c8204afbc4a59adc46608"
+     }
+    ],
+    "container_id": "c28af67d5edff6f75647fa09e22582cdf47b948ab137b628f8bfc9cc0112cb54",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.640929565008264,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-9176b93f6353"
+     },
+     {
+      "container_id": "4050cbc8488051395ba118d2b1e9797b4b80d97a6149038980e32f51a2f2365e",
+      "event": "created",
+      "name": "vf-9176b93f6353"
+     },
+     {
+      "container_id": "4050cbc8488051395ba118d2b1e9797b4b80d97a6149038980e32f51a2f2365e",
+      "event": "removed",
+      "name": "vf-9176b93f6353"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-d77866a68750"
+     },
+     {
+      "container_id": "93f857c15c6059d528c66ea751d33f35a4d27e9ec96972cd331b0d70f795c654",
+      "event": "created",
+      "name": "vf-d77866a68750"
+     },
+     {
+      "container_id": "93f857c15c6059d528c66ea751d33f35a4d27e9ec96972cd331b0d70f795c654",
+      "event": "removed",
+      "name": "vf-d77866a68750"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-456c11ed9515"
+     },
+     {
+      "container_id": "2fbddafcf5d9db6348febd4403b62c2d4b0e8c8aa985686a4056b932dc9455a7",
+      "event": "created",
+      "name": "vf-456c11ed9515"
+     },
+     {
+      "container_id": "2fbddafcf5d9db6348febd4403b62c2d4b0e8c8aa985686a4056b932dc9455a7",
+      "event": "removed",
+      "name": "vf-456c11ed9515"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2439,
+  "policy": "near_miss",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "14baa0eba9aab53e7e862a500b68ed6e1b6c9cbfa078d83787314df33474b686",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "1c41a0fbc68d4649d5c5608e62fe69977e95ec97cbf6dd514a9f67c3a44032af"
+     }
+    ],
+    "container_id": "93f857c15c6059d528c66ea751d33f35a4d27e9ec96972cd331b0d70f795c654",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c04558fab7df1ca0f359310c84fd8c161b2297e69cc58df53ba10ac27b5fcd54",
+    "source_sha256": "ff42eb8d6c4dbab78abdce5f7c7d922ccd2bad365583efc426d2782a02c1012a"
+   },
+   "replay": {
+    "answer_sha256": "4bbd970581797a57156b53a35a7333086e57bd064f13f1c90a7bde33bf5e6b0e",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "cd9f2ced8c84fc64e8ccb6a4cb099eec2f7204254346db2ef951040699c15270"
+     }
+    ],
+    "container_id": "2fbddafcf5d9db6348febd4403b62c2d4b0e8c8aa985686a4056b932dc9455a7",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "a8fd741bc044445104c55099e25f5259577b5d1596aaecdb8663700d41ba5252",
+    "source_sha256": "ff42eb8d6c4dbab78abdce5f7c7d922ccd2bad365583efc426d2782a02c1012a"
+   },
+   "replay_seed": 1001991,
+   "reward": 0.22500000000005438,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "8d69b5ba3c296816a9044fd65a8cd03608538f2e3847d64104910b679c0153c6"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "eff1b6e6eba705bc94c05928ec93d11bf310274743fbb1e850573adf6dc0db45"
+     }
+    ],
+    "container_id": "4050cbc8488051395ba118d2b1e9797b4b80d97a6149038980e32f51a2f2365e",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.790056591999019,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-96a4605f223e"
+     },
+     {
+      "container_id": "d75f69192ed572e96d544c710f1ba11e90ccf8094007ddc0bc191625a9061ff9",
+      "event": "created",
+      "name": "vf-96a4605f223e"
+     },
+     {
+      "container_id": "d75f69192ed572e96d544c710f1ba11e90ccf8094007ddc0bc191625a9061ff9",
+      "event": "removed",
+      "name": "vf-96a4605f223e"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-d7efe9b996e5"
+     },
+     {
+      "container_id": "c557db1e84c034977467156f30c669c7b60217ffa16968f902bdd9bf6033a3a7",
+      "event": "created",
+      "name": "vf-d7efe9b996e5"
+     },
+     {
+      "container_id": "c557db1e84c034977467156f30c669c7b60217ffa16968f902bdd9bf6033a3a7",
+      "event": "removed",
+      "name": "vf-d7efe9b996e5"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-abc77c6dcb91"
+     },
+     {
+      "container_id": "bc8febd6657021150f819a45ffe66f0b95453da1aee0c6debe6c0a8f37130582",
+      "event": "created",
+      "name": "vf-abc77c6dcb91"
+     },
+     {
+      "container_id": "bc8febd6657021150f819a45ffe66f0b95453da1aee0c6debe6c0a8f37130582",
+      "event": "removed",
+      "name": "vf-abc77c6dcb91"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2438,
+  "policy": "flagged_replay",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "5a4df48c126a843c51bfbefdce69ccff6b36cf51620af0d9c8b3189cfd78e23a",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "08e403f78c1be042c4670c10a96bdc4610d3d0481ea4710656b2ea1c6efcfe2b"
+     }
+    ],
+    "container_id": "c557db1e84c034977467156f30c669c7b60217ffa16968f902bdd9bf6033a3a7",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c04558fab7df1ca0f359310c84fd8c161b2297e69cc58df53ba10ac27b5fcd54",
+    "source_sha256": "8c116966f7f676a8ed3138d59f76aef212b1e89f38eb5aaf814be65c6ac9adc6"
+   },
+   "replay": {
+    "answer_sha256": "8dc55ed4028498022d3bb1529cd0da6eb4fb75efdab97b2e3be25030e51ae0a1",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "9714e4a84420819d744fc5b35c4fa9cc1b2405a2063768591d11e2f111991793"
+     }
+    ],
+    "container_id": "bc8febd6657021150f819a45ffe66f0b95453da1aee0c6debe6c0a8f37130582",
+    "exit_code": 0,
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c02141a47e87a7a6f4053bba93af5cd860dae5864644d031d692725546d31e41",
+    "source_sha256": "8c116966f7f676a8ed3138d59f76aef212b1e89f38eb5aaf814be65c6ac9adc6"
+   },
+   "replay_seed": 1001956,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "dc2b7bbad37e1cbb2dd89a85ef9299aa5bac1314f241db861e02cfcb6af7d288"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "0382d8b32325e5bfab0f3c3f29dec1cf475d82708b3114605254f80de3ca3823"
+     }
+    ],
+    "container_id": "d75f69192ed572e96d544c710f1ba11e90ccf8094007ddc0bc191625a9061ff9",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.642021088977344,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-26102d945f88"
+     },
+     {
+      "container_id": "a73c19ff1f1628da7b2215232bcdc8d455446711a41f9e64cad0fffcd3b75477",
+      "event": "created",
+      "name": "vf-26102d945f88"
+     },
+     {
+      "container_id": "a73c19ff1f1628da7b2215232bcdc8d455446711a41f9e64cad0fffcd3b75477",
+      "event": "removed",
+      "name": "vf-26102d945f88"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-c2fc7e2dd6e2"
+     },
+     {
+      "container_id": "f88d79a9345729cdb181b28872fdde507d81c8094aa8223db4070b9f14125a32",
+      "event": "created",
+      "name": "vf-c2fc7e2dd6e2"
+     },
+     {
+      "container_id": "f88d79a9345729cdb181b28872fdde507d81c8094aa8223db4070b9f14125a32",
+      "event": "removed",
+      "name": "vf-c2fc7e2dd6e2"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-b266c40962b0"
+     },
+     {
+      "container_id": "eca12abf70e65d20bd8839d202641baad9efad8de95bd23b39ed867aa65d4a84",
+      "event": "created",
+      "name": "vf-b266c40962b0"
+     },
+     {
+      "container_id": "eca12abf70e65d20bd8839d202641baad9efad8de95bd23b39ed867aa65d4a84",
+      "event": "removed",
+      "name": "vf-b266c40962b0"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2440,
+  "policy": "oracle",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T3",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "704e7f4da01df0bd4b3be0dc9d226b5f05dd9b94d2dae965b29d686438d189ce",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "b438280315ffb267d5e037652cb008672ecf0f5d08ebc32f65e74409d1a7f592"
+     }
+    ],
+    "container_id": "f88d79a9345729cdb181b28872fdde507d81c8094aa8223db4070b9f14125a32",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "0e4bba10c4f9ac9fa1995fb014cae88e8bc20641e1f4b8bc94d79386a5b1b5fa",
+    "source_sha256": "0443d4e657400ef7a7fb3f71950ecf53116240963a5efe181327d8f303257173"
+   },
+   "replay": {
+    "answer_sha256": "36e9687bd78358ed5b90c482a0f08959e004916f15c5130ef0a3381e682d89be",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "67b7f4daa899c27db1f87abe7673da83a225db2793e3501a2faf49859acfe30d"
+     }
+    ],
+    "container_id": "eca12abf70e65d20bd8839d202641baad9efad8de95bd23b39ed867aa65d4a84",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "614eb18966b9291795245e6ff3296fbadd331295b409ce3313d955f17fc54604",
+    "source_sha256": "0443d4e657400ef7a7fb3f71950ecf53116240963a5efe181327d8f303257173"
+   },
+   "replay_seed": 1001716,
+   "reward": 1.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "9307b52403e7903bb6b70fd0b7bf9de562b087f7ef5377c61550473b1d9f2972"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "5b5a1690fa692503ad625e94ee28fa2ce948e5b0ba37f88a74c0a574aa3227e6"
+     }
+    ],
+    "container_id": "a73c19ff1f1628da7b2215232bcdc8d455446711a41f9e64cad0fffcd3b75477",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.5970619619765785,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-73f6aa465e89"
+     },
+     {
+      "container_id": "0b423aa34a240843e1f423290c86c7c1ba593bca05d92aadaa6a2eedbbeed06b",
+      "event": "created",
+      "name": "vf-73f6aa465e89"
+     },
+     {
+      "container_id": "0b423aa34a240843e1f423290c86c7c1ba593bca05d92aadaa6a2eedbbeed06b",
+      "event": "removed",
+      "name": "vf-73f6aa465e89"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-87ff9a602057"
+     },
+     {
+      "container_id": "33e46f050c2c68964b72eb1d0935a5e3ba7af1f0308c819fa07003deeaf0185d",
+      "event": "created",
+      "name": "vf-87ff9a602057"
+     },
+     {
+      "container_id": "33e46f050c2c68964b72eb1d0935a5e3ba7af1f0308c819fa07003deeaf0185d",
+      "event": "removed",
+      "name": "vf-87ff9a602057"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-bf3b427e0e04"
+     },
+     {
+      "container_id": "141451374b4dfbf244c379274dcbda6791f9fa9cb86f10b82da6424b1d6ebd13",
+      "event": "created",
+      "name": "vf-bf3b427e0e04"
+     },
+     {
+      "container_id": "141451374b4dfbf244c379274dcbda6791f9fa9cb86f10b82da6424b1d6ebd13",
+      "event": "removed",
+      "name": "vf-bf3b427e0e04"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2442,
+  "policy": "ignore_availability",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T3",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "07e74e5dbb0b8f7062eb90dd6d1eab6aea731c4c8d5b6757c2cf8599888f6c19",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "951c0d5fd2b52b901720453f746c890331c6caf8d547166c98abf2e2c96cecbf"
+     }
+    ],
+    "container_id": "33e46f050c2c68964b72eb1d0935a5e3ba7af1f0308c819fa07003deeaf0185d",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "0e4bba10c4f9ac9fa1995fb014cae88e8bc20641e1f4b8bc94d79386a5b1b5fa",
+    "source_sha256": "fb104df3714796f2a6624cc99de4def49fc342cc343c2bdec1452eba30657a40"
+   },
+   "replay": {
+    "answer_sha256": "77b7ed41546950564f3a3c0ee526013c498912290be895d834b12acfa87c6560",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "5b418551278acb2a4767053146e367544eca7c5cf043ae625bc1a77c98a0d449"
+     }
+    ],
+    "container_id": "141451374b4dfbf244c379274dcbda6791f9fa9cb86f10b82da6424b1d6ebd13",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "f2d5cbfdaddaf75dd3005a16e9bd8e9dc9e258b947b65b20e74003f91e386b15",
+    "source_sha256": "fb104df3714796f2a6624cc99de4def49fc342cc343c2bdec1452eba30657a40"
+   },
+   "replay_seed": 1001014,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "6b895a27382312c8bc4514e4b959f393b22fbd2ab3365a26d4458373f1489461"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "11be3c44c748add59e79fce9c9808f55cee6ec0f6349f9b59ae32aaeaa616f39"
+     }
+    ],
+    "container_id": "0b423aa34a240843e1f423290c86c7c1ba593bca05d92aadaa6a2eedbbeed06b",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.623887401015963,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-b46e8326e831"
+     },
+     {
+      "container_id": "89d2ef8cb4a8ec8adccdc7d41ea2f360aa06660df6ef85496e85c11f101fa91d",
+      "event": "created",
+      "name": "vf-b46e8326e831"
+     },
+     {
+      "container_id": "89d2ef8cb4a8ec8adccdc7d41ea2f360aa06660df6ef85496e85c11f101fa91d",
+      "event": "removed",
+      "name": "vf-b46e8326e831"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-500d623f4be9"
+     },
+     {
+      "container_id": "e6539088fe4a02f0ad1158d66bd12f879165facc05855b7c64b0d8b53a0243ff",
+      "event": "created",
+      "name": "vf-500d623f4be9"
+     },
+     {
+      "container_id": "e6539088fe4a02f0ad1158d66bd12f879165facc05855b7c64b0d8b53a0243ff",
+      "event": "removed",
+      "name": "vf-500d623f4be9"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-396818ca1231"
+     },
+     {
+      "container_id": "74f31f17e2f9be0889168560b21a5ab0612908d3c4a3b75ccd1b13c702d944c2",
+      "event": "created",
+      "name": "vf-396818ca1231"
+     },
+     {
+      "container_id": "74f31f17e2f9be0889168560b21a5ab0612908d3c4a3b75ccd1b13c702d944c2",
+      "event": "removed",
+      "name": "vf-396818ca1231"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2443,
+  "policy": "ignore_period_cutoff",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T3",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "8e7a14a27aa205d829a8388a2496a70dff68e6461fa1bd1fce802fee8307317e",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "f7b60db2c0302b7f5c8c23164bd29cc93cc348646984baf0cdacf0ae1f294469"
+     }
+    ],
+    "container_id": "e6539088fe4a02f0ad1158d66bd12f879165facc05855b7c64b0d8b53a0243ff",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "0e4bba10c4f9ac9fa1995fb014cae88e8bc20641e1f4b8bc94d79386a5b1b5fa",
+    "source_sha256": "fba7a126216c9c95ca6dffa288a31c4530effac9b294e91dae3911f1d1571632"
+   },
+   "replay": {
+    "answer_sha256": "162633ef97d6507d1498f3c6a0fbfb2920bb6a69d4da8fe485647dc4bb3cae51",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "efe0333aff566a0aa9f3aa94e5f958448ec505edbd1fdadc57517f75e305fb81"
+     }
+    ],
+    "container_id": "74f31f17e2f9be0889168560b21a5ab0612908d3c4a3b75ccd1b13c702d944c2",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "aceb5fec8a58deaf788cc94e4d45147feeae75b55b2d2e4ea44b7143035cd55c",
+    "source_sha256": "fba7a126216c9c95ca6dffa288a31c4530effac9b294e91dae3911f1d1571632"
+   },
+   "replay_seed": 1001792,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "c384dc803d5c22c7076abc0407fd8913f1e6259e9798df5227f130d20f2788ca"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "a72b84acca4d1a87e51bedbbdb85b44cfe16a82b4fe581399fe83676cd26e09c"
+     }
+    ],
+    "container_id": "89d2ef8cb4a8ec8adccdc7d41ea2f360aa06660df6ef85496e85c11f101fa91d",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.745752333983546,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-1fb717fad889"
+     },
+     {
+      "container_id": "d035bfc3765581a4b8dff3b1950bbde1f9280d4beb1d813552822caf0c5f2bee",
+      "event": "created",
+      "name": "vf-1fb717fad889"
+     },
+     {
+      "container_id": "d035bfc3765581a4b8dff3b1950bbde1f9280d4beb1d813552822caf0c5f2bee",
+      "event": "removed",
+      "name": "vf-1fb717fad889"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-1163652098f0"
+     },
+     {
+      "container_id": "2736eaccf2b48be9607be92452c1c1863ebdc2eac6a30f2f8f7b5937d64bdd8d",
+      "event": "created",
+      "name": "vf-1163652098f0"
+     },
+     {
+      "container_id": "2736eaccf2b48be9607be92452c1c1863ebdc2eac6a30f2f8f7b5937d64bdd8d",
+      "event": "removed",
+      "name": "vf-1163652098f0"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-d3df8058e2eb"
+     },
+     {
+      "container_id": "9dd8839c7829e9815c066c43ddf418c6ecfd9a2b5272448e666bb474e65fd776",
+      "event": "created",
+      "name": "vf-d3df8058e2eb"
+     },
+     {
+      "container_id": "9dd8839c7829e9815c066c43ddf418c6ecfd9a2b5272448e666bb474e65fd776",
+      "event": "removed",
+      "name": "vf-d3df8058e2eb"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2441,
+  "policy": "random",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T3",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "63ca52e6db51590384f8fa65f0afdb1c056df4abe5c71bbb2418dc3c04400c2f",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "d3445229fbb6fa6ae58740620f5a446171ccd4db926e72e46da417bb3f9d969c"
+     }
+    ],
+    "container_id": "2736eaccf2b48be9607be92452c1c1863ebdc2eac6a30f2f8f7b5937d64bdd8d",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "0e4bba10c4f9ac9fa1995fb014cae88e8bc20641e1f4b8bc94d79386a5b1b5fa",
+    "source_sha256": "cb4d82a837785821df6e5ee23d8410f078676e3f6fab931bb3ae7a3c174b2bb8"
+   },
+   "replay": {
+    "answer_sha256": "63ca52e6db51590384f8fa65f0afdb1c056df4abe5c71bbb2418dc3c04400c2f",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "8acb835c93554510fc4dce383072f72ef6febc94243563632c51b5fdf2f5a2ac"
+     }
+    ],
+    "container_id": "9dd8839c7829e9815c066c43ddf418c6ecfd9a2b5272448e666bb474e65fd776",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "ef45e65a8251749e0d7c9feddebeab1aa681a1f8fa0a48a4ec4093295f5f7ae1",
+    "source_sha256": "cb4d82a837785821df6e5ee23d8410f078676e3f6fab931bb3ae7a3c174b2bb8"
+   },
+   "replay_seed": 1001077,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "aac401535b29978bc4c88d125bf1f0fd92d403da6c272590d0bc27e18158027a"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "fab8ffc078ccd0f66c47cf8f13651e0bfddde4a9a5d8464e12717684b42a797b"
+     }
+    ],
+    "container_id": "d035bfc3765581a4b8dff3b1950bbde1f9280d4beb1d813552822caf0c5f2bee",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.661162959004287,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-90c831d0371d"
+     },
+     {
+      "container_id": "e56541f5896d65ce577ff668fa6305fa381aefd35ba34283bb173a757a517385",
+      "event": "created",
+      "name": "vf-90c831d0371d"
+     },
+     {
+      "container_id": "e56541f5896d65ce577ff668fa6305fa381aefd35ba34283bb173a757a517385",
+      "event": "removed",
+      "name": "vf-90c831d0371d"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-3e323fb2629a"
+     },
+     {
+      "container_id": "89841ab70d368f010581ed963c9e84ca9c9da4e51d53ed78bf3a40dc8d149865",
+      "event": "created",
+      "name": "vf-3e323fb2629a"
+     },
+     {
+      "container_id": "89841ab70d368f010581ed963c9e84ca9c9da4e51d53ed78bf3a40dc8d149865",
+      "event": "removed",
+      "name": "vf-3e323fb2629a"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-c2429615d165"
+     },
+     {
+      "container_id": "a3f97bad2dd7e06498d3d96bfcc18c46e7b29cb76b7f079537f91cd4d93887fb",
+      "event": "created",
+      "name": "vf-c2429615d165"
+     },
+     {
+      "container_id": "a3f97bad2dd7e06498d3d96bfcc18c46e7b29cb76b7f079537f91cd4d93887fb",
+      "event": "removed",
+      "name": "vf-c2429615d165"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2444,
+  "policy": "ignore_restatements",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T3",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "2ba224feddbfc848872fe0e7bdb36fdfa3ad81b9d2123b4c13a5c089c59f0621",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "c22c42a632a48ef0804de2286b882326c0a74bc9dc148150ce7b39ebfb496736"
+     }
+    ],
+    "container_id": "89841ab70d368f010581ed963c9e84ca9c9da4e51d53ed78bf3a40dc8d149865",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "0e4bba10c4f9ac9fa1995fb014cae88e8bc20641e1f4b8bc94d79386a5b1b5fa",
+    "source_sha256": "a3705800aaa85ff8bd4aff8281b123f3b4178745a1b0f694f375b1243e94cb10"
+   },
+   "replay": {
+    "answer_sha256": "f75180bd735d4aa49d10373b0f5223894ff2ecd56307691f5494ca9053002d84",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "ad577bc17089b0151e8401071c7470cc2f877394b553e2d5a5a0ccb8441ba007"
+     }
+    ],
+    "container_id": "a3f97bad2dd7e06498d3d96bfcc18c46e7b29cb76b7f079537f91cd4d93887fb",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "5c751962d0e1c95353a2981b891fd65c6d9b9777de94d99d2469dba7a11cfa31",
+    "source_sha256": "a3705800aaa85ff8bd4aff8281b123f3b4178745a1b0f694f375b1243e94cb10"
+   },
+   "replay_seed": 1001339,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "0cfd03fad7475b691f1d851b487a420d75741b4c869d1362808247234804225d"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "4936533ef6675e1a79591568b52e5e6ca86c7a19a5863a94420c0a14a35db6f4"
+     }
+    ],
+    "container_id": "e56541f5896d65ce577ff668fa6305fa381aefd35ba34283bb173a757a517385",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.5348705670039635,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-cb90989b2e18"
+     },
+     {
+      "container_id": "c51f0d6503b4cb1739322eae47786975a957ce7e77d1bf9bcbb1b2b4e6d47465",
+      "event": "created",
+      "name": "vf-cb90989b2e18"
+     },
+     {
+      "container_id": "c51f0d6503b4cb1739322eae47786975a957ce7e77d1bf9bcbb1b2b4e6d47465",
+      "event": "removed",
+      "name": "vf-cb90989b2e18"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-b1b3b694fb61"
+     },
+     {
+      "container_id": "40337af73f27a757c3351064f0ee118178080fdd75a22fddb94984a8cd644497",
+      "event": "created",
+      "name": "vf-b1b3b694fb61"
+     },
+     {
+      "container_id": "40337af73f27a757c3351064f0ee118178080fdd75a22fddb94984a8cd644497",
+      "event": "removed",
+      "name": "vf-b1b3b694fb61"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-5a81b950205c"
+     },
+     {
+      "container_id": "207f85a1c1fd0d53502de9e63b709f1a3490d9c8ba1c62f01ec32bb8a8837407",
+      "event": "created",
+      "name": "vf-5a81b950205c"
+     },
+     {
+      "container_id": "207f85a1c1fd0d53502de9e63b709f1a3490d9c8ba1c62f01ec32bb8a8837407",
+      "event": "removed",
+      "name": "vf-5a81b950205c"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2445,
+  "policy": "use_all_restatements",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T3",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "00eae5f254fc7b44fb220bedd702c83e793a4dd64b928b14a3ce8f183bdbddf8",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "ba706e35e18f9c69b0182891f9ce907be368320e05ac0d41ec26abe8cf6220b9"
+     }
+    ],
+    "container_id": "40337af73f27a757c3351064f0ee118178080fdd75a22fddb94984a8cd644497",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "0e4bba10c4f9ac9fa1995fb014cae88e8bc20641e1f4b8bc94d79386a5b1b5fa",
+    "source_sha256": "881000e387dcfd9ef61dbab8f7b0b53508ee592fd61dd01e512cc95c122f776d"
+   },
+   "replay": {
+    "answer_sha256": "100d40e053eca0aeb9e113c247b24303ca6a022c71c38e0f6fe5a657e8373af3",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "33496dbc48b999b89dfdb255b9d64ff81e89dd63cd3a0a434061d66c4086af2d"
+     }
+    ],
+    "container_id": "207f85a1c1fd0d53502de9e63b709f1a3490d9c8ba1c62f01ec32bb8a8837407",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "c7441712e75c7055e811b3ca3441af2ad2921e9c541a8a9447bfe7b57df81b01",
+    "source_sha256": "881000e387dcfd9ef61dbab8f7b0b53508ee592fd61dd01e512cc95c122f776d"
+   },
+   "replay_seed": 1001707,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "faa4d9654d91e5d3a0f0315d074b5d358d0f61d96ac5d5c05c4706d49fed15ba"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "f80f5717d08de3963ba82a9bd148eee681998b9a5e87e626e74d3f46d5bdbd2a"
+     }
+    ],
+    "container_id": "c51f0d6503b4cb1739322eae47786975a957ce7e77d1bf9bcbb1b2b4e6d47465",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.6412230230052955,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-ad5fca7c56ee"
+     },
+     {
+      "container_id": "f003dce06dc206e5c5d3171f9edc430f0cd8ec6dc2e941500c8066a8e710a9a2",
+      "event": "created",
+      "name": "vf-ad5fca7c56ee"
+     },
+     {
+      "container_id": "f003dce06dc206e5c5d3171f9edc430f0cd8ec6dc2e941500c8066a8e710a9a2",
+      "event": "removed",
+      "name": "vf-ad5fca7c56ee"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-2d1079fafa2c"
+     },
+     {
+      "container_id": "898974e2044b75541abc7149a3eaf5b6e2caddb51b24f3745fbafcf64833848d",
+      "event": "created",
+      "name": "vf-2d1079fafa2c"
+     },
+     {
+      "container_id": "898974e2044b75541abc7149a3eaf5b6e2caddb51b24f3745fbafcf64833848d",
+      "event": "removed",
+      "name": "vf-2d1079fafa2c"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-3680d411551e"
+     },
+     {
+      "container_id": "87963dca53581089e5cf4af2a8917501bc9c4a5913d7f9998522a7f8349dd3b1",
+      "event": "created",
+      "name": "vf-3680d411551e"
+     },
+     {
+      "container_id": "87963dca53581089e5cf4af2a8917501bc9c4a5913d7f9998522a7f8349dd3b1",
+      "event": "removed",
+      "name": "vf-3680d411551e"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2446,
+  "policy": "ignore_active_universe",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T3",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "be5f703a6263764ce74c0f8f5400fe5f1efd305431d001f9826d0e6e19fe4922",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "2c98aa164996e946f43bf03bba9cca4520190ee71d1a909c38e45078ddf117c2"
+     }
+    ],
+    "container_id": "898974e2044b75541abc7149a3eaf5b6e2caddb51b24f3745fbafcf64833848d",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "0e4bba10c4f9ac9fa1995fb014cae88e8bc20641e1f4b8bc94d79386a5b1b5fa",
+    "source_sha256": "9c6b760477f3f245c1326656a724295f4659f8b72d305e26b5b8dfda6864525b"
+   },
+   "replay": {
+    "answer_sha256": "d2526e4abd8c32cd379b36631a98a7054aa1241f41731a41cf3bdd1a3fc1845d",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "3d3a211429db509939fa2b3e339dd65d6ba8dddf698336ffb75034f2cecef81b"
+     }
+    ],
+    "container_id": "87963dca53581089e5cf4af2a8917501bc9c4a5913d7f9998522a7f8349dd3b1",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "200e3452615f0f82b2355b40570608106857a57049054c8293c20c6db432730c",
+    "source_sha256": "9c6b760477f3f245c1326656a724295f4659f8b72d305e26b5b8dfda6864525b"
+   },
+   "replay_seed": 1001509,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "7ceb21d1a59a16772c690b2225dce27e6a0168aea7d245ecf8abbc431fd30dd2"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "1fa5653da3158ebf0117573a48d3facdc57205a950736b62b57f9f6f5bc529b4"
+     }
+    ],
+    "container_id": "f003dce06dc206e5c5d3171f9edc430f0cd8ec6dc2e941500c8066a8e710a9a2",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.6099254279979505,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-36a41d7342eb"
+     },
+     {
+      "container_id": "73e601c7d484fad0b95aafcf4bd879971cc30606b49bf71fdc723e79515c0555",
+      "event": "created",
+      "name": "vf-36a41d7342eb"
+     },
+     {
+      "container_id": "73e601c7d484fad0b95aafcf4bd879971cc30606b49bf71fdc723e79515c0555",
+      "event": "removed",
+      "name": "vf-36a41d7342eb"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2455,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T3",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "176a779c59456394fa5d4feab520a893459f0e7ce8f26b4e13d4842ca0149ed7"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "823dbaf56e2517d0cb21cbe4f56f0dfa0506f1d1d6caed997392c1a260591b4d"
+     }
+    ],
+    "container_id": "73e601c7d484fad0b95aafcf4bd879971cc30606b49bf71fdc723e79515c0555",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 6.3641087859869,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": false,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-2d9a94254244"
+     },
+     {
+      "container_id": "9266f0b670ec0fb2d232cb25ac96319c99e63a54291129b451aef4844134fafa",
+      "event": "created",
+      "name": "vf-2d9a94254244"
+     },
+     {
+      "container_id": "9266f0b670ec0fb2d232cb25ac96319c99e63a54291129b451aef4844134fafa",
+      "event": "removed",
+      "name": "vf-2d9a94254244"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-47b34123d514"
+     },
+     {
+      "container_id": "24b73876d98d0d7713b8e380bab44e282b51107565eb6a13e128f833a5f1ca28",
+      "event": "created",
+      "name": "vf-47b34123d514"
+     },
+     {
+      "container_id": "24b73876d98d0d7713b8e380bab44e282b51107565eb6a13e128f833a5f1ca28",
+      "event": "removed",
+      "name": "vf-47b34123d514"
+     },
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-13259389db7e"
+     },
+     {
+      "container_id": "7cbfb22618f5022f295cbd638d8aab0770853f5a7a956c84554548e83e470eeb",
+      "event": "created",
+      "name": "vf-13259389db7e"
+     },
+     {
+      "container_id": "7cbfb22618f5022f295cbd638d8aab0770853f5a7a956c84554548e83e470eeb",
+      "event": "removed",
+      "name": "vf-13259389db7e"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2447,
+  "policy": "equal_weights",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T3",
+  "value": {
+   "flagged": false,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "answer_sha256": "5232aae001a0e9c4e889e98f07f58f0e92a6a85af1836d43f7cba9efc3fca58b",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "bc7e71dc0b1540c874d1f69ed03a6e3e5811bcda59df5e68d770e491ea2e3b7c"
+     }
+    ],
+    "container_id": "24b73876d98d0d7713b8e380bab44e282b51107565eb6a13e128f833a5f1ca28",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "0e4bba10c4f9ac9fa1995fb014cae88e8bc20641e1f4b8bc94d79386a5b1b5fa",
+    "source_sha256": "926f6f34e320c5263c70fa08deca6b7f4a21584df06df3812c6713975797eab1"
+   },
+   "replay": {
+    "answer_sha256": "e0cd1598ed2841799c9a24ff65fe7b498d14200bea766a3236ecbf39ea8d24f1",
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "ff1a04945e1f123705861e23847acf82a2b9ca842ce09d936da6e5e8a5c8b07d"
+     }
+    ],
+    "container_id": "7cbfb22618f5022f295cbd638d8aab0770853f5a7a956c84554548e83e470eeb",
+    "exit_code": 0,
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "input_sha256": "7de082d183c3183a451a6b72d5108c240298794501b98e5aa0627625e4f3f753",
+    "source_sha256": "926f6f34e320c5263c70fa08deca6b7f4a21584df06df3812c6713975797eab1"
+   },
+   "replay_seed": 1001658,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "c79009677f5da6036d412baa8e3c34210f435a4ad447e5b1307b5d4a43928373"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": null,
+      "trace_sha256": "2621d7172529641511ddb0d08e7743588f034a2bc870e76412ee4c7453145eb9"
+     }
+    ],
+    "container_id": "9266f0b670ec0fb2d232cb25ac96319c99e63a54291129b451aef4844134fafa",
+    "flagged": false,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.849557382025523,
+    "exceptions": [
+     {
+      "full_traceback_parts": [
+       "logs/p2d3-r2-stress-E1-c12_exceptions/a450d148c05f4316b3a92157864cee2e-000.txt"
+      ],
+      "id": "a450d148c05f4316b3a92157864cee2e",
+      "kind": "policy",
+      "message_previews": [
+       "execve(\"/usr/bin/timeout\", [\"timeout\", \"--signal=TERM\", \"--kill-after=1\", \"20s\", \"python\", \"-I\", \"-B\", \"/work/program.py\", \"/work/input.json\"], 0x7ffc9bcf3d10 /* 6 vars */) = 0\naccess(\"/etc/ld.so.preload\", R_OK)      = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/etc/ld.so.cache\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/lib/x86_64-linux-gnu/libc.so.6\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/locale-archive\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/share/locale/locale.alias\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/C.UTF-8/LC_CTYPE\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/C.utf8/LC_CTYPE\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache\", O_RDONLY|O_CLOEXEC) = 3\nstrace: Process 39 attached\n[pid    39] execve(\"/usr/local/bin/python\", [\"python\", \"-I\", \"-B\", \"/work/program.py\", \"/work/input.json\"], 0x7ffd4272c058 /* 6 vars */) = 0\n[pid    39] readlinkat(AT_FDCWD</work>, \"/proc/self/exe\", \"/usr/local/bin/python3.14\", 4096) = 25\n[pid    39] access(\"/etc/ld.so.preload\", R_OK) = -1 ENOENT (No such file or directory)\n[pid    39] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v3/libpython3.14.so.1.0\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\n[pid    39] newfstatat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v3/\", 0x7ffd1a476fd0, 0) = -1 ENOENT (No such file or directory)\n[pid    39] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v2/libpython3.14.so.1.0\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\n[pid    39] newfstatat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v2/\", 0x7ffd1a476fd0, 0) = -1 ENOENT (No such file or directory)\n[pid    39] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/libpython3."
+      ],
+      "metadata": {
+       "exit_code": 1,
+       "origin": "solver_command",
+       "runtime": "vf-9e6afafa185c"
+      },
+      "traceback_sha256": "e156d3845d030f0ddeac8f2dc74022bffcfaa42776b937c0a75df46779dadab2",
+      "types": [
+       "PolicyFailure"
+      ]
+     }
+    ],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-9e6afafa185c"
+     },
+     {
+      "container_id": "156e35d078212a614657bc8c0f19a630e58ad112a6c2446ffb8a779231574dab",
+      "event": "created",
+      "name": "vf-9e6afafa185c"
+     },
+     {
+      "container_id": "156e35d078212a614657bc8c0f19a630e58ad112a6c2446ffb8a779231574dab",
+      "event": "removed",
+      "name": "vf-9e6afafa185c"
+     }
+    ]
+   }
+  ],
+  "complete": true,
+  "index": 2454,
+  "policy": "oracle_read",
+  "retried": false,
+  "seed": 1001000,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T3",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "primary": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "container_id": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 1,
+      "policy_outcome": "solver_crash",
+      "trace_sha256": "6b9e09128e02e4e2739ba94e68f4dbf3bc5f143c562e50ed6d159c0097e21be6"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "1717bb98bf8a5b97d767e6465576ab2f02b16f0083c5d9fd12ff3bc6c5f242e1"
+     }
+    ],
+    "container_id": "156e35d078212a614657bc8c0f19a630e58ad112a6c2446ffb8a779231574dab",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353"
+   }
+  }
+ }
+]
