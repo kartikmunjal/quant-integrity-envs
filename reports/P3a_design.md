@@ -363,3 +363,32 @@ exponent into the trusted Task scorer before its first rollout; it is never set
 from solver input. Selecting p=2/3 does not require rewriting source after the
 source-bound design study. Any grid candidate may establish a passing design;
 the smallest passing candidate is frozen.
+
+### 2026-10-28 — Explicit normative public contract before fresh validation
+
+V2 passed all1280 policy rollouts withp=1, all1800 admitted mutants,50 T3
+joint cases and473 tests. Its source/data contract still required an auditor to
+infer the meanings of fundamental tuple indices and exact execution clocks from
+the faulty script. Independent review blocks using that ambiguity for a fresh
+gate, regardless of the known-template oracle's success.
+
+Before further runs, provide one uniform public research contract defining the
+existing tuple fields, half-open partitions, lagged feature/label equations,
+training purge, as-of availability/membership, stable identity and missing
+current-identifier joins, close-t signals, next-close fills at t+1, realized PnL
+at t+2, fully realized selection orders and all required outputs/reports. The
+contract is independently drafted and tested before code; it contains no
+instance label, operator ID, effect, location, gold patch or case seed. The
+research equations, generated data/config,32-candidate cap, admission floors,
+quality combination, thresholds and exponent grid are unchanged.
+
+Preserve v2 as passing restricted-grammar development evidence, not a fresh gate.
+Repeat source-bound studies under v3 after this interface clarification:
+results/p3a_mutation_design_v3.json, p3a_interactions_v3.json,
+p3a-policy-design-v3.json and p3a_tests_v3.json. Public-input hashes naturally
+change random draws; the declared uniform4096-subset distribution and finding
+sampling remain fixed. No source changes or outcome-selected draw replacements
+are allowed during a study. Supplemental schema-valid flat-economic-output
+validation uses the independently authored fixed solver and200 declared design
+cases; it preserves benign fields and must score<=0.05 without a schema failure.
+Repeat that validation under v3 as well. No fresh or model result has been seen.

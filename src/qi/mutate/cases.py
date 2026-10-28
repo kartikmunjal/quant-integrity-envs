@@ -5,6 +5,7 @@ import random
 import itertools
 from functools import lru_cache
 from qi.gen import GeneratorConfig,generate_market,generator_version_hash
+from .contract import PUBLIC_RESEARCH_CONTRACT
 from .catalogue import CATALOGUE,BY_ID,witness_groups
 from .reference import evaluate,relative_error
 from .render import render_source,source_locations
@@ -126,7 +127,7 @@ def make_case(seed,tier,excluded_families=()):
     spans=source_locations(source)
     truth=[{'family':BY_ID[k].family,'line':spans[k][0],'end_line':spans[k][1],
             'operator':k,'effect':admitted['effects'][k],'witness_effects':admitted['effect_groups'][k],'witness':BY_ID[k].witness} for k in selected]
-    public={'data':data,'research_source':source,'contract':'Audit causality, training purges, listing identity, delayed close fills and selection-only choice; output findings with family/line and a general patched_source. Research outputs follow the supplied schema. All complete return, holdings and fill paths are required.'}
+    public={'data':data,'research_source':source,'contract':PUBLIC_RESEARCH_CONTRACT}
     return {'seed':seed,'public':public,'data':data,'source':source,'clean_source':gold,'mutations':selected,'truth':truth,
             'clean':clean,'decoy_families':decoy_families,
             'candidate_attempts':attempts,'interaction_attempts':interaction_attempts,'conditional_effects':conditional,

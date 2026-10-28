@@ -14,15 +14,15 @@ from qi.gen import generator_version_hash
 def main():
     path=ROOT/'results/p3a_freeze.json'
     if path.exists() or (ROOT/'logs/p3a_gate_calls.json').exists():raise ValueError('freeze/gate already consumed')
-    mutation=json.loads((ROOT/'results/p3a_mutation_design_v2.json').read_text())
-    interactions=json.loads((ROOT/'results/p3a_interactions_v2.json').read_text())
-    design=json.loads((ROOT/'results/p3a-policy-design-v2.json').read_text())
+    mutation=json.loads((ROOT/'results/p3a_mutation_design_v3.json').read_text())
+    interactions=json.loads((ROOT/'results/p3a_interactions_v3.json').read_text())
+    design=json.loads((ROOT/'results/p3a-policy-design-v3.json').read_text())
     if not mutation['passed'] or mutation['mutant_executions']!=1800 or not interactions['passed'] or not design['passed'] or design['selected_exponent'] not in (1,2,3):raise ValueError('design prerequisites failed')
     versions=source_files()
     for summary in (mutation,interactions,design):
         if summary['sources']!=versions:raise ValueError('stale design source evidence')
         verify_entries(summary['compact_shards'])
-    for name in ('p3a_mutation_design_v2_manifest','p3a_interactions_v2_manifest','p3a-policy-design-v2_manifest'):
+    for name in ('p3a_mutation_design_v3_manifest','p3a_interactions_v3_manifest','p3a-policy-design-v3_manifest'):
         manifest=json.loads((ROOT/'results'/(name+'.json')).read_text())
         if 'entry_shards' in manifest:
             import gzip
@@ -30,7 +30,7 @@ def main():
             entries=[json.loads(line) for e in manifest['entry_shards'] for line in gzip.decompress((ROOT/e['path']).read_bytes()).splitlines()]
         else:entries=manifest['entries']
         verify_entries(entries)
-    tests=json.loads((ROOT/'results/p3a_tests.json').read_text())
+    tests=json.loads((ROOT/'results/p3a_tests_v3.json').read_text())
     if not tests['passed'] or tests['sources']!=versions:raise ValueError('stale/failed full-suite evidence')
     if sha((ROOT/tests['junit_path']).read_bytes())!=tests['junit_sha256']:raise ValueError('test summary bytes changed')
     ensure_tracked_capacity(1024*1024)
@@ -49,7 +49,7 @@ def main():
     value={'phase':'P3a','environment':'E2','implementation_commit':implementation,'sources':versions,'image':IMAGE,
            'runtime_version_hash':runtime_version_hash(),'generator_version_hash':generator_version_hash(),'exponent':design['selected_exponent'],
            'policies':POLICIES,'planned_rollouts':8200,'concurrency':12,'fresh_primary':[1001000,1001499],'fresh_replay':[1002000,1002999],
-           'design_summary':'results/p3a-policy-design-v2.json','mutation_summary':'results/p3a_mutation_design_v2.json','interaction_summary':'results/p3a_interactions_v2.json',
+           'design_summary':'results/p3a-policy-design-v3.json','mutation_summary':'results/p3a_mutation_design_v3.json','interaction_summary':'results/p3a_interactions_v3.json',
            'tracked_budget_bytes':32*1024**2,'local_budget_bytes':2*1024**3,'compressed_shard_budget_bytes':512*1024}
     with path.open('xb') as stream:stream.write(canonical(value)+b'\n')
     print(json.dumps({'freeze_written':str(path.relative_to(ROOT)),'implementation_commit':implementation,'source_count':len(versions)}))

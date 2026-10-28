@@ -110,7 +110,7 @@ class E2Taskset(vf.Taskset[E2Task,E2Config]):
             guard(seed)
             for tier in TIERS:
                 yield E2Task(E2Data(seed=seed,tier=tier,name=f'E2-{tier}-{seed}',network_allow=[],workdir='/work',
-                    prompt='Audit /work/research.py using /work/input.json data and the declared causal contract. Write a solver /work/program.py that emits JSON findings [{family:F1..F6,line:positive integer}], patched_source. Patches must execute on new data; all required functional outputs must match the clean causal research contract. No private oracle access.'))
+                    prompt='Audit /work/research.py using /work/input.json data and its explicit contract field (the normative field legend, equations and timing rules). Write a solver /work/program.py that emits JSON findings [{family:F1..F6,line:positive integer}], patched_source. Patches must execute on new data; all required functional outputs must match the clean causal research contract. No private oracle access.'))
 
 class E2HarnessConfig(vf.HarnessConfig):
     id:str='qi-leakage-audit'

@@ -42,3 +42,20 @@ Keep all earlier evidence, rerun affected studies under new source hashes, and
 bind freeze prerequisites to actual semantic sources and manifests. No frozen
 threshold, weight, generator code/config, tier or held-out family changes. No
 sealed-test/model-baseline/training or paid API/GPU result has been seen.
+
+## 2026-10-28 — P3a public-contract clarification, development only
+
+Source/evidence commit `a64a20e8bffcf0f2ac02309efa594f1593d373c8`; independent
+public-contract tests committed first in `4b9bde64011b0326fad1eb3cc042ac4f68de82ee`.
+V2 scripted validation passed, but review found public instructions ambiguous
+about fundamental tuple indices and signal/fill clocks. Add a uniform explicit
+field/equation/timing legend, independently crosschecked against the existing
+clean reference. No instance truth or planted locations are exposed. Preserve
+all v2 evidence and repeat affected source-bound studies asv3 before any fresh
+gate. Public hash-derived random samples change with the clarified input; their
+sampling distribution is unchanged and no draw is selected by reward. This is
+interface metadata only: no frozen generator code/config/range, threshold,
+weight, tier, held-out family, seed partition or research equation changes.
+Scripted dev validation has been seen and is named above; no sealed-test result,
+preregistered model-baseline result, training result or paid API/GPU result has
+been seen. No frozen preregistration value is amended by this clarification.

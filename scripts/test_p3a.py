@@ -12,12 +12,12 @@ from scripts.p3a_support import canonical,sha,ensure_tracked_capacity
 from scripts.compact_junit import compact
 
 
-def main():
-    path=ROOT/'results/p3a_tests.json'
+def main(result_name,junit_name,console_name):
+    path=ROOT/'results'/(result_name+'.json')
     if path.exists():raise ValueError('full-suite proof already exists')
-    started=time.monotonic();versions=source_files();junit=ROOT/'logs/p3a_final_tests.xml'
+    started=time.monotonic();versions=source_files();junit=ROOT/'logs'/junit_name
     env=dict(os.environ,QI_REAL_SANDBOX='1')
-    with (ROOT/'logs/p3a_final_tests_console.txt').open('x') as stream:
+    with (ROOT/'logs'/console_name).open('x') as stream:
         code=subprocess.call([str(ROOT/'.venv/bin/python'),'-m','pytest','--junitxml='+str(junit)],cwd=ROOT,env=env,stdout=stream,stderr=subprocess.STDOUT)
     original=compact(junit,ROOT/'artifacts/p3a/development/junit-originals') if junit.exists() else None
     if original:original['path']=str(Path(original['path']).relative_to(ROOT));original['original_path']=str(junit.relative_to(ROOT))
@@ -29,4 +29,9 @@ def main():
     ensure_tracked_capacity(len(canonical(result))+1);path.write_bytes(canonical(result)+b'\n');print(json.dumps({k:result[k] for k in ('passed','counts','wall_seconds')}))
     if not result['passed']:raise SystemExit(1)
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    import argparse
+    parser=argparse.ArgumentParser();parser.add_argument('--result-name',default='p3a_tests_v3');parser.add_argument('--junit-name',default='p3a_final_v3_tests.xml');parser.add_argument('--console-name',default='p3a_final_v3_tests_console.txt')
+    args=parser.parse_args()
+    if any(Path(v).name!=v or not v.startswith('p3a') for v in vars(args).values()):parser.error('phase basenames only')
+    main(args.result_name,args.junit_name,args.console_name)

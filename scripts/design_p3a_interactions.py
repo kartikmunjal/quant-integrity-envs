@@ -15,8 +15,8 @@ from qi.mutate.catalogue import BY_ID,witness_groups
 from qi.mutate.render import render_source
 from qi.mutate.reference import evaluate,relative_error
 
-async def main():
-    version=source_files();archive=Archive('interaction-design-v2');rows=[];started=time.monotonic();semaphore=asyncio.Semaphore(8)
+async def main(tag,result_name):
+    version=source_files();archive=Archive(tag);rows=[];started=time.monotonic();semaphore=asyncio.Semaphore(8)
     async def one(seed):
         import base64,gzip
         async with semaphore:
@@ -41,9 +41,12 @@ async def main():
     await asyncio.gather(*(one(s) for s in range(1000000,1000050)))
     if source_files()!=version:raise ValueError('source drift')
     summary={'runtime_version_hash':runtime_version_hash(),'image':IMAGE,'host_python':sys.version,'environment':'E2','sources':version,'cases':len(rows),'executions':len(rows)*5,'passed':len(rows)==50 and all(r['passed'] for r in rows),'wall_seconds':time.monotonic()-started,
-             'compact_shards':shards(sorted(rows,key=lambda r:r['seed']),ROOT/'results/p3a_interactions_v2/rows'),'api_spend_usd':0,'gpu_spend_usd':0}
-    Path('results/p3a_interactions_v2.json').write_bytes(canonical(summary)+b'\n');Path('results/p3a_interactions_v2_manifest.json').write_bytes(canonical(archive.manifest())+b'\n')
+             'compact_shards':shards(sorted(rows,key=lambda r:r['seed']),ROOT/'results'/result_name/'rows'),'api_spend_usd':0,'gpu_spend_usd':0}
+    (Path('results')/(result_name+'.json')).write_bytes(canonical(summary)+b'\n');(Path('results')/(result_name+'_manifest.json')).write_bytes(canonical(archive.manifest())+b'\n')
     print(json.dumps({'complete':True,'passed':summary['passed']}),flush=True)
     if not summary['passed']:raise SystemExit(1)
 
-if __name__=='__main__':asyncio.run(main())
+if __name__=='__main__':
+    import argparse
+    parser=argparse.ArgumentParser();parser.add_argument('--tag',default='interaction-design-v3');parser.add_argument('--result-name',default='p3a_interactions_v3')
+    args=parser.parse_args();asyncio.run(main(args.tag,args.result_name))
