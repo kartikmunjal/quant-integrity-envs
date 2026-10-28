@@ -195,3 +195,48 @@ def test_no_decoy_source_has_no_original_explicit_decoy_subtrees():
         if isinstance(original,ast.IfExp): original=original.body
         fingerprint=normalized(original)
         assert all(normalized(n)!=fingerprint for n in ast.walk(off_tree))
+
+
+def test_fixed_seed_fallback_admits_only_effective_plants_and_preserves_rejections():
+    """Prospective revision test, written before fallback implementation.
+
+    The historical failed seed stays fixed. Inactive operators remain disclosed;
+    they are never falsely counted as economic mutants or silently replanted.
+    """
+    from qi.mutate.cases import admitted_data
+    data,clean,attempts=admitted_data(1000776)
+    assert 1<=len(attempts)<=32
+    selected=[a for a in attempts if a.get('selected')]
+    assert len(selected)==1
+    def eligible(a):
+        return {ident for ident,groups in a.get('effect_groups',{}).items()
+                if groups and all(value>=.05 for value in groups.values())}
+    def rank(a):
+        ids=eligible(a)
+        return (len({m.family for m in CATALOGUE if m.id in ids}),len(ids),-a['candidate'])
+    valid=[a for a in attempts if a.get('effect_groups')]
+    assert selected[0]==max(valid,key=rank)
+    assert selected[0]['candidate']<32
+    assert any(a.get('rejected') for a in attempts)
+    assert len({a['candidate'] for a in attempts})==len(attempts)
+    assert all(0<=a['candidate']<32 for a in attempts)
+    allowed=eligible(selected[0])
+    rejected={m.id for m in CATALOGUE}-allowed
+    assert rejected
+    assert rejected <= set(selected[0]['rejected'])
+    for tier in ('T1','T2','T3','T4'):
+        case=make_case(1000776,tier)
+        assert case==make_case(1000776,tier)
+        assert case['seed']==1000776
+        assert all(case['data'][key]==value for key,value in data.items())
+        assert set(case['mutations'])<=allowed
+        assert set(case['mutations']).isdisjoint(rejected)
+        for truth in case['truth']:
+            assert truth['effect']>=.05
+        if tier=='T3':
+            assert len(case['truth'])==3
+            assert all(effect>=.05 for effect in case['conditional_effects'].values())
+        assert case['candidate_attempts']==attempts
+    for group in ('holdings','returns'):
+        values=numeric_leaves(clean[group])
+        assert len(set(values))>1 and max(map(abs,values))>1e-8

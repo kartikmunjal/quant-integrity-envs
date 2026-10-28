@@ -93,3 +93,30 @@ def test_design_execution_boundary_rejects_security_attacks(source):
     result=asyncio.run(execute_once({'data':{},'research_source':'pass'},source))
     assert result['flagged'] or result['exit_code'] != 0
     assert result['answer'] is None
+
+
+def test_random_policy_is_uninformed_functional_grammar_not_fixed_broken_patch():
+    """Prospective corrected baseline structure; compile, never execute source.
+
+    Public-input hashing makes policy sampling reproducible without private seed
+    or truth. Sampling each bit uniformly admits every one of 4096 subsets,
+    including the empty (correct clean) patch, and all presentation forms.
+    """
+    import ast
+    source=reference_program('random')
+    tree=ast.parse(source)
+    compile(tree,'<random policy prospective contract>','exec')
+    # Require explicit source-level domain declarations so the random baseline
+    # distribution is inspectable before any outcome, rather than inferred from
+    # reward or sampled trajectories.
+    constants={node.value for node in ast.walk(tree) if isinstance(node,ast.Constant)
+               and type(node.value) in (int,str)}
+    assert 'sha256' in source and 'random' in source
+    assert 'research_source' in source and "public['data']" in source
+    assert 4096 in constants or 'getrandbits(12)' in source
+    assert 'randrange(3)' in source or 'randint(0, 2)' in source or 'randint(0,2)' in source
+    assert 'randrange(9)' in source or 'randint(0, 8)' in source or 'randint(0,8)' in source
+    assert 'randrange(1, 7)' in source or 'randrange(1,7)' in source or 'randint(1, 6)' in source or 'randint(1,6)' in source
+    assert 'splitlines' in source  # random locations drawn from public source
+    assert "PATCH=\"print('{}')" not in source
+    assert "findings=[{'family':'F1','line':99999}]" not in source
