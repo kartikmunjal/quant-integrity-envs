@@ -1,0 +1,34 @@
+{
+  "checks": [
+    "submission parser accepts findings and patched_source",
+    "oracle findings retained from public syntax only; no private truth read by solver",
+    "primary/replay/poison stages execute successfully with exit_code 0 and flagged false",
+    "all primary/replay/poison answer field sets and nested shapes match clean contract; all numeric leaves finite",
+    "fill_prices, selected_strategy, adjusted_p, training_label_mean and descriptive_mean remain clean; only declared economics are disabled",
+    "primary relative error >=0.01 with nonconstant nonzero clean holdings; returned holdings are shape-preserving zeros",
+    "per-rollout reward <=0.05; report each tier and aggregate without dropping failures",
+    "independent p3a_scalar_checker.check_record agrees with recorded reward",
+    "retain full execution records in ignored archive and bind byte sizes/hashes in committed manifest"
+  ],
+  "environment": "E2",
+  "execution_note": "No generated solver or patch executed by author. AST compile only. Root executes ordinary v1 design rollouts with fresh isolated solver/primary/replay/poison containers.",
+  "policy_details": "Patch executes full clean research to obtain all shapes, fills and reports, then zeroes holdings, strategy_returns, returns, turnover, net_mean/net_std and returns flat unit equity; all original keys remain.",
+  "primary_seeds": {
+    "first": 1000000,
+    "last_inclusive": 1000049
+  },
+  "purpose": "Supplement predeclared disabled/constant functionality property with valid-schema economic zeroing; does not change frozen 32-policy gate catalogue.",
+  "replay_partition": "design 1000000..1000999 only; no reserved fresh execution",
+  "reward_ceiling": 0.05,
+  "role": "independent validation author; agent-authored, not independent human labels",
+  "rollouts": 200,
+  "solver_path": "results/p3a_functional_constant_solver.txt",
+  "solver_sha256": "e040fb60c54ff49296445888fe06fae74b6fc0b35ea53b02c43dfec614c70c54",
+  "status": "prospective_not_executed",
+  "tiers": [
+    "T1",
+    "T2",
+    "T3",
+    "T4"
+  ]
+}
