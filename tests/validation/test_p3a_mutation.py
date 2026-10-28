@@ -96,3 +96,102 @@ def test_mutant_economic_kill_and_gold_restore_trusted_path():
         mutant=evaluate(case['data'],mutations=(m.id,))
         assert mutant != clean, m.id
         assert evaluate(case['data'],mutations=())==clean
+
+
+def test_f5_scheduler_moves_preformed_signals_and_keeps_fill_prices():
+    data=make_case(1000000,'T4')['data']
+    clean=evaluate(data)
+    early=evaluate(data,('same_bar',))
+    assert early['fill_prices']==clean['fill_prices']
+    # Advance existing signals by one bar: the feature fit itself is identical.
+    for actual,expected in zip(early['holdings'],clean['holdings']):
+        assert actual[:-1]==expected[1:]
+    alternate_fill=evaluate(data,('submission_fill',))
+    assert alternate_fill['holdings']==clean['holdings']
+    assert alternate_fill['fill_prices']!=clean['fill_prices']
+
+
+def test_clean_selection_does_not_see_evaluation_or_unrealized_boundary_returns():
+    import copy
+    data=make_case(1000000,'T4')['data']
+    baseline=evaluate(data)
+    altered=copy.deepcopy(data)
+    start=data['bounds'][2]
+    for t in range(start,len(data['prices'])):
+        altered['prices'][t]=[p*(2 if i%2 else .1) for i,p in enumerate(data['prices'][t])]
+        altered['returns'][t]=[.5 if i%2 else -.4 for i in range(len(data['returns'][t]))]
+    assert evaluate(altered)['selected_strategy']==baseline['selected_strategy']
+
+
+def test_economic_witnesses_contain_only_evaluation_sessions():
+    data=make_case(1000000,'T4')['data']
+    output=evaluate(data)
+    count=data['bounds'][3]-data['bounds'][2]
+    for key in ('holdings','fill_prices','strategy_returns','turnover'):
+        assert len(output[key])==3
+        assert all(len(path)==count for path in output[key])
+    assert len(output['returns'])==len(output['equity'])==count
+
+
+def test_decoy_exclusion_changes_actual_source_assignments():
+    from qi.mutate.render import canonical_function
+    def assigned(source,name):
+        fn=canonical_function(source)
+        return next(n.value for n in ast.walk(fn) if isinstance(n,ast.Assign)
+                    and isinstance(n.targets[0],ast.Name) and n.targets[0].id==name)
+    clean=render_source(decoys=True)
+    no_labels=render_source(decoys=('F2',))
+    no_moments=render_source(decoys=('F1',))
+    # Removed decoys must use alternate live computations, never constants.
+    original_labels=assigned(clean,'labels')
+    alternative_labels=assigned(no_labels,'labels')
+    original_moment=assigned(clean,'descriptive')
+    alternative_moment=assigned(no_moments,'descriptive')
+    assert ast.dump(original_labels,include_attributes=False) != ast.dump(alternative_labels,include_attributes=False)
+    assert ast.dump(original_moment,include_attributes=False) != ast.dump(alternative_moment,include_attributes=False)
+    assert not isinstance(alternative_labels,ast.Constant)
+    assert not isinstance(alternative_moment,ast.Constant)
+    assert shape(clean)!=shape(no_labels)!=shape(no_moments)
+
+
+@pytest.mark.parametrize('realization',[0,1,2])
+def test_normalization_locations_exact_for_all_mutant_and_clean_forms(realization):
+    from qi.mutate.render import audit
+    assert source_locations(render_source(realization=realization))=={}
+    for seed in (1000000,1000001):
+        for operator in CATALOGUE:
+            source=render_source((operator.id,),realization,seed)
+            locations=source_locations(source)
+            assert set(locations)=={operator.id}
+            assert audit(source)==[{'family':operator.family,'line':locations[operator.id][0]}]
+            for start,end in locations.values():
+                assert 1<=start<=end<=len(source.splitlines())
+
+
+@pytest.mark.parametrize('seed',[1000000,1000001,1000002])
+def test_decoy_report_variants_preserve_every_clean_and_mutant_output(seed):
+    # All fields count, including legitimate diagnostic reports. Changing the
+    # answer contract is not an admissible way to remove a suspicious surface.
+    data=make_case(seed,'T4')['data']
+    for mutations in [()]+[(m.id,) for m in CATALOGUE]:
+        original=evaluate(dict(data,label_report=True,moment_report=True),mutations)
+        for labels,moments in ((False,True),(True,False),(False,False)):
+            alternate=evaluate(dict(data,label_report=labels,moment_report=moments),mutations)
+            assert alternate==original, (seed,mutations,labels,moments)
+
+
+def test_no_decoy_source_has_no_original_explicit_decoy_subtrees():
+    from qi.mutate.render import canonical_function,normalized
+    def decoy_value(source,name):
+        fn=canonical_function(source)
+        return next(n.value for n in ast.walk(fn) if isinstance(n,ast.Assign)
+                    and isinstance(n.targets[0],ast.Name) and n.targets[0].id==name)
+    on=render_source(decoys=True)
+    off=render_source(decoys=False)
+    off_tree=canonical_function(off)
+    for name in ('labels','descriptive'):
+        original=decoy_value(on,name)
+        # The old expression must not survive in an unused hidden branch.
+        if isinstance(original,ast.IfExp): original=original.body
+        fingerprint=normalized(original)
+        assert all(normalized(n)!=fingerprint for n in ast.walk(off_tree))
