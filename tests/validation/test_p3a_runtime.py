@@ -1,6 +1,9 @@
 """Independent submission/security/runtime contracts, written before E2 runtime.
 
 Real executions are opt-in and restricted to design seeds; no host source exec.
+Before runtime implementation, lifecycle replay expectation was corrected to the
+design partition: a design primary must never trigger a reserved fresh replay.
+The pure replay_seed hash function still tests the reserved gate mapping.
 """
 import asyncio
 import json
@@ -77,7 +80,7 @@ def test_design_seed_oracle_real_lifecycle(tier):
     assert result['lifecycle']==['setup','solver','finalize','score']
     stages=('solver','primary','replay','poison')
     assert len({result[s]['container_id'] for s in stages})==4
-    assert result['replay_seed']>=1002000
+    assert 1000000 <= result['replay_seed'] <= 1000999
 
 
 @real
