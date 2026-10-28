@@ -1,6 +1,12 @@
-current_phase: P2d3 STOP; infrastructure/stress/historical regression/fresh E6 gate PASSED; 58800 qualified rollouts complete; zero retries or terminal failures; 50 author-reviewed trajectories; P3 not started; awaiting owner
-previous_phase: P2d2 revision STOP; one-shot gate FAILED due T4/random/1003044 incomplete runtime/provenance; reward floors pass; no rerun; awaiting owner; P3 not started
-report: reports/P2d3.md
-implementation_commit: 4a381f28d00632acea36703121351326586b1cb9
-freeze_commit: e994296f7db7a7d41fe74eba4cc8da6aeba23f04
-runtime_version_hash: 5ac8cf100aabc4d4b47f38fe8ecc4a34fe4db1c77f6042d719c165489769781a
+# Project state
+
+- current_phase: P3a source/design/image freeze; fresh one-shot E2 gate pending.
+- report: reports/P3a.md (final report to be written after the gate and review).
+- independent_review: reports/P3a_clean_review.md — READY FOR FREEZE.
+- implementation_commit: d0eecc88b005d14ddec3a6a2f09a22881fb35e8c
+- freeze: results/p3a_freeze.json
+- previous_phase: P2d3 STOP, passing infrastructure/E6 validation; reports/P2d3.md.
+- boundaries: P3a mutation engine and E2 only. No E3, P4/P5, model pilot,
+  training, M1 packaging, rename or public release. FROZEN_EVAL remains absent.
+- next: consume the globally guarded fresh gate exactly once, review 50 fixed
+  trajectories, report all findings and STOP for the owner's M1/E3 choice.
