@@ -1,0 +1,184 @@
+FFFF.                                                                    [100%]
+=================================== FAILURES ===================================
+_ test_existing_global_gate_reservation_blocks_every_tag_and_concurrency[alternate-tag-12] _
+
+isolated_runner = <module 'qi_runtime.experiments' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/experiments.py'>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x727d76618510>
+tag = 'alternate-tag', concurrency = 12
+
+    @pytest.mark.parametrize('tag,concurrency', [('alternate-tag', 12), ('other-tag', 24), (None, 24)])
+    def test_existing_global_gate_reservation_blocks_every_tag_and_concurrency(isolated_runner, monkeypatch, tag, concurrency):
+        runner = isolated_runner
+        marker = Path('logs/p2d3_gate_calls.json')
+        original = json.dumps({'status': 'started', 'tag': 'original-gate', 'concurrency': 12})
+        marker.write_text(original)
+        def forbidden_plan(*args, **kwargs):
+            pytest.fail('existing global gate reservation must block before planning')
+        monkeypatch.setattr(runner, 'plan_for', forbidden_plan)
+        with pytest.raises(FileExistsError):
+>           asyncio.run(runner.run_batch('gate', 'E6', concurrency, tag=tag))
+
+/home/kartik/qi/Quant-fin-agent/tests/validation/test_p2d3_gate_once.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.14/asyncio/runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+/home/kartik/qi/Quant-fin-agent/src/qi_runtime/experiments.py:68: in run_batch
+    plan=plan_for(mode,env,count);planned=len(plan);ledger=RetryBudget(planned)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ('gate', 'E6', 5000), kwargs = {}
+
+    def forbidden_plan(*args, **kwargs):
+>       pytest.fail('existing global gate reservation must block before planning')
+E       Failed: existing global gate reservation must block before planning
+
+/home/kartik/qi/Quant-fin-agent/tests/validation/test_p2d3_gate_once.py:36: Failed
+_ test_existing_global_gate_reservation_blocks_every_tag_and_concurrency[other-tag-24] _
+
+isolated_runner = <module 'qi_runtime.experiments' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/experiments.py'>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x727d76618180>
+tag = 'other-tag', concurrency = 24
+
+    @pytest.mark.parametrize('tag,concurrency', [('alternate-tag', 12), ('other-tag', 24), (None, 24)])
+    def test_existing_global_gate_reservation_blocks_every_tag_and_concurrency(isolated_runner, monkeypatch, tag, concurrency):
+        runner = isolated_runner
+        marker = Path('logs/p2d3_gate_calls.json')
+        original = json.dumps({'status': 'started', 'tag': 'original-gate', 'concurrency': 12})
+        marker.write_text(original)
+        def forbidden_plan(*args, **kwargs):
+            pytest.fail('existing global gate reservation must block before planning')
+        monkeypatch.setattr(runner, 'plan_for', forbidden_plan)
+        with pytest.raises(FileExistsError):
+>           asyncio.run(runner.run_batch('gate', 'E6', concurrency, tag=tag))
+
+/home/kartik/qi/Quant-fin-agent/tests/validation/test_p2d3_gate_once.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.14/asyncio/runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+/home/kartik/qi/Quant-fin-agent/src/qi_runtime/experiments.py:68: in run_batch
+    plan=plan_for(mode,env,count);planned=len(plan);ledger=RetryBudget(planned)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ('gate', 'E6', 5000), kwargs = {}
+
+    def forbidden_plan(*args, **kwargs):
+>       pytest.fail('existing global gate reservation must block before planning')
+E       Failed: existing global gate reservation must block before planning
+
+/home/kartik/qi/Quant-fin-agent/tests/validation/test_p2d3_gate_once.py:36: Failed
+_ test_existing_global_gate_reservation_blocks_every_tag_and_concurrency[None-24] _
+
+isolated_runner = <module 'qi_runtime.experiments' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/experiments.py'>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x727d44f53410>
+tag = None, concurrency = 24
+
+    @pytest.mark.parametrize('tag,concurrency', [('alternate-tag', 12), ('other-tag', 24), (None, 24)])
+    def test_existing_global_gate_reservation_blocks_every_tag_and_concurrency(isolated_runner, monkeypatch, tag, concurrency):
+        runner = isolated_runner
+        marker = Path('logs/p2d3_gate_calls.json')
+        original = json.dumps({'status': 'started', 'tag': 'original-gate', 'concurrency': 12})
+        marker.write_text(original)
+        def forbidden_plan(*args, **kwargs):
+            pytest.fail('existing global gate reservation must block before planning')
+        monkeypatch.setattr(runner, 'plan_for', forbidden_plan)
+        with pytest.raises(FileExistsError):
+>           asyncio.run(runner.run_batch('gate', 'E6', concurrency, tag=tag))
+
+/home/kartik/qi/Quant-fin-agent/tests/validation/test_p2d3_gate_once.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.14/asyncio/runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+/home/kartik/qi/Quant-fin-agent/src/qi_runtime/experiments.py:68: in run_batch
+    plan=plan_for(mode,env,count);planned=len(plan);ledger=RetryBudget(planned)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ('gate', 'E6', 5000), kwargs = {}
+
+    def forbidden_plan(*args, **kwargs):
+>       pytest.fail('existing global gate reservation must block before planning')
+E       Failed: existing global gate reservation must block before planning
+
+/home/kartik/qi/Quant-fin-agent/tests/validation/test_p2d3_gate_once.py:36: Failed
+__ test_gate_reservation_is_exclusive_before_plan_and_survives_setup_failure ___
+
+isolated_runner = <module 'qi_runtime.experiments' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/experiments.py'>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x727d44d387c0>
+
+    def test_gate_reservation_is_exclusive_before_plan_and_survives_setup_failure(isolated_runner, monkeypatch):
+        runner = isolated_runner
+        marker = Path('logs/p2d3_gate_calls.json')
+        calls = []
+        def failing_plan(*args, **kwargs):
+            calls.append(args)
+            assert marker.is_file(), 'gate reservation must exist before plan construction'
+            assert json.loads(marker.read_text())['status'] == 'started'
+            # Verify the reservation is an exclusive file, rather than a later log.
+            with pytest.raises(FileExistsError):
+                with marker.open('x'):
+                    pass
+            raise PlannedSetupFailure('synthetic planning failure before fresh cases')
+        monkeypatch.setattr(runner, 'plan_for', failing_plan)
+        with pytest.raises(PlannedSetupFailure):
+>           asyncio.run(runner.run_batch('gate', 'E6', 12, tag='first-tag'))
+
+/home/kartik/qi/Quant-fin-agent/tests/validation/test_p2d3_gate_once.py:59: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.14/asyncio/runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+/home/kartik/qi/Quant-fin-agent/src/qi_runtime/experiments.py:68: in run_batch
+    plan=plan_for(mode,env,count);planned=len(plan);ledger=RetryBudget(planned)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ('gate', 'E6', 5000), kwargs = {}
+@py_assert1 = <bound method Path.is_file of PosixPath('logs/p2d3_gate_calls.json')>
+@py_assert3 = False
+@py_format5 = "gate reservation must exist before plan construction\n>assert False\n{False = is_file\n{is_file = PosixPath('logs/p2d3_gate_calls.json').is_file\n}()\n}"
+
+    def failing_plan(*args, **kwargs):
+        calls.append(args)
+>       assert marker.is_file(), 'gate reservation must exist before plan construction'
+E       AssertionError: gate reservation must exist before plan construction
+E       assert False
+E        +  where False = is_file()
+E        +    where is_file = PosixPath('logs/p2d3_gate_calls.json').is_file
+
+/home/kartik/qi/Quant-fin-agent/tests/validation/test_p2d3_gate_once.py:50: AssertionError
+- generated xml file: /home/kartik/qi/Quant-fin-agent/logs/p2d3_gate_once_red.xml -
+=========================== short test summary info ============================
+FAILED tests/validation/test_p2d3_gate_once.py::test_existing_global_gate_reservation_blocks_every_tag_and_concurrency[alternate-tag-12]
+FAILED tests/validation/test_p2d3_gate_once.py::test_existing_global_gate_reservation_blocks_every_tag_and_concurrency[other-tag-24]
+FAILED tests/validation/test_p2d3_gate_once.py::test_existing_global_gate_reservation_blocks_every_tag_and_concurrency[None-24]
+FAILED tests/validation/test_p2d3_gate_once.py::test_gate_reservation_is_exclusive_before_plan_and_survives_setup_failure
+4 failed, 1 passed in 2.13s

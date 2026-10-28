@@ -65,8 +65,17 @@ async def run_batch(mode,env,concurrency,count=5000,tag=None):
     initial_sources=frozen_sources() if mode=='gate' else None
     tag=tag or f'{mode}-{env}-c{concurrency}'
     prefix='p2d3-'+tag;marker=Path('logs')/(prefix+'_calls.json')
+    call={'status':'started','mode':mode,'environment':env,'concurrency':concurrency,'tag':tag,'planned':None,'runtime_version_hash':runtime_version_hash()}
+    if mode=='gate':
+        # One fresh seed set has one reservation, independent of output labels
+        # and concurrency. Consume it before planning, including failed setup.
+        marker=Path('logs/p2d3_gate_calls.json')
+        with marker.open('x') as f:json.dump(call,f,indent=2)
     plan=plan_for(mode,env,count);planned=len(plan);ledger=RetryBudget(planned)
-    with marker.open('x') as f:json.dump({'status':'started','mode':mode,'environment':env,'concurrency':concurrency,'planned':planned,'runtime_version_hash':runtime_version_hash()},f,indent=2)
+    call['planned']=planned
+    if mode=='gate':marker.write_text(json.dumps(call,indent=2)+'\n')
+    else:
+        with marker.open('x') as f:json.dump(call,f,indent=2)
     Path('results').mkdir(exist_ok=True)
     Path('results',prefix+'_plan.json.gz').write_bytes(gzip.compress(json.dumps({'environment':env,'mode':mode,'planned':planned,'rows':plan},sort_keys=True,separators=(',',':')).encode(),mtime=0))
     task,policies,available,wrong,attacks=binding(env);sem=asyncio.Semaphore(concurrency);stop=asyncio.Event();rows=[];samples={};done=0;started=time.perf_counter()

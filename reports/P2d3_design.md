@@ -129,3 +129,15 @@ The older interrupted development runner lacked in-flight cancellation capture;
 its report explicitly states that limitation rather than inventing evidence.
 These additions change infrastructure coverage/evidence only; every financial
 rule and the fixed retry threshold remain unchanged.
+
+## Fresh gate reservation correction before freeze
+
+Clean-context review found that a tag-specific calls file could permit a second
+fresh gate with a different output tag or concurrency. Before any fresh gate,
+reserve logs/p2d3_gate_calls.json exclusively, independent of both settings and
+before constructing the plan. A planning/setup failure consumes this reservation;
+never remove it to rerun this phase. Stress/historical output markers remain
+separately tagged. Independent mocked regressions were written first and retained
+as red/green evidence. This gate-only orchestration correction follows completion
+of the six stress batches; their recorded orchestrator hash remains intact and
+the core runtime hash remains unchanged.
