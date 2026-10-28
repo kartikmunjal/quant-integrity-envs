@@ -1,0 +1,4672 @@
+[
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.7818161490140483,
+    "exceptions": [
+     {
+      "full_traceback_parts": [
+       "logs/p2d3-gate-E6-c12_exceptions/64469149ab49439c8177440b8cb87f90-000.txt"
+      ],
+      "id": "64469149ab49439c8177440b8cb87f90",
+      "kind": "policy",
+      "message_previews": [
+       "execve(\"/usr/bin/timeout\", [\"timeout\", \"--signal=TERM\", \"--kill-after=1\", \"20s\", \"python\", \"-I\", \"-B\", \"/work/program.py\", \"/work/input.json\"], 0x7ffc0bd6b520 /* 6 vars */) = 0\naccess(\"/etc/ld.so.preload\", R_OK)      = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/etc/ld.so.cache\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/lib/x86_64-linux-gnu/libc.so.6\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/locale-archive\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/share/locale/locale.alias\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/C.UTF-8/LC_CTYPE\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\nopenat(AT_FDCWD</work>, \"/usr/lib/locale/C.utf8/LC_CTYPE\", O_RDONLY|O_CLOEXEC) = 3\nopenat(AT_FDCWD</work>, \"/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache\", O_RDONLY|O_CLOEXEC) = 3\nstrace: Process 38 attached\n[pid    38] execve(\"/usr/local/bin/python\", [\"python\", \"-I\", \"-B\", \"/work/program.py\", \"/work/input.json\"], 0x7ffec74d5a68 /* 6 vars */) = 0\n[pid    38] readlinkat(AT_FDCWD</work>, \"/proc/self/exe\", \"/usr/local/bin/python3.14\", 4096) = 25\n[pid    38] access(\"/etc/ld.so.preload\", R_OK) = -1 ENOENT (No such file or directory)\n[pid    38] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v3/libpython3.14.so.1.0\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\n[pid    38] newfstatat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v3/\", 0x7fff2740bb80, 0) = -1 ENOENT (No such file or directory)\n[pid    38] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v2/libpython3.14.so.1.0\", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)\n[pid    38] newfstatat(AT_FDCWD</work>, \"/usr/local/bin/../lib/glibc-hwcaps/x86-64-v2/\", 0x7fff2740bb80, 0) = -1 ENOENT (No such file or directory)\n[pid    38] openat(AT_FDCWD</work>, \"/usr/local/bin/../lib/libpython3."
+      ],
+      "metadata": {
+       "exit_code": 1,
+       "origin": "solver_command",
+       "runtime": "vf-d06f46d967c5"
+      },
+      "traceback_sha256": "02910cb08405ff99f8bedc9f1b76ec045601cfc4d724c3bc16317e7376a69bb5",
+      "types": [
+       "PolicyFailure"
+      ]
+     }
+    ],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-d06f46d967c5"
+     },
+     {
+      "container_id": "2fc47f62c8f1df99d5b31d653016e00f8719b22d75409a0cd0196f3d6781a451",
+      "event": "created",
+      "name": "vf-d06f46d967c5"
+     },
+     {
+      "container_id": "2fc47f62c8f1df99d5b31d653016e00f8719b22d75409a0cd0196f3d6781a451",
+      "event": "removed",
+      "name": "vf-d06f46d967c5"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.6,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3299,
+  "policy": "oracle_read",
+  "retried": false,
+  "seed": 1005049,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "aed274149a8b83149c6f775b15a61f9c94032ee8126e19b4c71c9ac5263e1087",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 1,
+      "policy_outcome": "solver_crash",
+      "trace_sha256": "ae25c28f98a9cfea5f8965ce149518825c58e46fc2a9fbb0ee48ec9187b1650b"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "dc58a729eaae123d7c60ed9dce63a8eedad66352738d685635c9c57a3ba52ceb"
+     }
+    ],
+    "container_id": "2fc47f62c8f1df99d5b31d653016e00f8719b22d75409a0cd0196f3d6781a451",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "0c22de8b40646f5714a450fd0386170a4e3a09c0f16ee0aa2a1e73245a7945ba"
+   },
+   "source_sha256": "0c22de8b40646f5714a450fd0386170a4e3a09c0f16ee0aa2a1e73245a7945ba"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.536147785023786,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-b65fd3745ed6"
+     },
+     {
+      "container_id": "3e8f337fe9c51f8e69210633ed72cd490b499106ff5a2bcac22cae679adb8324",
+      "event": "created",
+      "name": "vf-b65fd3745ed6"
+     },
+     {
+      "container_id": "3e8f337fe9c51f8e69210633ed72cd490b499106ff5a2bcac22cae679adb8324",
+      "event": "removed",
+      "name": "vf-b65fd3745ed6"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.0,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3301,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005001,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "7f1f54a338ab511994a8bdec9c05444ad8581f9f6cf43887273a69b257fafce4",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "ed186d0f482d4f419abbd3c1c95222df197f57ce84b6d390aed0302c4b2096da"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "20241608ef43d0a01fba2cf0d0595a09abf508ab3e6d36efd7ed408a3a5b21e5"
+     }
+    ],
+    "container_id": "3e8f337fe9c51f8e69210633ed72cd490b499106ff5a2bcac22cae679adb8324",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.606672639027238,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-d1923bfd5aa3"
+     },
+     {
+      "container_id": "74ac68be1caa681d1884af02bb7ff9df5042a1dd8d1d5922e43b814430f7b62d",
+      "event": "created",
+      "name": "vf-d1923bfd5aa3"
+     },
+     {
+      "container_id": "74ac68be1caa681d1884af02bb7ff9df5042a1dd8d1d5922e43b814430f7b62d",
+      "event": "removed",
+      "name": "vf-d1923bfd5aa3"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 2.0000000000000004,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3302,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005002,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "4fb1e23ce53f18e76db52f2bb5ce46208945923a3509e301ce57106ce559c317",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "677db520aeba37fe2b5d5ec8c036478025e632257637d7805e04a06fee38e187"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "1fb075d5c0af1a06c806be8dbf6787b462c4a735fa5c13f75226b72da81e8dc5"
+     }
+    ],
+    "container_id": "74ac68be1caa681d1884af02bb7ff9df5042a1dd8d1d5922e43b814430f7b62d",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.6202217679820023,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-3fc349b8115c"
+     },
+     {
+      "container_id": "4ca73d10cb8ce31d7f458a92a88552feeb9c5275e374de0bb8354d233aece35b",
+      "event": "created",
+      "name": "vf-3fc349b8115c"
+     },
+     {
+      "container_id": "4ca73d10cb8ce31d7f458a92a88552feeb9c5275e374de0bb8354d233aece35b",
+      "event": "removed",
+      "name": "vf-3fc349b8115c"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 0.6,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.0,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3303,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005003,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "9cc2c8b01e89b926b6671122a6da8f65a56cda9d3286f538da3ef5b7d348a68a",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "091519f5029f9ebe2a00677fad2ecc9675e28db001c94fd1ab33a2057261a157"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "f12ba84c5eb4b6f52e8b0ec34ee555662f46806d8fc19d43e2be34a004b3ac70"
+     }
+    ],
+    "container_id": "4ca73d10cb8ce31d7f458a92a88552feeb9c5275e374de0bb8354d233aece35b",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.6315063830115832,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-eac900dd804a"
+     },
+     {
+      "container_id": "d645854caade4436422bf02e87f6f9cf795172dbae79e5b3375829811aa93d33",
+      "event": "created",
+      "name": "vf-eac900dd804a"
+     },
+     {
+      "container_id": "d645854caade4436422bf02e87f6f9cf795172dbae79e5b3375829811aa93d33",
+      "event": "removed",
+      "name": "vf-eac900dd804a"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 2.0,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3305,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005005,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "8c4ae565c585f1d0fe6943f516f83a1da24487744091222e9fb56a48770b3da4",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "13d2cd4a593ab82076ada0f703ce26995c813c267d5d29c79169d49487355159"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "43dfade35520a507faa429ee26b07f42bc1819c29f19e80ca19f82974bfa9868"
+     }
+    ],
+    "container_id": "d645854caade4436422bf02e87f6f9cf795172dbae79e5b3375829811aa93d33",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.6830840810434893,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-d87401bfb796"
+     },
+     {
+      "container_id": "c28ac71d4d543582f18ee483b58942f370df0b0ca6722ecf18d2ae03682b6ffd",
+      "event": "created",
+      "name": "vf-d87401bfb796"
+     },
+     {
+      "container_id": "c28ac71d4d543582f18ee483b58942f370df0b0ca6722ecf18d2ae03682b6ffd",
+      "event": "removed",
+      "name": "vf-d87401bfb796"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 0.6,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.5,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3304,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005004,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "ca9090528a6c6a010953e789751824acfa6c224e2f8992fb755a3bb215126d06",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "1280ad2454d258a1c664e56ee93222804aba9aa8d1e3614ed1a2c58b0bc943cb"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "0d13d79f6356b7f5e8a109f4e3eb2bdbd3b7f464af815a298b45c1b9fac72f32"
+     }
+    ],
+    "container_id": "c28ac71d4d543582f18ee483b58942f370df0b0ca6722ecf18d2ae03682b6ffd",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.6061206290032715,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-08039a4ee728"
+     },
+     {
+      "container_id": "2c6aa29da60cf7484816a76d609de445bf0794af311673bdd053676bfbd8759a",
+      "event": "created",
+      "name": "vf-08039a4ee728"
+     },
+     {
+      "container_id": "2c6aa29da60cf7484816a76d609de445bf0794af311673bdd053676bfbd8759a",
+      "event": "removed",
+      "name": "vf-08039a4ee728"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.6,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3308,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005008,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "b7800d19a74a568ae4287683f704d9dcd0581f6808ef305412f9440eefc8741f",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "1dccf99191fbaeb981f757772bd7fb1aeba64a6ee939cb65e3d5e39cdb957813"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "9ae4459dd2ed31a96b17896d6e768ab811b94de3c259b24849d70ae9866d95f7"
+     }
+    ],
+    "container_id": "2c6aa29da60cf7484816a76d609de445bf0794af311673bdd053676bfbd8759a",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.7343477369868197,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-edf7ca41252d"
+     },
+     {
+      "container_id": "5a60a8130f372978f64b5f7e176045133c611893a539061da9b2e85fac5ca632",
+      "event": "created",
+      "name": "vf-edf7ca41252d"
+     },
+     {
+      "container_id": "5a60a8130f372978f64b5f7e176045133c611893a539061da9b2e85fac5ca632",
+      "event": "removed",
+      "name": "vf-edf7ca41252d"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 2.0000000000000004,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3306,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005006,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "ae3c7b29a40b10286152b403a2c2402b4183974c50befb08d4184facc258a1a2",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "fa6e446a54aa0b61f78d738ccdb8316c6bc0f64e4686a9ae65c283b318d87d2d"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "8650ae89674dd746d6a7413ac9f156f63f19558493a316bdb338efef67e0b592"
+     }
+    ],
+    "container_id": "5a60a8130f372978f64b5f7e176045133c611893a539061da9b2e85fac5ca632",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.6097502650227398,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-16f00e888b1b"
+     },
+     {
+      "container_id": "16eafb9ba5c2600cf168b0ddd9504c953aacb27970887782283de5c95682705b",
+      "event": "created",
+      "name": "vf-16f00e888b1b"
+     },
+     {
+      "container_id": "16eafb9ba5c2600cf168b0ddd9504c953aacb27970887782283de5c95682705b",
+      "event": "removed",
+      "name": "vf-16f00e888b1b"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 0.6666666666666667,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.5,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3309,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005009,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "47bc5f260399a490061eec2e723eab2e6dae7b5fe5fdbb4d97070d9f14aaf92b",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "772d8614e4d83f90886ced2ce1a27ab23163388399de54bc6bae2bb249904607"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "06499cce025172b91fb929ea234cdf436d76789e1a559ea184898d81ad12a4a2"
+     }
+    ],
+    "container_id": "16eafb9ba5c2600cf168b0ddd9504c953aacb27970887782283de5c95682705b",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.7311822600313462,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-481d75280f3a"
+     },
+     {
+      "container_id": "dfc29523ab5e4f98c51a3120910ab4fbaf4d4656ab789e7b32e1240a569df7f7",
+      "event": "created",
+      "name": "vf-481d75280f3a"
+     },
+     {
+      "container_id": "dfc29523ab5e4f98c51a3120910ab4fbaf4d4656ab789e7b32e1240a569df7f7",
+      "event": "removed",
+      "name": "vf-481d75280f3a"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.0,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3307,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005007,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "f2aa99b17454911fb6f6e82f99087e297bab13ea8402cecdadd9cb60071bebba",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "f526ace7830316033b279ac5c37b85a61bb029adebdf3448001c24288f79dd87"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "912de52ee0988047d8aeefdb66f5adb6ea8343c315d572216a739f57eaf17c33"
+     }
+    ],
+    "container_id": "dfc29523ab5e4f98c51a3120910ab4fbaf4d4656ab789e7b32e1240a569df7f7",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.464308422000613,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-f2712a3be323"
+     },
+     {
+      "container_id": "244ffe45678d29d3c9b134d105a0aeb50aacfde5ea00184b48e5d8f6f2d5786c",
+      "event": "created",
+      "name": "vf-f2712a3be323"
+     },
+     {
+      "container_id": "244ffe45678d29d3c9b134d105a0aeb50aacfde5ea00184b48e5d8f6f2d5786c",
+      "event": "removed",
+      "name": "vf-f2712a3be323"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 0.6666666666666667,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.5,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3310,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005010,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "bf9ae51a0c882fd5da8310a3f797faec4c08e1699821776c0c0b5bcc2b4443d2",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "7fb44b1f919041aa90f7947e239527d82455c9a976fe044f0d65a022cd743ee3"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "2a3281c8fcac552a02cefcb836762088b6b529bfa70000156de72a09487f21e6"
+     }
+    ],
+    "container_id": "244ffe45678d29d3c9b134d105a0aeb50aacfde5ea00184b48e5d8f6f2d5786c",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.4679515240131877,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-b96041f009b2"
+     },
+     {
+      "container_id": "7f6124be353a68e1e233e8302414592503eec01912869e83e434b04396086395",
+      "event": "created",
+      "name": "vf-b96041f009b2"
+     },
+     {
+      "container_id": "7f6124be353a68e1e233e8302414592503eec01912869e83e434b04396086395",
+      "event": "removed",
+      "name": "vf-b96041f009b2"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.0,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3312,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005012,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "f88b0932b95c725ba79822e20cdfcde350ae7aaa726160e274d9524f140a2db6",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "82fd6f335b0dedec3b02fd9dc38d47529729d9cf154d3cb6d38bdb0f41166ac0"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "2c84b90279b9128aa44089fd67fd1c60106ef801b943a330b7e653d6cdc083be"
+     }
+    ],
+    "container_id": "7f6124be353a68e1e233e8302414592503eec01912869e83e434b04396086395",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.548098614963237,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-9ef413eb84c9"
+     },
+     {
+      "container_id": "e48490825934736f7d855b093a3b09f7d28de6dcad429ddeb4aba42c5ca2259c",
+      "event": "created",
+      "name": "vf-9ef413eb84c9"
+     },
+     {
+      "container_id": "e48490825934736f7d855b093a3b09f7d28de6dcad429ddeb4aba42c5ca2259c",
+      "event": "removed",
+      "name": "vf-9ef413eb84c9"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.0,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3313,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005013,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "b288718ad98e05be54060484581cea5c318c36de6a33406a082d40eec1c38b85",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "d9e8363d4fa1062a40bcede04c52ebf7acffc4f741e44ce0696e416ef687b6f7"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "22720adf34b0cc70508652720b6d39c0b6117bd9980cf2878b1fb48894941faf"
+     }
+    ],
+    "container_id": "e48490825934736f7d855b093a3b09f7d28de6dcad429ddeb4aba42c5ca2259c",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.623158729984425,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-a267735b7620"
+     },
+     {
+      "container_id": "d5a08583c55917fb9fef0b7cd28e9d670c546644666c034cab056862f4f6b36a",
+      "event": "created",
+      "name": "vf-a267735b7620"
+     },
+     {
+      "container_id": "d5a08583c55917fb9fef0b7cd28e9d670c546644666c034cab056862f4f6b36a",
+      "event": "removed",
+      "name": "vf-a267735b7620"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.9999999999999998,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3311,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005011,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "a402a09a75a0df051ccb7611d6f617368131c4dfe345b9c7b12026e46d8b1426",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "5e8d41194cb9efd928455ecca2f8dcfeb878aaa9623c447b45e2f33c77373f47"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "a74763096b89b1dae58ca790f90f7b17c7f5c6d1c8255f8d096527fb7daef6b9"
+     }
+    ],
+    "container_id": "d5a08583c55917fb9fef0b7cd28e9d670c546644666c034cab056862f4f6b36a",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.4799505220144056,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-1b3803e8a970"
+     },
+     {
+      "container_id": "fbe469e5abc999d9e0ea3bd78afe66e1178564ca5ef39a729317a3dbc90dd619",
+      "event": "created",
+      "name": "vf-1b3803e8a970"
+     },
+     {
+      "container_id": "fbe469e5abc999d9e0ea3bd78afe66e1178564ca5ef39a729317a3dbc90dd619",
+      "event": "removed",
+      "name": "vf-1b3803e8a970"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 2.0,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3314,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005014,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "990d98a9d5f87e078366c994353243308817c9b03ffb6ded27668563d1ae9de8",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "aad8db3d5d71705a312c67db87392cbb2d8f3515fa508fa1547893c6f04ac755"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "a308707e64ca406e8b63582b1cd057dd57bb6af811ea50ea23fe95861bd42eb4"
+     }
+    ],
+    "container_id": "fbe469e5abc999d9e0ea3bd78afe66e1178564ca5ef39a729317a3dbc90dd619",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.482073438994121,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-f866192b01aa"
+     },
+     {
+      "container_id": "1954d5978bdf421c7da83c0aa562d9d9233399029f02a5357a552b294a9fbf4d",
+      "event": "created",
+      "name": "vf-f866192b01aa"
+     },
+     {
+      "container_id": "1954d5978bdf421c7da83c0aa562d9d9233399029f02a5357a552b294a9fbf4d",
+      "event": "removed",
+      "name": "vf-f866192b01aa"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 0.6,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 2.0000000000000004,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3315,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005015,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "f74341e7e25bec83c21525f92c213aeea56542a07055f46bff559408ed9e6d95",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "fabf7c967753d668635f103e06779a1e9d5929399526ffa027b5833eeaf76e5a"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "4a724769e07d94140918f2e89f5baf00885942a18776da2275388b565d2bab05"
+     }
+    ],
+    "container_id": "1954d5978bdf421c7da83c0aa562d9d9233399029f02a5357a552b294a9fbf4d",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.6156555979978293,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-7d7f35c52b42"
+     },
+     {
+      "container_id": "a6786db4eb979127b33537f7aa4305607d60883959b7bf9ebbf4af9b77295a6e",
+      "event": "created",
+      "name": "vf-7d7f35c52b42"
+     },
+     {
+      "container_id": "a6786db4eb979127b33537f7aa4305607d60883959b7bf9ebbf4af9b77295a6e",
+      "event": "removed",
+      "name": "vf-7d7f35c52b42"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.5,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3317,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005017,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "a04488efa51e2485973bcdb0a1614e704622d13360ef42668fe77c1e9d58d6c2",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "46c169aab06a0e11498a28f9597291559a417fb591a2e95c9cf479386a42ff3a"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "47d4a67e3161aec4f7d18617e2b53b521ea8cce2ad393bf6ff622e420d7bc2a4"
+     }
+    ],
+    "container_id": "a6786db4eb979127b33537f7aa4305607d60883959b7bf9ebbf4af9b77295a6e",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.7338338359841146,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-45b2e23b0354"
+     },
+     {
+      "container_id": "ddc0b2dbe71be5c06aa16063d5e8def4882b33343a85e4aaf1f59c9ef7fe6da6",
+      "event": "created",
+      "name": "vf-45b2e23b0354"
+     },
+     {
+      "container_id": "ddc0b2dbe71be5c06aa16063d5e8def4882b33343a85e4aaf1f59c9ef7fe6da6",
+      "event": "removed",
+      "name": "vf-45b2e23b0354"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 0.6666666666666667,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.5,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3316,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005016,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "690bb7c017a6d3b958bba85910399e17071e099a403adc299aba3883efa4481e",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "756475e1437c876fc90721f5667b2735144a37435e7dec1e49d25b5e8f7a6ef5"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "6d7b711bfb9e4249f8c407982d68ab8ac3948715c09c77304520861ac8c3bace"
+     }
+    ],
+    "container_id": "ddc0b2dbe71be5c06aa16063d5e8def4882b33343a85e4aaf1f59c9ef7fe6da6",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.6120341920177452,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-690fc4f2615f"
+     },
+     {
+      "container_id": "968a4079c688ccb9f98def141d6ef8e97844ecfaa961c5b73b83108678249e11",
+      "event": "created",
+      "name": "vf-690fc4f2615f"
+     },
+     {
+      "container_id": "968a4079c688ccb9f98def141d6ef8e97844ecfaa961c5b73b83108678249e11",
+      "event": "removed",
+      "name": "vf-690fc4f2615f"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.0,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3318,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005018,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "ed60df584c7e0f9f58d408644082e98debeeeaaa101e8e846d53c1e43b858ba7",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "071a162ec84d009cdd02c4e30037394ad65c76bad71eab5601724aa14a9ce4fa"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "4511c278296bb7be34dc4fcbba27a7c1bca34b79d9c577c3aa6f58a949ec4aaa"
+     }
+    ],
+    "container_id": "968a4079c688ccb9f98def141d6ef8e97844ecfaa961c5b73b83108678249e11",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.5820312700234354,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-b834f4c46e6a"
+     },
+     {
+      "container_id": "004ece88619089672bdf9b126235f3531ba43a355caef6b6804b54c6c03fdcf6",
+      "event": "created",
+      "name": "vf-b834f4c46e6a"
+     },
+     {
+      "container_id": "004ece88619089672bdf9b126235f3531ba43a355caef6b6804b54c6c03fdcf6",
+      "event": "removed",
+      "name": "vf-b834f4c46e6a"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.9999999999999996,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3319,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005019,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "4d14bdacf0b9c6d1b97888b1c323e5804880c60f9af88ddbdcce34fdace4a7af",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "aeba925edc8aca9d3d93fb18dd0dd3ccc9419cd360b56ab54e9a96e0e986f8ef"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "1d203f73568f187d7d273267c3880a89e7b0898d3580eed2bcc146c4182882bb"
+     }
+    ],
+    "container_id": "004ece88619089672bdf9b126235f3531ba43a355caef6b6804b54c6c03fdcf6",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.642898410966154,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-c9c1a0d71d80"
+     },
+     {
+      "container_id": "aed1f82efd38501f7e3c2444002344f6625db66480e5ffa919196cdbfada5124",
+      "event": "created",
+      "name": "vf-c9c1a0d71d80"
+     },
+     {
+      "container_id": "aed1f82efd38501f7e3c2444002344f6625db66480e5ffa919196cdbfada5124",
+      "event": "removed",
+      "name": "vf-c9c1a0d71d80"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 0.5,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.0,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3321,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005021,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "f3d2a20fdfb33fa3eb0277eb08643e0cd85de2f1aff26d9f144925f72989c771",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "1660d15804bbfc937450006da2e7fa667fd2d20893d2b2a49c3b6163cf9bcc54"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "d086d1a3b29ed4f89f0c0e8699047d0f235e7c79e42a7d6f241a3a1c30fd6a26"
+     }
+    ],
+    "container_id": "aed1f82efd38501f7e3c2444002344f6625db66480e5ffa919196cdbfada5124",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.6723006080137566,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-f4e64eb66f99"
+     },
+     {
+      "container_id": "7736ea2f7edb1902f64defc0ee4b7e9bad3adce17c554662de1ee81662171598",
+      "event": "created",
+      "name": "vf-f4e64eb66f99"
+     },
+     {
+      "container_id": "7736ea2f7edb1902f64defc0ee4b7e9bad3adce17c554662de1ee81662171598",
+      "event": "removed",
+      "name": "vf-f4e64eb66f99"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.0,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3320,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005020,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "e01ef1734ee7b72eac6c138f8a90e83d6f23a72683d2c5943eb11f23826bafbe",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "5c537b31e661b35497443455b319fd6801ef0661e6bde9cc6855ac30c4a26e46"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "6e16df362693b76c6406296c9ce756c5b9c1d9bcf82fe9b9f1d57dab1969d5bd"
+     }
+    ],
+    "container_id": "7736ea2f7edb1902f64defc0ee4b7e9bad3adce17c554662de1ee81662171598",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.509651163010858,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-853fc9690c76"
+     },
+     {
+      "container_id": "eb8421b5998dc486039f45fd32e6a13b386c164a0f45e4eefb28b60915e7c42a",
+      "event": "created",
+      "name": "vf-853fc9690c76"
+     },
+     {
+      "container_id": "eb8421b5998dc486039f45fd32e6a13b386c164a0f45e4eefb28b60915e7c42a",
+      "event": "removed",
+      "name": "vf-853fc9690c76"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 0.6,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.5,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3322,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005022,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "29fd9927dc339db0b5c5b203220b087a54987954f628d2796cc4a40efa7ee37d",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "0241060196ce2869bcb987d8194e93840c2435a27e510263b4272a9dc9c6c04f"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "c1cc27467b31a1488ebe1a6282608e96d251ba2bd54e54b760a967049f221114"
+     }
+    ],
+    "container_id": "eb8421b5998dc486039f45fd32e6a13b386c164a0f45e4eefb28b60915e7c42a",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.4902808400220238,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-b5f8f94cba17"
+     },
+     {
+      "container_id": "d741ce39ca7753e6f92fe3cd0545431ac96ae54e112e3f5166a070c69792e7d3",
+      "event": "created",
+      "name": "vf-b5f8f94cba17"
+     },
+     {
+      "container_id": "d741ce39ca7753e6f92fe3cd0545431ac96ae54e112e3f5166a070c69792e7d3",
+      "event": "removed",
+      "name": "vf-b5f8f94cba17"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.5,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3323,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005023,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "deefd12c05db9b91bf86a651375945da627243363698bf55a0988db3a2926cff",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "e4bef93ef07192302914e1b34ce319676693219caeb79f84ec9ca75aa4108e2c"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "3e5e7c293c9921180dcc9001902d999bc655607ed8d25776f0d4b424c3fbf55f"
+     }
+    ],
+    "container_id": "d741ce39ca7753e6f92fe3cd0545431ac96ae54e112e3f5166a070c69792e7d3",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.5780334600131027,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-b75ca46bcd13"
+     },
+     {
+      "container_id": "fc30ef4634e7aef75ebbd8d963fb1afa472d8920c29373f804daa031cb47fc29",
+      "event": "created",
+      "name": "vf-b75ca46bcd13"
+     },
+     {
+      "container_id": "fc30ef4634e7aef75ebbd8d963fb1afa472d8920c29373f804daa031cb47fc29",
+      "event": "removed",
+      "name": "vf-b75ca46bcd13"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.0,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3325,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005025,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "e68e682473181d9cfc292382363c8ab942f09d040842b895d1fb18028ab3a39a",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "e9269248f71079284c3fa0c27580e96ec29ca108e0c7d52739e60d66ee4e4fd0"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "40cfeb1f9f403321a5584d33b1664c6f9ad7ee0e1fa96b85bfa66926e799d93c"
+     }
+    ],
+    "container_id": "fc30ef4634e7aef75ebbd8d963fb1afa472d8920c29373f804daa031cb47fc29",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.601832226035185,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-58af39c52466"
+     },
+     {
+      "container_id": "89ce4a5ed4808bc3b825f447a0e6434a11da468db9aa214682d7d78304758819",
+      "event": "created",
+      "name": "vf-58af39c52466"
+     },
+     {
+      "container_id": "89ce4a5ed4808bc3b825f447a0e6434a11da468db9aa214682d7d78304758819",
+      "event": "removed",
+      "name": "vf-58af39c52466"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 2.0000000000000004,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3324,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005024,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "be1690bd6083b52e0cf6e524edf02844c20f4af877884561a8ed62a2756b42ce",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "526a75a6ad9b1a2479824526826ffb04b801c2372532e180cb4b326b3df461a7"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "2bafe9d75393a4df1d9051695b93d3bf0a6979906cdacfe5af8db5b1ea4cdeea"
+     }
+    ],
+    "container_id": "89ce4a5ed4808bc3b825f447a0e6434a11da468db9aa214682d7d78304758819",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.4853763270075433,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-4ddbd8bde7b4"
+     },
+     {
+      "container_id": "e5997287fdf78f21b51dc155a39625166df9a124e1769fbf49b2cedf3bd64097",
+      "event": "created",
+      "name": "vf-4ddbd8bde7b4"
+     },
+     {
+      "container_id": "e5997287fdf78f21b51dc155a39625166df9a124e1769fbf49b2cedf3bd64097",
+      "event": "removed",
+      "name": "vf-4ddbd8bde7b4"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 0.75,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.9999999999999998,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3327,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005027,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "ee175579e93ab11345ef1a1823c71d8751fe9acea5ba8b9cc9114b4bd6d2f290",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "bf968ac4372e9894bd2752af1b32f137c61fcad0b96a0367dcad6d047eda2fac"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "a755647a76b222f8019f39356730a0507119ae5856773bc8e8a0b2b74b781ce6"
+     }
+    ],
+    "container_id": "e5997287fdf78f21b51dc155a39625166df9a124e1769fbf49b2cedf3bd64097",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.574494644009974,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-5cdaa88d1e94"
+     },
+     {
+      "container_id": "a690cf476da6aaeb3320f8f1673bd010498912eb78b3b838494c22ab97961aaf",
+      "event": "created",
+      "name": "vf-5cdaa88d1e94"
+     },
+     {
+      "container_id": "a690cf476da6aaeb3320f8f1673bd010498912eb78b3b838494c22ab97961aaf",
+      "event": "removed",
+      "name": "vf-5cdaa88d1e94"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.6666666666666667,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3326,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005026,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "a5e6119bae023006548c21b452e9919334dcaf0dd17780ff15f1b83c37e35f72",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "0c52d811c94a4eb3f3cdbc2f8330d11695d97d825c4c4913ef1c734340c94a59"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "aa56bae673a6b6c751550494fb28b583dabd111500482f939823e321e7f5db02"
+     }
+    ],
+    "container_id": "a690cf476da6aaeb3320f8f1673bd010498912eb78b3b838494c22ab97961aaf",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.4818277549929917,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-5e126186864b"
+     },
+     {
+      "container_id": "d3dcfc58a8d3eb6987023a5a8a8c84b9b2c16c493d688ca48db8d98c9151ee65",
+      "event": "created",
+      "name": "vf-5e126186864b"
+     },
+     {
+      "container_id": "d3dcfc58a8d3eb6987023a5a8a8c84b9b2c16c493d688ca48db8d98c9151ee65",
+      "event": "removed",
+      "name": "vf-5e126186864b"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 0.6,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.0,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3328,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005028,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "b68713ac104b28fff7d8e22905c100183923233df9aa0c22acb0c783a105a9ce",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "06a59aed4d4e1955e2c92dfd448a2aa2f91a2b1b3f906c9c839cd094032f0094"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "f6c75c388937c94284ec9a3518d75090029c2ef174c5aadb1a7faf887f66e29c"
+     }
+    ],
+    "container_id": "d3dcfc58a8d3eb6987023a5a8a8c84b9b2c16c493d688ca48db8d98c9151ee65",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.555409441003576,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-9d4826d63e13"
+     },
+     {
+      "container_id": "cd53c75064387cd478689dd6c5bf2330b4ed49f907094e56689fd26d4b595151",
+      "event": "created",
+      "name": "vf-9d4826d63e13"
+     },
+     {
+      "container_id": "cd53c75064387cd478689dd6c5bf2330b4ed49f907094e56689fd26d4b595151",
+      "event": "removed",
+      "name": "vf-9d4826d63e13"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.5,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3329,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005029,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "36a0ed15172b9d7b803fd7a55cf4ed36610ed28e0b370f70898e1bace419f310",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "3737d25d66af99a9702494128ca16e69d4d232a494f8eea2c1bcbc0e39ad0542"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "999de2acb92653c392fcbc9c54a464fb8b975e0b92a212a0553709a05a47f9c7"
+     }
+    ],
+    "container_id": "cd53c75064387cd478689dd6c5bf2330b4ed49f907094e56689fd26d4b595151",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.608183606993407,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-a2608b76adaa"
+     },
+     {
+      "container_id": "f5ea35a362e6f2def8a4e8e68fbf429da46495967d4ab40518a2a764000608f0",
+      "event": "created",
+      "name": "vf-a2608b76adaa"
+     },
+     {
+      "container_id": "f5ea35a362e6f2def8a4e8e68fbf429da46495967d4ab40518a2a764000608f0",
+      "event": "removed",
+      "name": "vf-a2608b76adaa"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.0,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3330,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005030,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "5766f1dbe974100ffbfe00c36939f07bfec1278fddbda3fd6b7584fb4d5fa76e",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "666735bc8139304075fe97298036eea9839d76f7d549ffbcac7fdd4ca7b44f27"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "7c288c87c14a07d4f042c3785592bb8a73e377145fabe17b8ee7e4ed0984760e"
+     }
+    ],
+    "container_id": "f5ea35a362e6f2def8a4e8e68fbf429da46495967d4ab40518a2a764000608f0",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.6383875100291334,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-47dfc8a6d397"
+     },
+     {
+      "container_id": "f5b75142dba994095f41191b10afe16a37cdc9555d1ca728df06d3c8b0f3834a",
+      "event": "created",
+      "name": "vf-47dfc8a6d397"
+     },
+     {
+      "container_id": "f5b75142dba994095f41191b10afe16a37cdc9555d1ca728df06d3c8b0f3834a",
+      "event": "removed",
+      "name": "vf-47dfc8a6d397"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 2.0000000000000004,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3331,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005031,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "a088524d40fd579c473e5c2e2b68c8f2b35e2595e7ef0007b8c1ec352f3545bb",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "3ca68079abaa79f0c5e0891c82ccc7defd55f9a882ac363f530db255c0055a12"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "e291a2ae7b75a8507392ee89b511d4ff9f214a26bb6eefb25e0a1520cc794986"
+     }
+    ],
+    "container_id": "f5b75142dba994095f41191b10afe16a37cdc9555d1ca728df06d3c8b0f3834a",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.6331678539863788,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-050258a89eb1"
+     },
+     {
+      "container_id": "53bd5aeef59df815cf2201219a9ea2176fd0b19353695d9da6b4c3f3566d64ba",
+      "event": "created",
+      "name": "vf-050258a89eb1"
+     },
+     {
+      "container_id": "53bd5aeef59df815cf2201219a9ea2176fd0b19353695d9da6b4c3f3566d64ba",
+      "event": "removed",
+      "name": "vf-050258a89eb1"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 2.0000000000000004,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3332,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005032,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "7d94a7b937be351a5ccfe8746a79fa7ea0c4ca2018de215da48168e49faef61a",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "c5b532f8cadc75633996b5e03be15528279c43fd73ded82f14986f250cf89af6"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "37cd80d4f0126676948864d06b8ceeadf3ad60a78e6f3ece185d01682357b98d"
+     }
+    ],
+    "container_id": "53bd5aeef59df815cf2201219a9ea2176fd0b19353695d9da6b4c3f3566d64ba",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.642781308037229,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-b66beb4eb6f6"
+     },
+     {
+      "container_id": "ae133bbd5589cee3ede3e1c39e3e0d9e837e7c82187d61ce223934146f768426",
+      "event": "created",
+      "name": "vf-b66beb4eb6f6"
+     },
+     {
+      "container_id": "ae133bbd5589cee3ede3e1c39e3e0d9e837e7c82187d61ce223934146f768426",
+      "event": "removed",
+      "name": "vf-b66beb4eb6f6"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 0.5,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.9999999999999996,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3333,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005033,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "b6ae64350b9e534d1214ce25d2bf94cee6cdc23df6e5e4213990a90332a254a2",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "686e33ec3ac816146f462d593cbd2dee749391ac9547bf142c1759c47a38a7e2"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "2d24be18fd7885ddd52ff70b0824df591425e9064ad7092a729ae29819c24c95"
+     }
+    ],
+    "container_id": "ae133bbd5589cee3ede3e1c39e3e0d9e837e7c82187d61ce223934146f768426",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.4965809469576925,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-f0eb504be6b5"
+     },
+     {
+      "container_id": "01ebf92c6519c52af84b1c3d7edf4719181a4238304db1e823cfce3a0de32890",
+      "event": "created",
+      "name": "vf-f0eb504be6b5"
+     },
+     {
+      "container_id": "01ebf92c6519c52af84b1c3d7edf4719181a4238304db1e823cfce3a0de32890",
+      "event": "removed",
+      "name": "vf-f0eb504be6b5"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 0.6666666666666667,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.0,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3334,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005034,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "de0fdbc900847c271774ff46b48b3dc7166b41886ba608c4dedd1c3485d7e2fa",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "7c70f5884a249a230d3cbdf28aa1cc26cae67aa452c7a72cdd0f316600aba970"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "08372f02911ef2323cdecba94cce0aca44411c740e643b292dfac6f65cea355b"
+     }
+    ],
+    "container_id": "01ebf92c6519c52af84b1c3d7edf4719181a4238304db1e823cfce3a0de32890",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.5352472859667614,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-f96633e3fe8d"
+     },
+     {
+      "container_id": "d0c8ebc4b2644c3f2d4187fb0c72437001b2894bdf40d2c4c4323c08f50b0949",
+      "event": "created",
+      "name": "vf-f96633e3fe8d"
+     },
+     {
+      "container_id": "d0c8ebc4b2644c3f2d4187fb0c72437001b2894bdf40d2c4c4323c08f50b0949",
+      "event": "removed",
+      "name": "vf-f96633e3fe8d"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.0,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3335,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005035,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "2369ed18cc64480bf201614fd841ad1e4ec9b5f626d9b9ee890e695eab9c7a73",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "e582d9332f41fdbf0aaa5227df52ba3c062f9205d4a3672c3760db370991f7d5"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "50350fe9b1df96f3848b904a81e4aec35fdcc2ebf908043406e09e6ae1d5ebf8"
+     }
+    ],
+    "container_id": "d0c8ebc4b2644c3f2d4187fb0c72437001b2894bdf40d2c4c4323c08f50b0949",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.5603308560093865,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-91191cc7a074"
+     },
+     {
+      "container_id": "5a92f5ce055ea816cf5c958db89628c5379b4c680aeef81bd34a57bd9a588239",
+      "event": "created",
+      "name": "vf-91191cc7a074"
+     },
+     {
+      "container_id": "5a92f5ce055ea816cf5c958db89628c5379b4c680aeef81bd34a57bd9a588239",
+      "event": "removed",
+      "name": "vf-91191cc7a074"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.0,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3337,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005037,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "888553f1f682b142d1ae84c6d6304650deb17d498c8b2b7b0988e646f85d1505",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "7fb6a179c24cb6699c9bd508edc82da7f7c21d4ce1157c8b3474abe79310f35a"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "c43e412b1e25000a3445408e6e7f51069abbbb6a058f5024ea6adcf0eaede45b"
+     }
+    ],
+    "container_id": "5a92f5ce055ea816cf5c958db89628c5379b4c680aeef81bd34a57bd9a588239",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.5897991800447926,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-f051e447ac2d"
+     },
+     {
+      "container_id": "4a8b7bd037b15f038e8d053c329016d5268ba327ac74acdca86056a37ad51ae2",
+      "event": "created",
+      "name": "vf-f051e447ac2d"
+     },
+     {
+      "container_id": "4a8b7bd037b15f038e8d053c329016d5268ba327ac74acdca86056a37ad51ae2",
+      "event": "removed",
+      "name": "vf-f051e447ac2d"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 2.0000000000000004,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3336,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005036,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "9ca736d473f797ca6b29f96305521e146293881e70cba0223496c6054e0c40ca",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "25481c098161b7cd29b4032fa199fab5c3eeb7ff0f8cc7442b139d68602657a9"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "3b1216eac721c01f3081588e90ee7efc50d85450d342c8c5757f022c0b32f428"
+     }
+    ],
+    "container_id": "4a8b7bd037b15f038e8d053c329016d5268ba327ac74acdca86056a37ad51ae2",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.523577189014759,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-59cea26586f5"
+     },
+     {
+      "container_id": "d55ae0b734b1a20b94ad8491ff21816c63cc013ba913c143d1f1efb098e8fad3",
+      "event": "created",
+      "name": "vf-59cea26586f5"
+     },
+     {
+      "container_id": "d55ae0b734b1a20b94ad8491ff21816c63cc013ba913c143d1f1efb098e8fad3",
+      "event": "removed",
+      "name": "vf-59cea26586f5"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 0.6,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.5,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3339,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005039,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "2e992422af451b769a5974ec463a60818331524283abc345dbf28729e457df94",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "e6a0cc425d48688b52081e95e2669c1a583942301cd3c6ed702332fe7aab0d07"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "196ed8b60d4070d8849a61870ab27893397f7bebe8c9324cc81201b50c6a92d7"
+     }
+    ],
+    "container_id": "d55ae0b734b1a20b94ad8491ff21816c63cc013ba913c143d1f1efb098e8fad3",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.6048340929555707,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-c2662fc3bbb9"
+     },
+     {
+      "container_id": "8d627c1129ac9a09b723aedbc2d1621d930f23d812d98ffcae1cfc50e8a226b4",
+      "event": "created",
+      "name": "vf-c2662fc3bbb9"
+     },
+     {
+      "container_id": "8d627c1129ac9a09b723aedbc2d1621d930f23d812d98ffcae1cfc50e8a226b4",
+      "event": "removed",
+      "name": "vf-c2662fc3bbb9"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.0,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3338,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005038,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "06dbd33ef3dd1e051676b323f8bf675862b1fcde9543480e0507442b7a912fb9",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "d8f797b3df97ae783106d983e9cc98250e9d07f7e94a7df5d47b232cb18e572d"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "82b5eb41467a3f744ec44e465ba750609976b3f0084f7b8b41fbf38959d5e418"
+     }
+    ],
+    "container_id": "8d627c1129ac9a09b723aedbc2d1621d930f23d812d98ffcae1cfc50e8a226b4",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.520518851990346,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-83dc56b75f72"
+     },
+     {
+      "container_id": "4b8d6fae3cf65ba9b4a8267cfcaf5dc5f967dce5414c9a972ed2467a4afd50c2",
+      "event": "created",
+      "name": "vf-83dc56b75f72"
+     },
+     {
+      "container_id": "4b8d6fae3cf65ba9b4a8267cfcaf5dc5f967dce5414c9a972ed2467a4afd50c2",
+      "event": "removed",
+      "name": "vf-83dc56b75f72"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 0.7142857142857143,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.5,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3340,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005040,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "32c568b8eb75bf43bc08359ee4ff8f1dc8aca4c50a0610020849eaa52a6ff1c9",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "58ad4d79ed7e5b9db656ddad7541261f8290b39ce26d8cd58de871069fc1b658"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "3977dd600586c501e14f7eda07986b3fa23885e0348fe3543d6b74c01a2df011"
+     }
+    ],
+    "container_id": "4b8d6fae3cf65ba9b4a8267cfcaf5dc5f967dce5414c9a972ed2467a4afd50c2",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.5710566000198014,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-d23c8f1c9f8e"
+     },
+     {
+      "container_id": "90dd89a894961dfe2d2a99f7ee4304fdbba76b8d029687977b9d943c9c4e0d8f",
+      "event": "created",
+      "name": "vf-d23c8f1c9f8e"
+     },
+     {
+      "container_id": "90dd89a894961dfe2d2a99f7ee4304fdbba76b8d029687977b9d943c9c4e0d8f",
+      "event": "removed",
+      "name": "vf-d23c8f1c9f8e"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 2.0000000000000004,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3341,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005041,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "b2ef8c8e412d75e114f940d385d5e7c70a9fdeab5857d2362b6c3ee83de0d5b3",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "d378a9ae56e44f2477192da8d4f3b87da911a191950fe98868341d900977b3df"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "a221c1f4815e2fb57a47c921f91d895fe24512a52d9b61d3efd94622d833f7f1"
+     }
+    ],
+    "container_id": "90dd89a894961dfe2d2a99f7ee4304fdbba76b8d029687977b9d943c9c4e0d8f",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.5316588080022484,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-65740a6b2563"
+     },
+     {
+      "container_id": "17bb1ef575e5fdb8b7eb7fd826c7b52a3309cf061bc49cc0aed2dbd7c9c63992",
+      "event": "created",
+      "name": "vf-65740a6b2563"
+     },
+     {
+      "container_id": "17bb1ef575e5fdb8b7eb7fd826c7b52a3309cf061bc49cc0aed2dbd7c9c63992",
+      "event": "removed",
+      "name": "vf-65740a6b2563"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.5,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3342,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005042,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "d81066a8913a32617f492789793088d61bd9bca932bba50c8b10dc521e906740",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "ec89b31a964217303c606d380f88e83c1e3054bd206c79c611ec42dd63cd0020"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "578dcb448a20e3cf06f05389856daa7dd2f08c3f0fb48655025e8bcb36053c68"
+     }
+    ],
+    "container_id": "17bb1ef575e5fdb8b7eb7fd826c7b52a3309cf061bc49cc0aed2dbd7c9c63992",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.5695156570291147,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-9c78f829f2ef"
+     },
+     {
+      "container_id": "c4d23507feb09a1f25d9cd18c76da944ca90aa789ee5419910ec41fa66d0e419",
+      "event": "created",
+      "name": "vf-9c78f829f2ef"
+     },
+     {
+      "container_id": "c4d23507feb09a1f25d9cd18c76da944ca90aa789ee5419910ec41fa66d0e419",
+      "event": "removed",
+      "name": "vf-9c78f829f2ef"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 0.6,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.5,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3345,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005045,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "247f577634fe27a18c8acb93a8f9f4bac6bf3785242dff126075efd93fd0dbab",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "860ee0e7181cc84cd6bb316053ed07885c0c1e590b7e04a31011a713c8e488f2"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "61089d4e64f7d57dca785ab9ec9454925732cbc11e94f1cf832b624acb0d1f93"
+     }
+    ],
+    "container_id": "c4d23507feb09a1f25d9cd18c76da944ca90aa789ee5419910ec41fa66d0e419",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.7612132760114037,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-cffbeb0288fa"
+     },
+     {
+      "container_id": "df5998b9680cd7dd4a6bdab34a256474c095d18c070e5bf7dec027e806977d9b",
+      "event": "created",
+      "name": "vf-cffbeb0288fa"
+     },
+     {
+      "container_id": "df5998b9680cd7dd4a6bdab34a256474c095d18c070e5bf7dec027e806977d9b",
+      "event": "removed",
+      "name": "vf-cffbeb0288fa"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.6,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3343,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005043,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "d98f77e756c43081510e1824675654a9e1c64086a62964aaf55072bb0f7a8b10",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "3c34c73667c0478aed296f061546176ec16848d2474270f58f8ebaddb9cdebea"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "feee0e441ff6e9b38c13f86da97e19ac2f41b92b60a902261416e69849ee43df"
+     }
+    ],
+    "container_id": "df5998b9680cd7dd4a6bdab34a256474c095d18c070e5bf7dec027e806977d9b",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.653352110995911,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-0338f0abfa9c"
+     },
+     {
+      "container_id": "aa264e343908cf12b7060bb5571f40b3a12ccd1b448ad78c612e6bb69faebf66",
+      "event": "created",
+      "name": "vf-0338f0abfa9c"
+     },
+     {
+      "container_id": "aa264e343908cf12b7060bb5571f40b3a12ccd1b448ad78c612e6bb69faebf66",
+      "event": "removed",
+      "name": "vf-0338f0abfa9c"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 1.0,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3344,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005044,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "f05a9676ef3c6dbe093328b81866edec3808ccadc56e069954df48b5b2e99b97",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "fe60fd9f1162cc38cc481895cfbce7a9dbb4937605bf853d72d10ad7ad9a426f"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "7866e72e235dd8f9e207e0b1b33ec57053cdabb0c2cc3fac4fd2bb8f1beff6bc"
+     }
+    ],
+    "container_id": "aa264e343908cf12b7060bb5571f40b3a12ccd1b448ad78c612e6bb69faebf66",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.5111911009880714,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-8d1337d4af1c"
+     },
+     {
+      "container_id": "6594c9c89f99a5907ec322f5960ba38067d1cd890879704e93b6e38672eb71ae",
+      "event": "created",
+      "name": "vf-8d1337d4af1c"
+     },
+     {
+      "container_id": "6594c9c89f99a5907ec322f5960ba38067d1cd890879704e93b6e38672eb71ae",
+      "event": "removed",
+      "name": "vf-8d1337d4af1c"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 0.6,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.5,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3346,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005046,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "06bf6c96d9a70eae054bec5bc0294e7f0b006d20d3983befb46d3b7fa8254332",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "1bc5471787f9fbe14869cea8d4a8eb865968b0b3a8a2c76444601aa97a81cef7"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "54d57e8317c4ef3cfbbc231c32275bfd416ae3c64a9ee6abe409b6d60a064725"
+     }
+    ],
+    "container_id": "6594c9c89f99a5907ec322f5960ba38067d1cd890879704e93b6e38672eb71ae",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.5263326819986105,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-9541fcb632a0"
+     },
+     {
+      "container_id": "5c6473a98af3a61ff80148beb5c8977b9d9705fb23f6633dd1d319d3d1207b6c",
+      "event": "created",
+      "name": "vf-9541fcb632a0"
+     },
+     {
+      "container_id": "5c6473a98af3a61ff80148beb5c8977b9d9705fb23f6633dd1d319d3d1207b6c",
+      "event": "removed",
+      "name": "vf-9541fcb632a0"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.5,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3347,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005047,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "fb085d5dc51f24b012f2174a54db5b8d25d8d3dd40f58e665e6bc69ed5f7dbb2",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "49f6295a9e900caabcc14d003f4226ef4d3bc9cadd8ade42a78682661dc17073"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "2bc12aa85835357eea48d96c8df69286c71a5f205f006143dbe47078e60c69c2"
+     }
+    ],
+    "container_id": "5c6473a98af3a61ff80148beb5c8977b9d9705fb23f6633dd1d319d3d1207b6c",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.488214532029815,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-6b907a4a99a5"
+     },
+     {
+      "container_id": "74583c0779eb6b5bd514f4996b1c75b674ad432f160a13695f4279bc1bb7359e",
+      "event": "created",
+      "name": "vf-6b907a4a99a5"
+     },
+     {
+      "container_id": "74583c0779eb6b5bd514f4996b1c75b674ad432f160a13695f4279bc1bb7359e",
+      "event": "removed",
+      "name": "vf-6b907a4a99a5"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.5,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3348,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005048,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "99b9b983f508b2095c0ed20f73d0da9ee1f575cce832460970ec868e32cd0d40",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "b51aa0ee497e9932e67041ccc7ad1fd9e3bd7c9cf39454f840d1526895f4e5b4"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "f84edce74c9dddcd1940121eac82d20892ddd9a4006170c0e6e5ca87e178ad65"
+     }
+    ],
+    "container_id": "74583c0779eb6b5bd514f4996b1c75b674ad432f160a13695f4279bc1bb7359e",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ },
+ {
+  "attempts": [
+   {
+    "attempt": 0,
+    "cleanup_complete": true,
+    "elapsed_seconds": 2.5485577390063554,
+    "exceptions": [],
+    "kind": "complete",
+    "policy_evidence": true,
+    "resource_overlap": false,
+    "resources": [
+     {
+      "container_id": null,
+      "event": "provisioning",
+      "name": "vf-30eb2d781123"
+     },
+     {
+      "container_id": "e203facf12ed56513014affd5dff53e9058a56c4b807bf5329b31c085c36f57c",
+      "event": "created",
+      "name": "vf-30eb2d781123"
+     },
+     {
+      "container_id": "e203facf12ed56513014affd5dff53e9058a56c4b807bf5329b31c085c36f57c",
+      "event": "removed",
+      "name": "vf-30eb2d781123"
+     }
+    ]
+   }
+  ],
+  "checker_agrees": true,
+  "complete": true,
+  "diagnostics": {
+   "conceptual_gaps": {
+    "flag_large_moves": 1.0,
+    "ignore_identifiers": 1.0,
+    "ignore_splits": 0.6,
+    "ticker_only": 1.0
+   },
+   "corruptions": 2
+  },
+  "index": 3349,
+  "policy": "canary_read",
+  "retried": false,
+  "seed": 1005049,
+  "started": true,
+  "terminal_kind": null,
+  "tier": "T2",
+  "value": {
+   "flagged": true,
+   "lifecycle": [
+    "setup",
+    "solver",
+    "finalize",
+    "score"
+   ],
+   "oracle_sha256": "aed274149a8b83149c6f775b15a61f9c94032ee8126e19b4c71c9ac5263e1087",
+   "primary": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay": {
+    "computed": null,
+    "container_id": null,
+    "errors": null,
+    "exit_code": -1,
+    "flagged": true
+   },
+   "replay_seed": null,
+   "reward": 0.0,
+   "solver": {
+    "commands": [
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "80d6328ae69bf6b088137d4902e4b7730c6a841e8a83e7c7005c73ba39a991e2"
+     },
+     {
+      "exit_code": 0,
+      "policy_outcome": "audit_violation",
+      "trace_sha256": "b13d4fb7b4b2bc77316214a46c3a884713c5cd8cf9250eb79de23794d93e7b94"
+     }
+    ],
+    "container_id": "e203facf12ed56513014affd5dff53e9058a56c4b807bf5329b31c085c36f57c",
+    "flagged": true,
+    "image": "sha256:9cc803aaddbbb1a17c9eef928b5438d61769c9c9ba928fc285bc7ee622ad8353",
+    "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+   },
+   "source_sha256": "f6aabf542f5fe2efe74a2b2f8dd85080363f8e5d5a9a430e6a91f95dfd7a65c9"
+  }
+ }
+]
