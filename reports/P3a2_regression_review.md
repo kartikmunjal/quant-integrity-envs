@@ -11,3 +11,23 @@ Every row completed healthy without retry, and every attempt completed cleanup w
 The lowercase physical summary `results/p3a2-regression-e1.json` and canonical uppercase registry alias `results/p3a2-regression-E1.json` are byte-identical, including SHA256. Their raw, manifest and shard references consistently retain the lowercase physical paths. This is a filename alias of one measured outcome, not a second experiment. The earlier uppercase-tag initialization error occurred before rollout and is retained separately; it is not a reward difference or an excluded measured episode.
 
 E1 success does not override E2's failed stress-completion prerequisite. Freeze remains blocked; this review authorizes neither a fresh gate nor a scientific admission change.
+
+## E5 exact regression
+
+E5 verdict: **PASS, 1,000 of 1,000 exact reward matches**, with reproducible observations in `results/p3a2_e5_regression_audit.json`. The implementation, runtime and generator hashes match E1's final-runtime versions above; every source hash was checked against immutable `aa86c69801a07c8aaf627a6336503235e90e9fdf`.
+
+I verified all compact/manifest shards, all 1,695 raw manifest files with exact tree coverage, all 1,000 raw records and all referenced full exception parts. The fixed selection bytes equal prospective commit `25ebb4f`. Every baseline evidence SHA256, tier/policy/seed identity, exact expected reward and replay-seed value matches the corresponding new observation, with all planned indices present once. Tier/policy strata counts are retained in the audit JSON. The canonical uppercase E5 summary is byte-identical to the lowercase physical summary and retains the original lowercase evidence paths.
+
+Every row and attempt completed healthy, with zero retries and complete cleanup. All 2,692 created container IDs are unique and have matching removals. Recomputed raw telemetry exactly matches compact rows and summary: 26,534 transfers/probes, zero timeouts or failed probes, maximum transfer 5.009427225973923 seconds and maximum probe 2.992412402003538 seconds. Experiment wall time is 1433.835752516985 seconds. No Docker workload, paid call or covered edit was made by this independent audit.
+
+E6 remains pending at this point. Neither E1 nor E5 success supersedes E2's failed scientific stress-completion prerequisite; freeze remains on hold.
+
+## E6 exact regression and completed numeric prerequisite
+
+E6 verdict: **PASS, 1,000 of 1,000 exact reward matches**, recorded in `results/p3a2_e6_regression_audit.json`. Its final-runtime/source/generator hashes equal E1/E5 above. Every bound source matches immutable implementation `aa86c69801a07c8aaf627a6336503235e90e9fdf`.
+
+I verified every compact/manifest shard, all 1,545 local manifest files and exact tree coverage, all 1,000 raw rollout records, every full exception part/hash, and every original baseline file SHA256. The selection bytes equal prospective commit `25ebb4f`; every planned index, tier/policy/seed stratum, expected reward and original replay seed matches the new evidence exactly. All 1,000 rows completed healthy without retry. Every attempt completed cleanup without resource overlap, and all 2,758 created IDs are unique with matching removals. Uppercase E6 canonical summary bytes exactly equal the lowercase physical summary and preserve its physical evidence references.
+
+Raw telemetry independently recomputes to the compact observations and summary: 27,278 transfers/probes, zero timeouts or failed probes, maximum transfer 5.36998268699972 seconds and maximum probe 2.3308077169931494 seconds. Measured experiment wall time is 1495.3064832920209 seconds. The audit used local CPU only and performed no Docker workload, paid call or source/test edit.
+
+The completed E1/E5/E6 regression therefore has **3,000 of 3,000 exact reward and replay-seed matches**, using the full prospective stratified list with no dropped row, no numeric difference and zero retries. This fulfills the historical numeric determinism prerequisite for the final runtime. It does not fix or waive the two failed final E2 stress-completion prerequisites. Fresh freeze, E2 gate, new shallow-detector estimates and 50 fresh author-reviewed gate trajectories remain not run, correctly held by the 49 deterministic admission failures in each final stress schedule.
