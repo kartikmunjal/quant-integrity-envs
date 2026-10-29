@@ -1,0 +1,56 @@
+{
+  "api_usd": 0,
+  "command": "uv run pytest tests/validation/test_p3a2_infrastructure.py --junitxml=logs/p3a2_tests_before.xml",
+  "environment": "E2",
+  "expected_preimplementation_failure": true,
+  "failed": 10,
+  "failures": [
+    {
+      "message": "AssertionError: assert 'policy' == 'infrastructure'\n  \n  - infrastructure\n  + policy",
+      "name": "test_terminating_typed_host_error_wins_prior_policy"
+    },
+    {
+      "message": "qi_runtime.infrastructure.HostTimeout: regression: post-tamper trusted transfer timeout",
+      "name": "test_harness_tamper_never_attempts_fault_injected_submission_transfer"
+    },
+    {
+      "message": "qi_runtime.infrastructure.HostTimeout: forbidden finalization read",
+      "name": "test_finalize_flagged_skips_every_read_and_preserves_provenance"
+    },
+    {
+      "message": "assert ([0] == [0, 1]\n  \n  Right contains one more item: 1\n  Use -v to get more diff)",
+      "name": "test_policy_then_wrapped_host_timeout_retries_fresh_but_reward_stays_zero"
+    },
+    {
+      "message": "assert 1 == 2\n +  where 1 = len([1])",
+      "name": "test_persistent_infrastructure_after_policy_keeps_complete_zero_and_fails_health"
+    },
+    {
+      "message": "assert (False)",
+      "name": "test_failed_cleanup_after_policy_is_complete_zero_but_unhealthy"
+    },
+    {
+      "message": "ModuleNotFoundError: No module named 'scripts.p3a2_support'",
+      "name": "test_execute_plan_continues_all_initial_rows_after_retry_budget_exhaustion"
+    },
+    {
+      "message": "KeyError: 'transfers'",
+      "name": "test_transfer_telemetry_preserves_original_failure_and_bounds_payload[False-False]"
+    },
+    {
+      "message": "KeyError: 'transfers'",
+      "name": "test_transfer_telemetry_preserves_original_failure_and_bounds_payload[True-False]"
+    },
+    {
+      "message": "KeyError: 'transfers'",
+      "name": "test_transfer_telemetry_preserves_original_failure_and_bounds_payload[True-True]"
+    }
+  ],
+  "generator_version_hash": "eac6db9224a724d63a3e7c7df71e0af46e65d29bb66b7c6e0d18061d55313921",
+  "gpu_usd": 0,
+  "implementation_before": "25ebb4faac4de5906841a8f0e26f83e8dd01034b",
+  "passed": 0,
+  "phase": "P3a2",
+  "test_sha256": "85b97f0e6d8e3cca2318152f4f434464642fcca1769de8158d886e7c58549c1d",
+  "tests": 10
+}

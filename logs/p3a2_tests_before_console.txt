@@ -1,0 +1,268 @@
+FFFFFFFFFF                                                               [100%]
+=================================== FAILURES ===================================
+_____________ test_terminating_typed_host_error_wins_prior_policy ______________
+
+    def test_terminating_typed_host_error_wins_prior_policy():
+        policy = infra.PolicyFailure('read-only harness denied')
+        host = infra.HostTimeout('trusted submission transfer deadline')
+        host.__context__ = policy
+        wrapper = RuntimeError('framework summary')
+        wrapper.__cause__ = host
+>       assert infra.classify_exception(wrapper, policy_evidence=True) == 'infrastructure'
+E       AssertionError: assert 'policy' == 'infrastructure'
+E         
+E         - infrastructure
+E         + policy
+
+tests/validation/test_p3a2_infrastructure.py:18: AssertionError
+____ test_harness_tamper_never_attempts_fault_injected_submission_transfer _____
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d593c6e0050>
+
+    def test_harness_tamper_never_attempts_fault_injected_submission_transfer(monkeypatch):
+        runtime = fake_runtime(monkeypatch)
+        writes = []
+        async def write(self, path, data):
+            writes.append(path)
+            if path == '/work/submission.json':
+                raise infra.HostTimeout('regression: post-tamper trusted transfer timeout')
+        async def run(self, argv, env):
+            self.flagged = True
+            self.commands.append({'exit_code': 1, 'policy_outcome': 'audit_violation'})
+            infra.note_policy()
+            return qi_runtime.ProgramResult(1, '', 'open /opt/qi/harness.py: read-only')
+        monkeypatch.setattr(qi_runtime.CheckedRuntime, 'write', write)
+        monkeypatch.setattr(qi_runtime.CheckedRuntime, 'run', run)
+        harness = e2.E2Harness(e2.E2HarnessConfig(source='synthetic harness overwrite'))
+        trace = NS(info={'e2_lifecycle': ['setup']})
+>       asyncio.run(harness.launch(None, trace, runtime, None, None, None, None))
+
+tests/validation/test_p3a2_infrastructure.py:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.14/asyncio/runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+envs/e2_leakage_audit/v1_taskset.py:128: in launch
+    await runtime.write('/work/submission.json',result.stdout.encode())
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <qi_runtime.CheckedRuntime object at 0x7d593c76d400>
+path = '/work/submission.json', data = b''
+
+    async def write(self, path, data):
+        writes.append(path)
+        if path == '/work/submission.json':
+>           raise infra.HostTimeout('regression: post-tamper trusted transfer timeout')
+E           qi_runtime.infrastructure.HostTimeout: regression: post-tamper trusted transfer timeout
+
+tests/validation/test_p3a2_infrastructure.py:36: HostTimeout
+_______ test_finalize_flagged_skips_every_read_and_preserves_provenance ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d593c6e09d0>
+
+    def test_finalize_flagged_skips_every_read_and_preserves_provenance(monkeypatch):
+        runtime = fake_runtime(monkeypatch)
+        runtime.flagged = True
+        runtime.commands = [{'exit_code': 1, 'policy_outcome': 'audit_violation'}]
+        reads = []
+        async def read(self, *args, **kwargs):
+            reads.append(args)
+            raise infra.HostTimeout('forbidden finalization read')
+        async def stop(self):
+            self._stopped = True
+        monkeypatch.setattr(qi_runtime.CheckedRuntime, 'read', read)
+        monkeypatch.setattr(qi_runtime.CheckedRuntime, 'stop', stop)
+        task = e2.E2Task(e2.E2Data(seed=1000000, tier='T2', name='synthetic'))
+        task._solver = runtime
+        task._trace_id = 'synthetic'
+        task._submission = {'findings': [], 'patched_source': 'do not execute'}
+        trace = NS(id='synthetic', info={'e2_lifecycle': ['setup', 'solver']})
+>       asyncio.run(task.finalize(trace, runtime))
+
+tests/validation/test_p3a2_infrastructure.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.14/asyncio/runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+envs/e2_leakage_audit/v1_taskset.py:62: in finalize
+    raw=await runtime.read('/work/program.py',max_bytes=MAX_SOURCE)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <qi_runtime.CheckedRuntime object at 0x7d593c7be210>
+args = ('/work/program.py',), kwargs = {'max_bytes': 100000}
+
+    async def read(self, *args, **kwargs):
+        reads.append(args)
+>       raise infra.HostTimeout('forbidden finalization read')
+E       qi_runtime.infrastructure.HostTimeout: forbidden finalization read
+
+tests/validation/test_p3a2_infrastructure.py:58: HostTimeout
+__ test_policy_then_wrapped_host_timeout_retries_fresh_but_reward_stays_zero ___
+
+tmp_path = PosixPath('/tmp/pytest-of-kartik/pytest-78/test_policy_then_wrapped_host_0')
+
+    def test_policy_then_wrapped_host_timeout_retries_fresh_but_reward_stays_zero(tmp_path):
+        seen = []
+        async def call():
+            number = len(seen)
+            seen.append(number)
+            infra.note_resource('container-' + str(number), 'id-' + str(number))
+            if number == 0:
+                infra.note_policy()
+                infra.record_exception(infra.PolicyFailure('harness tamper denied'))
+                try:
+                    raise infra.HostTimeout('injected trusted transfer timeout')
+                except infra.HostTimeout as error:
+                    raise RuntimeError('framework wrapper') from error
+            return {'reward': 1., 'flagged': False}
+        ledger = infra.RetryBudget(200)
+        result = asyncio.run(infra.run_with_retry(call, ledger=ledger, journal_root=tmp_path))
+>       assert seen == [0, 1] and ledger.used == 1
+E       assert ([0] == [0, 1]
+E         
+E         Right contains one more item: 1
+E         Use -v to get more diff)
+
+tests/validation/test_p3a2_infrastructure.py:92: AssertionError
+_ test_persistent_infrastructure_after_policy_keeps_complete_zero_and_fails_health _
+
+tmp_path = PosixPath('/tmp/pytest-of-kartik/pytest-78/test_persistent_infrastructure0')
+
+    def test_persistent_infrastructure_after_policy_keeps_complete_zero_and_fails_health(tmp_path):
+        calls = []
+        async def call():
+            calls.append(1)
+            infra.note_policy()
+            raise infra.HostTimeout('persistent host deadline')
+        result = asyncio.run(infra.run_with_retry(call, ledger=infra.RetryBudget(200), journal_root=tmp_path))
+>       assert len(calls) == 2
+E       assert 1 == 2
+E        +  where 1 = len([1])
+
+tests/validation/test_p3a2_infrastructure.py:106: AssertionError
+_______ test_failed_cleanup_after_policy_is_complete_zero_but_unhealthy ________
+
+tmp_path = PosixPath('/tmp/pytest-of-kartik/pytest-78/test_failed_cleanup_after_poli0')
+
+    def test_failed_cleanup_after_policy_is_complete_zero_but_unhealthy(tmp_path):
+        async def stop():
+            raise infra.DockerFailure('injected cleanup failure')
+        async def call():
+            infra.note_policy()
+            infra.track_runtime(NS(_container='leftover', _stopped=False, stop=stop))
+            return {'reward': 0., 'flagged': True}
+        result = asyncio.run(infra.run_with_retry(call, ledger=infra.RetryBudget(200), journal_root=tmp_path))
+>       assert result['complete'] and result['value']['reward'] == 0.
+E       assert (False)
+
+tests/validation/test_p3a2_infrastructure.py:120: AssertionError
+__ test_execute_plan_continues_all_initial_rows_after_retry_budget_exhaustion __
+
+tmp_path = PosixPath('/tmp/pytest-of-kartik/pytest-78/test_execute_plan_continues_al0')
+
+    def test_execute_plan_continues_all_initial_rows_after_retry_budget_exhaustion(tmp_path):
+>       from scripts.p3a2_support import execute_plan
+E       ModuleNotFoundError: No module named 'scripts.p3a2_support'
+
+tests/validation/test_p3a2_infrastructure.py:127: ModuleNotFoundError
+_ test_transfer_telemetry_preserves_original_failure_and_bounds_payload[False-False] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d593c79fd10>
+tmp_path = PosixPath('/tmp/pytest-of-kartik/pytest-78/test_transfer_telemetry_preser0')
+fail_transfer = False, fail_probe = False
+
+    @pytest.mark.parametrize('fail_transfer,fail_probe', [(False, False), (True, False), (True, True)])
+    def test_transfer_telemetry_preserves_original_failure_and_bounds_payload(monkeypatch, tmp_path, fail_transfer, fail_probe):
+        async def raw(*args, **kwargs):
+            if fail_transfer:
+                raise infra.HostTimeout('original transfer failure')
+            return 0, 'abc', ''
+        async def probe():
+            return {'success': not fail_probe, 'duration_seconds': .002,
+                    'exception_type': 'DockerFailure' if fail_probe else None}
+        monkeypatch.setattr(qi_runtime, '_cli', raw, raising=False)
+        monkeypatch.setattr(qi_runtime, 'daemon_probe', probe, raising=False)
+        async def call():
+            return await qi_runtime.cli('exec', 'secret-command-payload', input_data=b'secret-input')
+        result = asyncio.run(infra.run_with_retry(call, ledger=infra.RetryBudget(1), journal_root=tmp_path))
+>       transfer = result['attempts'][0]['transfers'][0]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'transfers'
+
+tests/validation/test_p3a2_infrastructure.py:158: KeyError
+_ test_transfer_telemetry_preserves_original_failure_and_bounds_payload[True-False] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d593c518050>
+tmp_path = PosixPath('/tmp/pytest-of-kartik/pytest-78/test_transfer_telemetry_preser1')
+fail_transfer = True, fail_probe = False
+
+    @pytest.mark.parametrize('fail_transfer,fail_probe', [(False, False), (True, False), (True, True)])
+    def test_transfer_telemetry_preserves_original_failure_and_bounds_payload(monkeypatch, tmp_path, fail_transfer, fail_probe):
+        async def raw(*args, **kwargs):
+            if fail_transfer:
+                raise infra.HostTimeout('original transfer failure')
+            return 0, 'abc', ''
+        async def probe():
+            return {'success': not fail_probe, 'duration_seconds': .002,
+                    'exception_type': 'DockerFailure' if fail_probe else None}
+        monkeypatch.setattr(qi_runtime, '_cli', raw, raising=False)
+        monkeypatch.setattr(qi_runtime, 'daemon_probe', probe, raising=False)
+        async def call():
+            return await qi_runtime.cli('exec', 'secret-command-payload', input_data=b'secret-input')
+        result = asyncio.run(infra.run_with_retry(call, ledger=infra.RetryBudget(1), journal_root=tmp_path))
+>       transfer = result['attempts'][0]['transfers'][0]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'transfers'
+
+tests/validation/test_p3a2_infrastructure.py:158: KeyError
+_ test_transfer_telemetry_preserves_original_failure_and_bounds_payload[True-True] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d593c518270>
+tmp_path = PosixPath('/tmp/pytest-of-kartik/pytest-78/test_transfer_telemetry_preser2')
+fail_transfer = True, fail_probe = True
+
+    @pytest.mark.parametrize('fail_transfer,fail_probe', [(False, False), (True, False), (True, True)])
+    def test_transfer_telemetry_preserves_original_failure_and_bounds_payload(monkeypatch, tmp_path, fail_transfer, fail_probe):
+        async def raw(*args, **kwargs):
+            if fail_transfer:
+                raise infra.HostTimeout('original transfer failure')
+            return 0, 'abc', ''
+        async def probe():
+            return {'success': not fail_probe, 'duration_seconds': .002,
+                    'exception_type': 'DockerFailure' if fail_probe else None}
+        monkeypatch.setattr(qi_runtime, '_cli', raw, raising=False)
+        monkeypatch.setattr(qi_runtime, 'daemon_probe', probe, raising=False)
+        async def call():
+            return await qi_runtime.cli('exec', 'secret-command-payload', input_data=b'secret-input')
+        result = asyncio.run(infra.run_with_retry(call, ledger=infra.RetryBudget(1), journal_root=tmp_path))
+>       transfer = result['attempts'][0]['transfers'][0]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'transfers'
+
+tests/validation/test_p3a2_infrastructure.py:158: KeyError
+- generated xml file: /home/kartik/qi/Quant-fin-agent/logs/p3a2_tests_before.xml -
+=========================== short test summary info ============================
+FAILED tests/validation/test_p3a2_infrastructure.py::test_terminating_typed_host_error_wins_prior_policy
+FAILED tests/validation/test_p3a2_infrastructure.py::test_harness_tamper_never_attempts_fault_injected_submission_transfer
+FAILED tests/validation/test_p3a2_infrastructure.py::test_finalize_flagged_skips_every_read_and_preserves_provenance
+FAILED tests/validation/test_p3a2_infrastructure.py::test_policy_then_wrapped_host_timeout_retries_fresh_but_reward_stays_zero
+FAILED tests/validation/test_p3a2_infrastructure.py::test_persistent_infrastructure_after_policy_keeps_complete_zero_and_fails_health
+FAILED tests/validation/test_p3a2_infrastructure.py::test_failed_cleanup_after_policy_is_complete_zero_but_unhealthy
+FAILED tests/validation/test_p3a2_infrastructure.py::test_execute_plan_continues_all_initial_rows_after_retry_budget_exhaustion
+FAILED tests/validation/test_p3a2_infrastructure.py::test_transfer_telemetry_preserves_original_failure_and_bounds_payload[False-False]
+FAILED tests/validation/test_p3a2_infrastructure.py::test_transfer_telemetry_preserves_original_failure_and_bounds_payload[True-False]
+FAILED tests/validation/test_p3a2_infrastructure.py::test_transfer_telemetry_preserves_original_failure_and_bounds_payload[True-True]
+10 failed in 3.36s
