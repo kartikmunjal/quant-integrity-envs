@@ -58,7 +58,9 @@ class E2Task(vf.Task[E2Data,vf.State]):
         if runtime is not self._solver or trace.id!=self._trace_id:raise ValueError('E2 provenance mismatch')
         trace.info['e2_lifecycle'].append('finalize')
         self._source_sha=None
+        self._submission=None if runtime.flagged else self._submission
         try:
+            if runtime.flagged:raise ValueError('policy outcome: no trusted transfer')
             raw=await runtime.read('/work/program.py',max_bytes=MAX_SOURCE)
             self._source_sha=hashlib.sha256(raw).hexdigest()
             self._submission=parse_submission(await runtime.read('/work/submission.json',max_bytes=500000))
@@ -125,7 +127,8 @@ class E2Harness(vf.Harness[E2HarnessConfig]):
             await runtime.write('/work/program.py',self.config.source.encode())
             result=await runtime.run(['python','-I','-B','/work/program.py','/work/input.json'],{})
             if result.exit_code:runtime.flagged=True
-            await runtime.write('/work/submission.json',result.stdout.encode())
+            if not runtime.flagged:
+                await runtime.write('/work/submission.json',result.stdout.encode())
         except ValueError:runtime.flagged=True
         return vf.ProgramResult(0,'','')
 
@@ -154,5 +157,8 @@ async def run_policy(seed,tier,source):
     ctx=vf.ModelContext(model='scripted-no-model',client=vf.EvalClientConfig(base_url='http://127.0.0.1:9/v1',api_key_var='QI_DISABLED_MODEL_API'))
     episode=await env.run_episode(task,ctx)
     if not episode.traces or not episode.traces[0].ok:
-        raise RuntimeError('checked E2 rollout failed: '+'; '.join([e.message for e in episode.errors]+[e.message for t in episode.traces for e in t.errors]))
+        from qi_runtime.infrastructure import _CURRENT
+        state=_CURRENT.get()
+        cause=state.framework_error if state is not None else None
+        raise RuntimeError('checked E2 rollout failed: '+'; '.join([e.message for e in episode.errors]+[e.message for t in episode.traces for e in t.errors])) from cause
     return episode.traces[0].info['e2_evidence']

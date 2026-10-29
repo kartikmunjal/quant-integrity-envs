@@ -10,8 +10,9 @@ import os
 import re
 import tempfile
 import uuid
+import time
 from pathlib import Path,PurePosixPath
-from .infrastructure import DockerFailure,HostTimeout,record_exception,note_policy,note_resource,PolicyFailure,PolicyOutputLimit,journal_boundary,track_runtime
+from .infrastructure import DockerFailure,HostTimeout,record_exception,note_policy,note_resource,PolicyFailure,PolicyOutputLimit,journal_boundary,track_runtime,_CURRENT
 from verifiers.v1.runtimes.docker import DockerConfig,DockerRuntime
 from verifiers.v1.runtimes.base import ProgramResult
 
@@ -21,7 +22,7 @@ IMAGE=os.environ.get('QI_RUNTIME_IMAGE_DIGEST',os.environ.get('QI_E1_IMAGE_DIGES
 MAX_SOURCE=100_000
 
 
-async def cli(*args,limit=2_000_000,policy_output=False,input_data=None):
+async def _cli(*args,limit=2_000_000,policy_output=False,input_data=None):
     proc=await asyncio.create_subprocess_exec('docker',*args,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE,stdin=asyncio.subprocess.PIPE if input_data is not None else None)
     async def bounded(stream):
         result=bytearray()
@@ -49,6 +50,39 @@ async def cli(*args,limit=2_000_000,policy_output=False,input_data=None):
             with contextlib.suppress(ProcessLookupError):proc.kill()
         await proc.wait()
         await asyncio.gather(*jobs,return_exceptions=True)
+
+
+async def daemon_probe():
+    started=time.monotonic()
+    try:
+        code,_,_=await asyncio.wait_for(_cli('version','--format','{{.Server.Version}}',limit=4096),5.)
+        return {'success':code==0,'duration_seconds':time.monotonic()-started,
+                'exception_type':None if code==0 else 'DockerFailure'}
+    except Exception as error:
+        return {'success':False,'duration_seconds':time.monotonic()-started,'exception_type':type(error).__name__}
+
+
+async def cli(*args,limit=2_000_000,policy_output=False,input_data=None):
+    started=time.monotonic();success=False;exception_type=None;output_bytes=0
+    try:
+        result=await _cli(*args,limit=limit,policy_output=policy_output,input_data=input_data)
+        success=result[0]==0;output_bytes=sum(len(v.encode()) for v in result[1:])
+        return result
+    except BaseException as error:
+        exception_type=type(error).__name__
+        raise
+    finally:
+        duration=time.monotonic()-started
+        current=_CURRENT.get()
+        if current is not None:
+            try:probe=await daemon_probe()
+            except BaseException as probe_error:
+                probe={'success':False,'duration_seconds':0.,'exception_type':type(probe_error).__name__}
+                if isinstance(probe_error,asyncio.CancelledError) and exception_type is None:raise
+            current.transfers.append({'operation':str(args[0]) if args else '',
+                'input_bytes':len(input_data) if input_data is not None else 0,
+                'output_bytes':output_bytes,'duration_seconds':duration,'success':success,
+                'exception_type':exception_type,'daemon_probe':probe})
 
 
 def audit(trace):
@@ -124,10 +158,15 @@ with open(folder+'/exit.json','x') as stream:
                                   'strace','-f','-yy','-s','512','-e','trace=%file,%network',
                                   '-u','nobody','timeout','--signal=TERM','--kill-after=1','20s',*argv,policy_output=True)
             # Preserve observed policy evidence before any subsequent trusted
-            # status retrieval can fail. Policy evidence dominates a collision
-            # with infrastructure symptoms and must never permit a retry.
+            # status retrieval can fail. Preserve it independently of host errors.
             self.flagged |= audit(err)
-            if self.flagged:note_policy()
+            if self.flagged:
+                note_policy()
+                record_exception(PolicyFailure(err),metadata={'origin':'solver_audit','runtime':self.name})
+                exits=re.findall(r'\+\+\+ exited with (\d+) \+\+\+',err)
+                code=int(exits[-1]) if exits else 1
+                self.commands.append({'exit_code':code,'exit_status_source':'audit_trace','trace_sha256':hashlib.sha256(err.encode()).hexdigest(),'policy_outcome':'audit_violation'})
+                return ProgramResult(code,out,err)
             reader='''import os,sys
 folder=sys.argv[1]
 with open(folder+'/exit.json') as stream: print(stream.read())

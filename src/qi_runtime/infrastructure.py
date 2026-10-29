@@ -30,6 +30,8 @@ class Attempt:
     exceptions:list=dataclasses.field(default_factory=list)
     policy_evidence:bool=False
     runtimes:list=dataclasses.field(default_factory=list)
+    transfers:list=dataclasses.field(default_factory=list)
+    framework_error:BaseException|None=None
 
 class RetryBudget:
     def __init__(self,planned):
@@ -50,8 +52,9 @@ def chain(error):
         if isinstance(item,BaseExceptionGroup):todo.extend(item.exceptions)
 
 def classify_exception(error,policy_evidence=False):
-    if policy_evidence or any(isinstance(e,(PolicyFailure,PolicyOutputLimit)) for e in chain(error)):return 'policy'
+    # The active operation, not prior solver behavior, determines retry eligibility.
     if any(isinstance(e,InfrastructureError) for e in chain(error)):return 'infrastructure'
+    if any(isinstance(e,(PolicyFailure,PolicyOutputLimit)) for e in chain(error)):return 'policy'
     return 'unknown'
 
 def record_exception(error,root=None,metadata=None):
@@ -88,7 +91,7 @@ def _resource_keys(resources):
 
 async def run_with_retry(call,metadata=None,ledger=None,journal_root=None):
     if ledger is None:raise ValueError('fixed retry budget is required')
-    attempts=[];prior=set()
+    attempts=[];prior=set();policy_seen=False
     for number in (0,1):
         state=Attempt(dict(metadata or {},attempt=number),Path(journal_root or ROOT));token=_CURRENT.set(state);started=time.perf_counter();value=None;error=None
         try:value=await call()
@@ -111,25 +114,41 @@ async def run_with_retry(call,metadata=None,ledger=None,journal_root=None):
         kind='complete'
         if error:
             kinds=[e['kind'] for e in state.exceptions]
-            kind='policy' if state.policy_evidence else 'infrastructure' if 'infrastructure' in kinds else 'unknown'
+            kind=classify_exception(error)
+            # A genuine framework lifetime guard retains its exact original exception.
+            # Match identity, never an unrelated prior diagnostic.
+            if kind=='unknown' and isinstance(state.framework_error,InfrastructureError) and state.framework_error.__cause__ is error:
+                kind='infrastructure'
+
         cleanup_complete=all(not v._container or v._stopped for v in state.runtimes)
         if not cleanup_complete:
-            kind='policy' if state.policy_evidence else 'infrastructure'
+            kind='infrastructure'
             error=error or DockerFailure('attempt cleanup incomplete')
         if isinstance(error,asyncio.CancelledError):
-            kind='policy' if state.policy_evidence else 'unknown'
+            kind='unknown'
         if overlap:
             kind='unknown';error=RuntimeError('retry reused a runtime name or container ID')
             state.exceptions.append(record_exception(error,root=state.root,metadata=state.metadata))
         attempt={'attempt':number,'elapsed_seconds':time.perf_counter()-started,'kind':kind,'resources':state.resources,
-            'exceptions':state.exceptions,'policy_evidence':state.policy_evidence,'resource_overlap':overlap,'cleanup_complete':cleanup_complete}
+            'exceptions':state.exceptions,'transfers':state.transfers,'policy_evidence':state.policy_evidence,'resource_overlap':overlap,'cleanup_complete':cleanup_complete}
         attempts.append(attempt)
-        if error is None:return {'value':value,'attempts':attempts,'complete':True,'retried':number==1,'terminal_kind':None}
-        if kind!='infrastructure' or number==1 or not cleanup_complete:return {'value':({'reward':0.,'flagged':True,'incomplete':True} if kind=='policy' else None),'attempts':attempts,'complete':False,'retried':number==1,'terminal_kind':kind}
+        policy_seen |= state.policy_evidence
+        def outcome(healthy,terminal):
+            completed=error is None or policy_seen
+            resolved=value
+            if policy_seen:
+                resolved=dict(value) if isinstance(value,dict) else {}
+                resolved.update(reward=0.,flagged=True,policy_evidence=True,security_ok=False)
+                if isinstance(resolved.get('solver'),dict):resolved['solver']={**resolved['solver'],'flagged':True}
+                resolved.pop('incomplete',None)
+            return {'value':resolved,'attempts':attempts,'complete':completed,
+                    'retried':number==1,'terminal_kind':terminal,'infrastructure_ok':healthy}
+        if error is None:return outcome(True,None)
+        if kind!='infrastructure' or number==1 or not cleanup_complete:return outcome(False,kind)
         try:ledger.reserve()
         except RetryLimitExceeded as e:
             attempt['retry_budget_error']=str(e)
-            return {'value':None,'attempts':attempts,'complete':False,'retried':False,'terminal_kind':'retry_limit'}
+            return outcome(False,'retry_limit')
     raise AssertionError('unreachable')
 
 def install_rollout_diagnostics():
@@ -146,6 +165,8 @@ def install_rollout_diagnostics():
     def record_lifetime(error,origin):
         typed=InfrastructureError('trusted framework borrowed-runtime lifetime guard')
         typed.__cause__=error
+        current=_CURRENT.get()
+        if current is not None:current.framework_error=typed
         record_exception(typed,metadata={'origin':origin,**(_CURRENT.get().metadata if _CURRENT.get() else {})})
     @functools.wraps(original_open)
     async def open(self):
@@ -156,6 +177,8 @@ def install_rollout_diagnostics():
             else:record_exception(error,metadata={'origin':'Rollout.open',**(_CURRENT.get().metadata if _CURRENT.get() else {})})
             raise
     def fail(self,error):
+        current=_CURRENT.get()
+        if current is not None:current.framework_error=error
         from qi_runtime import CheckedRuntime
         record_exception(error,metadata={'origin':'Rollout.fail',**(_CURRENT.get().metadata if _CURRENT.get() else {})})
         runtime=self.runtime

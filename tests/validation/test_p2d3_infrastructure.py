@@ -24,7 +24,7 @@ def test_classification_uses_trusted_types_and_entire_chain():
             raise ValueError('borrowed runtime stopped') from cause
     except ValueError as error:
         assert classify_exception(error) == 'infrastructure'
-        assert classify_exception(error, policy_evidence=True) == 'policy'
+        assert classify_exception(error, policy_evidence=True) == 'infrastructure'  # P3a2 terminating operation
 
 
 @pytest.mark.parametrize("explicit_cause", [False, True])
@@ -160,14 +160,15 @@ def test_failed_cleanup_preserves_extant_state(monkeypatch):
     assert runtime._stopped is False
 
 
-def test_policy_and_infrastructure_collision_is_zero_without_faked_completion(tmp_path):
+def test_p3a2_policy_collision_preserves_zero_but_retries_host_failure(tmp_path):
     from qi_runtime.infrastructure import note_policy
     calls=[]
     async def rollout():
         calls.append(1);note_policy();raise DockerFailure('cleanup failure after solver failure')
     result=asyncio.run(run_with_retry(rollout,ledger=RetryBudget(5000),journal_root=tmp_path))
-    assert len(calls)==1 and result['value']['reward']==0
-    assert result['complete'] is False and result['terminal_kind']=='policy'
+    assert len(calls)==2 and result['value']['reward']==0
+    assert result['complete'] is True and result['terminal_kind']=='infrastructure'
+    assert result['infrastructure_ok'] is False
 
 
 def test_real_framework_guard_preserves_scoring_cause_but_rejects_live_shutdown(monkeypatch,tmp_path):
@@ -329,7 +330,8 @@ def test_audit_evidence_dominates_failed_completion_marker(monkeypatch, tmp_path
     result = asyncio.run(run_with_retry(rollout, ledger=RetryBudget(5000), journal_root=tmp_path))
     assert calls == [1]
     assert result['retried'] is False
-    assert result['terminal_kind'] == 'policy'
+    assert result['terminal_kind'] is None  # P3a2 audit closes before marker transfer
+    assert result['complete'] is True
     assert result['value']['reward'] == 0
     assert result['attempts'][0]['policy_evidence'] is True
 

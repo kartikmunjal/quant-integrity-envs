@@ -164,5 +164,8 @@ async def run_policy(seed,tier,source):
     if not episode.traces or not episode.traces[0].ok:
         errors=[e.message for e in episode.errors]
         errors.extend(e.message for t in episode.traces for e in t.errors)
-        raise RuntimeError('checked E6 rollout failed: '+'; '.join(errors))
+        from qi_runtime.infrastructure import _CURRENT
+        state=_CURRENT.get()
+        cause=state.framework_error if state is not None else None
+        raise RuntimeError('checked E6 rollout failed: '+'; '.join(errors)) from cause
     return episode.traces[0].info['e6_evidence']
