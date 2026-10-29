@@ -1,0 +1,92 @@
+........................................................................ [ 14%]
+.............................................F....F..................... [ 28%]
+........................................................................ [ 42%]
+........................................................................ [ 56%]
+........................................................................ [ 71%]
+........................................................................ [ 85%]
+........................................................................ [ 99%]
+...                                                                      [100%]
+=================================== FAILURES ===================================
+___________ test_read_api_is_audited_and_source_transfer_is_bounded ____________
+
+    def test_read_api_is_audited_and_source_transfer_is_bounded():
+        from envs.e1_pit_backtest.runtime import E1Runtime,WORK
+        async def run():
+            with tempfile.TemporaryDirectory(prefix='e1-',dir=WORK) as directory:
+                work=Path(directory);work.chmod(0o777)
+                r=E1Runtime(work)
+                try:
+                    await r.start()
+                    await r._read('/opt/qi/canary')
+                    assert r.flagged
+                    with pytest.raises(ValueError): await r.write('/work/program.py',b'x'*100001)
+                    await r.run(['python','-c',"open('/work/program.py','w').write('x'*100001)"],{})
+                    with pytest.raises(ValueError): await r.read('/work/program.py',max_bytes=100000)
+                    await r.run(['sh','-c','ln -s /opt/qi/canary /work/link'],{})
+                    with pytest.raises(ValueError): await r.read('/work/link',max_bytes=100000)
+                finally: await r.stop()
+>       asyncio.run(run())
+
+tests/validation/test_e1_round2_runtime.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.14/asyncio/runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+tests/validation/test_e1_round2_runtime.py:32: in run
+    await r._read('/opt/qi/canary')
+src/qi_runtime/__init__.py:242: in _read
+    return await self.read(path,max_bytes=MAX_SOURCE)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/qi_runtime/infrastructure.py:204: in wrapped
+    try:return await fn(*args,**kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <qi_runtime.CheckedRuntime object at 0x7d246ce7c640>
+path = '/opt/qi/canary', max_bytes = 100000
+
+        @journal_boundary
+        async def read(self,path,max_bytes=None):
+            cap=MAX_SOURCE if max_bytes is None else min(max_bytes,2_000_000)
+            if type(cap) is not int or cap<0: raise ValueError('invalid read bound')
+            # O_NOFOLLOW+NONBLOCK and fstat reject symlinks, FIFOs/devices and oversized
+            # files before transfer. A second bounded read catches growth after fstat.
+            script='''import os,sys,stat,base64
+    fd=os.open(sys.argv[1],os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK)
+    s=os.fstat(fd); limit=int(sys.argv[2])
+    if not stat.S_ISREG(s.st_mode) or s.st_size>limit: sys.exit(3)
+    with os.fdopen(fd,'rb') as stream: data=stream.read(limit+1)
+    if len(data)>limit: sys.exit(4)
+    print(base64.b64encode(data).decode())
+    '''
+            result=await self.run(['python','-I','-B','-c',script,path,str(cap)],{})
+            if result.exit_code:
+                self.flagged=True;note_policy()
+>               raise ValueError('unsafe, missing or oversized source/read')
+E               ValueError: unsafe, missing or oversized source/read
+
+src/qi_runtime/__init__.py:234: ValueError
+________________________ test_real_boundary_and_attacks ________________________
+
+    def test_real_boundary_and_attacks():
+        from envs.e1_pit_backtest.runtime import exercise_boundary
+        result = asyncio.run(exercise_boundary())
+        assert result['network_none']
+        assert result['readonly_rootfs']
+        assert result['unprivileged']
+        assert result['only_work_mount']
+>       assert result['oracle_unreachable']
+E       assert False
+
+tests/validation/test_e1_runtime.py:19: AssertionError
+- generated xml file: /home/kartik/qi/Quant-fin-agent/logs/p3a2_full_tests.xml -
+=========================== short test summary info ============================
+FAILED tests/validation/test_e1_round2_runtime.py::test_read_api_is_audited_and_source_transfer_is_bounded
+FAILED tests/validation/test_e1_runtime.py::test_real_boundary_and_attacks - ...
+2 failed, 505 passed in 223.47s (0:03:43)
