@@ -166,6 +166,7 @@ with open(folder+'/exit.json','x') as stream:
                 exits=re.findall(r'\+\+\+ exited with (\d+) \+\+\+',err)
                 code=int(exits[-1]) if exits else 1
                 self.commands.append({'exit_code':code,'exit_status_source':'audit_trace','trace_sha256':hashlib.sha256(err.encode()).hexdigest(),'policy_outcome':'audit_violation'})
+                if transport:raise DockerFailure('Docker exec transport failed after audited policy outcome')
                 return ProgramResult(code,out,err)
             reader='''import os,sys
 folder=sys.argv[1]

@@ -12,12 +12,15 @@ from qi.gen import generator_version_hash
 
 ROOT=Path(__file__).resolve().parents[1]
 PREREQUISITES=['p3a2-stress-c8','p3a2-stress-c12','p3a2-regression-E1','p3a2-regression-E5','p3a2-regression-E6','p3a2_tests']
+# Preserve first-run artifacts; only corrected-runtime measurements can freeze.
+ARTIFACTS={name:name for name in PREREQUISITES}
+ARTIFACTS.update({'p3a2-stress-c8':'p3a2-r2-stress-c8','p3a2-stress-c12':'p3a2-r2-stress-c12','p3a2_tests':'p3a2_tests_r2'})
 
 
 def verify_prerequisites():
     sources=source_files();proof={}
     for name in PREREQUISITES:
-        path=ROOT/'results'/(name+'.json');row=json.loads(path.read_text())
+        path=ROOT/'results'/(ARTIFACTS[name]+'.json');row=json.loads(path.read_text())
         if not row['passed'] or row['sources']!=sources:raise ValueError('failed or stale prerequisite '+name)
         if 'stress' in name:
             expected_concurrency=8 if name.endswith('c8') else 12
