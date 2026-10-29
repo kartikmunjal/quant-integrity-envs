@@ -101,11 +101,37 @@ def stress():
             rows.append([env,x['concurrency'],count(x['planned']),count(x['complete']),x['terminal_failures'],x['retry_count'],status(x['passed'])])
     return table(['Environment','Concurrency','Planned','Complete','Terminal failures','Retries','Stress'],rows,paths)
 
+def difference_count(value):
+    """Stored comparisons may contain a count or a list of differing records."""
+    if isinstance(value,list):return len(value)
+    if type(value) is int and value>=0:return value
+    raise ValueError('difference evidence must be a nonnegative count or record list')
+
+
+def at_a_glance():
+    gates_=[read_json(p) for p in GATES.values()]
+    if not all(x['passed'] for x in gates_):raise ValueError('headline cannot claim failed gates as validated')
+    tier_sets={tuple(sorted(x['tiers'])) for x in gates_}
+    if len(tier_sets)!=1:raise ValueError('headline requires a common validated tier set')
+    total=sum(x.get('rollouts',x.get('planned')) for x in gates_)
+    regressions=[read_json(f'results/p3a2-regression-{env.lower()}.json') for env in GATES]
+    if not all(x['passed'] and x['rows']==x['exact_matches'] for x in regressions):raise ValueError('headline requires exact recorded regressions')
+    exact=sum(x['exact_matches'] for x in regressions)
+    return f'''## At a glance
+
+- Synthetic quantitative research-integrity tasksets with deterministic verifiers.
+- Validated locally: generator, checked runtime and E1/E5/E6 across **{len(next(iter(tier_sets)))} tiers**; **{count(total)}** scripted numerical-gate rollouts.
+- Corrected-runtime regression: **{count(exact)}** exact reward matches.
+- E2: the first gate failed on infrastructure classification; a fix is implemented, and a separate case-admission problem on heavy-tail seeds was found.
+- Planned: E3, E4, model baselines, training and transfer studies.
+- No model results are claimed.'''
+
+
 def determinism():
     rows=[];paths=[]
     for env in ('E1','E5','E6'):
         p=f'results/p2d3-r2-determinism-{env}-c24.json';x=read_json(p);paths.append(p)
-        rows.append(['Historical gate replay',env,count(x['complete']),x['reward_differences'],x['replay_differences'],status(x['passed'])])
+        rows.append(['Historical gate replay',env,count(x['complete']),difference_count(x['reward_differences']),difference_count(x['replay_differences']),status(x['passed'])])
     for env in ('E1','E5','E6'):
         p=f'results/p3a2-regression-{env.lower()}.json';x=read_json(p);paths.append(p)
         rows.append(['Corrected shared runtime',env,count(x['rows']),x['rows']-x['exact_matches'],'see independent audit',status(x['passed'])])
@@ -116,7 +142,7 @@ def render_table(name):return TABLES[name]()
 
 def replacements():
     x=read_json('results/p3a2_final_audit.json');y=read_json('results/p1_followup_fresh_diagnostics.json');config=yaml.safe_load((ROOT/'prereg.yaml').read_text())
-    return {'generator_hash':generator_hash(),'image_hash':read_json('results/p2b2_gate.json')['freeze']['image'],'runtime_hash':x['runtime_version_hash'],
+    return {'at_glance':at_a_glance(),'generator_hash':generator_hash(),'image_hash':read_json('results/p2b2_gate.json')['freeze']['image'],'runtime_hash':x['runtime_version_hash'],
      'numeric_runtime_hash':read_json('results/p2d3-gate-E6-c12.json')['runtime_version_hash'],
      'e2_implementation':x['implementation_commit'],'first_e2_implementation':read_json('results/p3a_freeze.json')['implementation_commit'],
      'generator_tail':fmt(y['summary']['maximum_single_day_absolute_return']),

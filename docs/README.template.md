@@ -1,5 +1,7 @@
 # Quant Research Integrity Environments
 
+{{at_glance}}
+
 A synthetic testbed for quantitative research integrity, with deterministic financial verifiers and checked local Docker execution. The generator, shared runtime and numerical tasksets E1, E5 and E6 have recorded scripted validation. The mutation engine and E2 are implemented but not yet validated: their first fresh gate failed and remains incomplete, and the infrastructure correction's design stress still fails case admission. E3, E4, model baselines and training are planned. No model-performance, real-market or hosted-Hub result is claimed.
 
 ## Motivation
@@ -33,6 +35,8 @@ The infrastructure fix is now implemented and tested: recorded policy violations
 The unchanged design seed's price-return domain rejection reproduces without Docker. Failures were retained, not replaced or reclassified as infrastructure. The source-bound stress prerequisite therefore failed. No new freeze or fresh gate was consumed, and no new shallow-detector result or author-reviewed gate sample exists. See [the failed prerequisite report](reports/P3a2.md), [the independent stress audit](reports/P3a2_r2_stress_audit.md) and [the explicit gate-not-run record](results/p3a2_gate_not_run.json). M0 packaging is the current target; M1 has not been reached.
 
 ## Planned work
+
+A hosted-sandbox runtime backend is under consideration, not started, with unknown feasibility.
 
 E3 multiple-testing adjudication and E4 the metered honest-null research loop are planned. Model baselines, evaluation freeze, leave-one-family-out training, GRPO and transfer studies are also planned. None is represented as a completed experiment. Model calls and GPU runs require the budget gate and the relevant owner authorization; sealed-test evaluation remains unavailable before its separate freeze. [Milestones](docs/MILESTONES.md) distinguish packaging from validated research and release readiness.
 

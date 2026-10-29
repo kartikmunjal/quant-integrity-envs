@@ -127,3 +127,47 @@ def test_numeric_prose_parameters_match_configuration_and_recorded_band():
     assert ceiling==RetryBudget(10000).max_retries/10000
     n=int(re.search(r'\*\*(\d+) episodes per policy\*\*',text).group(1))
     assert all(cell['n']==n for path in m.GATES.values() for t in m.read_json(path)['tiers'].values() for cell in t['policies'].values())
+
+
+def test_at_a_glance_is_short_and_uses_recorded_headlines():
+    m=api();text=m.render_readme();section=text.split('## At a glance\n',1)[1].split('\n\n',1)[0]
+    assert len(('## At a glance\n'+section).splitlines())<=10
+    gates=[m.read_json(p) for p in m.GATES.values()]
+    total=sum(x.get('rollouts',x.get('planned')) for x in gates)
+    exact=sum(m.read_json(f'results/p3a2-regression-{env.lower()}.json')['exact_matches'] for env in m.GATES)
+    assert f'{total:,}' in section and f'{exact:,}' in section
+    assert 'No model results' in section
+    assert 'heavy-tail' in section and 'classification' in section
+    assert text.index('## At a glance')<text.index('A synthetic testbed')
+
+
+def test_changed_headline_source_invalidates_readme(monkeypatch):
+    m=api();text=m.render_readme();original=m.read_json
+    def altered(path):
+        value=original(path)
+        if str(path)=='results/p2b2_gate.json':value['rollouts']+=1
+        return value
+    monkeypatch.setattr(m,'read_json',altered)
+    with pytest.raises(ValueError):m.check_readme(text)
+
+
+@pytest.mark.parametrize('value,expected',[(0,0),([],0),([{'seed':'synthetic'}],1),(2,2)])
+def test_difference_counts_do_not_render_raw_lists(value,expected):
+    assert api().difference_count(value)==expected
+
+
+def test_determinism_table_normalizes_empty_difference_records(monkeypatch):
+    m=api();original=m.read_json
+    def records(path):
+        value=original(path)
+        if 'p2d3-r2-determinism-' in str(path):value.update(reward_differences=[],replay_differences=[])
+        return value
+    monkeypatch.setattr(m,'read_json',records)
+    output=m.determinism()
+    assert '[]' not in output
+    assert output.count('| 0 | 0 | PASS |')==3
+
+
+def test_hosted_sandbox_plan_does_not_claim_implementation():
+    text=api().render_readme().split('## Planned work\n',1)[1].split('\n## ',1)[0]
+    assert 'A hosted-sandbox runtime backend is under consideration, not started, with unknown feasibility.' in text
