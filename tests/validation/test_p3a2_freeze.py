@@ -9,6 +9,7 @@ from scripts import freeze_p3a2 as freeze, p3a2_support as support
 @pytest.fixture
 def evidence(monkeypatch, tmp_path):
     monkeypatch.setattr(freeze, 'ROOT', tmp_path)
+    monkeypatch.setattr(freeze, 'ARTIFACTS', {name:name for name in freeze.PREREQUISITES}, raising=False)
     monkeypatch.setattr(support, 'ROOT', tmp_path)
     monkeypatch.setattr(freeze, 'source_files', lambda: {'source.py': 'frozen-source'})
     for folder in ('results', 'logs', 'reports', 'artifacts/p3a2'):
@@ -94,3 +95,9 @@ def test_rejects_missing_or_tampered_local_manifest_chain(evidence, target, muta
         path.write_bytes(b'invalid or tampered')
     with pytest.raises((ValueError, OSError, AssertionError)):
         freeze.verify_prerequisites()
+
+
+def test_current_prerequisites_use_corrected_runtime_stress_and_suite():
+    assert freeze.ARTIFACTS['p3a2-stress-c8']=='p3a2-r2-stress-c8'
+    assert freeze.ARTIFACTS['p3a2-stress-c12']=='p3a2-r2-stress-c12'
+    assert freeze.ARTIFACTS['p3a2_tests']=='p3a2_tests_r2'

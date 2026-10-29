@@ -1,0 +1,79 @@
+FF.........................F                                             [100%]
+=================================== FAILURES ===================================
+_______ test_audited_policy_trace_does_not_hide_nonzero_docker_transport _______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fe59f9b3a80>
+tmp_path = PosixPath('/tmp/pytest-of-kartik/pytest-101/test_audited_policy_trace_does0')
+
+    def test_audited_policy_trace_does_not_hide_nonzero_docker_transport(monkeypatch, tmp_path):
+        calls = []
+        commands = []
+        async def fake_cli(*args, **kwargs):
+            commands.append((args, kwargs))
+            if kwargs.get('policy_output'):
+                # The trusted Python wrapper normally exits zero after recording
+                # the traced child status; 125 here belongs to Docker transport.
+                return 125, '', 'openat(3,"/opt/qi/canary",O_RDONLY) = -1 EACCES'
+            raise AssertionError('policy collision must not trigger status/source reads')
+        monkeypatch.setattr(qi_runtime, 'cli', fake_cli)
+        async def call():
+            index = len(calls)
+            calls.append(index)
+            runtime = qi_runtime.CheckedRuntime(qi_runtime.WORK / ('p3a2-transport-fault-' + str(index)))
+            runtime.info.id = 'synthetic-' + str(index)
+            runtime._harness_hash = 'synthetic'
+            note_resource(runtime.name, runtime.info.id)
+            outcome = await runtime.run(['python', 'synthetic.py'], {})
+            return {'reward': 0., 'flagged': runtime.flagged, 'exit_code': outcome.exit_code}
+        ledger = RetryBudget(200)
+        result = asyncio.run(run_with_retry(call, ledger=ledger, journal_root=tmp_path))
+>       assert calls == [0, 1]
+E       assert [0] == [0, 1]
+E         
+E         Right contains one more item: 1
+E         Use -v to get more diff
+
+tests/validation/test_p3a2_transport.py:30: AssertionError
+___ test_audit_transport_failure_recovers_once_with_fresh_resources_and_zero ___
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fe56e2222c0>
+tmp_path = PosixPath('/tmp/pytest-of-kartik/pytest-101/test_audit_transport_failure_r0')
+
+    def test_audit_transport_failure_recovers_once_with_fresh_resources_and_zero(monkeypatch, tmp_path):
+        calls = []
+        async def fake_cli(*args, **kwargs):
+            if kwargs.get('policy_output'):
+                return (125 if len(calls) == 1 else 0), '', 'openat(3,"/opt/qi/canary",O_RDONLY) = -1 EACCES'
+            raise AssertionError('no post-policy transfers')
+        monkeypatch.setattr(qi_runtime, 'cli', fake_cli)
+        async def call():
+            index = len(calls)
+            calls.append(index)
+            runtime = qi_runtime.CheckedRuntime(qi_runtime.WORK / ('p3a2-transport-recovered-' + str(index)))
+            runtime.info.id = 'synthetic-recovery-' + str(index)
+            runtime._harness_hash = 'synthetic'
+            note_resource(runtime.name, runtime.info.id)
+            outcome = await runtime.run(['python', 'synthetic.py'], {})
+            return {'reward': 0., 'flagged': runtime.flagged, 'exit_code': outcome.exit_code}
+        ledger = RetryBudget(200)
+        result = asyncio.run(run_with_retry(call, ledger=ledger, journal_root=tmp_path))
+>       assert calls == [0, 1] and ledger.used == 1
+E       assert ([0] == [0, 1]
+E         
+E         Right contains one more item: 1
+E         Use -v to get more diff)
+
+tests/validation/test_p3a2_transport.py:58: AssertionError
+______ test_current_prerequisites_use_corrected_runtime_stress_and_suite _______
+
+    def test_current_prerequisites_use_corrected_runtime_stress_and_suite():
+>       assert freeze.ARTIFACTS['p3a2-stress-c8']=='p3a2-r2-stress-c8'
+               ^^^^^^^^^^^^^^^^
+E       AttributeError: module 'scripts.freeze_p3a2' has no attribute 'ARTIFACTS'
+
+tests/validation/test_p3a2_freeze.py:101: AttributeError
+=========================== short test summary info ============================
+FAILED tests/validation/test_p3a2_transport.py::test_audited_policy_trace_does_not_hide_nonzero_docker_transport
+FAILED tests/validation/test_p3a2_transport.py::test_audit_transport_failure_recovers_once_with_fresh_resources_and_zero
+FAILED tests/validation/test_p3a2_freeze.py::test_current_prerequisites_use_corrected_runtime_stress_and_suite
+3 failed, 25 passed in 2.06s
