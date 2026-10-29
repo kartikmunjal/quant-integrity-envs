@@ -1,10 +1,10 @@
 # P3a3 clean-context review
 
-Status: PROVISIONAL — NOT APPROVED FOR FREEZE.
+Status: READY FOR FREEZE
 
 Independent reviewer session, 2026-10-29 UTC. This is a pre-stress source review, not a completed gate review. The implementation author did not conduct this review. No Docker command, policy rollout, model API, GPU job, sealed evaluation or outside-repository read was performed by this reviewer.
 
-Reviewed AGENTS.md, SPEC.md, prereg.yaml, AMENDMENTS.md, COMPAT.md, BRIEF.md, P2B_PROMPT7.md, reports/P3a3_design.md, scripts/*p3a3*.py, tests/validation/*p3a3*.py, and the referenced construction, source-inventory and gate-statistics functions. Review baseline HEAD: 5908143. Round-three changes were uncommitted and the population screen was still in progress when reviewed. E2 generator identity remains eac6db9224a724d63a3e7c7df71e0af46e65d29bb66b7c6e0d18061d55313921.
+Reviewed AGENTS.md, SPEC.md, prereg.yaml, AMENDMENTS.md, COMPAT.md, BRIEF.md, P2B_PROMPT7.md, reports/P3a3_design.md, scripts/*p3a3*.py, tests/validation/*p3a3*.py, and the referenced construction, source-inventory and gate-statistics functions. Pre-phase comparison baseline: 5908143 (not the later audit HEAD). Round-three changes were uncommitted and the population screen was still in progress when reviewed. E2 generator identity remains eac6db9224a724d63a3e7c7df71e0af46e65d29bb66b7c6e0d18061d55313921.
 
 ## Finding corrected during review
 
@@ -28,3 +28,27 @@ Pure targeted validation completed: `.venv/bin/python -m pytest tests/validation
 Before a final readiness review: commit the exact construction-screen evidence and implementation; obtain both required stress passes without a phase-stopping failure; obtain the source-bound full suite; verify the unchanged-runtime historical regressions and evidence hashes. The fresh gate, scalar-checker measurements, shallow T2/T3 measurement and 50 author-reviewed trajectories remain later obligations. No final freeze authorization is granted by this provisional review.
 
 Reviewer compute: three local pure unit-test invocations; no paid calls or GPU work. No spend-ledger entry was added because no paid operation occurred.
+
+## Independent evidence audit before c12 completion
+
+Audit HEAD: bb9c1ed5742df153fbca121fc30f3a01d8c1d337; core implementation commit: 9d57169d309088f3d0be85c52057205d91fe2c59. This supplements the initial pre-stress review and remains provisional, without freeze approval while concurrency-12 stress is pending.
+
+Independently checked committed screen bytes and every recorded construction source hash, complete ascending accepted/rejected range partitions, and exact first-admissible population selection. E2 screen evidence in results/p3a3_screen.json has design rejection 1/1000 (0.1 percent), seed 1000075 with 32 invalid price-return-domain candidates; primary and replay reserved blocks each reject 0/1000. Extreme-tail construction failures remain an explicit population limitation. These are construction counts, not policy metrics.
+
+Verified the source inventory matches results/p3a3_tests.json, the compact JUnit hash, retained original compressed archive/hash/length, and both XML testcase counts: 576 tests, zero failures/errors/skips. Verified concurrency-8 stress source identity and exact 5000-row plan, all complete/infrastructure-healthy with zero retries, every compact shard, all 10837 local manifest entries and their hashes/lengths, and full rollout archive consistency with compact identity, completion, cleanup and reward fields. This supports only the concurrency-8 prerequisite.
+
+Independently rechecked historical E1/E5/E6 regression summary identities, matching current runtime and relevant financial/runtime source hashes, all 1000 exact compact matches per environment, and every local manifest and referenced archive hash (1785/1695/1545 entries respectively). Historical proofs remain labelled round two rather than relabelled as new runs. New freeze implementation retains source/design/image binding, committed-proof requirements, current-source stress/full-suite prerequisites, historical regression source matching and explicit reviewer approval status.
+
+No additional blocker found in the audited available evidence. Concurrency-12 completion and its independent final audit remain required before readiness. Reviewer activity here was read-only local evidence verification; no Docker, policy execution, paid call or GPU work occurred.
+
+## Final independent pre-freeze readiness audit
+
+This final section supersedes the earlier provisional status and pending-prerequisite statements, retained above as review history. Approval is limited to creating the P3a3 source/design/image freeze and proceeding with the authorized one-shot scripted E2 gate. It does not assert gate success, completed author trajectory review, model performance or sealed-test validity.
+
+At audit HEAD bb9c1ed5742df153fbca121fc30f3a01d8c1d337, all 88 current source inventory hashes match the source-bound full-suite and both stress proofs. Core implementation commit remains 9d57169d309088f3d0be85c52057205d91fe2c59. Generator hash: eac6db9224a724d63a3e7c7df71e0af46e65d29bb66b7c6e0d18061d55313921. Runtime hash: fad402d113ca9e19f082ac45e3e0904edb128b9e672c351fe3a2d62eb699a827. Screen SHA256: 71789eea90e7733f6ddbe40d052d1d55b8f630cf7ad947a0c2ceba1c2868bf4c.
+
+Independently verified concurrency-12 exact screened plan, all 5000 compact rows, all 5000 full rollout archives and the complete manifest chain of 10837 local entries. All rows are complete and infrastructure healthy; retries and transfer timeouts are zero; each full record agrees with compact policy/tier/seed, completion, cleanup, resource non-overlap and reward. All 9998 created container identifiers are distinct. Summary SHA256: 4cca8de6c66dc79328bb5399cde9febee7e4c0b61462af5444a5b7acad29382d.
+
+Repeated the same full archive/manifest/plan checks for concurrency eight: 5000 complete healthy rows, zero retries/timeouts, 10837 manifest entries, 9998 distinct containers. Summary SHA256: a9fdfda9f901b61bc5473cc95b0dacb041dafe61cc3c106d92cd6f9ab0792664. Both satisfy the unchanged 100-percent-completion and <=0.5-percent-retry requirements. Full-suite and historical regression verification recorded above remain applicable to unchanged current sources; the final read-only freeze prerequisite check reconfirms their hashes, counts and runtime/source identity.
+
+No unresolved blocker remains for freeze creation. The actual freeze must still perform its committed-proof/source checks and immutable-image inspection. This reviewer did not run the freeze, Docker or policies. Local audit reads only; zero paid API or GPU work.
