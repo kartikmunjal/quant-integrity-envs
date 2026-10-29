@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/kartik/qi/Quant-fin-agent/scripts/run_p3a2.py", line 194, in <module>
+    asyncio.run(run(args))
+    ~~~~~~~~~~~^^^^^^^^^^^
+  File "/usr/lib/python3.14/asyncio/runners.py", line 204, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/home/kartik/qi/Quant-fin-agent/scripts/run_p3a2.py", line 89, in run
+    version=source_files();started=time.monotonic();archive=Archive(args.tag);journal=archive.root/'exceptions';journal.mkdir()
+                                                            ~~~~~~~^^^^^^^^^^
+  File "/home/kartik/qi/Quant-fin-agent/scripts/p3a2_support.py", line 42, in __init__
+    if not tag or any(c not in 'abcdefghijklmnopqrstuvwxyz0123456789-_' for c in tag):raise ValueError('tag')
+                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: tag
