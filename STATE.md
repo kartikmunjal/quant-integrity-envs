@@ -1,1 +1,1 @@
-current_phase: P3a2 complete (failed stress prerequisite), awaiting owner
+current_phase: P3a3 in progress (construction-only screening)

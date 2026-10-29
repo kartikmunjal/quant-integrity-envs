@@ -15,3 +15,13 @@ Limitation: extreme-tail episodes that cannot satisfy the unchanged price-return
 Write deterministic and policy-independent screen tests before implementation. Retain rejected seeds without reward-based filtering. Use new p3a3 evidence names, never overwrite prior artifacts. Stress requires 5000/5000 complete and infrastructure-healthy rows per concurrency and retries <=0.5%, with fresh containers and existing bounded archives. If either run fails for any reason, stop and report, without freeze or gate.
 
 If both pass, retain the round-two 8200-row schedule and all numerical/anti-cheating criteria, fresh shallow T2/T3 detector measurement, independent scalar checker, 50 prospectively selected author-reviewed trajectories, independent clean-context review, source/design/image freeze and a new exclusive consumed marker. Keep the round-two exact E1/E5/E6 regressions as prerequisites; repeat if shared runtime changes. No shared runtime or financial change is planned. No models, API spend, GPU or sealed evaluation. Record wall compute and spend-ledger provenance. Commit and push small evidence and implementation; delete only P2B_PROMPT7.md at completion and STOP.
+
+Pre-policy review clarification: preserve distinct design replay seeds by moving to the next admissible design-list entry if the hash-selected entry equals the primary seed. Fresh-gate primary/replay populations are disjoint. An initially drafted list router omitted this historical collision avoidance; a failing prospective test exposed it and the router was corrected before any round-three policy run.
+
+## Construction-only measurement, before Docker or policy runs
+
+- design 1000000..1000999: 1/1000 exhausted all 32 candidates (0.1 percent); 1 construction rejections.
+- primary 1003000..1003999: 0/1000 exhausted all 32 candidates (0.0 percent); 0 construction rejections.
+- replay 1004000..1004999: 0/1000 exhausted all 32 candidates (0.0 percent); 0 construction rejections.
+
+The only rejected seed is 1000075: all 32 candidates report `invalid price-return domain`. Primary is 1003000..1003499 and replay is 1004000..1004999, with no extension or overlap. Full seed lists and rejection diagnostics are in results/p3a3_screen.json. The complete parallel construction measurement took 266.9772972330102 wall seconds. A preliminary serial attempt was interrupted to parallelize construction; its partial console is retained in .cache/p3a3_screen_serial_partial.txt, and the complete measurement reran every declared seed. No policy-based filtering occurred. Extreme-tail construction failures remain excluded, limiting the population to admissible episodes.

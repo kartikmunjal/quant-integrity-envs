@@ -32,3 +32,10 @@ def test_fixed_review_matches_gate_population(monkeypatch):
     rows=run.review_plan()
     assert len(rows)==len(set(rows))==50
     assert all(s in range(1003000,1004000,2) for _,_,s in rows)
+
+
+def test_design_replay_always_distinct(monkeypatch):
+    seeds=[1000000,1000002]
+    monkeypatch.setattr(run,'populations',lambda:{'design':seeds,'primary':[1003000],'replay':[1004000]})
+    with run.fresh_context():
+        assert all(run.e2.design_replay_seed(s,'T1',str(p))!=s for s in seeds for p in range(20))
