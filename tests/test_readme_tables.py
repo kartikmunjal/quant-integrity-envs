@@ -138,7 +138,10 @@ def test_at_a_glance_is_short_and_uses_recorded_headlines():
     assert f'{total:,}' in section and f'{exact:,}' in section
     assert 'No model results' in section
     assert 'heavy-tail' in section and 'classification' in section
-    assert text.index('## At a glance')<text.index('A synthetic testbed')
+    opening=text.split('## At a glance',1)[0]
+    assert 'All data are synthetic.' in opening and 'No model results exist.' in opening
+    assert 'Every reported number describes scripted verifier validation.' in opening
+    assert len(opening.split('\n\n',1)[1].strip().split('. '))==4
 
 
 def test_changed_headline_source_invalidates_readme(monkeypatch):
@@ -240,3 +243,22 @@ def test_e2_reward_prose_and_soft_penalty_match_recorded_definition():
     observed=gate['statistics']['per_policy_tier']['false_flag/T4']['mean']
     assert grade_record(fixture,exponent)==pytest.approx(observed,abs=1e-12)
     assert m.fmt(observed) in text
+
+
+def test_public_readme_and_resume_wording():
+    m=api();text=m.render_readme();resume=m.render_resume()
+    for phrase in ('owner-authorized','owner authorization','The owner runs release review','this packaging step','repository identity or visibility'):
+        assert phrase not in text
+    assert 'second-checker agreement of 100%' in resume
+    assert '3,000 E1/E5/E6 rollouts re-run under the corrected runtime with zero reward differences' in resume
+    assert 'independent scalar/numeric checker agreement' not in resume
+
+
+def test_resume_rejects_nonzero_regression_differences(monkeypatch):
+    m=api();original=m.read_json
+    def altered(path):
+        value=original(path)
+        if str(path)=='results/p3a2-regression-e1.json':value['exact_matches']-=1
+        return value
+    monkeypatch.setattr(m,'read_json',altered)
+    with pytest.raises(ValueError):m.render_resume()

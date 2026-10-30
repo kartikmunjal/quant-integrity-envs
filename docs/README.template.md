@@ -1,8 +1,8 @@
 # Quant Research Integrity Environments
 
-{{at_glance}}
+These environments test whether an agent can detect or avoid errors in quantitative research, including data leakage, unrealistic costs and false discoveries. All data are synthetic. Every reported number describes scripted verifier validation. No model results exist.
 
-A synthetic testbed for quantitative research integrity, with deterministic financial verifiers and checked local Docker execution. The generator, shared runtime, numerical tasksets E1/E5/E6, mutation engine and E2 leakage audit are built and validated locally. E2's fresh P3a3 gate passed on a prospectively screened synthetic population. Historical failed gates and admission failures remain in the record. E3, E4, model baselines and training are planned. No model-performance, real-market or hosted-Hub result is claimed.
+{{at_glance}}
 
 ## Motivation
 
@@ -71,7 +71,7 @@ The following stress runs failed their completion prerequisite. The [round-two g
 
 A hosted-sandbox runtime backend is under consideration, not started, with unknown feasibility.
 
-E3 multiple-testing adjudication and E4 the metered honest-null research loop are planned. Model baselines, evaluation freeze, leave-one-family-out training, GRPO and transfer studies are also planned. None is represented as a completed experiment. Model calls and GPU runs require the budget gate and the relevant owner authorization; sealed-test evaluation remains unavailable before its separate freeze. [Milestones](docs/MILESTONES.md) distinguish packaging from validated research and release readiness.
+E3 multiple-testing adjudication and E4 the metered honest-null research loop are planned. Model baselines, evaluation freeze, leave-one-family-out training, GRPO and transfer studies are also planned. None is represented as a completed experiment. Model calls and GPU runs require the budget gate; sealed-test evaluation remains unavailable before its separate freeze. [Milestones](docs/MILESTONES.md) describe validation status and remaining research.
 
 ## Generator and data card
 
@@ -183,7 +183,7 @@ uv run pytest tests/test_readme_tables.py
 
 The template is [docs/README.template.md](docs/README.template.md). Every README table has a named renderer in [scripts/reproduce_table.py](scripts/reproduce_table.py). The check compares the complete README, including narrative numbers, against its source-backed rendering; tests deliberately alter displayed numbers and source values to verify rejection. Recorded means are displayed to six decimals, while exact source values remain in JSON. Tables use stored artifacts only; rendering does not execute a solver or create a new metric.
 
-For existing integration tests, Docker Engine and the owner-authorized project work/private directories described in [COMPAT.md](COMPAT.md) are required. The recorded immutable validated image is `{{image_hash}}`. The [Dockerfile](envs/e1_pit_backtest/container/Dockerfile) pins its base image and strace package. A new build can have a different image ID; it must not be presented as the recorded frozen image or silently substituted into historical evidence.
+For existing integration tests, Docker Engine and the project-specific work/private directories described in [COMPAT.md](COMPAT.md) are required. The recorded immutable validated image is `{{image_hash}}`. The [Dockerfile](envs/e1_pit_backtest/container/Dockerfile) pins its base image and strace package. A new build can have a different image ID; it must not be presented as the recorded frozen image or silently substituted into historical evidence.
 
 ```bash
 docker image inspect {{image_hash}} --format '{{.Id}}'
@@ -192,4 +192,4 @@ uv run eval @ configs/e1_scripted.toml --no-serve --no-rich --no-push
 uv run eval @ configs/e5_scripted.toml --no-serve --no-rich --no-push
 ```
 
-The CLI examples use development configs and the scripted no-model harness, never a hosted service. Standard tests can exercise the checked boundary; do not rerun a consumed one-shot gate to reproduce a table. Read-only rendering is the intended route to these recorded results. The owner runs release review; this packaging step claims no release-review pass, adds no license, changes no repository identity or visibility, and publishes no package or Hub environment. See [M1 and later milestones](docs/MILESTONES.md) and the [source-backed resume draft](docs/resume_bullets.md).
+The CLI examples use development configs and the scripted no-model harness, never a hosted service. Standard tests can exercise the checked boundary; do not rerun a consumed one-shot gate to reproduce a table. Read-only rendering is the intended route to these recorded results. See [validation milestones](docs/MILESTONES.md) and the [source-backed resume draft](docs/resume_bullets.md).

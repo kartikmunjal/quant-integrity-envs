@@ -224,13 +224,15 @@ def render_resume():
     operators,realizations=mutation_footprint()
     batches=[read_json(f'results/p3a3-stress-c{c}.json') for c in (8,12)]
     if not all(x['passed'] for x in gates_+batches):raise ValueError('resume requires passing validation')
-    exact=sum(read_json(f'results/p3a2-regression-{e.lower()}.json')['exact_matches'] for e in GATES)
+    regressions=[read_json(f'results/p3a2-regression-{e.lower()}.json') for e in GATES]
+    if not all(x['passed'] and x['rows']==x['exact_matches'] for x in regressions):raise ValueError('resume requires zero reward differences')
+    exact=sum(x['exact_matches'] for x in regressions)
     agreement=min([x['second_checker']['agreement'] for x in gates_]+[e2['statistics']['second_checker_agreement']])
     return f'''# Resume bullets: validated synthetic infrastructure only
 
-- Built and locally validated {len(gates_)+1} synthetic quantitative-integrity tasksets across {len(TIERS)} tiers, completing {count(total)} scripted gate rollouts with independent scalar/numeric checker agreement of {agreement:.0%}. Sources: `results/p2b2_gate.json`, `results/p2c_gate.json`, `results/p2d3-gate-E6-c12.json`, `results/p3a3-gate.json`.
+- Built and locally validated {len(gates_)+1} synthetic quantitative-integrity tasksets across {len(TIERS)} tiers, completing {count(total)} scripted gate rollouts with second-checker agreement of {agreement:.0%}. Sources: `results/p2b2_gate.json`, `results/p2c_gate.json`, `results/p2d3-gate-E6-c12.json`, `results/p3a3-gate.json`.
 - Implemented {len(operators)} mutation operators across {len(e2['statistics']['per_family'])} bug families in {len(realizations)} realizations each within one synthetic script template; validated E2 on {count(e2['rows'])} fresh scripted rollouts with oracle mean {e2['statistics']['per_policy_tier']['oracle/T1']['mean']:.1f} in every tier and clean-oracle false-positive rate {e2['statistics']['clean_oracle_false_positive_rate']:.0%}. Sources: `results/p3a_mutation_design_v3.json` and its compact shards, `results/p3a3-gate.json`.
-- Validated checked Docker execution across {count(sum(x['complete_rows'] for x in batches))} screened E2 stress rollouts at concurrency {min(x['concurrency'] for x in batches)} and {max(x['concurrency'] for x in batches)}, recording {sum(x['retries'] for x in batches)} retries; retained exact reward agreement on {count(exact)} historical E1/E5/E6 regressions. Sources: `results/p3a3-stress-c8.json`, `results/p3a3-stress-c12.json`, `results/p3a3_regression_reuse.json`.
+- Validated checked Docker execution across {count(sum(x['complete_rows'] for x in batches))} screened E2 stress rollouts at concurrency {min(x['concurrency'] for x in batches)} and {max(x['concurrency'] for x in batches)}, recording {sum(x['retries'] for x in batches)} retries; verified {count(exact)} E1/E5/E6 rollouts re-run under the corrected runtime with zero reward differences. Sources: `results/p3a3-stress-c8.json`, `results/p3a3-stress-c12.json`, `results/p3a3_regression_reuse.json`.
 
 These describe synthetic scripted local verifier validation, not model performance, training or real-market profitability. E2 excludes extreme-tail construction failures through a prospective construction-only screen (`results/p3a3_screen.json`); replay is predictable, execution is local Docker only, and the clean false-flag penalty is soft. All measurements use generator `{generator_hash()}`. Runtime/source identities remain in the named original results; E2 uses runtime `{e2['runtime_version_hash']}`.
 '''
