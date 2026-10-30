@@ -34,11 +34,18 @@ def make_case(seed,tier):
     material=hashlib.sha256(f'E3:{seed}:{tier}:round2'.encode()).digest()
     rng=np.random.default_rng(int.from_bytes(material[:16],'big'))
     returns=market.returns[1:]
-    alpha=np.mean(market.signal[:-1]*returns,axis=1)
-    scale=.01/float(np.std(returns))
+    active=market.active[1:] & market.active[:-1]
+    counts_active=np.sum(active,axis=1)
+    if (counts_active==0).any() or not np.isfinite(returns[active]).all():
+        raise ValueError('invalid active return domain')
+    alpha=np.sum(np.where(active,market.signal[:-1]*returns,0.),axis=1)/counts_active
+    null_scale=float(np.std(returns[active]))
+    scale=.01/null_scale
+    asset_order=np.argsort(~active,axis=1,kind='stable')
     n_days=returns.shape[0]
     def null_paths(count):
-        assets=rng.integers(0,returns.shape[1],size=(count,n_days))
+        ranks=rng.integers(0,counts_active,size=(count,n_days))
+        assets=asset_order[np.arange(n_days),ranks]
         signs=rng.integers(0,2,size=(count,n_days))*2-1
         return returns[np.arange(n_days),assets]*signs
     shared=null_paths(2)
@@ -48,7 +55,7 @@ def make_case(seed,tier):
     per_class=[0,0];public=[];truth={};effects={};details={}
     hypothesis={}
     for c in ((.4,1.5) if tier=='T4' else (coefficient,)):
-        hypothesis[str(c)]=float(c*np.mean(alpha)/np.std(returns)*math.sqrt(n_days))
+        hypothesis[str(c)]=float(c*np.mean(alpha)/null_scale*math.sqrt(n_days))
     for i,y in enumerate(labels.tolist()):
         index=per_class[y];per_class[y]+=1
         trials=500 if tier=='T4' and not y else counts[index%len(counts)]
