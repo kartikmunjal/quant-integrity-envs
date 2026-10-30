@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.125" timestamp="2026-10-30T11:46:06.070955-06:00" hostname="siennaspc"><testcase classname="tests.validation.test_e3_round2_cases" name="test_null_trials_have_diversified_portfolio_risk" time="0.081"><failure message="assert 0.009913251877962544 &lt; 0.003">cases_module = &lt;module 'envs.e3_fdr_adjudication.cases' from '/home/kartik/qi/Quant-fin-agent/envs/e3_fdr_adjudication/cases.py'&gt;
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7ce0c64c5220&gt;
+
+    def test_null_trials_have_diversified_portfolio_risk(cases_module, monkeypatch):
+        """Pre-fix synthetic orthogonal-asset fixture; no generator/policy execution.
+    
+        Distinct Fourier frequencies make asset paths nearly orthogonal over 499
+        sessions. Static signed equal-weight null portfolios should diversify their
+        risk; signed single-asset paths should fail this prospective regression.
+        """
+        import numpy as np
+        from types import SimpleNamespace
+        days, assets = np.arange(500)[:,None], np.arange(200)[None,:]
+        returns = .01*np.cos(2*np.pi*(days+1)*(assets+1)/499)
+        signal = np.ones_like(returns)
+        market = SimpleNamespace(returns=returns,signal=signal,active=np.ones_like(returns,dtype=bool))
+        monkeypatch.setattr(cases_module,'market_for',lambda seed:market)
+        case = cases_module.make_case(1000000,'T1')
+        null_paths = [candidate['returns'] for candidate in case['public']['candidates']
+                      if case['truth'][candidate['id']] == 0]
+        # The design's common scale makes market std=.01. Diversification by 200
+        # assets should comfortably reduce null risk, even with rho=.1 group mixing.
+        average_null_risk = float(np.mean([np.std(path,ddof=1) for path in null_paths]))
+&gt;       assert average_null_risk &lt; .003
+E       assert 0.009913251877962544 &lt; 0.003
+
+tests/validation/test_e3_round2_cases.py:73: AssertionError</failure></testcase></testsuite></testsuites>
