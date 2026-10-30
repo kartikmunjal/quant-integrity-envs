@@ -29,6 +29,27 @@ def test_invalid_tier_refused(cases_module):
         cases_module.make_case(1000000, 'T5')
 
 
+def test_inactive_nan_assets_never_poison_active_portfolios(cases_module, monkeypatch):
+    """Independent synthetic regression fixture, no shared generator execution."""
+    import numpy as np
+    from types import SimpleNamespace
+    days, assets = np.arange(500)[:,None], np.arange(200)[None,:]
+    returns = .01*np.sin(.7*days+.31*assets)+.002*np.cos(.2*days-.17*assets)
+    signal = np.ones_like(returns)
+    # Permanent delisting, rather than imputing an inactive asset to a fake zero.
+    returns[100:,0] = np.nan
+    signal[100:,0] = np.nan
+    market = SimpleNamespace(returns=returns, signal=signal,
+                             active=np.isfinite(returns))
+    monkeypatch.setattr(cases_module,'market_for',lambda seed:market)
+    case = cases_module.make_case(1000000,'T1')
+    assert len(case['public']['candidates']) == 20
+    for candidate in case['public']['candidates']:
+        assert np.isfinite(candidate['returns']).all()
+        assert np.isfinite(candidate['t_stat'])
+    assert all(np.isfinite(value) for value in case['effects'].values())
+
+
 @pytest.mark.parametrize('tier', ['T1','T2','T3','T4'])
 def test_construction_shape_truth_statistics_and_determinism(cases_module, tier):
     first = cases_module.make_case(1000000, tier)
