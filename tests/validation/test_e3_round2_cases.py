@@ -73,6 +73,26 @@ def test_null_trials_have_diversified_portfolio_risk(cases_module, monkeypatch):
     assert average_null_risk < .003
 
 
+def test_cross_process_blas_thread_count_preserves_public_bytes():
+    """Construction-only determinism regression on one development seed."""
+    import os
+    from pathlib import Path
+    import subprocess
+    import sys
+    root = Path(__file__).resolve().parents[2]
+    source = ('from envs.e3_fdr_adjudication.cases import make_case; '
+              'print(make_case(1000000,"T3")["data_sha256"])')
+    hashes=[]
+    for threads in ('1','2'):
+        environment = os.environ.copy()
+        environment.update(OPENBLAS_NUM_THREADS=threads,OMP_NUM_THREADS=threads,
+                           MKL_NUM_THREADS=threads,VECLIB_MAXIMUM_THREADS=threads)
+        hashes.append(subprocess.check_output([sys.executable,'-c',source],cwd=root,
+                                               env=environment,text=True).strip())
+    assert len(hashes[0]) == 64
+    assert hashes[0] == hashes[1]
+
+
 @pytest.mark.parametrize('tier', ['T1','T2','T3','T4'])
 def test_construction_shape_truth_statistics_and_determinism(cases_module, tier):
     first = cases_module.make_case(1000000, tier)

@@ -34,6 +34,20 @@ def test_population_guard_rejects_uncommitted_screen(monkeypatch):
         module.populations()
 
 
+def test_population_guard_rejects_committed_screen_construction_source_drift(monkeypatch):
+    from envs.e3_fdr_adjudication import v1_taskset as module
+    raw = json.dumps({'populations':{'design':[1000000],'primary':[1001000],'replay':[1002000]},
+                      'source_sha256':{'envs/e3_fdr_adjudication/cases.py':'0'*64}}).encode()
+    class FakePath:
+        def __init__(self, name): self.name=str(name)
+        def read_bytes(self):
+            return raw if self.name=='results/p3b2_screen.json' else b'changed construction source'
+    monkeypatch.setattr(module,'Path',FakePath)
+    monkeypatch.setattr(module.subprocess,'check_output',lambda args:raw)
+    with pytest.raises(ValueError,match='construction source drift'):
+        module.populations()
+
+
 def test_fresh_seed_guard_and_replay_population(monkeypatch):
     from envs.e3_fdr_adjudication import v1_taskset as module
     monkeypatch.setattr(module, 'populations', lambda:{'design':[1000000], 'primary':[1001000],
