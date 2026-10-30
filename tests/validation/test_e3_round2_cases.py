@@ -50,6 +50,29 @@ def test_inactive_nan_assets_never_poison_active_portfolios(cases_module, monkey
     assert all(np.isfinite(value) for value in case['effects'].values())
 
 
+def test_null_trials_have_diversified_portfolio_risk(cases_module, monkeypatch):
+    """Pre-fix synthetic orthogonal-asset fixture; no generator/policy execution.
+
+    Distinct Fourier frequencies make asset paths nearly orthogonal over 499
+    sessions. Static signed equal-weight null portfolios should diversify their
+    risk; signed single-asset paths should fail this prospective regression.
+    """
+    import numpy as np
+    from types import SimpleNamespace
+    days, assets = np.arange(500)[:,None], np.arange(200)[None,:]
+    returns = .01*np.cos(2*np.pi*(days+1)*(assets+1)/499)
+    signal = np.ones_like(returns)
+    market = SimpleNamespace(returns=returns,signal=signal,active=np.ones_like(returns,dtype=bool))
+    monkeypatch.setattr(cases_module,'market_for',lambda seed:market)
+    case = cases_module.make_case(1000000,'T1')
+    null_paths = [candidate['returns'] for candidate in case['public']['candidates']
+                  if case['truth'][candidate['id']] == 0]
+    # The design's common scale makes market std=.01. Diversification by 200
+    # assets should comfortably reduce null risk, even with rho=.1 group mixing.
+    average_null_risk = float(np.mean([np.std(path,ddof=1) for path in null_paths]))
+    assert average_null_risk < .003
+
+
 @pytest.mark.parametrize('tier', ['T1','T2','T3','T4'])
 def test_construction_shape_truth_statistics_and_determinism(cases_module, tier):
     first = cases_module.make_case(1000000, tier)
