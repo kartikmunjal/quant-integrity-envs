@@ -41,13 +41,12 @@ def make_case(seed,tier):
     alpha=np.sum(np.where(active,market.signal[:-1]*returns,0.),axis=1)/counts_active
     null_scale=float(np.std(returns[active]))
     scale=.01/null_scale
-    asset_order=np.argsort(~active,axis=1,kind='stable')
+    active_returns=np.where(active,returns,0.)
+    diversified_scale=null_scale/math.sqrt(float(np.mean(counts_active)))
     n_days=returns.shape[0]
     def null_paths(count):
-        ranks=rng.integers(0,counts_active,size=(count,n_days))
-        assets=asset_order[np.arange(n_days),ranks]
-        signs=rng.integers(0,2,size=(count,n_days))*2-1
-        return returns[np.arange(n_days),assets]*signs
+        signs=(rng.integers(0,2,size=(count,returns.shape[1]))*2-1).astype(float)
+        return (signs @ active_returns.T)/counts_active
     shared=null_paths(2)
     labels=np.array([0]*10+[1]*10)
     rng.shuffle(labels)
@@ -55,7 +54,7 @@ def make_case(seed,tier):
     per_class=[0,0];public=[];truth={};effects={};details={}
     hypothesis={}
     for c in ((.4,1.5) if tier=='T4' else (coefficient,)):
-        hypothesis[str(c)]=float(c*np.mean(alpha)/null_scale*math.sqrt(n_days))
+        hypothesis[str(c)]=float(c*np.mean(alpha)/diversified_scale*math.sqrt(n_days))
     for i,y in enumerate(labels.tolist()):
         index=per_class[y];per_class[y]+=1
         trials=500 if tier=='T4' and not y else counts[index%len(counts)]
@@ -81,7 +80,7 @@ def make_case(seed,tier):
                              'added_mean':effects[identifier],'selected_trial':selected,
                              'N':trials,'group':group,'rho':rho}
     public={'candidates':public,'hypothesis':{'effect_t_by_coefficient':hypothesis},
-            'contract':'Selected best of N in-sample trial paths; output JSON mapping every candidate id to P(real). Membership is mixed, exactly ten of twenty real. The hypothesis effect distribution is common to all candidates and does not reveal their individual mixing coefficient. Group-shared signed market paths introduce correlation. Admit only above .75 for 3:1 decision costs.'}
+            'contract':'Selected best of N in-sample trial paths; output JSON mapping every candidate id to P(real). Membership is mixed, exactly ten of twenty real. The hypothesis effect distribution is common to all candidates and does not reveal their individual mixing coefficient. Static random signed equal-weight portfolios form null trials; group-shared portfolios introduce correlation. Admit only above .75 for 3:1 decision costs.'}
     return {'public':public,'truth':truth,'effects':effects,'oracle_details':details,
             'generator_version_hash':generator_version_hash(),'data_sha256':digest(public),
             'seed':seed,'tier':tier,'real_fraction':.5}
