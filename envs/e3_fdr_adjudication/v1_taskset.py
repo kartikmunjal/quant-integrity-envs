@@ -10,7 +10,8 @@ import verifiers.v1 as vf
 from pydantic import Field
 from verifiers.v1.runtimes.docker import DockerConfig
 from qi_runtime import CheckedRuntime, WORK, MAX_SOURCE, IMAGE
-from .cases import make_case, TIERS
+from .cases import TIERS
+from .presentation import make_case
 from .reward import parse_submission, execution_reward, combine_executions
 from .runtime import execute_once
 
@@ -22,7 +23,11 @@ def populations():
     raw=path.read_bytes()
     if subprocess.check_output(['git','show','HEAD:results/p3b2_screen.json']) != raw:
         raise ValueError('screen must be committed before any policy')
-    return json.loads(raw)['populations']
+    screen=json.loads(raw)
+    expected=screen.get('source_sha256',{}).get('envs/e3_fdr_adjudication/cases.py')
+    if expected != hashlib.sha256(Path('envs/e3_fdr_adjudication/cases.py').read_bytes()).hexdigest():
+        raise ValueError('construction source drift')
+    return screen['populations']
 
 
 def guard(seed):
