@@ -1,18 +1,18 @@
 # Project milestones
 
-## Current target: M0 documentation packaging
+## M1: reached on the synthetic-validation side
 
-M0 packages the existing record into a paper-style README, evidence-generated tables, numerical documentation checks, reproduction instructions and source-backed resume bullets. It does not authorize a new experiment, change scientific rules or establish release readiness. The owner runs release review; no pass is claimed. No license is added, repository rename or visibility change is made, or package published.
+The generator, checked local Docker runtime, E1/E5/E6 tasksets, mutation engine and E2 have recorded synthetic scripted validation. The fresh P3a3 E2 gate is the current passing validation record. The paper-style README, evidence-generated per-tier and per-family tables, documentation drift checks and source-backed resume draft package this validation for review.
 
-The generator, shared local runtime and numerical tasksets E1, E5 and E6 have recorded scripted validation. The mutation engine and E2 are implemented but not yet validated. Their first fresh gate failed and remains incomplete. The subsequent infrastructure correction passed software checks and numerical regressions, but its E2 design stress retained admission failures. The prospective prerequisite therefore blocked a new freeze and fresh gate; shallow-detector measurements and a fresh author-reviewed sample were not substituted.
+M1 publication readiness still needs the owner's release review of the full Git history. No release-review pass is claimed. Publication, Hub upload, repository rename or visibility change still requires explicit owner approval. This packaging task adds no license and makes no model-performance or real-market claim.
 
-The [README](../README.md) separates validated numerical results, incomplete E2 evidence and planned research. Authoritative historical records remain [the first E2 gate](../results/p3a-gate.json), [its report](../reports/P3a.md), [the correction report](../reports/P3a2.md), and [the explicit unrun gate record](../results/p3a2_gate_not_run.json). This documentation work changes none of those artifacts or their source freezes. Historical freezes remain snapshots; editing an expressly authorized milestone document does not retroactively update them.
+## Historical record and scope
 
-## M1: application-ready, not reached
+The first E2 gate failed on infrastructure classification. The correction was followed by failed round-two design stress on a heavy-tail seed outside the existing case-construction domain. A prospectively committed construction-only screen then enabled the fresh P3a3 stress and gate. That screen excludes extreme-tail construction failures; validation applies to the screened population. The clean false-flag penalty remains soft.
 
-M1 requires a passing mutation-engine/E2 gate and the application-ready package, including a complete paper-style README, validated synthetic generator and tasksets, reward sensitivity and per-tier tables, and an owner-run release review that passes the full Git history. Repository rename, public visibility and publication still require explicit owner approval.
+Authoritative records are [the first gate](../results/p3a-gate.json), [round-two failure report](../reports/P3a2.md), [the screen](../results/p3a3_screen.json), [fresh passing gate](../results/p3a3-gate.json) and [P3a3 report](../reports/P3a3.md). The [README](../README.md) retains the failed history separately from the later pass. Historical freezes remain snapshots at their recorded implementation commits; this expressly requested milestone-document update does not rewrite those snapshots or frozen executable source.
 
-Allowed claims concern recorded synthetic design, local scripted validation and anti-hacking controls. They do not include model performance, training gains, hosted-Hub compatibility or real-market validity. E2's narrow script grammar establishes scripted solvability only when its validation actually completes; it does not establish general auditing ability.
+Allowed claims concern synthetic design, local scripted verifier validation and anti-hacking controls. The scripted oracle shows solvability within one narrow script template, not model performance or general auditing ability. Predictable replay, local Docker only, synthetic data, heavy tails and the soft false-flag penalty remain limitations. Planned held-out families have synthetic verifier coverage, not measured model-transfer gains.
 
 ## Optional M1.5: separately authorized pilot
 
@@ -20,4 +20,4 @@ A clearly labelled development-seed model pilot may follow owner authorization a
 
 ## Later research and release
 
-E3, E4, baselines, evaluation freeze, training and transfer measurements remain planned. A completed documentation step does not authorize them. After this packaging task, STOP and wait for the owner. Do not infer permission for another gate, model run, training job, Hub publication, repository rename or visibility change.
+E3, E4, baselines, evaluation freeze, training and transfer measurements remain planned. E3 was not started by M1 packaging. The owner runs release review before publication. After this packaging task, STOP and wait for the owner; documentation does not authorize another experiment, model run, training job or publication.

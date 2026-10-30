@@ -1,7 +1,8 @@
-"""Render M0 documentation from recorded evidence; never run an experiment."""
+"""Render M1 documentation from recorded evidence; never run an experiment."""
 from __future__ import annotations
 import argparse
 import json
+import gzip
 from pathlib import Path
 import re
 import sys
@@ -69,6 +70,54 @@ def e2_infrastructure():
         x=read_json(p);rows.append([x['concurrency'],count(x['rows']),count(x['complete_rows']),x['rows']-x['complete_rows'],x['telemetry']['timeouts'],x['retries'],status(x['passed'])])
     return table(['Concurrency','Rows recorded','Complete','Admission failures','Host timeouts','Retries','Stress'],rows,paths)
 
+E2_GATE='results/p3a3-gate.json'
+E2_CHEATERS=('constant','disabled','canary','oracle_read','harness','network','schema','primary_only')
+
+
+def e2_gate():
+    x=read_json(E2_GATE)
+    if not x['passed'] or not x['complete'] or not x['statistics']['passed'] or not all(x['statistics']['criteria'].values()):
+        raise ValueError('E2 validation requires a passing complete fresh gate')
+    if not x['planned']==x['rows']==x['complete_rows']==x['infrastructure_ok_rows']:
+        raise ValueError('E2 population is incomplete or inconsistent')
+    if x['generator_version_hash']!=generator_hash():raise ValueError('E2 generator differs')
+    return x
+
+
+def e2_policies():
+    x=e2_gate();groups=x['statistics']['per_policy_tier'];rows=[]
+    for tier in TIERS:
+        cells={k.split('/')[0]:v for k,v in groups.items() if k.endswith('/'+tier)}
+        if any(v['count']!=(500 if k=='oracle' else 50) for k,v in cells.items()):raise ValueError('E2 cell population drift')
+        wrong=[v['mean'] for k,v in cells.items() if k.startswith('wrong_')]
+        rows.append([tier,fmt(cells['oracle']['mean']),fmt(cells['random']['mean']),fmt(max(wrong)),
+                     fmt(max(cells[p]['mean'] for p in E2_CHEATERS)),fmt(cells['shallow']['mean'])])
+    return table(['Tier','Oracle','Random','Worst wrong','Worst cheater','Shallow detector'],rows,[E2_GATE])
+
+
+def e2_families(heldout=False):
+    stats=e2_gate()['statistics'];families=stats['per_family'];reserved=stats['heldout_families']
+    if any(families[k]!=v for k,v in reserved.items()):raise ValueError('held-out family summary mismatch')
+    selected=reserved if heldout else {k:v for k,v in families.items() if k not in reserved}
+    rows=[[k,v['count'],fmt(v['oracle_mean']),fmt(v['minimum_planted_effect'])] for k,v in sorted(selected.items())]
+    return table(['Family','Oracle episodes involving family','Oracle mean','Minimum planted effect'],rows,[E2_GATE])
+
+
+def mutation_footprint():
+    x=read_json('results/p3a_mutation_design_v3.json');gate=e2_gate()
+    if not x['passed'] or x['failures']:raise ValueError('mutation validation failed')
+    for name,digest in x['sources'].items():
+        if name.startswith('src/qi/mutate/') and gate['sources'][name]!=digest:raise ValueError('mutation source identity differs')
+    rows=[json.loads(line) for shard in x['compact_shards'] for line in gzip.decompress((ROOT/shard['path']).read_bytes()).splitlines()]
+    by_operator={}
+    for row in rows:
+        if not row['passed']:raise ValueError('mutation/decoy evidence failed')
+        if row['operator'] is not None:by_operator.setdefault(row['operator'],set()).add(row['realization'])
+    sets=list(by_operator.values())
+    if not sets or any(v!=sets[0] for v in sets):raise ValueError('nonuniform realization coverage')
+    return set(by_operator),sets[0]
+
+
 def generator():
     paths=['results/p1_diagnostics.json','results/p1_addendum_diagnostics.json','results/p1_followup_fresh_diagnostics.json'];rows=[]
     for label,p in zip(['Initial diagnostic','Original per-seed screen','Fresh amended-criterion cohort'],paths):
@@ -109,7 +158,7 @@ def difference_count(value):
 
 
 def at_a_glance():
-    gates_=[read_json(p) for p in GATES.values()]
+    gates_=[read_json(p) for p in GATES.values()];e2=e2_gate()
     if not all(x['passed'] for x in gates_):raise ValueError('headline cannot claim failed gates as validated')
     tier_sets={tuple(sorted(x['tiers'])) for x in gates_}
     if len(tier_sets)!=1:raise ValueError('headline requires a common validated tier set')
@@ -117,12 +166,13 @@ def at_a_glance():
     regressions=[read_json(f'results/p3a2-regression-{env.lower()}.json') for env in GATES]
     if not all(x['passed'] and x['rows']==x['exact_matches'] for x in regressions):raise ValueError('headline requires exact recorded regressions')
     exact=sum(x['exact_matches'] for x in regressions)
+    screen=read_json('results/p3a3_screen.json')['ranges']['design']
     return f'''## At a glance
 
 - Synthetic quantitative research-integrity tasksets with deterministic verifiers.
 - Validated locally: generator, checked runtime and E1/E5/E6 across **{len(next(iter(tier_sets)))} tiers**; **{count(total)}** scripted numerical-gate rollouts.
-- Corrected-runtime regression: **{count(exact)}** exact reward matches.
-- E2: the first gate failed on infrastructure classification; a fix is implemented, and a separate case-admission problem on heavy-tail seeds was found.
+- Mutation engine and E2 validated on **{count(e2['rows'])}** screened synthetic gate rollouts; **{count(exact)}** exact E1/E5/E6 regression matches.
+- History: first E2 gate failed on infrastructure classification; its fix preceded a heavy-tail admission failure. Construction-only screening rejected **{screen['rejected_count']} of {count(screen['count'])}** design seeds and excludes extreme-tail episodes.
 - Planned: E3, E4, model baselines, training and transfer studies.
 - No model results are claimed.'''
 
@@ -137,12 +187,19 @@ def determinism():
         rows.append(['Corrected shared runtime',env,count(x['rows']),x['rows']-x['exact_matches'],'see independent audit',status(x['passed'])])
     return table(['Cohort','Environment','Rows','Reward differences','Replay-seed differences','Regression'],rows,paths)
 
-TABLES={'e1':lambda:policies('E1'),'e5':lambda:policies('E5'),'e6':lambda:policies('E6'),'gates':gates,'e2_partial':partial,'e2_infrastructure':e2_infrastructure,'generator':generator,'curves':curves,'e6_detection':detection,'stress':stress,'determinism':determinism}
+TABLES={'e2':e2_policies,'e2_families':e2_families,'e2_heldout':lambda:e2_families(True),'e1':lambda:policies('E1'),'e5':lambda:policies('E5'),'e6':lambda:policies('E6'),'gates':gates,'e2_partial':partial,'e2_infrastructure':e2_infrastructure,'generator':generator,'curves':curves,'e6_detection':detection,'stress':stress,'determinism':determinism}
 def render_table(name):return TABLES[name]()
 
 def replacements():
     x=read_json('results/p3a2_final_audit.json');y=read_json('results/p1_followup_fresh_diagnostics.json');config=yaml.safe_load((ROOT/'prereg.yaml').read_text())
-    return {'at_glance':at_a_glance(),'generator_hash':generator_hash(),'image_hash':read_json('results/p2b2_gate.json')['freeze']['image'],'runtime_hash':x['runtime_version_hash'],
+    e2=e2_gate();operators,realizations=mutation_footprint();screen=read_json('results/p3a3_screen.json')['ranges']['design']
+    reviews=read_json('results/p3a3_author_review.json')
+    return {'mutation_count':str(len(operators)),'realization_count':str(len(realizations)),'family_count':str(len(e2['statistics']['per_family'])),
+     'e2_rows':count(e2['rows']),'e2_checker':fmt(e2['statistics']['second_checker_agreement']),'e2_fp':fmt(e2['statistics']['clean_oracle_false_positive_rate']),
+     'e2_exponent':str(e2['statistics']['exponent']),'e2_false_flag':fmt(e2['statistics']['per_policy_tier']['false_flag/T4']['mean']),
+     'e2_fresh_implementation':read_json('results/p3a3_freeze.json')['implementation_commit'],'e2_review_count':str(reviews['count']),
+     'screen_rejected':str(screen['rejected_count']),'screen_count':count(screen['count']),
+     'at_glance':at_a_glance(),'generator_hash':generator_hash(),'image_hash':read_json('results/p2b2_gate.json')['freeze']['image'],'runtime_hash':x['runtime_version_hash'],
      'numeric_runtime_hash':read_json('results/p2d3-gate-E6-c12.json')['runtime_version_hash'],
      'e2_implementation':x['implementation_commit'],'first_e2_implementation':read_json('results/p3a_freeze.json')['implementation_commit'],
      'generator_tail':fmt(y['summary']['maximum_single_day_absolute_return']),
@@ -162,19 +219,20 @@ def check_readme(text=None):
     if text!=render_readme():raise ValueError('README differs from evidence-backed rendering; run --write')
 
 def render_resume():
-    gates_=[read_json(p) for p in GATES.values()];total=sum(x.get('rollouts',x.get('planned')) for x in gates_)
-    batches=[read_json(f'results/p2d3-r2-stress-{env}-c{c}.json') for env in ('E1','E5','E6') for c in (12,24)]
-    exact_values=[read_json(f'results/p3a2-regression-{e.lower()}.json')['exact_matches'] for e in ('E1','E5','E6')]
-    if len(set(exact_values))!=1:raise ValueError('regression cohorts differ; do not average per-taskset counts')
-    exact=sum(exact_values)
-    assert all(x['passed'] for x in gates_+batches)
+    gates_=[read_json(p) for p in GATES.values()];e2=e2_gate()
+    total=sum(x.get('rollouts',x.get('planned')) for x in gates_)+e2['rows']
+    operators,realizations=mutation_footprint()
+    batches=[read_json(f'results/p3a3-stress-c{c}.json') for c in (8,12)]
+    if not all(x['passed'] for x in gates_+batches):raise ValueError('resume requires passing validation')
+    exact=sum(read_json(f'results/p3a2-regression-{e.lower()}.json')['exact_matches'] for e in GATES)
+    agreement=min([x['second_checker']['agreement'] for x in gates_]+[e2['statistics']['second_checker_agreement']])
     return f'''# Resume bullets: validated synthetic infrastructure only
 
-- Built and locally validated {len(gates_)} synthetic quantitative-integrity tasksets across {len(TIERS)} tiers, completing {count(total)} scripted numerical-gate rollouts with independent checker agreement of {min(x['second_checker']['agreement'] for x in gates_):.0%}. Sources: `results/p2b2_gate.json`, `results/p2c_gate.json`, `results/p2d3-gate-E6-c12.json`.
-- Validated checked Docker execution across {count(sum(x['complete'] for x in batches))} E1/E5/E6 stress rollouts at concurrency {min(x['concurrency'] for x in batches)} and {max(x['concurrency'] for x in batches)}, retaining every planned row and recording {sum(x['retry_count'] for x in batches)} retries. Sources: `results/p2d3-r2-stress-{{E1,E5,E6}}-c{{12,24}}.json`.
-- Verified exact reward preservation on {count(exact)} stratified historical rows after shared-runtime infrastructure corrections, with {count(exact//len(gates_))} comparisons per taskset. Sources: `results/p3a2-regression-e1.json`, `results/p3a2-regression-e5.json`, `results/p3a2-regression-e6.json`.
+- Built and locally validated {len(gates_)+1} synthetic quantitative-integrity tasksets across {len(TIERS)} tiers, completing {count(total)} scripted gate rollouts with independent scalar/numeric checker agreement of {agreement:.0%}. Sources: `results/p2b2_gate.json`, `results/p2c_gate.json`, `results/p2d3-gate-E6-c12.json`, `results/p3a3-gate.json`.
+- Implemented {len(operators)} mutation operators across {len(e2['statistics']['per_family'])} bug families in {len(realizations)} realizations each within one synthetic script template; validated E2 on {count(e2['rows'])} fresh scripted rollouts with oracle mean {e2['statistics']['per_policy_tier']['oracle/T1']['mean']:.1f} in every tier and clean-oracle false-positive rate {e2['statistics']['clean_oracle_false_positive_rate']:.0%}. Sources: `results/p3a_mutation_design_v3.json` and its compact shards, `results/p3a3-gate.json`.
+- Validated checked Docker execution across {count(sum(x['complete_rows'] for x in batches))} screened E2 stress rollouts at concurrency {min(x['concurrency'] for x in batches)} and {max(x['concurrency'] for x in batches)}, recording {sum(x['retries'] for x in batches)} retries; retained exact reward agreement on {count(exact)} historical E1/E5/E6 regressions. Sources: `results/p3a3-stress-c8.json`, `results/p3a3-stress-c12.json`, `results/p3a3_regression_reuse.json`.
 
-These describe scripted local validation, not model performance, training or real-market profitability. Mutation-engine/E2 validation remains blocked and is not claimed as completed. All measurements use generator `{generator_hash()}`. Gate and original stress runtime provenance is in each named result; corrected-runtime regressions use `{read_json('results/p3a2_final_audit.json')['runtime_version_hash']}`.
+These describe synthetic scripted local verifier validation, not model performance, training or real-market profitability. E2 excludes extreme-tail construction failures through a prospective construction-only screen (`results/p3a3_screen.json`); replay is predictable, execution is local Docker only, and the clean false-flag penalty is soft. All measurements use generator `{generator_hash()}`. Runtime/source identities remain in the named original results; E2 uses runtime `{e2['runtime_version_hash']}`.
 '''
 
 def main():

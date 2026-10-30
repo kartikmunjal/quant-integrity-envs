@@ -2,7 +2,7 @@
 
 {{at_glance}}
 
-A synthetic testbed for quantitative research integrity, with deterministic financial verifiers and checked local Docker execution. The generator, shared runtime and numerical tasksets E1, E5 and E6 have recorded scripted validation. The mutation engine and E2 are implemented but not yet validated: their first fresh gate failed and remains incomplete, and the infrastructure correction's design stress still fails case admission. E3, E4, model baselines and training are planned. No model-performance, real-market or hosted-Hub result is claimed.
+A synthetic testbed for quantitative research integrity, with deterministic financial verifiers and checked local Docker execution. The generator, shared runtime, numerical tasksets E1/E5/E6, mutation engine and E2 leakage audit are built and validated locally. E2's fresh P3a3 gate passed on a prospectively screened synthetic population. Historical failed gates and admission failures remain in the record. E3, E4, model baselines and training are planned. No model-performance, real-market or hosted-Hub result is claimed.
 
 ## Motivation
 
@@ -18,21 +18,54 @@ E1 point-in-time backtesting, E5 cost realism and E6 data reconciliation passed 
 
 Each result names its generator and frozen implementation. All numerical tables here use generator `{{generator_hash}}`. The E1/E5 gate freezes are embedded in their result files; the E6 gate records runtime `{{numeric_runtime_hash}}`. The current runtime correction is separately identified below, rather than relabeling historical gates.
 
-## Implemented but not yet validated: mutation engine and E2
+## E2: leakage audit and mutation engine, built and validated
 
-The mutation engine and E2 (`qi-leakage-audit`) are implemented. Their first fresh gate **failed and remains incomplete** following an infrastructure classification issue: a denied harness-tampering attempt was followed by a Docker host timeout during submission transfer. The frozen classification rule treated the collision as terminal policy evidence, so no retry occurred. The underlying host-stall cause is unknown.
+Given a synthetic research script and its public data/contract, identify planted bug families and source locations and submit an executable repair. T1 has a single obvious issue; T2 has one issue in a less direct realization; T3 combines three effective mutations from distinct families with distractors; T4 contains clean controls and behavior-preserving decoys. Reporting suspicious-looking clean code as faulty is penalized.
 
-These are **partial gate observations, not a gate pass**:
+The engine uses one synthetic script template with **{{mutation_count}} mutations across {{family_count}} families**, each in **{{realization_count}} realizations**: F1 future-feature use and availability bypass; F2 global centering and scaling; F3 unpurged labels and selection overlap; F4 survivor filtering and ticker merging; F5 same-bar and submission-day fills; F6 test-set selection and uncorrected trial multiplicity. Realizations change surface form, not the financial error. Harmless F1/F2 report decoys preserve behavior. The [mutation design record](results/p3a_mutation_design_v3.json) retains mutation/decoy executions; the fresh [P3a3 gate](results/p3a3-gate.json) is the current E2 validation record.
+
+The reward is a **weighted harmonic combination**. Let d be the F1 score for matched family and source location raised to the frozen exponent {{e2_exponent}}, p be functional patch quality, and c be clean-code quality. Stage reward is `1/(0.4/d + 0.4/p + 0.2/c)`, with zero if any component is zero. Dirty cases use c=1; clean cases use `c=(1+false_flags)^(-{{e2_exponent}})`. Numeric patch quality uses the same full/zero tolerance band described below. Each stage's error includes the poisoned-future prefix check, and the final reward is the lower primary/replay stage reward. Invalid schema, unsafe execution or tampering is a hard zero. See [reward source](envs/e2_leakage_audit/reward.py) and [phase report](reports/P3a3.md).
+
+The clean-false-flag penalty is **soft**: an otherwise correct clean submission with an extra false finding still earns partial credit. The recorded T4 `false_flag` control mean is **{{e2_false_flag}}**. It is a diagnostic control, not part of the frozen worst-cheater roster; the clean false-positive gate measures oracle clean behavior. This limitation is retained openly.
+
+### E2 synthetic verifier-validation results
+
+These are scripted synthetic verifier-validation results, **not model performance**. The fresh gate completed **{{e2_rows}}** rollouts. Oracle cells contain 500 episodes per tier; other policy cells contain 50. Worst wrong is the maximum over the twelve individual wrong policies. Worst cheater is the maximum over the frozen constant-output, disabled-computation, canary, oracle-read, harness-tamper, network, schema-forgery and primary-only controls. Shallow detector is reported separately, with its predeclared ceiling applied separately to T2 and T3.
+
+{{table:e2}}
+
+Independent scalar-checker agreement is {{e2_checker}}, and oracle clean false-positive rate is {{e2_fp}}. The [independent actual-reward audit](results/p3a3_gate_audit.json) also checks the stored rewards, fresh-container provenance and replay routing. The fixed **{{e2_review_count}} author-reviewed trajectories** are recorded [separately](results/p3a3_author_review.json); these are not independent human labels. Frozen implementation: `{{e2_fresh_implementation}}`; runtime: `{{runtime_hash}}`; generator: `{{generator_hash}}`.
+
+### E2 family coverage: other registered families
+
+Counts are oracle episodes involving the family, not distinct templates or model trials. T3 episodes involve multiple families, so these counts overlap and must not be summed as disjoint episodes. Minimum planted effect is the recorded construction witness metric, not a treatment effect from a model study.
+
+{{table:e2_families}}
+
+### E2 family coverage: planned held-out families F3, F4, F6
+
+These families are reserved for later leave-one-family-out training/evaluation. They are included here in synthetic verifier validation; this is **not a held-out model-transfer result**.
+
+{{table:e2_heldout}}
+
+### E2 development history and screen limitation
+
+The first fresh gate failed on an infrastructure classification issue: a denied harness-tampering attempt was followed by a trusted Docker transfer timeout, and prior policy evidence prevented its infrastructure retry. Its underlying daemon-stall cause remains unknown. The fix completes recorded policy violations as hard zeros before unnecessary trusted transfer or replay, classifies typed host errors by their terminating operation, retains the bounded fresh-container retry and continues the planned schedule. A later transport-precedence correction was also retained and tested. Corrected implementation: `{{e2_implementation}}`.
+
+Round-two stress then failed on a heavy-tail seed that cannot construct an E2 case under the unchanged price-return domain. Those failures were retained as admission failures, not relabelled as infrastructure; that round stopped before a new gate. P3a3 prospectively committed a deterministic construction-only screen before policy runs. It rejected **{{screen_rejected}} of {{screen_count}} design seeds** and **excludes extreme-tail episodes** that cannot build a case. The gate validates the screened population, not all draws of the frozen generator. See [the screen](results/p3a3_screen.json), [the prior failed prerequisite report](reports/P3a2.md) and [the passing P3a3 report](reports/P3a3.md).
+
+<details>
+<summary>Preserved historical failed-gate and round-two stress observations</summary>
+
+These partial observations are not a pass of the original gate. Initial implementation: `{{first_e2_implementation}}`. The failed freeze and consumed marker remain unchanged; see [the first report](reports/P3a.md) and [completion audit](results/p3a_gate_audit.json).
 
 {{table:e2_partial}}
 
-Later fresh controls, including the shallow detector, were not reached. Passing observed cells does not establish completion or overall validation. The failed gate, its freeze and consumed marker remain historical evidence. Source: [first phase report](reports/P3a.md), [completion audit](results/p3a_gate_audit.json), and [independent post-gate review](reports/P3a_gate_review.md). Initial frozen implementation: `{{first_e2_implementation}}`.
-
-The infrastructure fix is now implemented and tested: recorded policy violations close as complete hard zeros before trusted result transfer or replay; typed terminating host errors retain their bounded whole-rollout retry; terminal rows no longer stop the remaining schedule. A later fault-injection finding corrected transport-status precedence, and both stress runs were repeated against that corrected source. Corrected implementation: `{{e2_implementation}}`; runtime: `{{runtime_hash}}`.
+The following stress runs failed their completion prerequisite. The [round-two gate-not-run record](results/p3a2_gate_not_run.json) belongs to that historical round, not to the later passing P3a3 gate.
 
 {{table:e2_infrastructure}}
 
-The unchanged design seed's price-return domain rejection reproduces without Docker. Failures were retained, not replaced or reclassified as infrastructure. The source-bound stress prerequisite therefore failed. No new freeze or fresh gate was consumed, and no new shallow-detector result or author-reviewed gate sample exists. See [the failed prerequisite report](reports/P3a2.md), [the independent stress audit](reports/P3a2_r2_stress_audit.md) and [the explicit gate-not-run record](results/p3a2_gate_not_run.json). M0 packaging is the current target; M1 has not been reached.
+</details>
 
 ## Planned work
 
@@ -84,7 +117,7 @@ E6 uses the revised sensitivity artifact, not the retired earlier high-exponent/
 
 Pre-registration freezes seed partitions, financial thresholds and held-out families. Dated amendments disclose prior observations rather than claiming that changes preceded results they actually followed. Source/image freezes precede one-shot gates; consumed markers and failed gates are retained. Development replay is deterministic and predictable, not a cryptographically sealed holdout. Sealed-test model evaluation is a separate, still-planned stage.
 
-Validation tests and separate checker implementations precede verifier work, with independent AI review where recorded. These reviews are not independent human labels. Historical trajectory samples are labelled **author-reviewed** in their reports. The current E2 fresh gate has no replacement or retrospective sample. Checker agreement validates the stated computation paths; it does not by itself establish empirical difficulty or financial external validity.
+Validation tests and separate checker implementations precede verifier work, with independent AI review where recorded. These reviews are not independent human labels. Historical trajectory samples are labelled **author-reviewed** in their reports. P3a3 uses a new committed freeze and its fixed pre-freeze author-review selection; it does not replace the failed historical gate. Checker agreement validates the stated computation paths; it does not by itself establish empirical difficulty or financial external validity.
 
 The early numeric gates taught that numeric self-attestation and batched execution were inadequate. Subsequent gates used actual submitted code, fresh containers and replay controls. E6's earlier anomaly scoring exposed nonzero rewards for conceptual wrong policies and overly steep near-miss suppression; its revision was disclosed and the later gate rerun without changing the generator or gate thresholds. The current E6 table uses that later gate. Consult [E1 history](reports/P2b2.md), [E5 history](reports/P2c.md), [E6 history](reports/P2d3.md) and the [amendment log](AMENDMENTS.md) for failures and exact source identities.
 
@@ -110,7 +143,7 @@ These are the frozen policy cells described above, with maxima over the full wro
 
 ### Numerical-runtime stress
 
-These historical passing numerical stress runs use runtime `{{numeric_runtime_hash}}`. The separate E2 stress table above uses the corrected runtime and remains failed; these cohorts are not merged into a passing result.
+These historical passing numerical stress runs use runtime `{{numeric_runtime_hash}}`. The historical E2 stress table above records failed round-two runs. Later screened E2 stress and gate results are identified separately in the P3a3 validation record; these cohorts are not merged into a historical pass.
 
 {{table:stress}}
 
@@ -129,6 +162,8 @@ The historical gate replay cohort and the later stratified corrected-runtime coh
 - [Hub architecture](reports/hub_architecture.md) explains why installing a taskset does not supply this project's host-private grading boundary, image or sandbox policy. Remote execution and model harnesses remain unsupported here.
 - Replay seeds are predictable. They test functional consistency, not secrecy from a sufficiently informed adversary.
 - Empirical model difficulty, transfer, training gains and model hack rates remain unmeasured. Scripted controls and admission/separation criteria can make a synthetic task easier or more selective than real research.
+- E2 construction screening excludes extreme-tail episodes that cannot satisfy the unchanged price-return domain; its validation is conditional on admission. The [screen record](results/p3a3_screen.json) retains every rejected seed.
+- The E2 clean false-flag penalty is soft: false accusations can retain substantial partial reward even when the repair is functionally exact. Oracle clean false-positive success does not establish zero reward for every false-flag policy.
 - Heavy tails, restricted corporate-action patterns and simplified costs limit realism. A passing numerical gate does not imply profitable or safe investment decisions.
 - Full raw trajectories and journals are retained locally behind committed hash manifests; GitHub contains bounded summaries and selected full failure packets. Frozen historical results are not automatically relabelled after a source or documentation change.
 
@@ -157,4 +192,4 @@ uv run eval @ configs/e1_scripted.toml --no-serve --no-rich --no-push
 uv run eval @ configs/e5_scripted.toml --no-serve --no-rich --no-push
 ```
 
-The CLI examples use development configs and the scripted no-model harness, never a hosted service. Standard tests can exercise the checked boundary; do not rerun a consumed one-shot gate to reproduce a table. Read-only rendering is the intended route to these recorded results. The owner runs release review; this packaging step claims no release-review pass, adds no license, changes no repository identity or visibility, and publishes no package or Hub environment. See [M0 and later milestones](docs/MILESTONES.md) and the [source-backed resume draft](docs/resume_bullets.md).
+The CLI examples use development configs and the scripted no-model harness, never a hosted service. Standard tests can exercise the checked boundary; do not rerun a consumed one-shot gate to reproduce a table. Read-only rendering is the intended route to these recorded results. The owner runs release review; this packaging step claims no release-review pass, adds no license, changes no repository identity or visibility, and publishes no package or Hub environment. See [M1 and later milestones](docs/MILESTONES.md) and the [source-backed resume draft](docs/resume_bullets.md).
