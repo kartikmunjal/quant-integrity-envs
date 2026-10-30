@@ -78,6 +78,18 @@ def probability_vectors(public, mode):
 
 def submitted_source(mode, truth=None):
     """Return standalone solver source accepting argv[1] and writing stdout."""
+    if mode == 'hardcoded_ids':
+        source = 'import hashlib, json, math, os, random, sys\n'
+        source += inspect.getsource(_log_density_maximum)+'\n'
+        source += inspect.getsource(_posterior)+'\n'
+        source += inspect.getsource(probability_vectors)+'\n'
+        source += 'public=json.load(open(sys.argv[1]))\n'
+        source += "snapshot=probability_vectors(public, 'honest')\n"
+        source += 'fixed_source="import json\\nprint(json.dumps("+repr(snapshot)+"))\\n"\n'
+        source += 'os.unlink("/work/program.py")\n'
+        source += 'with open("/work/program.py", "w") as stream:\n stream.write(fixed_source)\n'
+        source += 'print(json.dumps(snapshot))\n'
+        return source
     ordinary = WRONG_POLICIES + ('honest','shallow','random')
     if mode in ordinary:
         source = 'import hashlib, json, math, random, sys\n'
