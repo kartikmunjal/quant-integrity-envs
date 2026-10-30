@@ -67,11 +67,15 @@ The following stress runs failed their completion prerequisite. The [round-two g
 
 </details>
 
+## E3: development prototype, design checks failed
+
+A development prototype exists in [envs/e3_fdr_adjudication](envs/e3_fdr_adjudication). Its design checks failed in two rounds: the preflight contract was contradictory, and the round-two construction did not separate the controls. E3 is not validated or frozen. Both reports and their evidence are retained in [reports/P3b.md](reports/P3b.md).
+
 ## Planned work
 
 A hosted-sandbox runtime backend is under consideration, not started, with unknown feasibility.
 
-E3 multiple-testing adjudication and E4 the metered honest-null research loop are planned. Model baselines, evaluation freeze, leave-one-family-out training, GRPO and transfer studies are also planned. None is represented as a completed experiment. Model calls and GPU runs require the budget gate; sealed-test evaluation remains unavailable before its separate freeze. [Milestones](docs/MILESTONES.md) describe validation status and remaining research.
+E4, the metered honest-null research loop, remains planned. Model baselines, evaluation freeze, leave-one-family-out training, GRPO and transfer studies are also planned. None is represented as a completed experiment. Model calls and GPU runs require the budget gate; sealed-test evaluation remains unavailable before its separate freeze. [Milestones](docs/MILESTONES.md) describe validation status and remaining research.
 
 ## Generator and data card
 

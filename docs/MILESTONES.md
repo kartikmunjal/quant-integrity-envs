@@ -20,4 +20,4 @@ A clearly labelled development-seed model pilot may follow owner authorization a
 
 ## Later research and release
 
-E3, E4, baselines, evaluation freeze, training and transfer measurements remain planned. E3 was not started by M1 packaging. The owner runs release review before publication. After this packaging task, STOP and wait for the owner; documentation does not authorize another experiment, model run, training job or publication.
+E3 now has a development prototype in `envs/e3_fdr_adjudication`. Its preflight design check failed because the contract was contradictory; round-two checks failed because construction did not separate controls. E3 is not validated or frozen. The retained [P3b reports](../reports/P3b.md) record both rounds and their evidence. E4, baselines, evaluation freeze, training and transfer measurements remain planned. The owner runs release review before publication. After this packaging task, STOP and wait for the owner; documentation does not authorize another experiment, model run, training job or publication.

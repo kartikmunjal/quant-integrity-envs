@@ -8,7 +8,8 @@ These environments test whether an agent can detect or avoid errors in quantitat
 - Validated locally: generator, checked runtime and E1/E5/E6 across **4 tiers**; **21,800** scripted numerical-gate rollouts.
 - Mutation engine and E2 validated on **8,200** screened synthetic gate rollouts; **3,000** exact E1/E5/E6 regression matches.
 - History: first E2 gate failed on infrastructure classification; its fix preceded a heavy-tail admission failure. Construction-only screening rejected **1 of 1,000** design seeds and excludes extreme-tail episodes.
-- Planned: E3, E4, model baselines, training and transfer studies.
+- E3 development prototype: preflight contract and round-two construction checks failed; not validated or frozen. Reports: [P3b](reports/P3b.md).
+- Planned: E4, model baselines, training and transfer studies.
 - No model results are claimed.
 
 ## Motivation
@@ -129,11 +130,15 @@ Sources: [p3a2-r2-stress-c8.json](results/p3a2-r2-stress-c8.json), [p3a2-r2-stre
 
 </details>
 
+## E3: development prototype, design checks failed
+
+A development prototype exists in [envs/e3_fdr_adjudication](envs/e3_fdr_adjudication). Its design checks failed in two rounds: the preflight contract was contradictory, and the round-two construction did not separate the controls. E3 is not validated or frozen. Both reports and their evidence are retained in [reports/P3b.md](reports/P3b.md).
+
 ## Planned work
 
 A hosted-sandbox runtime backend is under consideration, not started, with unknown feasibility.
 
-E3 multiple-testing adjudication and E4 the metered honest-null research loop are planned. Model baselines, evaluation freeze, leave-one-family-out training, GRPO and transfer studies are also planned. None is represented as a completed experiment. Model calls and GPU runs require the budget gate; sealed-test evaluation remains unavailable before its separate freeze. [Milestones](docs/MILESTONES.md) describe validation status and remaining research.
+E4, the metered honest-null research loop, remains planned. Model baselines, evaluation freeze, leave-one-family-out training, GRPO and transfer studies are also planned. None is represented as a completed experiment. Model calls and GPU runs require the budget gate; sealed-test evaluation remains unavailable before its separate freeze. [Milestones](docs/MILESTONES.md) describe validation status and remaining research.
 
 ## Generator and data card
 

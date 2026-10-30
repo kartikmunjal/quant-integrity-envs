@@ -173,7 +173,8 @@ def at_a_glance():
 - Validated locally: generator, checked runtime and E1/E5/E6 across **{len(next(iter(tier_sets)))} tiers**; **{count(total)}** scripted numerical-gate rollouts.
 - Mutation engine and E2 validated on **{count(e2['rows'])}** screened synthetic gate rollouts; **{count(exact)}** exact E1/E5/E6 regression matches.
 - History: first E2 gate failed on infrastructure classification; its fix preceded a heavy-tail admission failure. Construction-only screening rejected **{screen['rejected_count']} of {count(screen['count'])}** design seeds and excludes extreme-tail episodes.
-- Planned: E3, E4, model baselines, training and transfer studies.
+- E3 development prototype: preflight contract and round-two construction checks failed; not validated or frozen. Reports: [P3b](reports/P3b.md).
+- Planned: E4, model baselines, training and transfer studies.
 - No model results are claimed.'''
 
 
