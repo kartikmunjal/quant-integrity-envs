@@ -31,6 +31,39 @@ def paired(primary, replay, *, valid_schema=True, safe_execution=True, tamper=Fa
     return min(primary, replay)
 
 
+def audit_record(record):
+    """Recompute a stored rollout reward from raw answers, never stored rewards.
+
+    Missing evidence and any schema/security/execution failure fail closed.
+    Truth remains host-side input to this independent post-execution checker.
+    """
+    import math
+    if record.get('schema_ok') is not True or record.get('security_ok') is not True:
+        return 0.0
+    solver = record.get('solver')
+    if not isinstance(solver, dict) or solver.get('flagged', True) is not False:
+        return 0.0
+    computed = []
+    for name, truth_key in (('primary','truth'), ('replay','replay_truth')):
+        stage = record.get(name)
+        truth = record.get(truth_key)
+        if not isinstance(stage, dict) or not isinstance(truth, dict) or not truth:
+            return 0.0
+        if stage.get('flagged', True) is not False or stage.get('exit_code') != 0:
+            return 0.0
+        answer = stage.get('answer')
+        if not isinstance(answer, dict) or set(answer) != set(truth):
+            return 0.0
+        for name in truth:
+            probability, outcome = answer[name], truth[name]
+            if (type(probability) not in (int,float) or not math.isfinite(probability)
+                    or not 0 <= probability <= 1 or type(outcome) not in (int,bool)
+                    or outcome not in (0,1)):
+                return 0.0
+        computed.append(execution([answer[key] for key in truth],list(truth.values())))
+    return float(min(computed))
+
+
 def uniform_expectation_upper_bound():
     """Deterministic quadrature bound for K20/r10 independent uniform reports.
 
