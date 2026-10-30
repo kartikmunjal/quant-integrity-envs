@@ -1,1 +1,1 @@
-current_phase: P3b round 2 development and construction screening
+current_phase: P3b round 2 pre-gate construction and incentive failure, awaiting owner

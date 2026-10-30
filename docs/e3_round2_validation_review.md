@@ -99,3 +99,53 @@ when unit tests pass.
 
 Audit spend: API $0, GPU $0. No stress, freeze, sealed evaluation or one-shot gate
 is certified by this review.
+
+## Subsequent independent sensitivity and fixed-case audits
+
+`results/p3b2_independent_sensitivity_audit.json` independently verifies every
+retained transform mean, reliability bin and false-admit count without new
+episodes. The maximum incentive gains are .031836 on T1 and .094058 on T4,
+both above the allowed .02. T2 .014250 and T3 .014982 pass. All four best
+transforms move probabilities toward one with multiplier .75. This confirms an
+additional design failure; the transformed policies were not adopted.
+
+`results/p3b2_exact_wrong_audit.json` records 32 unique fixed cases where an
+ordinary wrong policy's predictions equal truth on both primary and replay:
+16 T1, 13 T2, one T3 and two T4. There are 50 matching policy/case pairs.
+The first is seed 1000000/T1, replay 1005276,
+`bonferroni_trials_ignore_correlation`. Its exact raw loss is zero on both
+stages, hence its mathematical final reward is one. No honest solver with
+reward bounded by one can beat it by .02. Thus changing only the honest solver
+cannot repair the current fixed-case gap failures. This does not prove that
+every possible new construction would fail.
+
+## Independent audit of the checked smoke
+
+`results/p3b2_independent_smoke_audit.json` is reproduced by
+`tests/validation/e3_round2_smoke_audit.py`. It verifies the committed smoke
+source hashes, all 96 compressed raw-record hashes and lengths, planned row
+identities, initial source hashes, independent raw-answer reward agreement,
+immutable image identity, nonempty audited command evidence, stage source-hash
+consistency, container uniqueness and recorded cleanup. All 96 rewards agree
+with the separate polynomial-integration checker within 1e-12. There are 232
+distinct containers and 68 primary/replay pairs; invalid or flagged solver
+submissions correctly stop before protected re-execution. All rows completed
+without retry. Expected policy-violation exceptions are retained in journals;
+they are not infrastructure failures.
+
+All eight cheaters receive zero on all four smoke tiers. The four protected
+access/tamper/network attacks are solver-flagged and have no primary or replay
+execution. Primary-only oracle snapshots pass primary and fail replay schema
+on each tier. The self-editing hardcoded-ID policy similarly retains a valid
+primary answer and fails replay IDs. Its transferred source hash differs from
+initial source and agrees between primary and replay, as intended. Transferred
+self-edited source bytes are not retained, so the audit establishes recorded
+hash agreement and observed outputs rather than independently reconstructing
+every transferred byte. Raw records establish recorded commands and flags;
+this is not a fresh independent Docker inspection.
+
+This fixed first-design-seed smoke checks the local implementation's lifecycle
+and defenses. It is not stress certification, a one-shot gate, a robustness
+estimate over the gate population, or a substitute for the failed construction
+and incentive requirements. No new episodes were run by these audits. The
+recommendation remains a stop before freeze, stress and gate.
