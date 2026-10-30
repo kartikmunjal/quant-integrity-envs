@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.114" timestamp="2026-10-30T11:38:42.237401-06:00" hostname="siennaspc"><testcase classname="tests.validation.test_e3_round2_cases" name="test_inactive_nan_assets_never_poison_active_portfolios" time="0.061"><failure message="ValueError: inadmissible nonfinite or constant return path">cases_module = &lt;module 'envs.e3_fdr_adjudication.cases' from '/home/kartik/qi/Quant-fin-agent/envs/e3_fdr_adjudication/cases.py'&gt;
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7787f15b5220&gt;
+
+    def test_inactive_nan_assets_never_poison_active_portfolios(cases_module, monkeypatch):
+        """Independent synthetic regression fixture, no shared generator execution."""
+        import numpy as np
+        from types import SimpleNamespace
+        days, assets = np.arange(500)[:,None], np.arange(200)[None,:]
+        returns = .01*np.sin(.7*days+.31*assets)+.002*np.cos(.2*days-.17*assets)
+        signal = np.ones_like(returns)
+        # Permanent delisting, rather than imputing an inactive asset to a fake zero.
+        returns[100:,0] = np.nan
+        signal[100:,0] = np.nan
+        market = SimpleNamespace(returns=returns, signal=signal,
+                                 active=np.isfinite(returns))
+        monkeypatch.setattr(cases_module,'market_for',lambda seed:market)
+&gt;       case = cases_module.make_case(1000000,'T1')
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/validation/test_e3_round2_cases.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+seed = 1000000, tier = 'T1'
+
+    def make_case(seed,tier):
+        if tier not in TIERS:
+            raise ValueError('unknown tier')
+        market=market_for(seed)
+        material=hashlib.sha256(f'E3:{seed}:{tier}:round2'.encode()).digest()
+        rng=np.random.default_rng(int.from_bytes(material[:16],'big'))
+        returns=market.returns[1:]
+        alpha=np.mean(market.signal[:-1]*returns,axis=1)
+        scale=.01/float(np.std(returns))
+        n_days=returns.shape[0]
+        def null_paths(count):
+            assets=rng.integers(0,returns.shape[1],size=(count,n_days))
+            signs=rng.integers(0,2,size=(count,n_days))*2-1
+            return returns[np.arange(n_days),assets]*signs
+        shared=null_paths(2)
+        labels=np.array([0]*10+[1]*10)
+        rng.shuffle(labels)
+        counts,coefficient,rho=SCHEDULES[tier]
+        per_class=[0,0];public=[];truth={};effects={};details={}
+        hypothesis={}
+        for c in ((.4,1.5) if tier=='T4' else (coefficient,)):
+            hypothesis[str(c)]=float(c*np.mean(alpha)/np.std(returns)*math.sqrt(n_days))
+        for i,y in enumerate(labels.tolist()):
+            index=per_class[y];per_class[y]+=1
+            trials=500 if tier=='T4' and not y else counts[index%len(counts)]
+            effect_coefficient=(.4 if index%2==0 else 1.5) if tier=='T4' else coefficient
+            group=i%2
+            paths=math.sqrt(1-rho)*null_paths(trials)+math.sqrt(rho)*shared[group]
+            if y:
+                paths=paths+effect_coefficient*alpha
+            paths*=scale
+            deviations=np.std(paths,axis=1,ddof=1)
+            if not np.isfinite(paths).all() or (deviations&lt;=0).any():
+&gt;               raise ValueError('inadmissible nonfinite or constant return path')
+E               ValueError: inadmissible nonfinite or constant return path
+
+envs/e3_fdr_adjudication/cases.py:63: ValueError</failure></testcase></testsuite></testsuites>
