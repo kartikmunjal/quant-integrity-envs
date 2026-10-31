@@ -307,6 +307,8 @@ Sources: [p2d3-r2-determinism-E1-c24.json](results/p2d3-r2-determinism-E1-c24.js
 
 ## Limitations
 
+- In the frozen runtime used for the historical gates reported here, a solver or submitted program that exhausts the container's 32-process allowance produces an infrastructure failure (incomplete attempt), not a policy zero. The committed historical gate cheater and attack rosters contain no process-exhaustion attack ([roster review](results/p5b_historical_roster_review.json)); a later development-branch boundary batch exposed this failure. A narrow fix is under validation on a development branch.
+
 - E2 uses **one synthetic script template with twelve mutations, each in three realizations**. Its scripted oracle demonstrates solvability within that template grammar, **not model performance** or general code-auditing ability.
 - All data are synthetic; real-market validity is not established.
 - Validation uses the project's checked local Docker execution. Hosted Hub and model-harness compatibility are not established.
