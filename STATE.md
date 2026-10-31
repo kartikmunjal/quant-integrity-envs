@@ -1,1 +1,1 @@
-current_phase: P5a round 2 STOP, awaiting owner; boundary gate failed 16 fork-heavy incomplete infrastructure attempts (protected completion status missing); 176 containers removed, zero retries, zero remaining owned IDs; sentinel/equivalence/stress plans committed but unrun; no paid pilot
+current_phase: P5b owner-authorized narrow process-exhaustion runtime change; implementation939e0a1c and nine independent live/regression plansfff2e039 committed; live probes in progress; spend0; no paid pilot or next phase
