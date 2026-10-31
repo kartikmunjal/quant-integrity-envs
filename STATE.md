@@ -1,1 +1,1 @@
-current_phase: P3b round 2 pre-gate construction and incentive failure, awaiting owner
+current_phase: P5a model-driven harness and spend-safe tooling; model-harness branch; provider calls forbidden

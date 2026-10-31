@@ -68,8 +68,10 @@ class _NoRedirect(HTTPRedirectHandler):
 
 
 class CompatibleClient:
-    def __init__(self,config):
+    def __init__(self,config,budget=None):
         self.config=config
+        self.budget=budget
+        self.stop_required=False
         self._secrets=[]
         if config.allow_loopback_test:
             u=urlsplit(config.base_url)
@@ -92,12 +94,18 @@ class CompatibleClient:
             raise RuntimeError('P5a provider calls locked; owner authorization in a later phase is required')
         if type(max_completion_tokens) is not int or max_completion_tokens<=0:
             raise ValueError('positive completion limit required')
-        key=read_key(self.config.key_env_name)
-        self._secrets.append(key)
         body={'model':self.config.model,'messages':messages,'tools':tools,
               'max_completion_tokens':max_completion_tokens,'stream':False}
         raw=json.dumps(body,allow_nan=False).encode()
         if len(raw)>2_097_152:raise ValueError('request exceeds bound')
+        if self.budget is None:raise ValueError('priced budget authorization required')
+        # This transport is loopback-test-only. A later provider integration must
+        # validate its token upper-bound contract before unlocking paid dispatch.
+        reservation=self.budget.reserve(self.config.model,len(raw)+4096,max_completion_tokens)
+        try:key=read_key(self.config.key_env_name)
+        except BaseException:
+            self.budget.cancel(reservation);raise
+        self._secrets.append(key)
         def request():
             # No proxy/environment discovery, redirects, retries or provider SDK.
             opener=build_opener(ProxyHandler({}),_NoRedirect())
@@ -110,7 +118,16 @@ class CompatibleClient:
                 return json.loads(data)
             except Exception:
                 raise RuntimeError('compatible test transport failed; response/headers omitted') from None
-        data=await asyncio.to_thread(request)
+        try:data=await asyncio.to_thread(request)
+        except BaseException:
+            self.budget.uncertain(reservation);raise
+        try:
+            usage=data['usage']
+            decision=self.budget.settle(reservation,usage['prompt_tokens'],usage['completion_tokens'])
+            self.stop_required=decision.stop_required
+        except (KeyError,TypeError,ValueError):
+            self.budget.uncertain(reservation)
+            raise RuntimeError('response usage missing; budget reconciliation required') from None
         try:
             message=self.redact(data['choices'][0]['message']);usage=data['usage']
             calls=[]
