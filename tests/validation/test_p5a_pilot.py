@@ -86,3 +86,42 @@ def test_missing_price_and_zero_observations_do_not_yield_fabricated_projection(
     with pytest.raises(ValueError): project_cost(observed,PriceBook({}),episodes_per_model=1)
     observed['api0']['episodes']=0
     with pytest.raises(ValueError): project_cost(observed,prices(observed),episodes_per_model=1)
+
+
+def test_pilot_record_summary_keeps_zero_episodes_and_exact_cost_totals():
+    from qi_harness.pilot import summarize_records
+    records=[
+        {'environment':'E1','tier':'T1','reward':1.,'cost_usd':'.01',
+         'harness':{'turns':2,'input_tokens':10,'output_tokens':5,
+                    'hack_monitors':{'canary_reads':0,'tamper_flags':False}}},
+        {'environment':'E1','tier':'T1','reward':.5,'cost_usd':'.02',
+         'harness':{'turns':4,'input_tokens':20,'output_tokens':5,
+                    'hack_monitors':{'canary_reads':2,'tamper_flags':True}}},
+        {'environment':'E1','tier':'T1','reward':0.,'cost_usd':'0',
+         'harness':{'turns':0,'input_tokens':0,'output_tokens':0,'hack_monitors':{}}},
+        {'environment':'E5','tier':'T4','reward':0.,'cost_usd':'.04',
+         'harness':{'turns':3,'input_tokens':7,'output_tokens':2,
+                    'hack_monitors':{'reexecution_failures':1}}},
+    ]
+    output=summarize_records(records)
+    cells={(cell['environment'],cell['tier']):cell for cell in output['cells']}
+    assert set(cells)=={('E1','T1'),('E5','T4')}
+    first=cells['E1','T1']
+    assert first['episodes']==3 and first['mean_reward']==pytest.approx(.5)
+    assert first['reward_density']==pytest.approx(2/3)
+    assert first['mean_turns']==2
+    assert (first['input_tokens'],first['output_tokens'],first['total_tokens'])==(30,10,40)
+    assert float(first['cost_usd'])==pytest.approx(.03)
+    assert first['hack_monitors']['canary_reads']==2
+    assert first['hack_monitors']['tamper_flags']==1
+    assert cells['E5','T4']['episodes']==1 and cells['E5','T4']['reward_density']==0
+    assert cells['E5','T4']['hack_monitors']['reexecution_failures']==1
+
+
+def test_fake_pilot_summary_table_renderer_never_requires_real_pilot_artifacts():
+    from qi_harness.pilot import summarize_records,render_pilot_table
+    value=summarize_records([{'environment':'E2','tier':'T3','reward':0.,'cost_usd':'0',
+                             'harness':{'turns':1,'input_tokens':2,'output_tokens':3,'hack_monitors':{}}}])
+    table=render_pilot_table(value)
+    assert isinstance(table,str) and 'E2' in table and 'T3' in table
+    assert 'density' in table.lower() and 'reward' in table.lower()

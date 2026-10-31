@@ -102,3 +102,15 @@ def test_repeated_settlement_cannot_duplicate_metered_cost(tmp_path):
     instance.settle(reservation,8,0)
     with pytest.raises(ValueError): instance.settle(reservation,8,0)
     assert read_spend(spend)['api']==Decimal('8')
+
+
+def test_uncertain_dispatch_retains_reservation_and_forbids_silent_cancellation(tmp_path):
+    import json
+    instance,spend=controller(tmp_path)
+    reservation=instance.reserve('fake',1,0)
+    instance.uncertain(reservation)
+    assert not spend.exists()  # unknown usage is not an invented actual charge
+    state=json.loads(instance.reservations_path.read_text())
+    assert state['stop'] and state['pending'][reservation]['uncertain']
+    with pytest.raises(RuntimeError): instance.cancel(reservation)
+    with pytest.raises(RuntimeError): instance.reserve('fake',1,0)
