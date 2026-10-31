@@ -71,12 +71,16 @@ def extended_audit(trace,confined_helper=False):
         try:quoted=[ast.literal_eval(value) for value in strings]
         except (SyntaxError,ValueError):return no('undecodable trace path')
         if not confined_helper:
-            for path in quoted:
-                if path.startswith('/'):
-                    normalized=posixpath.normpath(path)
-                    if normalized=='/opt' or normalized.startswith('/opt/') or normalized=='/proc' or normalized.startswith('/proc/') and normalized not in ('/proc/self/exe','/proc/thread-self/exe'):
-                        return no('protected namespace or process alias access')
-                    if 'qi-private' in normalized:return no('host-private namespace access')
+            annotated=re.findall(r'<(/[^>]*)>',body)
+            base=annotated[0] if annotated else '/work'
+            # These exact kernel metadata files are read by the pinned Python
+            # allocator/interpreter. No process-root/fd/environment aliases allowed.
+            public_proc={'/proc/self/exe','/proc/thread-self/exe','/proc/self/maps','/proc/sys/vm/overcommit_memory'}
+            for path in [*quoted,*annotated]:
+                normalized=posixpath.normpath(path if path.startswith('/') else posixpath.join(base,path))
+                if normalized=='/opt' or normalized.startswith('/opt/') or normalized=='/proc' or normalized.startswith('/proc/') and normalized not in public_proc:
+                    return no('protected namespace or process alias access')
+                if 'qi-private' in normalized:return no('host-private namespace access')
         try:arguments=_arguments(body)
         except ValueError:return no('unknown syscall arguments')
         at_indices={'openat':(0,),'openat2':(0,),'mkdirat':(0,),'mknodat':(0,),
