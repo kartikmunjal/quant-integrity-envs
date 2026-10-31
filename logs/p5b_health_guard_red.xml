@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="4.076" timestamp="2026-10-31T17:02:38.016413-06:00" hostname="siennaspc"><testcase classname="tests.validation.test_p5b_unhealthy_exhaustion" name="test_positive_delta_with_unhealthy_or_unavailable_daemon_cannot_return_success[health0]" time="3.635"><failure message="Failed: DID NOT RAISE &lt;class 'qi_runtime.infrastructure.InfrastructureError'&gt;">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7837503709d0&gt;
+health = {'success': False}
+
+    @pytest.mark.parametrize('health',[{'success':False},None,{}, {'success':1}])
+    def test_positive_delta_with_unhealthy_or_unavailable_daemon_cannot_return_success(monkeypatch,health):
+        import qi_runtime as module
+        from qi_runtime.infrastructure import InfrastructureError,classify_exception
+        from verifiers.v1.runtimes.base import ProgramResult
+        identity='3'*64
+        before={'container_id':identity,'init_pid':23456,
+                'cgroup_path':'/sys/fs/cgroup/docker/'+identity,'pids_max':32,'max_events':0}
+        samples=iter([before,dict(before,max_events=1)])
+        events=[]
+        async def snapshot(runtime):return next(samples)
+        async def probe():events.append('health');return health
+        async def command(*args):
+            events.append('successful_child_after_exhaustion')
+            return ProgramResult(0,'{"answer":"untrusted successful output"}','')
+        runtime=SimpleNamespace(flagged=False,_process_allowance_violation=False,
+                                _run_command=command,commands=[],stopped=False,
+                                name='synthetic',info=SimpleNamespace(id=identity))
+        async def stop():events.append('outer_cleanup');runtime.stopped=True
+        runtime.stop=stop
+        monkeypatch.setattr(module,'host_pids_snapshot',snapshot)
+        monkeypatch.setattr(module,'daemon_probe',probe)
+        async def scenario():
+            try:
+                with pytest.raises(InfrastructureError) as caught:
+                    await module.CheckedRuntime.run(runtime,['synthetic'],{})
+                assert classify_exception(caught.value)=='infrastructure'
+            finally:await runtime.stop()
+&gt;       asyncio.run(scenario())
+
+tests/validation/test_p5b_unhealthy_exhaustion.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.14/asyncio/runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    async def scenario():
+        try:
+&gt;           with pytest.raises(InfrastructureError) as caught:
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE &lt;class 'qi_runtime.infrastructure.InfrastructureError'&gt;
+
+tests/validation/test_p5b_unhealthy_exhaustion.py:37: Failed</failure></testcase><testcase classname="tests.validation.test_p5b_unhealthy_exhaustion" name="test_positive_delta_with_unhealthy_or_unavailable_daemon_cannot_return_success[None]" time="0.002"><failure message="Failed: DID NOT RAISE &lt;class 'qi_runtime.infrastructure.InfrastructureError'&gt;">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x783750370640&gt;
+health = None
+
+    @pytest.mark.parametrize('health',[{'success':False},None,{}, {'success':1}])
+    def test_positive_delta_with_unhealthy_or_unavailable_daemon_cannot_return_success(monkeypatch,health):
+        import qi_runtime as module
+        from qi_runtime.infrastructure import InfrastructureError,classify_exception
+        from verifiers.v1.runtimes.base import ProgramResult
+        identity='3'*64
+        before={'container_id':identity,'init_pid':23456,
+                'cgroup_path':'/sys/fs/cgroup/docker/'+identity,'pids_max':32,'max_events':0}
+        samples=iter([before,dict(before,max_events=1)])
+        events=[]
+        async def snapshot(runtime):return next(samples)
+        async def probe():events.append('health');return health
+        async def command(*args):
+            events.append('successful_child_after_exhaustion')
+            return ProgramResult(0,'{"answer":"untrusted successful output"}','')
+        runtime=SimpleNamespace(flagged=False,_process_allowance_violation=False,
+                                _run_command=command,commands=[],stopped=False,
+                                name='synthetic',info=SimpleNamespace(id=identity))
+        async def stop():events.append('outer_cleanup');runtime.stopped=True
+        runtime.stop=stop
+        monkeypatch.setattr(module,'host_pids_snapshot',snapshot)
+        monkeypatch.setattr(module,'daemon_probe',probe)
+        async def scenario():
+            try:
+                with pytest.raises(InfrastructureError) as caught:
+                    await module.CheckedRuntime.run(runtime,['synthetic'],{})
+                assert classify_exception(caught.value)=='infrastructure'
+            finally:await runtime.stop()
+&gt;       asyncio.run(scenario())
+
+tests/validation/test_p5b_unhealthy_exhaustion.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.14/asyncio/runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    async def scenario():
+        try:
+&gt;           with pytest.raises(InfrastructureError) as caught:
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE &lt;class 'qi_runtime.infrastructure.InfrastructureError'&gt;
+
+tests/validation/test_p5b_unhealthy_exhaustion.py:37: Failed</failure></testcase><testcase classname="tests.validation.test_p5b_unhealthy_exhaustion" name="test_positive_delta_with_unhealthy_or_unavailable_daemon_cannot_return_success[health2]" time="0.002"><failure message="Failed: DID NOT RAISE &lt;class 'qi_runtime.infrastructure.InfrastructureError'&gt;">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x78371f0c1d90&gt;
+health = {}
+
+    @pytest.mark.parametrize('health',[{'success':False},None,{}, {'success':1}])
+    def test_positive_delta_with_unhealthy_or_unavailable_daemon_cannot_return_success(monkeypatch,health):
+        import qi_runtime as module
+        from qi_runtime.infrastructure import InfrastructureError,classify_exception
+        from verifiers.v1.runtimes.base import ProgramResult
+        identity='3'*64
+        before={'container_id':identity,'init_pid':23456,
+                'cgroup_path':'/sys/fs/cgroup/docker/'+identity,'pids_max':32,'max_events':0}
+        samples=iter([before,dict(before,max_events=1)])
+        events=[]
+        async def snapshot(runtime):return next(samples)
+        async def probe():events.append('health');return health
+        async def command(*args):
+            events.append('successful_child_after_exhaustion')
+            return ProgramResult(0,'{"answer":"untrusted successful output"}','')
+        runtime=SimpleNamespace(flagged=False,_process_allowance_violation=False,
+                                _run_command=command,commands=[],stopped=False,
+                                name='synthetic',info=SimpleNamespace(id=identity))
+        async def stop():events.append('outer_cleanup');runtime.stopped=True
+        runtime.stop=stop
+        monkeypatch.setattr(module,'host_pids_snapshot',snapshot)
+        monkeypatch.setattr(module,'daemon_probe',probe)
+        async def scenario():
+            try:
+                with pytest.raises(InfrastructureError) as caught:
+                    await module.CheckedRuntime.run(runtime,['synthetic'],{})
+                assert classify_exception(caught.value)=='infrastructure'
+            finally:await runtime.stop()
+&gt;       asyncio.run(scenario())
+
+tests/validation/test_p5b_unhealthy_exhaustion.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.14/asyncio/runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    async def scenario():
+        try:
+&gt;           with pytest.raises(InfrastructureError) as caught:
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE &lt;class 'qi_runtime.infrastructure.InfrastructureError'&gt;
+
+tests/validation/test_p5b_unhealthy_exhaustion.py:37: Failed</failure></testcase><testcase classname="tests.validation.test_p5b_unhealthy_exhaustion" name="test_positive_delta_with_unhealthy_or_unavailable_daemon_cannot_return_success[health3]" time="0.002"><failure message="Failed: DID NOT RAISE &lt;class 'qi_runtime.infrastructure.InfrastructureError'&gt;">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x78371f0cb350&gt;
+health = {'success': 1}
+
+    @pytest.mark.parametrize('health',[{'success':False},None,{}, {'success':1}])
+    def test_positive_delta_with_unhealthy_or_unavailable_daemon_cannot_return_success(monkeypatch,health):
+        import qi_runtime as module
+        from qi_runtime.infrastructure import InfrastructureError,classify_exception
+        from verifiers.v1.runtimes.base import ProgramResult
+        identity='3'*64
+        before={'container_id':identity,'init_pid':23456,
+                'cgroup_path':'/sys/fs/cgroup/docker/'+identity,'pids_max':32,'max_events':0}
+        samples=iter([before,dict(before,max_events=1)])
+        events=[]
+        async def snapshot(runtime):return next(samples)
+        async def probe():events.append('health');return health
+        async def command(*args):
+            events.append('successful_child_after_exhaustion')
+            return ProgramResult(0,'{"answer":"untrusted successful output"}','')
+        runtime=SimpleNamespace(flagged=False,_process_allowance_violation=False,
+                                _run_command=command,commands=[],stopped=False,
+                                name='synthetic',info=SimpleNamespace(id=identity))
+        async def stop():events.append('outer_cleanup');runtime.stopped=True
+        runtime.stop=stop
+        monkeypatch.setattr(module,'host_pids_snapshot',snapshot)
+        monkeypatch.setattr(module,'daemon_probe',probe)
+        async def scenario():
+            try:
+                with pytest.raises(InfrastructureError) as caught:
+                    await module.CheckedRuntime.run(runtime,['synthetic'],{})
+                assert classify_exception(caught.value)=='infrastructure'
+            finally:await runtime.stop()
+&gt;       asyncio.run(scenario())
+
+tests/validation/test_p5b_unhealthy_exhaustion.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.14/asyncio/runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    async def scenario():
+        try:
+&gt;           with pytest.raises(InfrastructureError) as caught:
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE &lt;class 'qi_runtime.infrastructure.InfrastructureError'&gt;
+
+tests/validation/test_p5b_unhealthy_exhaustion.py:37: Failed</failure></testcase></testsuite></testsuites>
