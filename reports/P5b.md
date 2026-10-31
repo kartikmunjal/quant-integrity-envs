@@ -1,0 +1,11 @@
+# P5b — process-allowance exhaustion hardening
+
+Status: prospective implementation and independent validation in progress; no acceptance claim. Spend cap for this phase is $0. Paid pilot/provider execution remains locked.
+
+Owner authorization is limited to classification and cleanup when a solver command or submitted source exhausts the fixed 32-process container allowance. Thresholds, rewards, verifiers, generator, privileges and every existing sandbox boundary remain unchanged. The P5a round-2 boundary failure had been seen. Earlier gate results and freezes keep their historical runtime identities.
+
+The proposed minimal mechanism reads the local host's cgroup-v2 `pids.events` max counter before and after a command, with Docker identity, init PID, cgroup path and pids.max=32 bound across both snapshots. A strict positive counter delta plus a fresh successful daemon health probe is required for a policy violation. Missing, stale, decreasing, unreadable or mismatched evidence preserves infrastructure classification. No process is started inside the container to collect evidence. Exhaustion must cause a flagged hard zero, confirmed removal and no retry, including native primary/replay/poison execution. Subsequent native transfer rejects reads only for this confirmed exhaustion outcome.
+
+Lower per-user limits are rejected because the nobody UID can be shared by neighboring containers. Fork-syntax guards are bypassable. Blanket process prohibition would break legitimate subprocess behavior. None is implemented. Host support requires a local daemon sharing host PID/cgroup visibility; this host reports cgroup v2, Ubuntu 26.04.1 LTS, and WSL2 kernel 6.18.54.1-microsoft-standard-WSL2. Unsupported or unavailable host evidence fails closed to the existing infrastructure outcome.
+
+Independent validation author `/root/e1_review` owns tests and comparison/audit drivers, written before implementation. Root owns runtime implementation. The prescribed exact regressions precede the P5a rerun; any regression difference or failed batch stops later batches. Exact P5a seed/policy populations remain those committed for round 2; new execution envelopes bind the authorized new runtime without changing those rows.
