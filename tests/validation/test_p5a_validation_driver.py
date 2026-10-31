@@ -13,16 +13,20 @@ def driver():
     return module
 
 
-def test_plan_has_two_hundred_per_environment_for_every_selected_control(monkeypatch):
+def test_p14_plan_has_fifty_oracles_and_ten_per_wrong_cheater_per_tier(monkeypatch):
     module=driver()
     monkeypatch.setattr(module,'policy_binding',lambda environment:(None,[f'w{i}' for i in range(6)],['c0','c1'],None))
     windows={name:[1000100,1000199] for name in module.ENVIRONMENTS}
     plan=module.build_plan(windows)
     from collections import Counter
     counts=Counter((r['environment'],r['policy'],r['tier']) for r in plan)
-    assert len(plan)==4*8*200
-    assert all(count==50 for count in counts.values())
+    assert len(plan)==4*(200+7*40)
+    assert all(count==(50 if policy=='oracle' else 10)
+               for (environment,policy,tier),count in counts.items())
     assert {r['policy'] for r in plan}=={'oracle','w0','w1','w2','w3','w4','c0','c1'}
+    for row in plan:
+        width=50 if row['role']=='oracle' else 10
+        assert windows[row['environment']][0]<=row['seed']<windows[row['environment']][0]+width
 
 
 def test_semantic_comparison_excludes_only_operational_metadata():

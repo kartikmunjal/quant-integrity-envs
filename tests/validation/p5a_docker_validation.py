@@ -62,7 +62,7 @@ def policy_binding(environment):
 
 
 def build_plan(windows):
-    """200 model episodes/environment/policy, with matching baseline episodes."""
+    """P14: 50 oracle/tier; 10 of each wrong/cheater/tier, paired baselines."""
     rows=[]
     for environment in ENVIRONMENTS:
         _,wrong,attacks,_=policy_binding(environment)
@@ -72,7 +72,7 @@ def build_plan(windows):
         for role,names in (('oracle',['oracle']),('wrong',wrong[:5]),('cheater',attacks)):
             for policy in names:
                 for tier in TIERS:
-                    for seed in range(start,start+50):
+                    for seed in range(start,start+(50 if role=='oracle' else 10)):
                         rows.append({'environment':environment,'policy':policy,'tier':tier,'seed':seed,'role':role})
     return rows
 
