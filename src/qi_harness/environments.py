@@ -45,7 +45,7 @@ class ModelHarness(vf.Harness[ModelHarnessConfig]):
         tools=ToolSession(runtime,environment,_LIMITS.get(),messages_for(environment,data.prompt))
         loop=await run_loop(_CLIENT.get(),tools,_LIMITS.get())
         trace.info['p5a_harness']={**loop,'terminal':tools.terminal or not tools.submitted,'tools':tools.records,
-                                   'provider_execution':'locked during P5a','environment':environment,'hack_monitors':tools.hack_monitors}
+                                   'provider_execution':'locked during P5a','environment':environment,'hack_monitors':tools.hack_monitors,'trace_refs':tools.trace_refs}
         return vf.ProgramResult(0,'','')
 
 
