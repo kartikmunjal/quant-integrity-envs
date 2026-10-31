@@ -59,6 +59,18 @@ def test_absolute_work_write_with_nofollow_is_safe_despite_irrelevant_numeric_di
     assert extended_audit(trace)['safe'] is True
 
 
+@pytest.mark.parametrize('trace',[
+    'openat(AT_FDCWD</work>, "/opt", O_RDONLY|O_DIRECTORY) = 3\n'
+    'openat(3, "qi", O_RDONLY|O_DIRECTORY) = 4\n'
+    'openat(4, "./canary", O_RDONLY) = 5\n',
+    'openat(AT_FDCWD</work>, "/proc/self/root", O_RDONLY|O_DIRECTORY) = 3\n'
+    'openat(3, "opt/qi/./harness", O_RDONLY) = 4\n',
+])
+def test_descriptor_relative_protected_reads_cannot_bypass_literal_path_audit(trace):
+    from qi_harness.tools import extended_audit
+    assert extended_audit(trace)['safe'] is False
+
+
 class FakeRuntime:
     def __init__(self,stdout='fixture',stderr=SAFE_TRACE,exit_code=0):
         self.flagged=False;self.calls=[];self.stdout=stdout;self.stderr=stderr;self.exit_code=exit_code
