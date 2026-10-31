@@ -18,3 +18,6 @@ class Limits:
                 raise ValueError('limits must be positive finite numbers')
             if name != 'wall_seconds' and type(value) is not int:
                 raise ValueError('count and byte limits must be integers')
+
+# Fixed public values only; never copied from the host environment.
+SOLVER_ENV={'PATH':'/usr/local/bin:/usr/bin:/bin','LANG':'C.UTF-8','PYTHONDONTWRITEBYTECODE':'1'}
