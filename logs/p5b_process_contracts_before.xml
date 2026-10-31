@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="29" skipped="0" tests="29" time="2.096" timestamp="2026-10-31T16:38:07.615260-06:00" hostname="siennaspc"><testcase classname="tests.validation.test_p5b_process_allowance" name="test_classifier_requires_fresh_positive_host_counter_and_healthy_daemon" time="1.796"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">def test_classifier_requires_fresh_positive_host_counter_and_healthy_daemon():
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:19: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero[None-after0-health0]" time="0.001"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">before = None
+after = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 3, ...}
+health = {'success': True}
+
+    @pytest.mark.parametrize('before,after,health', [
+        (None, snapshot(3), {'success': True}),
+        (snapshot(), None, {'success': True}),
+        (snapshot(), snapshot(), {'success': True}),
+        (snapshot(), snapshot(1), {'success': True}),
+        (snapshot(), snapshot(3), None),
+        (snapshot(), snapshot(3), {}),
+        (snapshot(), snapshot(3), {'success': False}),
+        (snapshot(), snapshot(3), {'success': 1}),
+        (snapshot(), snapshot(3, container_id='2'*64), {'success': True}),
+        (snapshot(), snapshot(3, init_pid=12346), {'success': True}),
+        (snapshot(), snapshot(3, cgroup_path='/work/pids.events'), {'success': True}),
+        (snapshot(), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(pids_max=64), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(max_events='2'), snapshot(3), {'success': True}),
+        (snapshot(max_events=True), snapshot(3), {'success': True}),
+        (snapshot(), snapshot(max_events='3'), {'success': True}),
+        (snapshot(), snapshot(max_events=True), {'success': True}),
+        (snapshot(max_events=-1), snapshot(3), {'success': True}),
+        (snapshot(init_pid=0), snapshot(3, init_pid=0), {'success': True}),
+    ])
+    def test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero(before,after,health):
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:46: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero[before1-None-health1]" time="0.000"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">before = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 2, ...}
+after = None, health = {'success': True}
+
+    @pytest.mark.parametrize('before,after,health', [
+        (None, snapshot(3), {'success': True}),
+        (snapshot(), None, {'success': True}),
+        (snapshot(), snapshot(), {'success': True}),
+        (snapshot(), snapshot(1), {'success': True}),
+        (snapshot(), snapshot(3), None),
+        (snapshot(), snapshot(3), {}),
+        (snapshot(), snapshot(3), {'success': False}),
+        (snapshot(), snapshot(3), {'success': 1}),
+        (snapshot(), snapshot(3, container_id='2'*64), {'success': True}),
+        (snapshot(), snapshot(3, init_pid=12346), {'success': True}),
+        (snapshot(), snapshot(3, cgroup_path='/work/pids.events'), {'success': True}),
+        (snapshot(), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(pids_max=64), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(max_events='2'), snapshot(3), {'success': True}),
+        (snapshot(max_events=True), snapshot(3), {'success': True}),
+        (snapshot(), snapshot(max_events='3'), {'success': True}),
+        (snapshot(), snapshot(max_events=True), {'success': True}),
+        (snapshot(max_events=-1), snapshot(3), {'success': True}),
+        (snapshot(init_pid=0), snapshot(3, init_pid=0), {'success': True}),
+    ])
+    def test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero(before,after,health):
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:46: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero[before2-after2-health2]" time="0.000"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">before = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 2, ...}
+after = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 2, ...}
+health = {'success': True}
+
+    @pytest.mark.parametrize('before,after,health', [
+        (None, snapshot(3), {'success': True}),
+        (snapshot(), None, {'success': True}),
+        (snapshot(), snapshot(), {'success': True}),
+        (snapshot(), snapshot(1), {'success': True}),
+        (snapshot(), snapshot(3), None),
+        (snapshot(), snapshot(3), {}),
+        (snapshot(), snapshot(3), {'success': False}),
+        (snapshot(), snapshot(3), {'success': 1}),
+        (snapshot(), snapshot(3, container_id='2'*64), {'success': True}),
+        (snapshot(), snapshot(3, init_pid=12346), {'success': True}),
+        (snapshot(), snapshot(3, cgroup_path='/work/pids.events'), {'success': True}),
+        (snapshot(), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(pids_max=64), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(max_events='2'), snapshot(3), {'success': True}),
+        (snapshot(max_events=True), snapshot(3), {'success': True}),
+        (snapshot(), snapshot(max_events='3'), {'success': True}),
+        (snapshot(), snapshot(max_events=True), {'success': True}),
+        (snapshot(max_events=-1), snapshot(3), {'success': True}),
+        (snapshot(init_pid=0), snapshot(3, init_pid=0), {'success': True}),
+    ])
+    def test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero(before,after,health):
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:46: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero[before3-after3-health3]" time="0.000"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">before = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 2, ...}
+after = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 1, ...}
+health = {'success': True}
+
+    @pytest.mark.parametrize('before,after,health', [
+        (None, snapshot(3), {'success': True}),
+        (snapshot(), None, {'success': True}),
+        (snapshot(), snapshot(), {'success': True}),
+        (snapshot(), snapshot(1), {'success': True}),
+        (snapshot(), snapshot(3), None),
+        (snapshot(), snapshot(3), {}),
+        (snapshot(), snapshot(3), {'success': False}),
+        (snapshot(), snapshot(3), {'success': 1}),
+        (snapshot(), snapshot(3, container_id='2'*64), {'success': True}),
+        (snapshot(), snapshot(3, init_pid=12346), {'success': True}),
+        (snapshot(), snapshot(3, cgroup_path='/work/pids.events'), {'success': True}),
+        (snapshot(), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(pids_max=64), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(max_events='2'), snapshot(3), {'success': True}),
+        (snapshot(max_events=True), snapshot(3), {'success': True}),
+        (snapshot(), snapshot(max_events='3'), {'success': True}),
+        (snapshot(), snapshot(max_events=True), {'success': True}),
+        (snapshot(max_events=-1), snapshot(3), {'success': True}),
+        (snapshot(init_pid=0), snapshot(3, init_pid=0), {'success': True}),
+    ])
+    def test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero(before,after,health):
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:46: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero[before4-after4-None]" time="0.000"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">before = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 2, ...}
+after = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 3, ...}
+health = None
+
+    @pytest.mark.parametrize('before,after,health', [
+        (None, snapshot(3), {'success': True}),
+        (snapshot(), None, {'success': True}),
+        (snapshot(), snapshot(), {'success': True}),
+        (snapshot(), snapshot(1), {'success': True}),
+        (snapshot(), snapshot(3), None),
+        (snapshot(), snapshot(3), {}),
+        (snapshot(), snapshot(3), {'success': False}),
+        (snapshot(), snapshot(3), {'success': 1}),
+        (snapshot(), snapshot(3, container_id='2'*64), {'success': True}),
+        (snapshot(), snapshot(3, init_pid=12346), {'success': True}),
+        (snapshot(), snapshot(3, cgroup_path='/work/pids.events'), {'success': True}),
+        (snapshot(), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(pids_max=64), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(max_events='2'), snapshot(3), {'success': True}),
+        (snapshot(max_events=True), snapshot(3), {'success': True}),
+        (snapshot(), snapshot(max_events='3'), {'success': True}),
+        (snapshot(), snapshot(max_events=True), {'success': True}),
+        (snapshot(max_events=-1), snapshot(3), {'success': True}),
+        (snapshot(init_pid=0), snapshot(3, init_pid=0), {'success': True}),
+    ])
+    def test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero(before,after,health):
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:46: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero[before5-after5-health5]" time="0.000"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">before = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 2, ...}
+after = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 3, ...}
+health = {}
+
+    @pytest.mark.parametrize('before,after,health', [
+        (None, snapshot(3), {'success': True}),
+        (snapshot(), None, {'success': True}),
+        (snapshot(), snapshot(), {'success': True}),
+        (snapshot(), snapshot(1), {'success': True}),
+        (snapshot(), snapshot(3), None),
+        (snapshot(), snapshot(3), {}),
+        (snapshot(), snapshot(3), {'success': False}),
+        (snapshot(), snapshot(3), {'success': 1}),
+        (snapshot(), snapshot(3, container_id='2'*64), {'success': True}),
+        (snapshot(), snapshot(3, init_pid=12346), {'success': True}),
+        (snapshot(), snapshot(3, cgroup_path='/work/pids.events'), {'success': True}),
+        (snapshot(), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(pids_max=64), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(max_events='2'), snapshot(3), {'success': True}),
+        (snapshot(max_events=True), snapshot(3), {'success': True}),
+        (snapshot(), snapshot(max_events='3'), {'success': True}),
+        (snapshot(), snapshot(max_events=True), {'success': True}),
+        (snapshot(max_events=-1), snapshot(3), {'success': True}),
+        (snapshot(init_pid=0), snapshot(3, init_pid=0), {'success': True}),
+    ])
+    def test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero(before,after,health):
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:46: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero[before6-after6-health6]" time="0.000"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">before = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 2, ...}
+after = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 3, ...}
+health = {'success': False}
+
+    @pytest.mark.parametrize('before,after,health', [
+        (None, snapshot(3), {'success': True}),
+        (snapshot(), None, {'success': True}),
+        (snapshot(), snapshot(), {'success': True}),
+        (snapshot(), snapshot(1), {'success': True}),
+        (snapshot(), snapshot(3), None),
+        (snapshot(), snapshot(3), {}),
+        (snapshot(), snapshot(3), {'success': False}),
+        (snapshot(), snapshot(3), {'success': 1}),
+        (snapshot(), snapshot(3, container_id='2'*64), {'success': True}),
+        (snapshot(), snapshot(3, init_pid=12346), {'success': True}),
+        (snapshot(), snapshot(3, cgroup_path='/work/pids.events'), {'success': True}),
+        (snapshot(), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(pids_max=64), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(max_events='2'), snapshot(3), {'success': True}),
+        (snapshot(max_events=True), snapshot(3), {'success': True}),
+        (snapshot(), snapshot(max_events='3'), {'success': True}),
+        (snapshot(), snapshot(max_events=True), {'success': True}),
+        (snapshot(max_events=-1), snapshot(3), {'success': True}),
+        (snapshot(init_pid=0), snapshot(3, init_pid=0), {'success': True}),
+    ])
+    def test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero(before,after,health):
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:46: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero[before7-after7-health7]" time="0.000"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">before = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 2, ...}
+after = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 3, ...}
+health = {'success': 1}
+
+    @pytest.mark.parametrize('before,after,health', [
+        (None, snapshot(3), {'success': True}),
+        (snapshot(), None, {'success': True}),
+        (snapshot(), snapshot(), {'success': True}),
+        (snapshot(), snapshot(1), {'success': True}),
+        (snapshot(), snapshot(3), None),
+        (snapshot(), snapshot(3), {}),
+        (snapshot(), snapshot(3), {'success': False}),
+        (snapshot(), snapshot(3), {'success': 1}),
+        (snapshot(), snapshot(3, container_id='2'*64), {'success': True}),
+        (snapshot(), snapshot(3, init_pid=12346), {'success': True}),
+        (snapshot(), snapshot(3, cgroup_path='/work/pids.events'), {'success': True}),
+        (snapshot(), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(pids_max=64), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(max_events='2'), snapshot(3), {'success': True}),
+        (snapshot(max_events=True), snapshot(3), {'success': True}),
+        (snapshot(), snapshot(max_events='3'), {'success': True}),
+        (snapshot(), snapshot(max_events=True), {'success': True}),
+        (snapshot(max_events=-1), snapshot(3), {'success': True}),
+        (snapshot(init_pid=0), snapshot(3, init_pid=0), {'success': True}),
+    ])
+    def test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero(before,after,health):
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:46: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero[before8-after8-health8]" time="0.000"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">before = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 2, ...}
+after = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '2222222222222222222222222222222222222222222222222222222222222222', 'init_pid': 12345, 'max_events': 3, ...}
+health = {'success': True}
+
+    @pytest.mark.parametrize('before,after,health', [
+        (None, snapshot(3), {'success': True}),
+        (snapshot(), None, {'success': True}),
+        (snapshot(), snapshot(), {'success': True}),
+        (snapshot(), snapshot(1), {'success': True}),
+        (snapshot(), snapshot(3), None),
+        (snapshot(), snapshot(3), {}),
+        (snapshot(), snapshot(3), {'success': False}),
+        (snapshot(), snapshot(3), {'success': 1}),
+        (snapshot(), snapshot(3, container_id='2'*64), {'success': True}),
+        (snapshot(), snapshot(3, init_pid=12346), {'success': True}),
+        (snapshot(), snapshot(3, cgroup_path='/work/pids.events'), {'success': True}),
+        (snapshot(), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(pids_max=64), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(max_events='2'), snapshot(3), {'success': True}),
+        (snapshot(max_events=True), snapshot(3), {'success': True}),
+        (snapshot(), snapshot(max_events='3'), {'success': True}),
+        (snapshot(), snapshot(max_events=True), {'success': True}),
+        (snapshot(max_events=-1), snapshot(3), {'success': True}),
+        (snapshot(init_pid=0), snapshot(3, init_pid=0), {'success': True}),
+    ])
+    def test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero(before,after,health):
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:46: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero[before9-after9-health9]" time="0.000"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">before = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 2, ...}
+after = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12346, 'max_events': 3, ...}
+health = {'success': True}
+
+    @pytest.mark.parametrize('before,after,health', [
+        (None, snapshot(3), {'success': True}),
+        (snapshot(), None, {'success': True}),
+        (snapshot(), snapshot(), {'success': True}),
+        (snapshot(), snapshot(1), {'success': True}),
+        (snapshot(), snapshot(3), None),
+        (snapshot(), snapshot(3), {}),
+        (snapshot(), snapshot(3), {'success': False}),
+        (snapshot(), snapshot(3), {'success': 1}),
+        (snapshot(), snapshot(3, container_id='2'*64), {'success': True}),
+        (snapshot(), snapshot(3, init_pid=12346), {'success': True}),
+        (snapshot(), snapshot(3, cgroup_path='/work/pids.events'), {'success': True}),
+        (snapshot(), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(pids_max=64), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(max_events='2'), snapshot(3), {'success': True}),
+        (snapshot(max_events=True), snapshot(3), {'success': True}),
+        (snapshot(), snapshot(max_events='3'), {'success': True}),
+        (snapshot(), snapshot(max_events=True), {'success': True}),
+        (snapshot(max_events=-1), snapshot(3), {'success': True}),
+        (snapshot(init_pid=0), snapshot(3, init_pid=0), {'success': True}),
+    ])
+    def test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero(before,after,health):
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:46: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero[before10-after10-health10]" time="0.000"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">before = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 2, ...}
+after = {'cgroup_path': '/work/pids.events', 'container_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 3, ...}
+health = {'success': True}
+
+    @pytest.mark.parametrize('before,after,health', [
+        (None, snapshot(3), {'success': True}),
+        (snapshot(), None, {'success': True}),
+        (snapshot(), snapshot(), {'success': True}),
+        (snapshot(), snapshot(1), {'success': True}),
+        (snapshot(), snapshot(3), None),
+        (snapshot(), snapshot(3), {}),
+        (snapshot(), snapshot(3), {'success': False}),
+        (snapshot(), snapshot(3), {'success': 1}),
+        (snapshot(), snapshot(3, container_id='2'*64), {'success': True}),
+        (snapshot(), snapshot(3, init_pid=12346), {'success': True}),
+        (snapshot(), snapshot(3, cgroup_path='/work/pids.events'), {'success': True}),
+        (snapshot(), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(pids_max=64), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(max_events='2'), snapshot(3), {'success': True}),
+        (snapshot(max_events=True), snapshot(3), {'success': True}),
+        (snapshot(), snapshot(max_events='3'), {'success': True}),
+        (snapshot(), snapshot(max_events=True), {'success': True}),
+        (snapshot(max_events=-1), snapshot(3), {'success': True}),
+        (snapshot(init_pid=0), snapshot(3, init_pid=0), {'success': True}),
+    ])
+    def test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero(before,after,health):
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:46: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero[before11-after11-health11]" time="0.000"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">before = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 2, ...}
+after = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 3, ...}
+health = {'success': True}
+
+    @pytest.mark.parametrize('before,after,health', [
+        (None, snapshot(3), {'success': True}),
+        (snapshot(), None, {'success': True}),
+        (snapshot(), snapshot(), {'success': True}),
+        (snapshot(), snapshot(1), {'success': True}),
+        (snapshot(), snapshot(3), None),
+        (snapshot(), snapshot(3), {}),
+        (snapshot(), snapshot(3), {'success': False}),
+        (snapshot(), snapshot(3), {'success': 1}),
+        (snapshot(), snapshot(3, container_id='2'*64), {'success': True}),
+        (snapshot(), snapshot(3, init_pid=12346), {'success': True}),
+        (snapshot(), snapshot(3, cgroup_path='/work/pids.events'), {'success': True}),
+        (snapshot(), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(pids_max=64), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(max_events='2'), snapshot(3), {'success': True}),
+        (snapshot(max_events=True), snapshot(3), {'success': True}),
+        (snapshot(), snapshot(max_events='3'), {'success': True}),
+        (snapshot(), snapshot(max_events=True), {'success': True}),
+        (snapshot(max_events=-1), snapshot(3), {'success': True}),
+        (snapshot(init_pid=0), snapshot(3, init_pid=0), {'success': True}),
+    ])
+    def test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero(before,after,health):
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:46: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero[before12-after12-health12]" time="0.000"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">before = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 2, ...}
+after = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 3, ...}
+health = {'success': True}
+
+    @pytest.mark.parametrize('before,after,health', [
+        (None, snapshot(3), {'success': True}),
+        (snapshot(), None, {'success': True}),
+        (snapshot(), snapshot(), {'success': True}),
+        (snapshot(), snapshot(1), {'success': True}),
+        (snapshot(), snapshot(3), None),
+        (snapshot(), snapshot(3), {}),
+        (snapshot(), snapshot(3), {'success': False}),
+        (snapshot(), snapshot(3), {'success': 1}),
+        (snapshot(), snapshot(3, container_id='2'*64), {'success': True}),
+        (snapshot(), snapshot(3, init_pid=12346), {'success': True}),
+        (snapshot(), snapshot(3, cgroup_path='/work/pids.events'), {'success': True}),
+        (snapshot(), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(pids_max=64), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(max_events='2'), snapshot(3), {'success': True}),
+        (snapshot(max_events=True), snapshot(3), {'success': True}),
+        (snapshot(), snapshot(max_events='3'), {'success': True}),
+        (snapshot(), snapshot(max_events=True), {'success': True}),
+        (snapshot(max_events=-1), snapshot(3), {'success': True}),
+        (snapshot(init_pid=0), snapshot(3, init_pid=0), {'success': True}),
+    ])
+    def test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero(before,after,health):
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:46: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero[before13-after13-health13]" time="0.000"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">before = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ner_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': '2', ...}
+after = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 3, ...}
+health = {'success': True}
+
+    @pytest.mark.parametrize('before,after,health', [
+        (None, snapshot(3), {'success': True}),
+        (snapshot(), None, {'success': True}),
+        (snapshot(), snapshot(), {'success': True}),
+        (snapshot(), snapshot(1), {'success': True}),
+        (snapshot(), snapshot(3), None),
+        (snapshot(), snapshot(3), {}),
+        (snapshot(), snapshot(3), {'success': False}),
+        (snapshot(), snapshot(3), {'success': 1}),
+        (snapshot(), snapshot(3, container_id='2'*64), {'success': True}),
+        (snapshot(), snapshot(3, init_pid=12346), {'success': True}),
+        (snapshot(), snapshot(3, cgroup_path='/work/pids.events'), {'success': True}),
+        (snapshot(), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(pids_max=64), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(max_events='2'), snapshot(3), {'success': True}),
+        (snapshot(max_events=True), snapshot(3), {'success': True}),
+        (snapshot(), snapshot(max_events='3'), {'success': True}),
+        (snapshot(), snapshot(max_events=True), {'success': True}),
+        (snapshot(max_events=-1), snapshot(3), {'success': True}),
+        (snapshot(init_pid=0), snapshot(3, init_pid=0), {'success': True}),
+    ])
+    def test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero(before,after,health):
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:46: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero[before14-after14-health14]" time="0.000"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">before = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...er_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': True, ...}
+after = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 3, ...}
+health = {'success': True}
+
+    @pytest.mark.parametrize('before,after,health', [
+        (None, snapshot(3), {'success': True}),
+        (snapshot(), None, {'success': True}),
+        (snapshot(), snapshot(), {'success': True}),
+        (snapshot(), snapshot(1), {'success': True}),
+        (snapshot(), snapshot(3), None),
+        (snapshot(), snapshot(3), {}),
+        (snapshot(), snapshot(3), {'success': False}),
+        (snapshot(), snapshot(3), {'success': 1}),
+        (snapshot(), snapshot(3, container_id='2'*64), {'success': True}),
+        (snapshot(), snapshot(3, init_pid=12346), {'success': True}),
+        (snapshot(), snapshot(3, cgroup_path='/work/pids.events'), {'success': True}),
+        (snapshot(), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(pids_max=64), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(max_events='2'), snapshot(3), {'success': True}),
+        (snapshot(max_events=True), snapshot(3), {'success': True}),
+        (snapshot(), snapshot(max_events='3'), {'success': True}),
+        (snapshot(), snapshot(max_events=True), {'success': True}),
+        (snapshot(max_events=-1), snapshot(3), {'success': True}),
+        (snapshot(init_pid=0), snapshot(3, init_pid=0), {'success': True}),
+    ])
+    def test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero(before,after,health):
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:46: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero[before15-after15-health15]" time="0.000"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">before = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 2, ...}
+after = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ner_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': '3', ...}
+health = {'success': True}
+
+    @pytest.mark.parametrize('before,after,health', [
+        (None, snapshot(3), {'success': True}),
+        (snapshot(), None, {'success': True}),
+        (snapshot(), snapshot(), {'success': True}),
+        (snapshot(), snapshot(1), {'success': True}),
+        (snapshot(), snapshot(3), None),
+        (snapshot(), snapshot(3), {}),
+        (snapshot(), snapshot(3), {'success': False}),
+        (snapshot(), snapshot(3), {'success': 1}),
+        (snapshot(), snapshot(3, container_id='2'*64), {'success': True}),
+        (snapshot(), snapshot(3, init_pid=12346), {'success': True}),
+        (snapshot(), snapshot(3, cgroup_path='/work/pids.events'), {'success': True}),
+        (snapshot(), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(pids_max=64), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(max_events='2'), snapshot(3), {'success': True}),
+        (snapshot(max_events=True), snapshot(3), {'success': True}),
+        (snapshot(), snapshot(max_events='3'), {'success': True}),
+        (snapshot(), snapshot(max_events=True), {'success': True}),
+        (snapshot(max_events=-1), snapshot(3), {'success': True}),
+        (snapshot(init_pid=0), snapshot(3, init_pid=0), {'success': True}),
+    ])
+    def test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero(before,after,health):
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:46: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero[before16-after16-health16]" time="0.000"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">before = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 2, ...}
+after = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...er_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': True, ...}
+health = {'success': True}
+
+    @pytest.mark.parametrize('before,after,health', [
+        (None, snapshot(3), {'success': True}),
+        (snapshot(), None, {'success': True}),
+        (snapshot(), snapshot(), {'success': True}),
+        (snapshot(), snapshot(1), {'success': True}),
+        (snapshot(), snapshot(3), None),
+        (snapshot(), snapshot(3), {}),
+        (snapshot(), snapshot(3), {'success': False}),
+        (snapshot(), snapshot(3), {'success': 1}),
+        (snapshot(), snapshot(3, container_id='2'*64), {'success': True}),
+        (snapshot(), snapshot(3, init_pid=12346), {'success': True}),
+        (snapshot(), snapshot(3, cgroup_path='/work/pids.events'), {'success': True}),
+        (snapshot(), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(pids_max=64), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(max_events='2'), snapshot(3), {'success': True}),
+        (snapshot(max_events=True), snapshot(3), {'success': True}),
+        (snapshot(), snapshot(max_events='3'), {'success': True}),
+        (snapshot(), snapshot(max_events=True), {'success': True}),
+        (snapshot(max_events=-1), snapshot(3), {'success': True}),
+        (snapshot(init_pid=0), snapshot(3, init_pid=0), {'success': True}),
+    ])
+    def test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero(before,after,health):
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:46: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero[before17-after17-health17]" time="0.000"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">before = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...iner_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': -1, ...}
+after = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...ainer_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 12345, 'max_events': 3, ...}
+health = {'success': True}
+
+    @pytest.mark.parametrize('before,after,health', [
+        (None, snapshot(3), {'success': True}),
+        (snapshot(), None, {'success': True}),
+        (snapshot(), snapshot(), {'success': True}),
+        (snapshot(), snapshot(1), {'success': True}),
+        (snapshot(), snapshot(3), None),
+        (snapshot(), snapshot(3), {}),
+        (snapshot(), snapshot(3), {'success': False}),
+        (snapshot(), snapshot(3), {'success': 1}),
+        (snapshot(), snapshot(3, container_id='2'*64), {'success': True}),
+        (snapshot(), snapshot(3, init_pid=12346), {'success': True}),
+        (snapshot(), snapshot(3, cgroup_path='/work/pids.events'), {'success': True}),
+        (snapshot(), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(pids_max=64), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(max_events='2'), snapshot(3), {'success': True}),
+        (snapshot(max_events=True), snapshot(3), {'success': True}),
+        (snapshot(), snapshot(max_events='3'), {'success': True}),
+        (snapshot(), snapshot(max_events=True), {'success': True}),
+        (snapshot(max_events=-1), snapshot(3), {'success': True}),
+        (snapshot(init_pid=0), snapshot(3, init_pid=0), {'success': True}),
+    ])
+    def test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero(before,after,health):
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:46: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero[before18-after18-health18]" time="0.000"><failure message="ModuleNotFoundError: No module named 'qi_runtime.process_allowance'">before = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...container_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 0, 'max_events': 2, ...}
+after = {'cgroup_path': '/sys/fs/cgroup/system.slice/docker-1111111111111111111111111111111111111111111111111111111111111111.s...container_id': '1111111111111111111111111111111111111111111111111111111111111111', 'init_pid': 0, 'max_events': 3, ...}
+health = {'success': True}
+
+    @pytest.mark.parametrize('before,after,health', [
+        (None, snapshot(3), {'success': True}),
+        (snapshot(), None, {'success': True}),
+        (snapshot(), snapshot(), {'success': True}),
+        (snapshot(), snapshot(1), {'success': True}),
+        (snapshot(), snapshot(3), None),
+        (snapshot(), snapshot(3), {}),
+        (snapshot(), snapshot(3), {'success': False}),
+        (snapshot(), snapshot(3), {'success': 1}),
+        (snapshot(), snapshot(3, container_id='2'*64), {'success': True}),
+        (snapshot(), snapshot(3, init_pid=12346), {'success': True}),
+        (snapshot(), snapshot(3, cgroup_path='/work/pids.events'), {'success': True}),
+        (snapshot(), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(pids_max=64), snapshot(3, pids_max=64), {'success': True}),
+        (snapshot(max_events='2'), snapshot(3), {'success': True}),
+        (snapshot(max_events=True), snapshot(3), {'success': True}),
+        (snapshot(), snapshot(max_events='3'), {'success': True}),
+        (snapshot(), snapshot(max_events=True), {'success': True}),
+        (snapshot(max_events=-1), snapshot(3), {'success': True}),
+        (snapshot(init_pid=0), snapshot(3, init_pid=0), {'success': True}),
+    ])
+    def test_missing_stale_unreadable_or_unhealthy_evidence_never_authorizes_policy_zero(before,after,health):
+&gt;       from qi_runtime.process_allowance import process_allowance_exhausted
+E       ModuleNotFoundError: No module named 'qi_runtime.process_allowance'
+
+tests/validation/test_p5b_process_allowance.py:46: ModuleNotFoundError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_positive_evidence_is_policy_hard_zero_cleanup_not_retry[missing_status]" time="0.001"><failure message="AttributeError: &lt;module 'qi_runtime' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/__init__.py'&gt; has no attribute 'host_pids_snapshot'">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x76b17cc99940&gt;
+tmp_path = PosixPath('/tmp/pytest-of-kartik/pytest-145/test_positive_evidence_is_poli0')
+failure_kind = 'missing_status'
+
+    @pytest.mark.parametrize('failure_kind', ['missing_status', 'host_timeout', 'successful_exit'])
+    def test_positive_evidence_is_policy_hard_zero_cleanup_not_retry(monkeypatch,tmp_path,failure_kind):
+        import qi_runtime as runtime_module
+        from qi_runtime.infrastructure import DockerFailure,HostTimeout,RetryBudget,run_with_retry
+        from verifiers.v1.runtimes.base import ProgramResult
+        samples = iter([snapshot(), snapshot(3)])
+        async def sample(runtime):return next(samples)
+        async def health():return {'success': True}
+&gt;       monkeypatch.setattr(runtime_module, 'host_pids_snapshot', sample)
+E       AttributeError: &lt;module 'qi_runtime' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/__init__.py'&gt; has no attribute 'host_pids_snapshot'
+
+tests/validation/test_p5b_process_allowance.py:58: AttributeError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_positive_evidence_is_policy_hard_zero_cleanup_not_retry[host_timeout]" time="0.001"><failure message="AttributeError: &lt;module 'qi_runtime' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/__init__.py'&gt; has no attribute 'host_pids_snapshot'">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x76b17cc9a3f0&gt;
+tmp_path = PosixPath('/tmp/pytest-of-kartik/pytest-145/test_positive_evidence_is_poli1')
+failure_kind = 'host_timeout'
+
+    @pytest.mark.parametrize('failure_kind', ['missing_status', 'host_timeout', 'successful_exit'])
+    def test_positive_evidence_is_policy_hard_zero_cleanup_not_retry(monkeypatch,tmp_path,failure_kind):
+        import qi_runtime as runtime_module
+        from qi_runtime.infrastructure import DockerFailure,HostTimeout,RetryBudget,run_with_retry
+        from verifiers.v1.runtimes.base import ProgramResult
+        samples = iter([snapshot(), snapshot(3)])
+        async def sample(runtime):return next(samples)
+        async def health():return {'success': True}
+&gt;       monkeypatch.setattr(runtime_module, 'host_pids_snapshot', sample)
+E       AttributeError: &lt;module 'qi_runtime' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/__init__.py'&gt; has no attribute 'host_pids_snapshot'
+
+tests/validation/test_p5b_process_allowance.py:58: AttributeError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_positive_evidence_is_policy_hard_zero_cleanup_not_retry[successful_exit]" time="0.001"><failure message="AttributeError: &lt;module 'qi_runtime' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/__init__.py'&gt; has no attribute 'host_pids_snapshot'">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x76b17cb079b0&gt;
+tmp_path = PosixPath('/tmp/pytest-of-kartik/pytest-145/test_positive_evidence_is_poli2')
+failure_kind = 'successful_exit'
+
+    @pytest.mark.parametrize('failure_kind', ['missing_status', 'host_timeout', 'successful_exit'])
+    def test_positive_evidence_is_policy_hard_zero_cleanup_not_retry(monkeypatch,tmp_path,failure_kind):
+        import qi_runtime as runtime_module
+        from qi_runtime.infrastructure import DockerFailure,HostTimeout,RetryBudget,run_with_retry
+        from verifiers.v1.runtimes.base import ProgramResult
+        samples = iter([snapshot(), snapshot(3)])
+        async def sample(runtime):return next(samples)
+        async def health():return {'success': True}
+&gt;       monkeypatch.setattr(runtime_module, 'host_pids_snapshot', sample)
+E       AttributeError: &lt;module 'qi_runtime' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/__init__.py'&gt; has no attribute 'host_pids_snapshot'
+
+tests/validation/test_p5b_process_allowance.py:58: AttributeError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_genuine_infrastructure_without_valid_proof_remains_original_failure[daemon_stall]" time="0.000"><failure message="AttributeError: &lt;module 'qi_runtime' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/__init__.py'&gt; has no attribute 'host_pids_snapshot'">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x76b17cb08af0&gt;
+failure_type = 'daemon_stall'
+
+    @pytest.mark.parametrize('failure_type',['daemon_stall','transfer_timeout','missing_evidence','stale_evidence'])
+    def test_genuine_infrastructure_without_valid_proof_remains_original_failure(monkeypatch,failure_type):
+        import qi_runtime as runtime_module
+        from qi_runtime.infrastructure import DockerFailure,HostTimeout,classify_exception
+        from verifiers.v1.runtimes.base import ProgramResult
+        if failure_type=='missing_evidence':samples=iter([None,None])
+        elif failure_type=='stale_evidence':samples=iter([snapshot(9),snapshot(9)])
+        else:samples=iter([snapshot(),snapshot(3) if failure_type=='daemon_stall' else snapshot()])
+        async def sample(runtime):return next(samples)
+        async def health():return {'success':failure_type!='daemon_stall'}
+&gt;       monkeypatch.setattr(runtime_module,'host_pids_snapshot',sample)
+E       AttributeError: &lt;module 'qi_runtime' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/__init__.py'&gt; has no attribute 'host_pids_snapshot'
+
+tests/validation/test_p5b_process_allowance.py:98: AttributeError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_genuine_infrastructure_without_valid_proof_remains_original_failure[transfer_timeout]" time="0.000"><failure message="AttributeError: &lt;module 'qi_runtime' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/__init__.py'&gt; has no attribute 'host_pids_snapshot'">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x76b17cb08e20&gt;
+failure_type = 'transfer_timeout'
+
+    @pytest.mark.parametrize('failure_type',['daemon_stall','transfer_timeout','missing_evidence','stale_evidence'])
+    def test_genuine_infrastructure_without_valid_proof_remains_original_failure(monkeypatch,failure_type):
+        import qi_runtime as runtime_module
+        from qi_runtime.infrastructure import DockerFailure,HostTimeout,classify_exception
+        from verifiers.v1.runtimes.base import ProgramResult
+        if failure_type=='missing_evidence':samples=iter([None,None])
+        elif failure_type=='stale_evidence':samples=iter([snapshot(9),snapshot(9)])
+        else:samples=iter([snapshot(),snapshot(3) if failure_type=='daemon_stall' else snapshot()])
+        async def sample(runtime):return next(samples)
+        async def health():return {'success':failure_type!='daemon_stall'}
+&gt;       monkeypatch.setattr(runtime_module,'host_pids_snapshot',sample)
+E       AttributeError: &lt;module 'qi_runtime' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/__init__.py'&gt; has no attribute 'host_pids_snapshot'
+
+tests/validation/test_p5b_process_allowance.py:98: AttributeError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_genuine_infrastructure_without_valid_proof_remains_original_failure[missing_evidence]" time="0.000"><failure message="AttributeError: &lt;module 'qi_runtime' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/__init__.py'&gt; has no attribute 'host_pids_snapshot'">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x76b17cb54950&gt;
+failure_type = 'missing_evidence'
+
+    @pytest.mark.parametrize('failure_type',['daemon_stall','transfer_timeout','missing_evidence','stale_evidence'])
+    def test_genuine_infrastructure_without_valid_proof_remains_original_failure(monkeypatch,failure_type):
+        import qi_runtime as runtime_module
+        from qi_runtime.infrastructure import DockerFailure,HostTimeout,classify_exception
+        from verifiers.v1.runtimes.base import ProgramResult
+        if failure_type=='missing_evidence':samples=iter([None,None])
+        elif failure_type=='stale_evidence':samples=iter([snapshot(9),snapshot(9)])
+        else:samples=iter([snapshot(),snapshot(3) if failure_type=='daemon_stall' else snapshot()])
+        async def sample(runtime):return next(samples)
+        async def health():return {'success':failure_type!='daemon_stall'}
+&gt;       monkeypatch.setattr(runtime_module,'host_pids_snapshot',sample)
+E       AttributeError: &lt;module 'qi_runtime' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/__init__.py'&gt; has no attribute 'host_pids_snapshot'
+
+tests/validation/test_p5b_process_allowance.py:98: AttributeError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_genuine_infrastructure_without_valid_proof_remains_original_failure[stale_evidence]" time="0.000"><failure message="AttributeError: &lt;module 'qi_runtime' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/__init__.py'&gt; has no attribute 'host_pids_snapshot'">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x76b17cb55150&gt;
+failure_type = 'stale_evidence'
+
+    @pytest.mark.parametrize('failure_type',['daemon_stall','transfer_timeout','missing_evidence','stale_evidence'])
+    def test_genuine_infrastructure_without_valid_proof_remains_original_failure(monkeypatch,failure_type):
+        import qi_runtime as runtime_module
+        from qi_runtime.infrastructure import DockerFailure,HostTimeout,classify_exception
+        from verifiers.v1.runtimes.base import ProgramResult
+        if failure_type=='missing_evidence':samples=iter([None,None])
+        elif failure_type=='stale_evidence':samples=iter([snapshot(9),snapshot(9)])
+        else:samples=iter([snapshot(),snapshot(3) if failure_type=='daemon_stall' else snapshot()])
+        async def sample(runtime):return next(samples)
+        async def health():return {'success':failure_type!='daemon_stall'}
+&gt;       monkeypatch.setattr(runtime_module,'host_pids_snapshot',sample)
+E       AttributeError: &lt;module 'qi_runtime' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/__init__.py'&gt; has no attribute 'host_pids_snapshot'
+
+tests/validation/test_p5b_process_allowance.py:98: AttributeError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_no_event_delta_preserves_normal_command_record_exactly" time="0.000"><failure message="AttributeError: &lt;module 'qi_runtime' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/__init__.py'&gt; has no attribute 'host_pids_snapshot'">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x76b17cb035c0&gt;
+
+    def test_no_event_delta_preserves_normal_command_record_exactly(monkeypatch):
+        import qi_runtime as runtime_module
+        from verifiers.v1.runtimes.base import ProgramResult
+        async def sample(runtime):return snapshot(7)
+&gt;       monkeypatch.setattr(runtime_module,'host_pids_snapshot',sample)
+E       AttributeError: &lt;module 'qi_runtime' from '/home/kartik/qi/Quant-fin-agent/src/qi_runtime/__init__.py'&gt; has no attribute 'host_pids_snapshot'
+
+tests/validation/test_p5b_process_allowance.py:116: AttributeError</failure></testcase><testcase classname="tests.validation.test_p5b_process_allowance" name="test_exhaustion_only_read_fast_failure_avoids_new_container_process" time="0.002"><failure message="AssertionError: dead container execution">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x76b17cb6c050&gt;
+
+    def test_exhaustion_only_read_fast_failure_avoids_new_container_process(monkeypatch):
+        import qi_runtime as runtime_module
+        calls=[]
+        async def forbidden_run(*args):calls.append(args);raise AssertionError('dead container execution')
+        runtime=SimpleNamespace(_process_allowance_violation=True,flagged=True,run=forbidden_run)
+        with pytest.raises(ValueError):
+&gt;           asyncio.run(runtime_module.CheckedRuntime.read(runtime,'/work/program.py',max_bytes=100000))
+
+tests/validation/test_p5b_process_allowance.py:130: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.14/asyncio/runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+src/qi_runtime/infrastructure.py:208: in wrapped
+    try:return await fn(*args,**kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+src/qi_runtime/__init__.py:234: in read
+    result=await self.run(['python','-I','-B','-c',script,path,str(cap)],{})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = (['python', '-I', '-B', '-c', "import os,sys,stat,base64\nfd=os.open(sys.argv[1],os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLO...ead(limit+1)\nif len(data)&gt;limit: sys.exit(4)\nprint(base64.b64encode(data).decode())\n", '/work/program.py', ...], {})
+
+&gt;   async def forbidden_run(*args):calls.append(args);raise AssertionError('dead container execution')
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: dead container execution
+
+tests/validation/test_p5b_process_allowance.py:127: AssertionError</failure></testcase></testsuite></testsuites>

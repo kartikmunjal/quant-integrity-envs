@@ -15,6 +15,7 @@ from pathlib import Path,PurePosixPath
 from .infrastructure import DockerFailure,HostTimeout,record_exception,note_policy,note_resource,PolicyFailure,PolicyOutputLimit,journal_boundary,track_runtime,_CURRENT
 from verifiers.v1.runtimes.docker import DockerConfig,DockerRuntime
 from verifiers.v1.runtimes.base import ProgramResult
+from .process_allowance import host_pids_snapshot,process_allowance_exhausted
 
 WORK=Path('/home/kartik/qi-sandbox')
 PRIVATE=Path('/home/kartik/qi-private')
@@ -138,6 +139,31 @@ class CheckedRuntime(DockerRuntime):
 
     @journal_boundary
     async def run(self,argv,env):
+        # Only fresh host-kernel exhaustion evidence may override a command's
+        # infrastructure outcome. Normal command records remain unchanged.
+        if env:return await self._run_command(argv,env)
+        if getattr(self,'_process_allowance_violation',False):
+            return ProgramResult(1,'','process allowance exhausted')
+        before=await host_pids_snapshot(self)
+        result=None;failure=None
+        try:result=await self._run_command(argv,env)
+        except (DockerFailure,HostTimeout) as error:failure=error
+        after=await host_pids_snapshot(self)
+        if process_allowance_exhausted(before,after,{'success':True}):
+            health=await daemon_probe()
+            if process_allowance_exhausted(before,after,health):
+                evidence={'exit_code':1,'policy_outcome':'process_allowance_exhausted_pending_cleanup',
+                    'host_pids_before':before,'host_pids_after':after,'daemon_probe':health}
+                self.commands.append(evidence)
+                await self.stop()
+                if not self.stopped:raise DockerFailure('process-exhaustion cleanup not confirmed')
+                self.flagged=True;self._process_allowance_violation=True;note_policy()
+                evidence['policy_outcome']='process_allowance_exhausted'
+                return ProgramResult(1,'','process allowance exhausted')
+        if failure is not None:raise failure
+        return result
+
+    async def _run_command(self,argv,env):
         if env:
             note_policy();raise ValueError('solver environment injection rejected')
         try:
@@ -219,6 +245,7 @@ os.unlink(folder+'/exit.json');os.rmdir(folder)
 
     @journal_boundary
     async def read(self,path,max_bytes=None):
+        if getattr(self,'_process_allowance_violation',False):raise ValueError('process-exhausted solver has no trusted transfer')
         cap=MAX_SOURCE if max_bytes is None else min(max_bytes,2_000_000)
         if type(cap) is not int or cap<0: raise ValueError('invalid read bound')
         # O_NOFOLLOW+NONBLOCK and fstat reject symlinks, FIFOs/devices and oversized

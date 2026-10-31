@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="2.000" timestamp="2026-10-31T16:40:00.657268-06:00" hostname="siennaspc"><testcase classname="tests.validation.test_p5b_process_allowance" name="test_exhaustion_cleanup_failure_never_becomes_a_completed_defined_zero" time="1.790"><failure message="assert True is False">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x705e53324fc0&gt;
+tmp_path = PosixPath('/tmp/pytest-of-kartik/pytest-150/test_exhaustion_cleanup_failur0')
+
+    def test_exhaustion_cleanup_failure_never_becomes_a_completed_defined_zero(monkeypatch,tmp_path):
+        import qi_runtime as runtime_module
+        from qi_runtime.infrastructure import DockerFailure,RetryBudget,run_with_retry,track_runtime
+        from verifiers.v1.runtimes.base import ProgramResult
+        samples=iter([snapshot(),snapshot(3)])
+        async def sample(runtime):return next(samples)
+        async def health():return {'success':True}
+        monkeypatch.setattr(runtime_module,'host_pids_snapshot',sample)
+        monkeypatch.setattr(runtime_module,'daemon_probe',health)
+        async def command(*args):return ProgramResult(0,'public output','')
+        runtime=SimpleNamespace(flagged=False,commands=[],_process_allowance_violation=False,
+                                _run_command=command,name='fixture',info=SimpleNamespace(id=CONTAINER),
+                                _container='fixture',_stopped=False,stopped=False)
+        async def stop():raise DockerFailure('synthetic removal not confirmed')
+        runtime.stop=stop
+        async def scenario():
+            async def operation():
+                track_runtime(runtime)
+                await runtime_module.CheckedRuntime.run(runtime,['synthetic'],{})
+                raise AssertionError('failed cleanup must not return policy result')
+            ledger=RetryBudget(1)
+            result=await run_with_retry(operation,ledger=ledger,journal_root=tmp_path/'journal')
+            assert result['complete'] is False
+            assert result['infrastructure_ok'] is False
+            assert result['value'] is None
+            assert not result['retried'] and ledger.used==0
+            assert result['attempts'][0]['cleanup_complete'] is False
+            assert result['attempts'][0]['policy_evidence'] is False
+&gt;       asyncio.run(scenario())
+
+tests/validation/test_p5b_process_allowance.py:229: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.14/asyncio/runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.14/asyncio/base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    async def scenario():
+        async def operation():
+            track_runtime(runtime)
+            await runtime_module.CheckedRuntime.run(runtime,['synthetic'],{})
+            raise AssertionError('failed cleanup must not return policy result')
+        ledger=RetryBudget(1)
+        result=await run_with_retry(operation,ledger=ledger,journal_root=tmp_path/'journal')
+&gt;       assert result['complete'] is False
+E       assert True is False
+
+tests/validation/test_p5b_process_allowance.py:223: AssertionError</failure></testcase></testsuite></testsuites>
