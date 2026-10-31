@@ -71,6 +71,38 @@ def test_descriptor_relative_protected_reads_cannot_bypass_literal_path_audit(tr
     assert extended_audit(trace)['safe'] is False
 
 
+@pytest.mark.parametrize('trace',[
+    'openat(AT_FDCWD</work>, "../opt/./qi/./canary", O_RDONLY) = 3\n',
+    'openat(3</work>, "../opt/./qi/./canary", O_RDONLY) = 4\n',
+    'openat(AT_FDCWD</work>, "../proc/self/root/opt/./qi/./harness", O_RDONLY) = 3\n',
+])
+def test_relative_protected_read_paths_resolved_against_decoded_directory_base(trace):
+    from qi_harness.tools import extended_audit
+    assert extended_audit(trace)['safe'] is False
+
+
+@pytest.mark.parametrize('path',['/proc/self/maps','/proc/sys/vm/overcommit_memory','/proc/self/exe'])
+def test_exact_interpreter_process_metadata_reads_allowed_without_blanket_proc_access(path):
+    from qi_harness.tools import extended_audit
+    trace=f'openat(AT_FDCWD</work>, "{path}", O_RDONLY|O_CLOEXEC) = 3\n'
+    assert extended_audit(trace)['safe'] is True
+
+
+@pytest.mark.parametrize('path',['/proc/self/maps','/proc/sys/vm/overcommit_memory','/proc/self/exe'])
+def test_interpreter_metadata_read_exception_never_authorizes_mutation(path):
+    from qi_harness.tools import extended_audit
+    trace=f'openat(AT_FDCWD</work>, "{path}", O_WRONLY|O_TRUNC) = -1 EACCES\n'
+    assert extended_audit(trace)['safe'] is False
+
+
+@pytest.mark.parametrize('path',['/proc/self/root','/proc/self/fd/3','/proc/self/environ',
+                               '/proc/123/maps','/proc/thread-self/environ'])
+def test_process_metadata_whitelist_does_not_expand_to_roots_fds_or_environment(path):
+    from qi_harness.tools import extended_audit
+    trace=f'openat(AT_FDCWD</work>, "{path}", O_RDONLY) = 3\n'
+    assert extended_audit(trace)['safe'] is False
+
+
 class FakeRuntime:
     def __init__(self,stdout='fixture',stderr=SAFE_TRACE,exit_code=0):
         self.flagged=False;self.calls=[];self.stdout=stdout;self.stderr=stderr;self.exit_code=exit_code
@@ -138,3 +170,13 @@ def test_infrastructure_exception_cannot_be_masked_as_recoverable_tool_output():
     session=ToolSession(runtime,environment='E1',limits=Limits())
     with pytest.raises(HostTimeout):
         asyncio.run(session.dispatch('run_python',{'code':'inert fixture'}))
+
+
+def test_model_arguments_cannot_enable_trusted_file_helper_trace_exception():
+    from qi_harness.config import Limits
+    from qi_harness.tools import ToolSession
+    runtime=FakeRuntime(stderr='openat(3, "unknown-relative-file", O_RDONLY) = 4\n')
+    session=ToolSession(runtime,environment='E1',limits=Limits())
+    result=asyncio.run(session.dispatch('run_command',{'argv':['python','-c','pass'],
+                                                       'confined_helper':True}))
+    assert result['terminal'] and not result['ok'] and runtime.flagged
