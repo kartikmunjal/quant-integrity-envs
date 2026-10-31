@@ -40,7 +40,7 @@ def extended_audit(trace):
         if body.startswith('+++ ') or body.startswith('--- SIG'):continue
         if re.fullmatch(r'strace: Process \d+ attached',body):continue
         call=re.match(r'(\w+)\(',body)
-        if call is None or ') = ' not in body:return no('unknown syscall trace syntax')
+        if call is None or not re.search(r'\)\s+=\s+',body):return no('unknown syscall trace syntax')
         name=call.group(1)
         strings=re.findall(r'"(?:\\.|[^"\\])*"',body)
         try:quoted=[ast.literal_eval(value) for value in strings]
@@ -56,6 +56,16 @@ def extended_audit(trace):
             mutation=bool(re.search(r'O_(?:WRONLY|RDWR|CREAT|TRUNC|APPEND|TMPFILE)',body))
         else:mutation=name in _MUTATE_CALLS or name in ('chdir','fchdir')
         if not mutation:continue
+        # The installed tracer sometimes omits numeric FD path annotations.
+        # %file does not record dup2/close, so inferred FD maps would be unsafe.
+        relative=any(not p.startswith('/') for p in quoted)
+        bare_fd=bool(re.search(r'(?:\(|,)\s*\d+\s*(?:,|\))',body))
+        if name in ('fchdir','fchmod','fchown') and not re.search(r'\d+</work(?:/[^>]*)?>',body):
+            return no('unresolved write descriptor')
+        if relative and name.endswith(('at','at2')) and bare_fd:
+            return no('unresolved write directory descriptor')
+        if relative and 'AT_FDCWD' in body and 'AT_FDCWD</work' not in body:
+            return no('unresolved write working directory')
         if '"...' in body:return no('truncated write path')
         angles=re.findall(r'<(/[^>]*)>',body)
         # -yy records actual dirfd/cwd and resolved result descriptors.
@@ -95,7 +105,8 @@ try:
   finally:os.close(file)
  elif mode=='write':
   data=base64.b64decode(''.join(sys.argv[3:]),validate=True)
-  file=os.open(leaf,os.O_WRONLY|os.O_CREAT|os.O_TRUNC|os.O_NOFOLLOW,0o600,dir_fd=fd)
+  if path not in ('/work/program.py','/work/submission.json'):raise ValueError('fixed work-root submission path required')
+  file=os.open(path,os.O_WRONLY|os.O_CREAT|os.O_TRUNC|os.O_NOFOLLOW,0o600)
   try:
    with os.fdopen(file,'wb',closefd=False) as stream:stream.write(data);stream.flush()
   finally:os.close(file)
