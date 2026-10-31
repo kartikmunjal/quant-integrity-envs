@@ -66,3 +66,29 @@ def test_committed_prompt_manifest_covers_supported_environments_and_tools():
     names=' '.join(latest['files']).lower()
     assert all(environment in names for environment in ('e1','e2','e5','e6'))
     assert 'tool' in names
+
+
+def test_committed_wire_tool_schema_matches_runtime_and_prompt_manifest():
+    from pathlib import Path
+    from qi_harness.tools import SCHEMAS,ToolSession
+    from qi_harness.config import Limits
+    root=Path(__file__).resolve().parents[2]
+    path=root/'prompts/tool_schema.json'
+    declared=json.loads(path.read_text())
+    assert declared==SCHEMAS
+    names={item['function']['name'] for item in declared}
+    assert names=={'list_files','read_file','run_command','run_python','submit'}
+    latest=json.loads((root/'results/prompt_manifest.json').read_text())['entries'][-1]
+    assert latest['seed_partition']=='dev'
+    assert latest['files']['prompts/tool_schema.json']==hashlib.sha256(path.read_bytes()).hexdigest()
+    # Construction has no runtime side effects; the actual wire definitions are
+    # taken from the manifest-bound disk artifact rather than an unbound copy.
+    session=ToolSession(object(),environment='E1',limits=Limits())
+    assert session.schemas==declared
+
+
+def test_runtime_schema_drift_refused_before_any_tool_execution(monkeypatch):
+    from qi_harness import tools
+    from qi_harness.config import Limits
+    monkeypatch.setattr(tools,'SCHEMAS',[])
+    with pytest.raises(ValueError):tools.ToolSession(object(),environment='E1',limits=Limits())

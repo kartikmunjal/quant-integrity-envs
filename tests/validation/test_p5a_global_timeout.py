@@ -86,3 +86,43 @@ def test_tool_loop_timeout_aborts_native_finalize_with_retained_reason(monkeypat
     assert getattr(error.value,'reason',None)=='wall_timeout'
     assert runtime.flagged and runtime.stopped
     assert trace.info['p5a_harness']['reason']=='wall_timeout'
+
+
+def test_cancelled_provision_finishes_before_removal_so_late_creation_cannot_leak(monkeypatch,tmp_path):
+    """A fake uncancellable daemon creation models the Docker-client boundary."""
+    from qi_harness import environments
+    events=[]
+    class Task: pass
+    class TemporaryDirectory:
+        def __init__(self,*args,**kwargs): pass
+        def __enter__(self):return str(tmp_path)
+        def __exit__(self,*args):return False
+    started=None
+    class Runtime:
+        stopped=False
+        def __init__(self,*args): self.created=False
+        async def start(self):
+            async def daemon_create():
+                await asyncio.sleep(.02)
+                self.created=True;events.append('created')
+            job=asyncio.create_task(daemon_create())
+            started.set()
+            await asyncio.shield(job)
+        async def stop(self):
+            events.append('removed' if self.created else 'removed_before_creation')
+            self.stopped=True
+    monkeypatch.setattr(environments,'CheckedRuntime',Runtime)
+    monkeypatch.setattr(environments,'bindings',lambda:{'E1':SimpleNamespace(E1Task=Task)})
+    monkeypatch.setattr(environments.tempfile,'TemporaryDirectory',TemporaryDirectory)
+    async def agent_run(*args,**kwargs):events.append('agent')
+    async def scenario():
+        nonlocal started
+        started=asyncio.Event()
+        env=SimpleNamespace(config=SimpleNamespace(environment='E1'))
+        agents=SimpleNamespace(agent=SimpleNamespace(run=agent_run))
+        task=asyncio.create_task(environments.ModelEnv.run(env,Task(),agents))
+        await started.wait();task.cancel()
+        with pytest.raises(asyncio.CancelledError):await task
+        await asyncio.sleep(.03)
+    asyncio.run(scenario())
+    assert events==['created','removed']
