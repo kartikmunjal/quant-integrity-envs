@@ -3,11 +3,13 @@
 
 Output contains only status, total occurrences and redacted locations/term indices.
 Term indices are physical 1-based lines in the supplied file, including skipped
-blank lines. Ignored working files are included; binary and symlink content is not.
+blank lines. Working files are tracked or untracked and not ignored; binary
+and symlink content is not scanned.
 """
 from __future__ import annotations
 
 import ast
+from collections import Counter
 from dataclasses import dataclass,field
 import os
 from pathlib import Path
@@ -72,15 +74,18 @@ class Matcher:
 class Result:
     total:int=0
     hits:list[str]=field(default_factory=list)
+    term_hits:Counter=field(default_factory=Counter)
 
     def add(self,location,text,matcher):
         for index,_,_ in matcher.matches(text):
             self.total+=1
+            self.term_hits[index]+=1
             if len(self.hits)<HIT_LIMIT:
                 self.hits.append(f'{matcher.redact(location)} term={index}')
 
     def absorb(self,other):
         self.total+=other.total
+        self.term_hits.update(other.term_hits)
         self.hits.extend(other.hits[:HIT_LIMIT-len(self.hits)])
 
 
@@ -113,22 +118,24 @@ def _git(repo,*args):
 
 
 def _working_tree(repo,matcher,result):
-    def fail(error):raise error
-    for directory,dirs,files in os.walk(repo,followlinks=False,onerror=fail):
-        dirs[:]=sorted(d for d in dirs if d!='.git' and not (Path(directory)/d).is_symlink())
-        for name in sorted(files):
-            path=Path(directory)/name
-            if name=='.git' or path.is_symlink() or not path.is_file():continue
-            pending=Result();relative=str(path.relative_to(repo))
-            # Buffer only the capped hit locations/count until the whole file is
-            # classified as text. A late NUL/decoding error discards all its hits.
-            try:
-                with path.open('r',encoding='utf-8',errors='strict') as stream:
-                    for number,line in enumerate(stream,1):
-                        if '\0' in line:break
-                        pending.add(f'working/{relative}:{number}',line,matcher)
-                    else:result.absorb(pending)
-            except UnicodeError:continue
+    names=set(_git(repo,'ls-files','--cached','-z').split(b'\0'))
+    names.update(_git(repo,'ls-files','--others','--exclude-standard','-z').split(b'\0'))
+    for raw in sorted(names):
+        if not raw:continue
+        relative=os.fsdecode(raw);path=repo/relative
+        # Never follow a symlink in any component, including a replaced tracked
+        # directory. Deleted tracked paths have no working-tree content.
+        if any(parent.is_symlink() for parent in (path,*path.parents) if parent!=repo):continue
+        if not path.is_file():continue
+        pending=Result()
+        # A late NUL/decoding error discards all hits and term counts in a file.
+        try:
+            with path.open('r',encoding='utf-8',errors='strict') as stream:
+                for number,line in enumerate(stream,1):
+                    if '\0' in line:break
+                    pending.add(f'working/{relative}:{number}',line,matcher)
+                else:result.absorb(pending)
+        except UnicodeError:continue
 
 
 def _path(raw):
@@ -244,6 +251,8 @@ def main()->int:
         print('FAIL\nTOTAL 0');return 2
     print('FAIL' if result.total else 'PASS')
     print(f'TOTAL {result.total}')
+    for index,count in sorted(result.term_hits.items(),key=lambda item:(-item[1],item[0]))[:20]:
+        print(f'SUMMARY term={index} hits={count}')
     for hit in result.hits:print(hit)
     return 1 if result.total else 0
 
