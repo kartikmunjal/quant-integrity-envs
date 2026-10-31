@@ -58,3 +58,26 @@ def test_tool_calls_execute_sequentially_and_submit_ends_the_loop():
     assert [name for name,args in tools.calls]==['list_files','run_python','submit']
     assert result['reason']=='submitted' and result['submitted']
     assert result['input_tokens']==3 and result['output_tokens']==4
+
+
+def test_over_budget_reply_cannot_submit_before_token_guard():
+    from qi_harness.client import MockClient,Reply,ToolCall
+    from qi_harness.config import Limits
+    from qi_harness.harness import run_loop
+    tools=FakeTools()
+    reply=Reply(tool_calls=(ToolCall('submit','submit',{'source':'inert fixture'}),),
+                input_tokens=3,output_tokens=2)
+    result=asyncio.run(run_loop(MockClient([reply]),tools,Limits(max_total_tokens=4,max_completion_tokens=4)))
+    assert result['reason']=='max_total_tokens' and result['reward']==0
+    assert not result['submitted'] and tools.calls==[]
+
+
+def test_provider_cannot_exceed_per_turn_completion_cap_and_then_execute_tools():
+    from qi_harness.client import MockClient,Reply,ToolCall
+    from qi_harness.config import Limits
+    from qi_harness.harness import run_loop
+    tools=FakeTools()
+    reply=Reply(tool_calls=(ToolCall('submit','submit',{'source':'inert fixture'}),),input_tokens=0,output_tokens=5)
+    result=asyncio.run(run_loop(MockClient([reply]),tools,Limits(max_completion_tokens=4)))
+    assert result['reason']=='max_completion_tokens' and result['reward']==0
+    assert not result['submitted'] and tools.calls==[]

@@ -24,6 +24,12 @@ def test_price_book_exact_decimal_and_missing_model_refusal():
         with pytest.raises(ValueError): book.cost('fake',input_tokens,output_tokens)
 
 
+def test_committed_price_template_has_no_unmeasured_prices():
+    import json
+    path=Path(__file__).resolve().parents[2]/'configs/model_prices.json'
+    assert json.loads(path.read_text())['models']=={}
+
+
 def test_empty_price_table_refuses_before_actual_spend(tmp_path):
     from qi_harness.budget import PriceBook,BudgetController
     prereg=tmp_path/'prereg.yaml'
@@ -52,6 +58,18 @@ def test_inflight_reservations_are_locked_and_cannot_double_authorize(tmp_path):
     assert not spend.exists()
     instance.cancel(next(item for item in results if item is not None))
     assert instance.reserve('fake',50,0) is not None
+
+
+def test_separate_controllers_share_inflight_authorization_for_same_ledger(tmp_path):
+    from qi_harness.budget import BudgetController,PriceBook
+    first,spend=controller(tmp_path)
+    second=BudgetController(PriceBook({'fake':{'input_per_million':'1000000','output_per_million':'1000000'}}),
+                            prereg_path=tmp_path/'fake_prereg.yaml',spend_path=spend)
+    reservation=first.reserve('fake',50,0)
+    try:
+        with pytest.raises(RuntimeError): second.reserve('fake',50,0)
+        assert not spend.exists()
+    finally: first.cancel(reservation)
 
 
 def test_actual_usage_settlement_and_stop_eighty_are_recorded_honestly(tmp_path):

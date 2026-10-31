@@ -36,6 +36,7 @@ def test_remote_lock_precedes_key_lookup_or_socket(monkeypatch):
     loop=asyncio.new_event_loop()  # asyncio's own wakeup socket predates the no-network assertion.
     def forbidden(*args,**kwargs): raise AssertionError('network or key access before lock')
     monkeypatch.setattr(socket,'socket',forbidden)
+    monkeypatch.setattr(socket,'getaddrinfo',forbidden)
     monkeypatch.setattr(module,'read_key',forbidden)
     client=module.CompatibleClient(configuration)
     try:
@@ -51,16 +52,20 @@ def test_dry_run_never_reads_key_or_opens_socket(monkeypatch):
     loop=asyncio.new_event_loop()
     def forbidden(*args,**kwargs): raise AssertionError('dry-run opened network or read key')
     monkeypatch.setattr(socket,'socket',forbidden)
+    monkeypatch.setattr(socket,'getaddrinfo',forbidden)
     monkeypatch.setattr(module,'read_key',forbidden)
     try: reply=loop.run_until_complete(module.CompatibleClient(configuration).complete([],[],max_completion_tokens=4))
     finally: loop.close()
     assert reply.input_tokens==reply.output_tokens==0
 
 
-def test_loopback_opt_in_rejects_nonloopback_url():
+@pytest.mark.parametrize('url',['https://uncontacted.invalid/v1',
+                              'http://127.0.0.1.uncontacted.invalid/v1',
+                              'http://127.0.0.1@uncontacted.invalid/v1'])
+def test_loopback_opt_in_rejects_nonloopback_url(url):
     from qi_harness.client import ClientConfig,CompatibleClient
     with pytest.raises(ValueError):
-        CompatibleClient(ClientConfig(base_url='https://uncontacted.invalid/v1',model='fake',
+        CompatibleClient(ClientConfig(base_url=url,model='fake',
                                      key_env_name='P5A_FAKE_KEY',allow_loopback_test=True))
 
 
@@ -76,6 +81,7 @@ def test_missing_price_refuses_before_loopback_socket_or_key_lookup(monkeypatch,
     def forbidden(*args,**kwargs): raise AssertionError('unpriced call touched key/network')
     monkeypatch.setattr(module,'read_key',forbidden)
     monkeypatch.setattr(socket,'socket',forbidden)
+    monkeypatch.setattr(socket,'getaddrinfo',forbidden)
     try:
         with pytest.raises(ValueError):
             loop.run_until_complete(module.CompatibleClient(configuration,budget=budget).complete([],[],max_completion_tokens=4))

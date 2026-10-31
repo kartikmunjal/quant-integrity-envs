@@ -88,8 +88,11 @@ async def equivalence(row):
         baseline=await task.run_policy(row['seed'],row['tier'],source)
         model=await run_model_episode(row['environment'],row['seed'],row['tier'],MockClient([reply]),Limits())
     assert abs(model['reward']-baseline['reward'])<=1e-12
-    for stage in ('primary','replay'):
+    for stage in ('primary','replay','poison'):
         assert_same(model.get(stage),baseline.get(stage),stage)
+    for field in ('replay_seed','flagged','security_ok','schema_ok','findings','patched_source',
+                  'patch_sha256','primary_error','replay_error','poison_error','oracle_sha256'):
+        if field in model or field in baseline: assert_same(model.get(field),baseline.get(field),field)
     if model.get('source_sha256') is not None:
         assert model['source_sha256']==source_hash
     if baseline.get('source_sha256') is not None:
