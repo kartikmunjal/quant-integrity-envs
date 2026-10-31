@@ -64,11 +64,30 @@ def test_loopback_opt_in_rejects_nonloopback_url():
                                      key_env_name='P5A_FAKE_KEY',allow_loopback_test=True))
 
 
-def test_actual_compatible_wire_path_against_local_fake_http_shim(monkeypatch):
+def test_missing_price_refuses_before_loopback_socket_or_key_lookup(monkeypatch,tmp_path):
+    from qi_harness import client as module
+    from qi_harness.budget import PriceBook,BudgetController
+    prereg=tmp_path/'fake_prereg.yaml'
+    prereg.write_text('budgets:\n  api_usd_cap: 100\n  gpu_usd_cap: 100\n  total_usd_cap: 150\n  stop_and_report_at_fraction: 0.8\n')
+    budget=BudgetController(PriceBook({}),prereg_path=prereg,spend_path=tmp_path/'spend.csv')
+    configuration=module.ClientConfig(base_url='http://127.0.0.1:1/v1',model='unpriced',
+                                      key_env_name='P5A_FAKE_UNREAD_KEY',allow_loopback_test=True)
+    loop=asyncio.new_event_loop()
+    def forbidden(*args,**kwargs): raise AssertionError('unpriced call touched key/network')
+    monkeypatch.setattr(module,'read_key',forbidden)
+    monkeypatch.setattr(socket,'socket',forbidden)
+    try:
+        with pytest.raises(ValueError):
+            loop.run_until_complete(module.CompatibleClient(configuration,budget=budget).complete([],[],max_completion_tokens=4))
+    finally: loop.close()
+
+
+def test_actual_compatible_wire_path_against_local_fake_http_shim(monkeypatch,tmp_path):
     """Only a loopback server and a deliberately planted fake key are allowed."""
     from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
     import threading
     from qi_harness.client import ClientConfig,CompatibleClient
+    from qi_harness.budget import PriceBook,BudgetController
     received=[]
     class Handler(BaseHTTPRequestHandler):
         def do_POST(self):
@@ -86,9 +105,13 @@ def test_actual_compatible_wire_path_against_local_fake_http_shim(monkeypatch):
     thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
     fake='P5A_FAKE_VALUE_NOT_A_CREDENTIAL_123'
     monkeypatch.setenv('P5A_FAKE_TEST_KEY',fake)
+    prereg=tmp_path/'fake_prereg.yaml'
+    prereg.write_text('budgets:\n  api_usd_cap: 100\n  gpu_usd_cap: 100\n  total_usd_cap: 150\n  stop_and_report_at_fraction: 0.8\n')
+    budget=BudgetController(PriceBook({'fake-priced-model':{'input_per_million':'1','output_per_million':'2'}}),
+                            prereg_path=prereg,spend_path=tmp_path/'spend.csv')
     try:
         client=CompatibleClient(ClientConfig(base_url=f'http://127.0.0.1:{server.server_port}/v1',
-                                model='fake-priced-model',key_env_name='P5A_FAKE_TEST_KEY',allow_loopback_test=True))
+                                model='fake-priced-model',key_env_name='P5A_FAKE_TEST_KEY',allow_loopback_test=True),budget=budget)
         reply=asyncio.run(client.complete([{'role':'user','content':'fixture'}],[],max_completion_tokens=17))
         assert (reply.input_tokens,reply.output_tokens)==(11,5)
         assert reply.tool_calls[0].name=='list_files' and reply.tool_calls[0].arguments=={}
@@ -97,5 +120,6 @@ def test_actual_compatible_wire_path_against_local_fake_http_shim(monkeypatch):
         assert body.get('max_tokens')==17 or body.get('max_completion_tokens')==17
         assert authorization=='Bearer '+fake
         assert fake not in repr(reply)
+        assert fake not in (tmp_path/'spend.csv').read_text()
     finally:
         server.shutdown();server.server_close();thread.join(timeout=2)
