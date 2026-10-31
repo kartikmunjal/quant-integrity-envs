@@ -7,9 +7,10 @@ import time
 async def run_loop(client,tools,limits):
     started=time.monotonic();messages=list(getattr(tools,'initial_messages',[]))
     result={'submitted':False,'reward':0.,'reason':'max_turns','turns':0,'input_tokens':0,'output_tokens':0,'total_tokens':0,'messages':messages}
+    tools.loop_record=result
     redact=getattr(client,'redact',lambda value:value)
     def finish(reason):
-        result.update(reason=reason,submitted=bool(tools.submitted),wall_seconds=time.monotonic()-started)
+        result.update(reason=reason,submitted=bool(tools.submitted),wall_seconds=time.monotonic()-started,usage_unknown=bool(getattr(client,'usage_unknown',False)))
         if reason!='submitted' and hasattr(tools,'runtime'):tools.runtime.flagged=True
         return result
     async def body():

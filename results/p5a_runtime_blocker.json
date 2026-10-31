@@ -1,0 +1,33 @@
+{
+  "actual_docker_leak_observed": false,
+  "actual_model_or_api_calls": 0,
+  "diagnostic": "P5a shared execute_program cancellation ordering",
+  "diagnostic_assertions_passed": true,
+  "environment": "shared runtime; no environment episode generated",
+  "events": [
+    "remove_before_create",
+    "created"
+  ],
+  "fake_resource_created_after_stop": true,
+  "generator_version_hash": null,
+  "helper_cancellation_propagated": true,
+  "helper_source_sha256": "c72c8ce310d14551f5db21fe0436b14cd3220a4a689fd9c29ea2642506e5b2db",
+  "limitation": "A fake daemon operation models late creation after client cancellation. This establishes that unchanged execute_program permits cleanup-before-creation ordering; it does not measure real Docker timing or prove an actual Docker resource leak. No model/solver work was performed.",
+  "observations": [
+    "startup_client_cancelled",
+    "temporary_directory_exited"
+  ],
+  "paid_spend_usd": "0",
+  "required_owner_review": "Shared provisioning must retain/join its startup operation or otherwise reconcile daemon-side creation before final cleanup. Cancellation must join provisioning and shield/join teardown; an expired episode must perform cleanup only, without launching primary/replay continuation.",
+  "runtime_contract_passed": false,
+  "shared_source_unchanged": true,
+  "simulation_only": true,
+  "source_path": "src/qi_runtime/__init__.py",
+  "source_sha256": "0a5d2a09968ed8e707c818c32ab8b3e468ff4fdeaa427043a359e7ad84a0bb41",
+  "work_counters": {
+    "answer_parsing": 0,
+    "execution": 0,
+    "model_actions": 0,
+    "writes": 0
+  }
+}

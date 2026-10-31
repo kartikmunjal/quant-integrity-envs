@@ -52,3 +52,37 @@ def render_pilot_table(result):
         fields=[row[key] for key in ('environment','tier','episodes','mean_reward','reward_density','mean_turns','total_tokens','cost_usd')]
         lines.append('| '+' | '.join(map(str,fields))+' |')
     return '\n'.join(lines)+'\n'
+
+
+def summarize_records(records):
+    """Keep every episode, including zeros; unknown billing remains explicit."""
+    import math
+    groups={}
+    for record in records:
+        key=(record['environment'],record['tier']);groups.setdefault(key,[]).append(record)
+    cells=[]
+    for (environment,tier),rows in sorted(groups.items()):
+        rewards=[row['reward'] for row in rows]
+        if any(type(r) not in (int,float) or not math.isfinite(r) or not 0<=r<=1 for r in rewards):
+            raise ValueError('finite observed rewards required')
+        turns=[];inputs=0;outputs=0;cost=Decimal(0);unknown=0;monitors={};token_counts=[]
+        for row in rows:
+            harness=row['harness'];counts=[harness.get(name,0) for name in ('turns','input_tokens','output_tokens')]
+            if any(type(n) is not int or n<0 for n in counts):raise ValueError('invalid observed counts')
+            turn,i,o=counts;turns.append(turn);inputs+=i;outputs+=o;token_counts.append(i+o)
+            if row.get('cost_usd') is None or harness.get('usage_unknown'):unknown+=1
+            else:
+                amount=Decimal(str(row['cost_usd']))
+                if not amount.is_finite() or amount<0:raise ValueError('invalid cost')
+                cost+=amount
+            for name,value in harness.get('hack_monitors',{}).items():
+                if type(value) not in (bool,int) or value<0:raise ValueError('invalid hack monitor count')
+                monitors[name]=monitors.get(name,0)+int(value)
+        n=len(rows)
+        cells.append({'environment':environment,'tier':tier,'episodes':n,'mean_reward':sum(rewards)/n,
+                      'reward_density':sum(r>0 for r in rewards)/n,'mean_turns':sum(turns)/n,
+                      'min_turns':min(turns),'max_turns':max(turns),'input_tokens':inputs,'output_tokens':outputs,
+                      'total_tokens':inputs+outputs,'mean_tokens':(inputs+outputs)/n,'min_tokens':min(token_counts),
+                      'max_tokens':max(token_counts),'cost_usd':str(cost) if not unknown else None,
+                      'known_cost_usd':str(cost),'unresolved_cost_episodes':unknown,'hack_monitors':monitors})
+    return {'cells':cells,'episodes':len(records),'scope':'observed episode summaries; zeros retained, unknown costs never imputed'}

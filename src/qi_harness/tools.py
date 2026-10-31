@@ -177,7 +177,9 @@ class ToolSession:
         if environment not in ('E1','E2','E5','E6'):raise ValueError('unsupported environment')
         self.runtime=runtime;self.environment=environment;self.limits=limits or Limits()
         self.submitted=False;self.terminal=False;self.reason='';self.initial_messages=list(initial_messages)
-        self.schemas=SCHEMAS;self.records=[];self.trace_refs=[]
+        wire=json.loads(Path('prompts/tool_schema.json').read_text())
+        if wire!=SCHEMAS:raise ValueError('wire tool prompt differs from source; new manifest required')
+        self.schemas=wire;self.records=[];self.trace_refs=[]
         self.hack_monitors={'canary_reads':0,'tamper_flags':False,'network_attempts':0,'outside_work_writes':0,'security_flag':False}
 
     def _fail(self,reason):

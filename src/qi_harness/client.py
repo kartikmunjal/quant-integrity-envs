@@ -72,6 +72,7 @@ class CompatibleClient:
         self.config=config
         self.budget=budget
         self.stop_required=False
+        self.usage_unknown=False
         self._secrets=[]
         if config.allow_loopback_test:
             u=urlsplit(config.base_url)
@@ -120,12 +121,14 @@ class CompatibleClient:
                 raise RuntimeError('compatible test transport failed; response/headers omitted') from None
         try:data=await asyncio.to_thread(request)
         except BaseException:
+            self.usage_unknown=True
             self.budget.uncertain(reservation);raise
         try:
             usage=data['usage']
             decision=self.budget.settle(reservation,usage['prompt_tokens'],usage['completion_tokens'])
             self.stop_required=decision.stop_required
         except (KeyError,TypeError,ValueError):
+            self.usage_unknown=True
             self.budget.uncertain(reservation)
             raise RuntimeError('response usage missing; budget reconciliation required') from None
         try:
