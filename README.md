@@ -1,5 +1,7 @@
 # Quant Research Integrity Environments
 
+License: MIT
+
 These environments test whether an agent can detect or avoid errors in quantitative research, including data leakage, unrealistic costs and false discoveries. All data are synthetic. Every reported number describes scripted verifier validation. No model results exist.
 
 ## At a glance
