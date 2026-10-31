@@ -1,4 +1,6 @@
-# P5a model harness: round 2 validation in progress
+# P5a model harness: round 2 STOP — boundary gate failed
+
+**Round 2 did not pass:** boundary 160/176 passed; all 16 fork-heavy cases failed as incomplete infrastructure attempts with protected completion status missing. All 176 recorded containers were removed, zero retries, and a read-only check found zero remaining owned IDs. Sentinel, equivalence and stress cohorts are committed but unrun under the prompt's STOP condition. See [round 2 report](../reports/P5a.md#p5a-round-2) and [independent review](../results/p5a2_stop_review.json). Provider and paid pilot execution remain locked.
 
 Owner decisions in P2B_PROMPT14.md supersede the prior round's whole-grading deadline requirement. No shared runtime lifecycle redesign is authorized or implemented. The retained [diagnostic](../results/p5a_runtime_blocker.json) remains a known limitation, not a round 2 gate: it demonstrates simulated late daemon creation after cancellation, not an observed real Docker leak. Earlier evidence and report text remain unchanged.
 

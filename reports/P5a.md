@@ -180,3 +180,77 @@ Remaining gaps are material: safe whole-episode cancellation across native gradi
 Protected shared runtime, generator, mutation engine, environment/verifier/reward sources, thresholds, preregistration, historical freezes and LICENSE remain unchanged. README changed only in the authorized main step. Only `P2B_PROMPT13.md` is removed at completion; `P2B_PROMPT1.md` and all older evidence are preserved.
 
 **STOP. P5a remains blocked, awaiting owner authorization of the precise shared lifecycle change. No paid pilot, baseline, training, sealed evaluation or next phase begins.**
+
+
+## P5a round 2
+
+**STOP — gate failed.** This round implements the owner's revised model-phase deadline and validates its handoff, but the live boundary batch fails all 16 fork-heavy cases. No shared runtime change is made. The committed sentinel, equivalence and stress cohorts remain unrun under the prompt's stop condition. Provider execution and paid pilot execution remain locked. Earlier report text and evidence are preserved verbatim.
+
+### Owner decisions and implementation
+
+The owner declined the earlier shared lifecycle redesign. The retained cancellation diagnostic and `results/p5a_runtime_blocker.json` are a documented known limitation, **not this round's gate**. The new failure below is separately observed in actual Docker execution.
+
+The wall clock covers provisioning/setup, model turns and tool execution, starting before native setup. Model-phase termination for submission, turn/token limits or deadline ends solver actions. An incomplete setup/provisioning deadline is an infrastructure failure after joined cleanup, never a completed timeout zero. Native finalization and grading are not cancelled by that clock; primary/replay/poison stages run to completion under existing runtime timeouts and infrastructure classification. A hung grading stage is an incomplete infrastructure attempt and cannot be retried before cleanup is confirmed. **A stalled Docker daemon during grading can exceed the nominal wall clock.** No end-to-end grading deadline is claimed.
+
+There is one disclosed handoff interpretation: native finalizers require live audited reads, so the harness captures the exact bounded native artifact bytes or original transfer errors through the original runtime reader, then confirms solver teardown before calling unchanged native finalization. A temporary per-instance reader serves only exact captured native path/cap pairs. It preserves exact runtime identity, flags, commands and provenance, opens no host work path, fabricates no source, and restores the original reader afterwards. E2 flagged-transfer behavior is preserved. No runtime class, shared source, native verifier or reward implementation changes.
+
+Independent author `/root/e1_review` owns the validation tests, comparison driver, archive audit helper and review artifacts; root owns harness implementation. Tests precede implementation notification and results are reported as observed. New contracts cover audited immutable capture, native E1 finalization after teardown, original transfer errors, E2 behavior, infrastructure failure precedence, setup/provisioning deadline cleanup, and grading completion despite repeated caller cancellation. The grading-cancellation fixtures are pure mocks; they do not establish a new shared-runtime lifecycle contract.
+
+### Step 0 and commits
+
+On `main`, release scanning now uses tracked files plus untracked non-ignored files, preserving tracked files even if ignore rules match them. Binary and symlink exclusion and privacy redaction remain. Up to 20 summaries report physical term-file line numbers and uncapped occurrence totals, ranked by count, without term text. The 200-location limit remains separate. Only the two owner-superseded test expectations changed; privacy assertions remain.
+
+- `bc9e1e1eee4ebcd0c3cee8b0f22d840dc07b06af`: release scanner/tests and full-suite evidence; pushed to main, then merged into model-harness in `436cd8df`. Main was not pushed again.
+- `2e2841a4`: harness-only deadline/handoff implementation, independently authored tests, owner decisions and revised validation scale.
+- `352327ace5dc46ba2c04dbb09d3a5ba6187dd591`: all exact seeds, policies, counts and source hashes committed **before any live round-two batch**.
+- `07aa1adf76b4c6bcd945910575ae6481cdb96e49`: full boundary evidence, failure records, independent audits and final component-suite evidence.
+
+Final reporting changes are in the commit containing this appended section. No history was rewritten. README, shared runtime, generators, native verifiers, rewards, thresholds, freeze and license files are unchanged from the merged main baseline. No E3, sealed-seed, training, provider, GPU or publication run occurred.
+
+### Cohorts and live gate results
+
+All numerical episode results below are E1/E2/E5/E6 synthetic development cases, generator version `eac6db9224a724d63a3e7c7df71e0af46e65d29bb66b7c6e0d18061d55313921`. The shared runtime source SHA-256 remains `0a5d2a09968ed8e707c818c32ab8b3e468ff4fdeaa427043a359e7ad84a0bb41`. Exact populations use the unchanged committed windows in `results/p5a_seed_windows.json`; independent `results/p5a2_plan_audit.json` verifies committed plan bytes, source identities, windows and every existing cheater.
+
+| Batch | Committed cases | Executed | Result |
+| --- | ---: | ---: | --- |
+| Boundary, 11 types × 4 environments × 4 tiers | 176 | 176 | **FAIL:** 160 pass/complete; 16 infrastructure failures/incomplete |
+| Host sentinel | 16 | 0 | NOT RUN after STOP condition |
+| Scripted/model semantic equivalence pairs | 3,120 | 0 | NOT RUN; 100% at absolute scalar tolerance 1e-12 remains unestablished |
+| Mock-model stress at concurrency 8 | 1,000 | 0 | NOT RUN; no stress pass or retry/leak result claimed |
+
+Equivalence plans contain 200 oracle episodes/environment (50/tier), five wrong policies at 10/tier each (200/environment), and every existing cheater at 10/tier: 10 cheaters each for E1/E5/E6 (400/environment), eight for E2 (320). Totals are 800 pairs each for E1/E5/E6 and 720 for E2; each pair would require both native scripted and model-path executions. Operational-only exclusions and 1e-12 comparisons are unchanged; no comparison assertion was weakened. Plans are `results/p5a2_{boundary,equivalence,sentinel,stress}_v1_plan.json`.
+
+Per-environment/tier boundary results, **passed / attempted** (each cell has exactly one incomplete fork-heavy failure):
+
+| Environment | T1 | T2 | T3 | T4 | Overall |
+| --- | --- | --- | --- | --- | --- |
+| E1 | 10/11 FAIL | 10/11 FAIL | 10/11 FAIL | 10/11 FAIL | 40/44 FAIL |
+| E2 | 10/11 FAIL | 10/11 FAIL | 10/11 FAIL | 10/11 FAIL | 40/44 FAIL |
+| E5 | 10/11 FAIL | 10/11 FAIL | 10/11 FAIL | 10/11 FAIL | 40/44 FAIL |
+| E6 | 10/11 FAIL | 10/11 FAIL | 10/11 FAIL | 10/11 FAIL | 40/44 FAIL |
+
+Primary boundary seeds, separately for each tier: E1 1002500, E2 1000800, E5 1005500, E6 1003500. Source-hashed `results/p5a2_boundary_v1.json`, its eight compact proof shards and `results/p5a2_boundary_failures.json` retain every attempt and measured result. Independent `results/p5a2_boundary_audit.json` passes archive integrity with zero errors, while explicitly rejecting batch acceptance. `results/p5a2_stop_review.json` independently confirms the failure classification. No sentinel, equivalence or stress outcome is inferred from component tests or prior smokes.
+
+### Every failure, fix and stopping reason
+
+1. The prospective synthetic release tests exposed six expected failures against the old scope/summary behavior (22 passed); `logs/p5a2_release_before.txt` retains that invocation. The scanner change fixes them: 28 release tests pass and the full main suite has 668 passed/38 skipped (`results/p5a2_release_suite.xml`). Only synthetic terms in disposable repositories were used; the owner's terms file was never opened or scanned.
+2. An independent repeated-caller-cancellation contract found one harness failure (11 passed/1 failed): a second cancellation reached an unshielded wait and cancelled grading. Root replaced it with a repeated shield/join loop, then re-raises caller cancellation after grading completes. `logs/p5a2_caller_cancel_junit.xml` retains the failure; `results/p5a2_lifecycle_v2.xml` records 24 passing affected contracts. The file named `logs/p5a2_deadline_red_junit.xml` actually contains 21 passing tests because implementation landed before that invocation finished; it is not represented as a failing red baseline.
+3. The only live batch attempt, boundary v1, retains all 16 fork-heavy failures: every environment/tier reports `DockerFailure: Docker exec lacks protected solver completion status`. The registered attack forks beyond the fixed 32-process container allowance. Missing trusted completion status is infrastructure failure, not evidence sufficient for a policy zero. All 16 failed attempts have confirmed cleanup; the 176-row batch allows no retries under the unchanged 0.5% ledger, and zero were used. No successful rerun is claimed.
+
+The live failure requires preserving completion/cleanup capacity at the checked execution boundary. A lower per-user process limit is not a validated independent per-container limit under the shared nobody UID and could interfere with concurrency-8 cases. Blocking fork syntax is bypassable and would not certify containment; blanket process prohibition would change legitimate nested subprocess behavior. These were reviewed, not implemented. No assertion, attack, episode, timeout, policy classification or verifier was loosened. The prompt forbids the required checked-runtime containment/protocol work, so this round **STOPs and reports** rather than converting infrastructure errors into clean zeros or proceeding with later cohorts.
+
+Unknown/unsupported audit syntax remains fail-closed. Passing boundary predicates demonstrate blocked/flagged/zero outcomes, not broad functional equivalence. This is an infrastructure prototype; equivalence, sentinel and stress certification remain outstanding.
+
+### Tests, container accounting, compute and size
+
+`results/p5a2_test_runs.json` records every retained JUnit invocation and hash. Full model-branch suites progressed through 787, 790 and finally **792 passed/38 skipped**, with no final failures. Skips are existing Docker-gated suite tests; the 176-case batch separately used real local Docker. Independent setup/provisioning contracts pass (14 tests in their invocation); the audit helper has two pure comparator tests. Oversized original JUnit XML is losslessly retained in hashed gzip archives with bounded display summaries and storage manifests. A read-only pending-task inspection attempt could not identify the interpreter runtime section; `logs/p5a2_boundary_pending_tasks.txt` retains the unsuccessful diagnostic, and no conclusion is inferred from it.
+
+`results/p5a2_compute.json` and the batch summary record boundary wall time **473.708502061083 seconds** at concurrency 8, summed attempt elapsed time **3035.8230892795837 seconds** (overlapping elapsed time, not CPU time), 160 native-graded outcomes and 11 model-deadline outcomes that reached native grading after solver teardown. The maximum recorded complete episode wall time is **180.7367089620093 seconds**; cleanup and grading can extend the nominal model clock. Flagged deadline cases have no valid answer stages; completion of long-running primary/replay coroutines beyond the deadline is tested with independent mocks, not claimed as a live grading workload. No GPU compute was used and CPU utilization was not metered.
+
+Independent archive accounting records **176 distinct containers created and 176 removed**, all attempt cleanup confirmed and zero retries. A separate read-only Docker query filtered by those exact recorded IDs confirms **zero remaining owned containers** in `results/p5a2_container_check.json`; this is separate from the offline audit's scope. There is no stress-container result because stress did not run. Resource defaults remain fixed image/network-none/read-only root/single work mount, pids 32, memory 128 MiB, CPU 1, existing 20-second solver-command timeout; harness defaults remain 16 turns, 2048 completion tokens/turn, 32768 total tokens, 180 model-phase seconds, 16384 visible tool-output bytes and 2097152 transcript bytes. Infrastructure errors remain incomplete until cleanup is confirmed.
+
+Spend is **$0 API and $0 GPU**: zero provider calls or GPU jobs; `logs/spend.csv` does not exist, and the paid runner remains unchanged and refusing paid execution. Mock client and explicit fake loopback HTTP unit tests use no real provider key or service. No real API key, owner terms file or file under ~/private was read.
+
+At evidence commit `07aa1adf`, `results/p5a2_repo_size.json` records **17,270 tracked files / 686,722,411 bytes**, `.git` **152,694,506 bytes**, and **1,249,822 new committed phase bytes**. This snapshot precedes the final report/docs/size record and excludes package caches and ignored runtime artifacts. Existing largest tracked file is 725,192 bytes; no large raw log was added. All full boundary records remain locally retained under ignored `artifacts/p5a/validation/p5a2_boundary_v1/` (**9,877,106 bytes**, including exception evidence); committed shards bind them by hash and preserve compact outcomes/provenance. Earlier evidence was not deleted.
+
+**Disposition:** P5a round 2 did not pass. Runtime containment authorization is needed before a corrected boundary rerun and the remaining committed validation populations. No next phase or paid pilot begins.

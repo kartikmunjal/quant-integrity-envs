@@ -1,1 +1,1 @@
-current_phase: P5a STOP, awaiting owner; model-harness prototype blocked on shared execute_program cancellation lifecycle; no paid pilot or full mock validation run
+current_phase: P5a round 2 STOP, awaiting owner; boundary gate failed 16 fork-heavy incomplete infrastructure attempts (protected completion status missing); 176 containers removed, zero retries, zero remaining owned IDs; sentinel/equivalence/stress plans committed but unrun; no paid pilot
