@@ -32,6 +32,33 @@ def test_extended_audit_allows_system_reads_and_confined_work_writes():
     assert extended_audit(SAFE_TRACE)['safe'] is True
 
 
+def test_aligned_syscall_result_whitespace_does_not_reject_safe_system_reads():
+    from qi_harness.tools import extended_audit
+    trace='''execve("/usr/bin/env", ["env", "-i", "python"], 0x0) = 0
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD</work>, "/usr/local/lib/python3.14", {st_mode=S_IFDIR|0755}, 0)    = 0
++++ exited with 0 +++
+'''
+    assert extended_audit(trace)['safe'] is True
+
+
+@pytest.mark.parametrize('trace',[
+    'openat(3, "escape", O_WRONLY|O_CREAT, 0666) = 4\n',
+    'renameat(3, "source", 4, "destination") = 0\n',
+    'renameat2(3, "source", 4, "destination", 0) = 0\n',
+    'fchdir(3) = 0\n',
+])
+def test_unannotated_numeric_directory_descriptors_never_assumed_work_confined(trace):
+    from qi_harness.tools import extended_audit
+    assert extended_audit(trace)['safe'] is False
+
+
+def test_absolute_work_write_with_nofollow_is_safe_despite_irrelevant_numeric_dirfd():
+    from qi_harness.tools import extended_audit
+    trace='openat(3, "/work/program.py", O_WRONLY|O_CREAT|O_TRUNC|O_NOFOLLOW, 0666) = 4\n'
+    assert extended_audit(trace)['safe'] is True
+
+
 class FakeRuntime:
     def __init__(self,stdout='fixture',stderr=SAFE_TRACE,exit_code=0):
         self.flagged=False;self.calls=[];self.stdout=stdout;self.stderr=stderr;self.exit_code=exit_code
