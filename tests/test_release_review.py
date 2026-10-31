@@ -71,13 +71,14 @@ def test_deleted_line_uses_old_hunk_line_number(repo):
     assert secret not in r.stdout+r.stderr and 'hidden sentence' not in r.stdout+r.stderr
 
 
-def test_worktree_ignored_text_included_binary_and_git_excluded(repo):
+def test_worktree_ignored_text_binary_and_git_excluded(repo):
     secret='zzfakesecret';(repo/'.gitignore').write_text('ignored.txt\n')
     (repo/'ignored.txt').write_text(secret+'\n')
     (repo/'binary.bin').write_bytes(secret.encode()+b'\x00later')
     (repo/'.git'/'not_source').write_text(secret+'\n')
     r=run_review(repo,terms_file(repo,secret+'\n'))
-    assert r.returncode==1 and 'ignored.txt:1' in r.stdout
+    assert r.returncode==0 and r.stdout=='PASS\nTOTAL 0\n'
+    assert 'ignored.txt' not in r.stdout
     assert 'binary.bin' not in r.stdout and 'not_source' not in r.stdout
 
 
@@ -100,8 +101,64 @@ def test_hit_cap_keeps_total_and_never_prints_line(repo):
     (repo/'many.txt').write_text(('zzfakesecret confidential sentence\n')*250)
     r=run_review(repo,terms_file(repo,'zzfakesecret\n'))
     assert r.returncode==1 and r.stdout.splitlines()[1]=='TOTAL 250'
-    assert len(r.stdout.splitlines())==202
+    assert r.stdout.splitlines()[2]=='SUMMARY term=1 hits=250'
+    assert len(r.stdout.splitlines())==203
     assert 'zzfakesecret' not in r.stdout+r.stderr and 'confidential sentence' not in r.stdout+r.stderr
+
+
+def test_publishable_worktree_includes_tracked_and_nonignored_untracked_only(repo):
+    secret='zzfakesecret'
+    # A tracked file remains publishable even if a later ignore rule matches it.
+    (repo/'.gitignore').write_text('safe.txt\nignored/\n')
+    (repo/'safe.txt').write_text(secret+'\n')
+    (repo/'draft.txt').write_text(secret+'\n')
+    (repo/'ignored').mkdir()
+    (repo/'ignored'/'cache.txt').write_text(secret+'\n')
+    r=run_review(repo,terms_file(repo,secret+'\n'))
+    assert r.returncode==1
+    assert r.stdout.splitlines()[:3]==['FAIL','TOTAL 2','SUMMARY term=1 hits=2']
+    assert 'working/safe.txt:1 term=1' in r.stdout
+    assert 'working/draft.txt:1 term=1' in r.stdout
+    assert 'ignored/cache.txt' not in r.stdout
+    assert secret not in r.stdout+r.stderr
+
+
+def test_ignored_directory_is_not_opened_or_reported(repo):
+    secret='zzfakesecret'
+    (repo/'.gitignore').write_text('ignored/\n')
+    (repo/'ignored').mkdir()
+    (repo/'ignored'/'payload.txt').write_text(secret+' private fake sentence\n')
+    r=run_review(repo,terms_file(repo,secret+'\n'))
+    assert r.returncode==0 and r.stdout=='PASS\nTOTAL 0\n'
+    assert secret not in r.stdout+r.stderr and 'private fake sentence' not in r.stdout+r.stderr
+
+
+def test_summaries_count_every_match_beyond_location_cap_and_keep_physical_indices(repo):
+    first='zzfirstfakeneedle';second='zzsecondfakeneedle'
+    (repo/'many.txt').write_text((first+'\n')*202+(second+'\n')*303)
+    r=run_review(repo,terms_file(repo,'\r\n'+first+'\r\n \r\n'+second+'\r\n'))
+    lines=r.stdout.splitlines()
+    assert r.returncode==1
+    assert lines[:4]==['FAIL','TOTAL 505','SUMMARY term=4 hits=303','SUMMARY term=2 hits=202']
+    locations=lines[4:]
+    assert len(locations)==200
+    assert all(line.endswith('term=2') for line in locations)
+    assert first not in r.stdout+r.stderr and second not in r.stdout+r.stderr
+    assert '\r' not in r.stdout and r.stderr==''
+
+
+def test_summaries_report_only_twenty_most_frequent_terms_without_text(repo):
+    terms=[f'zzsyntheticneedle{i:03d}suffix' for i in range(1,26)]
+    (repo/'many.txt').write_text(''.join((term+'\n')*i for i,term in enumerate(terms,1)))
+    # Blanks are physical lines: term i is on physical line 2*i.
+    r=run_review(repo,terms_file(repo,''.join('\n'+term+'\n' for term in terms)))
+    lines=r.stdout.splitlines()
+    assert r.returncode==1 and lines[:2]==['FAIL','TOTAL 325']
+    summary=[line for line in lines if line.startswith('SUMMARY ')]
+    assert summary==[f'SUMMARY term={2*i} hits={i}' for i in range(25,5,-1)]
+    assert lines[2:22]==summary
+    assert len(lines[22:])==200
+    assert all(term not in r.stdout+r.stderr for term in terms)
 
 
 def test_unicode_and_quoted_history_paths(repo):
