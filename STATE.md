@@ -1,1 +1,1 @@
-current_phase: P5b runtime987bbe2d nativevalidation8148casespass/audited19997containersremoved0retry; P5aboundary176v2running; remaining sentinel16/equivalence3120pairs/stress1000; spend0paidlocked
+current_phase: P5b runtime987bbe2d nativevalidation8148pass/audit19997containersremoved0retry; P5aboundaryv2all176pass/audited; hostsentinel16running thenequivalence3120pairs/stress1000; spend0paidlocked
