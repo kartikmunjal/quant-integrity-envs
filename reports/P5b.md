@@ -39,3 +39,8 @@ Commit `066e7e44` prospectively binds nine new candidate-two runtime-validation 
 ## Corrected-version regression checkpoint
 
 All four prescribed regression cohorts passed: E1/E5/E6/E2 each completed 1,000 exact reward and replay-seed comparisons. `results/p5b_exact_regressions_audit.json` independently validates the historical raw records, cohort/source bindings and all outcomes. Together with corrected-version probes and mixed tests, it accounts for 12,001 distinct containers created and removed, with zero retries. E2 stress at concurrency 8 has started; concurrency 12 and all P5a reruns remain pending at this checkpoint.
+
+
+## Corrected-version native validation complete
+
+Both screened E2 stress cohorts completed 2,000/2,000 cases at concurrency 8 and 12, with zero retries. `results/p5b_runtime_validation_audit.json` independently accepts all nine corrected-version native batches: 8,148 validation rows, 19,997 distinct containers created and removed, and no audit errors. This includes the probes/mixed tests and all four exact regressions. The unchanged 176-case P5a boundary rerun has now started; sentinel, equivalence and mock stress remain pending. No P5a acceptance is inferred from these native results.

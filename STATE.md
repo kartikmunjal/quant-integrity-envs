@@ -1,1 +1,1 @@
-current_phase: P5b correctedsource987bbe2d; probes/mixed+4000exactregressions+E2stress2000C8pass/audit15999containersremoved0retry; E2stress2000C12running; THENP5aboundary176/sentinel16/equivalence3120pairs/stress1000; spend0 paidlocked
+current_phase: P5b runtime987bbe2d nativevalidation8148casespass/audited19997containersremoved0retry; P5aboundary176v2running; remaining sentinel16/equivalence3120pairs/stress1000; spend0paidlocked
