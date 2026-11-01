@@ -160,6 +160,8 @@ class CheckedRuntime(DockerRuntime):
                 self.flagged=True;self._process_allowance_violation=True;note_policy()
                 evidence['policy_outcome']='process_allowance_exhausted'
                 return ProgramResult(1,'','process allowance exhausted')
+            if failure is None:
+                raise DockerFailure('daemon health unconfirmed after positive process-exhaustion evidence')
         if failure is not None:raise failure
         return result
 
