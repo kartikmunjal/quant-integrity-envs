@@ -1,1 +1,1 @@
-current_phase: P5b PASS / STOP; all13finalcohorts passed with0retries; 4000exactregressions, E2stress2000C8/2000C12, P5aboundary176/sentinel16/equivalence3120pairs/stress1000; source987bbe2d; audit43722containerscreatedremoved inclhistory, live0remaining; spend0paidlocked; awaitowner
+current_phase: M2 packaging complete, awaiting owner; local main merge and generated documentation validated; 865 tests passed, 38 skipped; spend0; no push; owner scan then git push origin main
