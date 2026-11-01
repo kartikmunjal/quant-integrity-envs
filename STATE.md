@@ -1,1 +1,1 @@
-current_phase: P5b runtime dd533988/source987bbe2d; correctedprobes/mixed and E1/E5/E6exact1000eachpass/audited8481createdremoved0retry; E2regressionrunning; E2stressC8/C12 then P5a remain; spend0 paidlocked
+current_phase: P5b runtime dd533988/source987bbe2d; correctedprobes/mixed and all4exactregressions4000passed/audit12001containersremoved0retry; E2stress2000C8running then2000C12, thenP5aboundary176/sentinel16/equivalence3120pairs/stress1000; spend0paidlocked
