@@ -1,1 +1,1 @@
-current_phase: P5b owner-authorized narrow process-exhaustion runtime change; implementation939e0a1c and nine independent live/regression plansfff2e039 committed; live probes in progress; spend0; no paid pilot or next phase
+current_phase: P5b corrected runtime dd533988/source987bbe2d; final plans066e7e44; candidate2probes68+mixed32C8/48C12pass/audit379createdremoved0retry; E1v2exactregressionrunning; remainingE5/E6/E2regressions+E2stressC8/C12+P5arounds; spend0paidlocked
