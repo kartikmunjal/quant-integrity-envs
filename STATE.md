@@ -1,1 +1,1 @@
-current_phase: P5b native8148pass; P5aboundary176+sentinel16pass/audited228containersremoved0retry; equivalence3120pairsrunning; stress1000pending; source987bbe2d spend0paidlocked
+current_phase: P5b native8148+P5aboundary176/sentinel16/equivalence3120pairspassed/audited; finalmockstress1000C8running; thenfinalaudit/report/push/deleteonlyPrompt15; source987bbe2d spend0paidlocked
