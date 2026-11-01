@@ -1,1 +1,1 @@
-current_phase: P5b corrected runtime dd533988/source987bbe2d; final plans066e7e44; candidate2probes68+mixed32C8/48C12pass/audit379createdremoved0retry; E1v2exactregressionrunning; remainingE5/E6/E2regressions+E2stressC8/C12+P5arounds; spend0paidlocked
+current_phase: P5b runtime dd533988/source987bbe2d, plans066e7e44; correctedprobes+mixedpass; E1/E5exact1000eachpass/audit; E6regressionrunning; E2regression/stress and P5a batches remaining; spend0 paidlocked
