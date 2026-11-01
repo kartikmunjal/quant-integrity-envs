@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.045" timestamp="2026-10-31T16:44:59.123571-06:00" hostname="siennaspc"><testcase classname="tests.validation.test_p5b_validation" name="test_e6_regression_extracts_nested_historical_value_without_losing_none_replay" time="0.007"><failure message="KeyError: 'reward'">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x78347068cc30&gt;
+
+    def test_e6_regression_extracts_nested_historical_value_without_losing_none_replay(monkeypatch):
+        module=driver()
+        old={'baseline_index':0,'baseline_path':'fake.json','baseline_sha256':'fixture',
+             'policy':'canary_read','reward':0.,'seed':1005000,'tier':'T1'}
+        monkeypatch.setattr(module,'load',lambda path:{'environments':{'E6':[dict(old) for _ in range(1000)]}})
+        monkeypatch.setattr(module,'checked',lambda path,expected:{0:{'seed':1005000,'tier':'T1',
+            'value':{'reward':0.,'replay_seed':None}}})
+&gt;       rows=module.regression_rows('E6')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/validation/test_p5b_validation.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+environment = 'E6'
+
+    def regression_rows(environment):
+        if environment!='E2':
+            original=load('results/p3a2_regression_plan.json.gz')['environments'][environment]
+            rows=[]
+            for old in original:
+                baseline=checked(old['baseline_path'],old['baseline_sha256'])[old['baseline_index']]
+&gt;               if baseline['seed']!=old['seed'] or baseline['tier']!=old['tier'] or baseline['reward']!=old['reward']:
+                                                                                     ^^^^^^^^^^^^^^^^^^
+E               KeyError: 'reward'
+
+tests/validation/p5b_validation.py:70: KeyError</failure></testcase></testsuite></testsuites>

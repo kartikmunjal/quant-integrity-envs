@@ -1,1 +1,1 @@
-current_phase: P3b round 2 pre-gate construction and incentive failure, awaiting owner
+current_phase: P5b PASS / STOP; all13finalcohorts passed with0retries; 4000exactregressions, E2stress2000C8/2000C12, P5aboundary176/sentinel16/equivalence3120pairs/stress1000; source987bbe2d; audit43722containerscreatedremoved inclhistory, live0remaining; spend0paidlocked; awaitowner
