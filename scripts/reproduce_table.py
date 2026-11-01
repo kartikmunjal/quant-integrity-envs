@@ -1,4 +1,4 @@
-"""Render M1 documentation from recorded evidence; never run an experiment."""
+"""Render milestone documentation from recorded evidence; never run an experiment."""
 from __future__ import annotations
 import argparse
 import json
@@ -188,14 +188,93 @@ def determinism():
         rows.append(['Corrected shared runtime',env,count(x['rows']),x['rows']-x['exact_matches'],'see independent audit',status(x['passed'])])
     return table(['Cohort','Environment','Rows','Reward differences','Replay-seed differences','Regression'],rows,paths)
 
+P5B_VERSION='results/p5b_runtime_version_v2.json'
+P5B_AUDIT='results/p5b_runtime_validation_audit.json'
+P5B_HARNESS_AUDIT='results/p5b_p5a_final_audit.json'
+
+
+def p5b_batch(path):
+    x=read_json(path)
+    if not x['passed'] or x['failed_rows'] or x['rows']!=x['planned'] or x['retries']:
+        raise ValueError('P5b requires complete passing zero-retry evidence')
+    if x['generator_version_hash']!=generator_hash():raise ValueError('P5b generator differs')
+    version=read_json(P5B_VERSION)
+    if any(x['sources'].get(p)!=h for p,h in version['source_sha256'].items()):
+        raise ValueError('P5b execution source differs from corrected runtime')
+    return x
+
+
+def p5b_audit(path):
+    x=read_json(path)
+    if not x['audit_integrity_passed'] or not x['all_supplied_batches_accepted'] or x['error_count']:
+        raise ValueError('P5b independent audit failed')
+    return x
+
+
+def p5b_harness():
+    audit=p5b_audit(P5B_HARNESS_AUDIT);rows=[];paths=[]
+    for name,label,unit in [('equivalence','Scripted versus mock equivalence','pairs'),
+                            ('boundary','Boundary attacks','attacks'),
+                            ('sentinel','Host-sentinel checks','checks'),
+                            ('stress','Mock-model stress','episodes')]:
+        path=f'results/p5b_p5a_{name}_v2_final.json';x=p5b_batch(path);paths.append(path)
+        a=next(b for b in audit['batches'] if b['summary']==path)
+        if not a['acceptance_passed'] or a['rows']!=x['rows'] or a['created_containers']!=a['removed_containers']:
+            raise ValueError('P5b harness audit population or cleanup differs')
+        if name=='equivalence' and any(c['semantic_stage_agreements']!=c['rows'] or c['reward_agreements']!=c['rows'] for c in x['per_cell_policy'].values()):
+            raise ValueError('P5b equivalence disagreement')
+        rows.append([label,f"{count(x['rows'])} {unit}",x['concurrency'],x['failed_rows'],x['retries'],f"{count(a['created_containers'])} / {count(a['removed_containers'])}",status(x['passed'])])
+    return table(['Mock/scripted validation','Population','Concurrency','Failures','Retries','Containers created / removed','Result'],rows,paths+[P5B_HARNESS_AUDIT])
+
+
+def p5b_regressions():
+    audit=p5b_audit(P5B_AUDIT);rows=[];paths=[]
+    for env in ('E1','E2','E5','E6'):
+        path=f'results/p5b_regression_{env.lower()}_v2.json';x=p5b_batch(path);paths.append(path)
+        a=next(b for b in audit['batches'] if b['summary']==path)
+        exact=a['exact_historical_reward_replay_matches']
+        if exact!=x['rows']:raise ValueError('P5b reward/replay regression difference')
+        rows.append([env,count(x['rows']),count(exact),x['rows']-exact,x['retries'],status(x['passed'])])
+    return table(['Environment','Regression rows','Exact reward and replay-seed matches','Differences','Retries','Result'],rows,paths+[P5B_AUDIT])
+
+
+def p5b_probes():
+    path='results/p5b_probes_v2.json';x=p5b_batch(path);rows=[]
+    for kind,label in [('bomb','Live process-exhaustion probes'),('forgery','Host-counter forgery checks')]:
+        cells=[v for k,v in x['per_cell'].items() if k.split('/')[2]==kind]
+        rows.append([label,count(sum(c['rows'] for c in cells)),count(sum(c['passed'] for c in cells)),x['retries']])
+    return table(['Check','Cases','Passed','Retries'],rows,[path,P5B_AUDIT])
+
+
+def p5b_versions():
+    x=read_json(P5B_VERSION)
+    rows=[['Earlier init source',x['old_runtime_source_sha256']],['Corrected init source',x['new_runtime_source_sha256']],
+          ['Earlier recorded runtime',x['old_recorded_runtime_version_hash']],['Corrected three-file runtime',x['new_legacy_three_file_version_hash']],
+          ['Corrected full runtime bundle',x['new_full_runtime_bundle_sha256']],['New host-counter helper',x['source_sha256']['src/qi_runtime/process_allowance.py']]]
+    return table(['Runtime identity','SHA-256'],[[a,f'`{b}`'] for a,b in rows],[P5B_VERSION])
+
+
+def p5b_totals():
+    audit=p5b_audit(P5B_AUDIT)
+    regressions=[p5b_batch(f'results/p5b_regression_{e}_v2.json') for e in ('e1','e2','e5','e6')]
+    for x in regressions:
+        a=next(b for b in audit['batches'] if b['summary']==f"results/p5b_regression_{x['environment'].lower()}_v2.json")
+        if a['exact_historical_reward_replay_matches']!=x['rows']:raise ValueError('P5b exact regression drift')
+    probes=p5b_batch('results/p5b_probes_v2.json')
+    return sum(x['rows'] for x in regressions),sum(v['rows'] for k,v in probes['per_cell'].items() if k.split('/')[2]=='bomb')
+
+
 TABLES={'e2':e2_policies,'e2_families':e2_families,'e2_heldout':lambda:e2_families(True),'e1':lambda:policies('E1'),'e5':lambda:policies('E5'),'e6':lambda:policies('E6'),'gates':gates,'e2_partial':partial,'e2_infrastructure':e2_infrastructure,'generator':generator,'curves':curves,'e6_detection':detection,'stress':stress,'determinism':determinism}
+TABLES.update(p5b_harness=p5b_harness,p5b_regressions=p5b_regressions,p5b_probes=p5b_probes,p5b_versions=p5b_versions)
+
 def render_table(name):return TABLES[name]()
 
 def replacements():
     x=read_json('results/p3a2_final_audit.json');y=read_json('results/p1_followup_fresh_diagnostics.json');config=yaml.safe_load((ROOT/'prereg.yaml').read_text())
     e2=e2_gate();operators,realizations=mutation_footprint();screen=read_json('results/p3a3_screen.json')['ranges']['design']
     reviews=read_json('results/p3a3_author_review.json')
-    return {'mutation_count':str(len(operators)),'realization_count':str(len(realizations)),'family_count':str(len(e2['statistics']['per_family'])),
+    exact,probes=p5b_totals()
+    return {'p5b_exact':count(exact),'p5b_live_probes':count(probes),'mutation_count':str(len(operators)),'realization_count':str(len(realizations)),'family_count':str(len(e2['statistics']['per_family'])),
      'e2_rows':count(e2['rows']),'e2_checker':fmt(e2['statistics']['second_checker_agreement']),'e2_fp':fmt(e2['statistics']['clean_oracle_false_positive_rate']),
      'e2_exponent':str(e2['statistics']['exponent']),'e2_false_flag':fmt(e2['statistics']['per_policy_tier']['false_flag/T4']['mean']),
      'e2_fresh_implementation':read_json('results/p3a3_freeze.json')['implementation_commit'],'e2_review_count':str(reviews['count']),
@@ -229,11 +308,19 @@ def render_resume():
     if not all(x['passed'] and x['rows']==x['exact_matches'] for x in regressions):raise ValueError('resume requires zero reward differences')
     exact=sum(x['exact_matches'] for x in regressions)
     agreement=min([x['second_checker']['agreement'] for x in gates_]+[e2['statistics']['second_checker_agreement']])
+    p5b_exact,p5b_live=p5b_totals()
+    equivalence=p5b_batch('results/p5b_p5a_equivalence_v2_final.json')
+    boundary=p5b_batch('results/p5b_p5a_boundary_v2_final.json')
+    sentinel=p5b_batch('results/p5b_p5a_sentinel_v2_final.json')
+    mock_stress=p5b_batch('results/p5b_p5a_stress_v2_final.json')
     return f'''# Resume bullets: validated synthetic infrastructure only
 
 - Built and locally validated {len(gates_)+1} synthetic quantitative-integrity tasksets across {len(TIERS)} tiers, completing {count(total)} scripted gate rollouts with second-checker agreement of {agreement:.0%}. Sources: `results/p2b2_gate.json`, `results/p2c_gate.json`, `results/p2d3-gate-E6-c12.json`, `results/p3a3-gate.json`.
 - Implemented {len(operators)} mutation operators across {len(e2['statistics']['per_family'])} bug families in {len(realizations)} realizations each within one synthetic script template; validated E2 on {count(e2['rows'])} fresh scripted rollouts with oracle mean {e2['statistics']['per_policy_tier']['oracle/T1']['mean']:.1f} in every tier and clean-oracle false-positive rate {e2['statistics']['clean_oracle_false_positive_rate']:.0%}. Sources: `results/p3a_mutation_design_v3.json` and its compact shards, `results/p3a3-gate.json`.
 - Validated checked Docker execution across {count(sum(x['complete_rows'] for x in batches))} screened E2 stress rollouts at concurrency {min(x['concurrency'] for x in batches)} and {max(x['concurrency'] for x in batches)}, recording {sum(x['retries'] for x in batches)} retries; verified {count(exact)} E1/E5/E6 rollouts re-run under the corrected runtime with zero reward differences. Sources: `results/p3a3-stress-c8.json`, `results/p3a3-stress-c12.json`, `results/p3a3_regression_reuse.json`.
+
+- Built a model-driven tool harness validated only with mock responses: {count(equivalence['rows'])} scripted-versus-mock equivalence pairs, {count(boundary['rows'])} boundary attacks, {count(sentinel['rows'])} host-sentinel checks and {count(mock_stress['rows'])} stress episodes; paid execution stays locked and no model results exist. Sources: `results/p5b_p5a_equivalence_v2_final.json`, `results/p5b_p5a_boundary_v2_final.json`, `results/p5b_p5a_sentinel_v2_final.json`, `results/p5b_p5a_stress_v2_final.json`.
+- Hardened process-allowance exhaustion classification using positive host evidence and confirmed cleanup; validated {count(p5b_live)} live exhaustion probes and {count(p5b_exact)} exact historical reward/replay-seed regressions across E1/E2/E5/E6. Sources: `results/p5b_probes_v2.json`, `results/p5b_runtime_validation_audit.json`.
 
 These describe synthetic scripted local verifier validation, not model performance, training or real-market profitability. E2 excludes extreme-tail construction failures through a prospective construction-only screen (`results/p3a3_screen.json`); replay is predictable, execution is local Docker only, and the clean false-flag penalty is soft. All measurements use generator `{generator_hash()}`. Runtime/source identities remain in the named original results; E2 uses runtime `{e2['runtime_version_hash']}`.
 '''

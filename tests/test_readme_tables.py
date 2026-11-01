@@ -68,7 +68,7 @@ def test_source_generator_hash_and_policy_population():
 def test_resume_bullets_are_generated_and_supported():
     m=api()
     assert (m.ROOT/'docs/resume_bullets.md').read_text()==m.render_resume()
-    assert sum(line.startswith('- ') for line in m.render_resume().splitlines())==3
+    assert sum(line.startswith('- ') for line in m.render_resume().splitlines())==5
 
 
 def test_no_em_dash_in_authored_documents():
@@ -262,3 +262,53 @@ def test_resume_rejects_nonzero_regression_differences(monkeypatch):
         return value
     monkeypatch.setattr(m,'read_json',altered)
     with pytest.raises(ValueError):m.render_resume()
+
+
+def test_m2_harness_tables_match_completed_mock_validation():
+    m=api();text=m.render_table('p5b_harness')
+    for name in ('equivalence','boundary','sentinel','stress'):
+        x=m.read_json(f'results/p5b_p5a_{name}_v2_final.json')
+        assert m.count(x['rows']) in text
+        assert x['complete']==x['rows'] and x['passed']
+    page=m.render_readme()
+    assert 'Paid execution is locked.' in page
+    assert 'No model results' in page
+    assert 'cgroup v2' in page and 'WSL2 was tested' in page
+    assert 'Grading runs outside the model-turn deadline' in page
+    assert 'no gate cohort contained such an attack' in page
+
+
+@pytest.mark.parametrize('path,kind',[
+    ('results/p5b_p5a_equivalence_v2_final.json','semantic'),
+    ('results/p5b_p5a_boundary_v2_final.json','rows'),
+    ('results/p5b_p5a_sentinel_v2_final.json','rows'),
+    ('results/p5b_p5a_stress_v2_final.json','retries'),
+    ('results/p5b_regression_e2_v2.json','rows'),
+    ('results/p5b_probes_v2.json','probe'),
+    ('results/p5b_runtime_version_v2.json','hash'),
+    ('results/p5b_runtime_validation_audit.json','exact'),
+    ('results/p5b_p5a_final_audit.json','cleanup'),
+])
+def test_m2_evidence_drift_rejects_existing_document(monkeypatch,path,kind):
+    m=api();expected=m.render_readme();original=m.read_json
+    def altered(name):
+        x=original(name)
+        if str(name)==path:
+            if kind=='semantic':next(iter(x['per_cell_policy'].values()))['semantic_stage_agreements']-=1
+            elif kind=='rows':x['rows']-=1
+            elif kind=='retries':x['retries']+=1
+            elif kind=='probe':next(v for k,v in x['per_cell'].items() if '/bomb/' in k)['passed']-=1
+            elif kind=='hash':x['new_runtime_source_sha256']='0'*64
+            elif kind=='exact':next(b for b in x['batches'] if b['mode']=='regression')['exact_historical_reward_replay_matches']-=1
+            elif kind=='cleanup':x['batches'][0]['removed_containers']-=1
+        return x
+    monkeypatch.setattr(m,'read_json',altered)
+    with pytest.raises(ValueError):m.check_readme(expected)
+
+
+def test_m2_resume_has_mock_and_exact_regression_claims():
+    m=api();text=m.render_resume();exact,probes=m.p5b_totals()
+    assert sum(line.startswith('- ') for line in text.splitlines())==5
+    assert f'{exact:,} exact historical reward/replay-seed regressions' in text
+    assert f'{probes:,} live exhaustion probes' in text
+    assert 'paid execution stays locked and no model results exist' in text

@@ -14,9 +14,13 @@ Authoritative records are [the first gate](../results/p3a-gate.json), [round-two
 
 Allowed claims concern synthetic design, local scripted verifier validation and anti-hacking controls. The scripted oracle shows solvability within one narrow script template, not model performance or general auditing ability. Predictable replay, local Docker only, synthetic data, heavy tails and the soft false-flag penalty remain limitations. Planned held-out families have synthetic verifier coverage, not measured model-transfer gains.
 
-## Optional M1.5: separately authorized pilot
+## M2: model-driven harness packaged, mock validation only
 
-A clearly labelled development-seed model pilot may follow owner authorization and budget-gated cost measurement. It is not the preregistered sealed evaluation and must not be presented as one.
+The model-harness branch is merged locally into main. The harness is built and validated with deterministic mock responses on synthetic development cases; paid execution stays locked and no model results exist. The [README's generated harness table](../README.md#model-driven-harness-built-mock-validated-only) reproduces scripted-versus-mock equivalence, boundary attacks, host-sentinel checks and stress directly from the final P5b result files and independent audit. These are software and verifier checks, not model baselines or transfer measurements.
+
+The harness boundary batch exposed process-allowance exhaustion being classified as infrastructure by the earlier frozen runtime. The narrow authorized hardening requires positive host evidence, healthy infrastructure and confirmed cleanup before a policy zero. Exact historical reward/replay regressions and live exhaustion probes are generated in the [runtime section](../README.md#runtime-hardening-process-allowance-exhaustion). The [P5b report](../reports/P5b.md) retains failures, source hashes, host assumptions and limitations. Historical gate rosters contained no exhaustion attack, and historical files retain their old identities. Local Docker and cgroup v2 are required; WSL2 was tested. Hosted execution and bounded end-to-end grading time remain unestablished.
+
+This packaging phase adds documentation and drift checks only. No experiment, paid call, GPU job, license change, rename or publication is authorized. The owner scans the local merge and documentation before pushing main. No release-review pass is claimed. A model pilot needs separate authorization and budget-gated cost measurement.
 
 ## Later research and release
 

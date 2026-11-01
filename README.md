@@ -136,6 +136,68 @@ Sources: [p3a2-r2-stress-c8.json](results/p3a2-r2-stress-c8.json), [p3a2-r2-stre
 
 A development prototype exists in [envs/e3_fdr_adjudication](envs/e3_fdr_adjudication). Its design checks failed in two rounds: the preflight contract was contradictory, and the round-two construction did not separate the controls. E3 is not validated or frozen. Both reports and their evidence are retained in [reports/P3b.md](reports/P3b.md).
 
+## Model-driven harness: built, mock-validated only
+
+The model-driven harness supplies confined file and command tools, bounded multi-step turns, transcript recording and native grading through the checked runtime. Validation used a deterministic mock model and scripted submissions on synthetic development cases. Paid execution is locked. No model results, measured model difficulty or model hack rates exist. These checks establish the specified local harness behavior, not hosted compatibility or real-model performance. See the [harness design and limitations](docs/model_harness.md) and [P5b report](reports/P5b.md).
+
+<!-- table:p5b_harness -->
+| Mock/scripted validation | Population | Concurrency | Failures | Retries | Containers created / removed | Result |
+|---|---|---|---|---|---|---|
+| Scripted versus mock equivalence | 3,120 pairs | 8 | 0 | 0 | 17,040 / 17,040 | PASS |
+| Boundary attacks | 176 attacks | 8 | 0 | 0 | 176 / 176 | PASS |
+| Host-sentinel checks | 16 checks | 8 | 0 | 0 | 52 / 52 | PASS |
+| Mock-model stress | 1,000 episodes | 8 | 0 | 0 | 3,250 / 3,250 | PASS |
+
+Sources: [p5b_p5a_equivalence_v2_final.json](results/p5b_p5a_equivalence_v2_final.json), [p5b_p5a_boundary_v2_final.json](results/p5b_p5a_boundary_v2_final.json), [p5b_p5a_sentinel_v2_final.json](results/p5b_p5a_sentinel_v2_final.json), [p5b_p5a_stress_v2_final.json](results/p5b_p5a_stress_v2_final.json), [p5b_p5a_final_audit.json](results/p5b_p5a_final_audit.json).
+<!-- /table:p5b_harness -->
+
+Equivalence compares rewards and semantic execution records under the committed comparison rules. Operational identifiers and timestamps are excluded as documented in the [comparison audit](results/p5b_p5a_final_audit.json). Stress uses mock responses, and the host-sentinel checks test separation of declared inputs from unrelated host environment data. Grading runs outside the model-turn deadline; a stalled Docker daemon can exceed that clock. The earlier general cancellation diagnostic remains a known limitation.
+
+## Runtime hardening: process-allowance exhaustion
+
+The earlier frozen runtime classified container process-allowance exhaustion as an infrastructure failure and incomplete attempt. The harness boundary batch exposed this gap; its failed record remains in [the historical report](reports/P5a.md). The historical gate rosters contained no such attack, as checked in the [roster review](results/p5b_historical_roster_review.json).
+
+The narrow authorized fix requires a positive per-command change in the owned host-side process-exhaustion counter and a fresh successful daemon-health check. It confirms container removal before recording a policy-violation hard zero, with no retry. Without readable, matching exhaustion evidence or healthy infrastructure, infrastructure failure remains infrastructure failure. Thresholds, numerical rewards, verifiers, generators and all container boundaries are unchanged. Historical results keep their original runtime identities.
+
+<!-- table:p5b_versions -->
+| Runtime identity | SHA-256 |
+|---|---|
+| Earlier init source | `0a5d2a09968ed8e707c818c32ab8b3e468ff4fdeaa427043a359e7ad84a0bb41` |
+| Corrected init source | `987bbe2d1b4e7984026b49a279ae81e84c5945685ab86e8de60aa86a5defcdfe` |
+| Earlier recorded runtime | `fad402d113ca9e19f082ac45e3e0904edb128b9e672c351fe3a2d62eb699a827` |
+| Corrected three-file runtime | `b4be638a1b970a3243ddfd947774c4751d8f9377cb9691a061cfa785ebcf0760` |
+| Corrected full runtime bundle | `772332ba1639c44e9a2c96fda4115ac0da9e46df429d93e0d212202fc7cdb407` |
+| New host-counter helper | `add6a9bd3460e4337b57c5e4cdf636edac26d2ed5ec84742f226747291684c25` |
+
+Sources: [p5b_runtime_version_v2.json](results/p5b_runtime_version_v2.json).
+<!-- /table:p5b_versions -->
+
+The new helper is bound separately and by the full runtime bundle; the historical three-file hash does not include it. Host assumptions are cgroup v2 and local Docker with the inspected container PID and owned kernel counters visible to the host. WSL2 was tested. Remote daemons and Docker Desktop VM namespaces are unsupported unless that binding can be established. Counters are read host-side without starting a process inside the container; no host-counter mount or privilege is added.
+
+The corrected runtime reproduced **4,000 exact historical reward and replay-seed matches**. The committed cohorts and independent raw-record audit cover each validated environment; no historical result is relabelled.
+
+<!-- table:p5b_regressions -->
+| Environment | Regression rows | Exact reward and replay-seed matches | Differences | Retries | Result |
+|---|---|---|---|---|---|
+| E1 | 1,000 | 1,000 | 0 | 0 | PASS |
+| E2 | 1,000 | 1,000 | 0 | 0 | PASS |
+| E5 | 1,000 | 1,000 | 0 | 0 | PASS |
+| E6 | 1,000 | 1,000 | 0 | 0 | PASS |
+
+Sources: [p5b_regression_e1_v2.json](results/p5b_regression_e1_v2.json), [p5b_regression_e2_v2.json](results/p5b_regression_e2_v2.json), [p5b_regression_e5_v2.json](results/p5b_regression_e5_v2.json), [p5b_regression_e6_v2.json](results/p5b_regression_e6_v2.json), [p5b_runtime_validation_audit.json](results/p5b_runtime_validation_audit.json).
+<!-- /table:p5b_regressions -->
+
+The **52 live process-exhaustion probes** exercise solver, primary, replay and E2 poison stages, alongside separate attempts to forge the host counters. Mixed normal/attack concurrency checks and retained failed development tests are documented in the [P5b report](reports/P5b.md).
+
+<!-- table:p5b_probes -->
+| Check | Cases | Passed | Retries |
+|---|---|---|---|
+| Live process-exhaustion probes | 52 | 52 | 0 |
+| Host-counter forgery checks | 16 | 16 | 0 |
+
+Sources: [p5b_probes_v2.json](results/p5b_probes_v2.json), [p5b_runtime_validation_audit.json](results/p5b_runtime_validation_audit.json).
+<!-- /table:p5b_probes -->
+
 ## Planned work
 
 A hosted-sandbox runtime backend is under consideration, not started, with unknown feasibility.
@@ -307,13 +369,13 @@ Sources: [p2d3-r2-determinism-E1-c24.json](results/p2d3-r2-determinism-E1-c24.js
 
 ## Limitations
 
-- In the frozen runtime used for the historical gates reported here, a solver or submitted program that exhausts the container's 32-process allowance produces an infrastructure failure (incomplete attempt), not a policy zero. The committed historical gate cheater and attack rosters contain no process-exhaustion attack ([roster review](results/p5b_historical_roster_review.json)); a later development-branch boundary batch exposed this failure. A narrow fix is under validation on a development branch.
+- Historical gates used the earlier runtime, which treated process-allowance exhaustion as an infrastructure failure; no gate cohort contained such an attack ([roster review](results/p5b_historical_roster_review.json)). The harness boundary batch exposed the gap. The corrected runtime is now locally validated as described above; historical gates retain their earlier hashes.
 
 - E2 uses **one synthetic script template with twelve mutations, each in three realizations**. Its scripted oracle demonstrates solvability within that template grammar, **not model performance** or general code-auditing ability.
 - All data are synthetic; real-market validity is not established.
-- Validation uses the project's checked local Docker execution. Hosted Hub and model-harness compatibility are not established.
+- Validation uses the project's checked local Docker execution. Hosted Hub compatibility and real-model execution are not established; the local model-driven harness has mock-only validation.
 - The independent E2 scalar checker consumes recorded execution errors; its agreement is not an independently implemented financial numerical oracle.
-- [Hub architecture](reports/hub_architecture.md) explains why installing a taskset does not supply this project's host-private grading boundary, image or sandbox policy. Remote execution and model harnesses remain unsupported here.
+- [Hub architecture](reports/hub_architecture.md) explains why installing a taskset does not supply this project's host-private grading boundary, image or sandbox policy. Remote execution remains unsupported; the local model-driven harness is validated only with mock responses and paid execution is locked.
 - Replay seeds are predictable. They test functional consistency, not secrecy from a sufficiently informed adversary.
 - Empirical model difficulty, transfer, training gains and model hack rates remain unmeasured. Scripted controls and admission/separation criteria can make a synthetic task easier or more selective than real research.
 - E2 construction screening excludes extreme-tail episodes that cannot satisfy the unchanged price-return domain; its validation is conditional on admission. The [screen record](results/p3a3_screen.json) retains every rejected seed.
